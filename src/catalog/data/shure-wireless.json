@@ -1,0 +1,619 @@
+{
+  "moduleId": "shure-wireless",
+  "name": "Shure Wireless (ULX-D, QLX-D, SLX-D, Axient Digital)",
+  "repo": "bitfocus/companion-module-shure-wireless",
+  "version": "2.3.1",
+  "baseVersion": "^1.8.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "5bb6c57",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Actions and feedbacks are registered conditionally per receiver model family (ulx, qlx, slx, ad); the catalog lists the union.",
+    "Channel and slot dropdown ids are generated from the selected model (src/index.js). The field default is the string \"1\" while the generated channel ids are numbers.",
+    "Gain and frequency fields are textinputs parsed by the module code; they are not validated as numbers by Companion.",
+    "Built on @companion-module/base 1.x: no expressions; variables only in textinputs with useVariables."
+  ],
+  "actions": [
+    {
+      "id": "set_channel_name",
+      "name": "Set channel name",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name (8 characters max)",
+          "description": "Maximum 8 characters (src/setup.js Regex.Name /^.{1,8}$/)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 14
+      }
+    },
+    {
+      "id": "channel_mute",
+      "name": "Mute or unmute channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Like the channel list plus id '0' (string) = All Channels when the model has more than one channel (src/index.js:405-450)"
+        },
+        {
+          "id": "choice",
+          "type": "dropdown",
+          "label": "Mute/Unmute/Toggle",
+          "default": "ON",
+          "choices": [
+            {
+              "id": "ON",
+              "label": "Mute"
+            },
+            {
+              "id": "OFF",
+              "label": "Unmute"
+            },
+            {
+              "id": "TOGGLE",
+              "label": "Toggle Mute/Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 27
+      },
+      "availability": "Only registered for ULX-D and Axient Digital models (src/actions.js:26)"
+    },
+    {
+      "id": "channel_setaudiogain",
+      "name": "Set audio gain of channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Like the channel list plus id '0' (string) = All Channels when the model has more than one channel (src/index.js:405-450)"
+        },
+        {
+          "id": "gain",
+          "type": "textinput",
+          "label": "Gain Value (dB)",
+          "description": "Gain in dB, source range -18..42; the action sends 18 + value (src/actions.js:36)",
+          "default": 0,
+          "useVariables": true,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 36
+      }
+    },
+    {
+      "id": "channel_increasegain",
+      "name": "Increase audio gain of channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Like the channel list plus id '0' (string) = All Channels when the model has more than one channel (src/index.js:405-450)"
+        },
+        {
+          "id": "gain",
+          "type": "textinput",
+          "label": "Gain Value (dB)",
+          "description": "Increment in dB, source range 1..60 (src/setup.js)",
+          "default": 3,
+          "useVariables": true,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 49
+      }
+    },
+    {
+      "id": "channel_decreasegain",
+      "name": "Decrease audio gain of channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Like the channel list plus id '0' (string) = All Channels when the model has more than one channel (src/index.js:405-450)"
+        },
+        {
+          "id": "gain",
+          "type": "textinput",
+          "label": "Gain Value (dB)",
+          "description": "Increment in dB, source range 1..60 (src/setup.js)",
+          "default": 3,
+          "useVariables": true,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 61
+      }
+    },
+    {
+      "id": "channel_frequency",
+      "name": "Set frequency of channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Frequency (MHz)",
+          "description": "MHz with decimals, e.g. 470.000; the module expects /^(4[7-9][0-9]|[5-8][0-9]{2}|9[0-2][0-9]|93[0-7])\\.\\d(00|25|50|75)$/ (src/setup.js Regex.Frequency, enforced in code, not as field regex)",
+          "default": "470.000",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 73
+      }
+    },
+    {
+      "id": "flash_lights",
+      "name": "Flash lights on receiver",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 87
+      },
+      "availability": "Not registered for QLX-D (src/actions.js:86)"
+    },
+    {
+      "id": "flash_channel",
+      "name": "Flash lights on receiver channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 98
+      },
+      "availability": "Only registered for Axient Digital and SLX-D (src/actions.js:97)"
+    },
+    {
+      "id": "slot_rf_output",
+      "name": "Set slot RF output (ADX)",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot Number",
+          "default": "1:1",
+          "choicesNote": "Slot ids '<channel>:<slot>' plus '0:0' (all channels and slots) and '<channel>:0' (all slots of a channel); Axient Digital only"
+        },
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": "RF_ON",
+          "choices": [
+            {
+              "id": "RF_ON",
+              "label": "RF On"
+            },
+            {
+              "id": "RF_MUTE",
+              "label": "RF Mute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 109
+      },
+      "availability": "Only registered for Axient Digital (src/actions.js:108)"
+    },
+    {
+      "id": "slot_rf_power",
+      "name": "Set slot RF power level (ADX)",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot Number",
+          "default": "1:1",
+          "choicesNote": "Slot ids '<channel>:<slot>' plus '0:0' (all channels and slots) and '<channel>:0' (all slots of a channel); Axient Digital only"
+        },
+        {
+          "id": "power",
+          "type": "dropdown",
+          "label": "Power Level",
+          "description": "Source quirk: the default '10' is not one of the choices (src/setup.js)",
+          "default": "10",
+          "choices": [
+            {
+              "id": "LOW",
+              "label": "Low"
+            },
+            {
+              "id": "NORMAL",
+              "label": "Normal"
+            },
+            {
+              "id": "HIGH",
+              "label": "High"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 117
+      },
+      "availability": "Only registered for Axient Digital (src/actions.js:108)"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "sample",
+      "name": "Channel Status Display",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        },
+        {
+          "id": "labels",
+          "type": "multidropdown",
+          "label": "Label Data",
+          "choicesNote": "Model-family dependent ids: name, frequency, groupChan, audioGain, txType, batteryRuntime (all), plus txDeviceId, txPowerLevel, batteryType (ULX-D, QLX-D, Axient Digital; not SLX-D) (src/feedback.js:17-77)"
+        },
+        {
+          "id": "icons",
+          "type": "multidropdown",
+          "label": "Icons",
+          "choicesNote": "Model-family dependent ids: battery, rf, audio (all), plus locks and encryption (ULX-D, QLX-D, Axient), quality (Axient only) (src/feedback.js:17-77)"
+        },
+        {
+          "id": "barlevel",
+          "type": "number",
+          "label": "Battery Alert Level",
+          "default": 2,
+          "min": 1,
+          "max": 5,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 82
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "battery_level",
+      "name": "Battery Level",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        },
+        {
+          "id": "barlevel",
+          "type": "number",
+          "label": "Battery Alert Level",
+          "default": 2,
+          "min": 1,
+          "max": 5,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 156
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "channel_muted",
+      "name": "Channel Muted",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 176
+      },
+      "feedbackType": "boolean",
+      "availability": "Not registered for SLX-D and QLX-D (src/feedback.js:174-175)"
+    },
+    {
+      "id": "transmitter_muted",
+      "name": "Transmitter Muted",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 195
+      },
+      "feedbackType": "boolean",
+      "availability": "Not registered for SLX-D (src/feedback.js:174-230)"
+    },
+    {
+      "id": "interference_status",
+      "name": "Interference Status",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 213
+      },
+      "feedbackType": "boolean",
+      "availability": "Not registered for SLX-D (src/feedback.js:174-230)"
+    },
+    {
+      "id": "channel_frequency",
+      "name": "Channel Frequency",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Frequency (MHz)",
+          "description": "MHz with decimals, e.g. 470.000; the module expects /^(4[7-9][0-9]|[5-8][0-9]{2}|9[0-2][0-9]|93[0-7])\\.\\d(00|25|50|75)$/ (src/setup.js Regex.Frequency, enforced in code, not as field regex)",
+          "default": "470.000",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 232
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "channel_gain",
+      "name": "Channel Gain",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        },
+        {
+          "id": "gain",
+          "type": "textinput",
+          "label": "Gain Value (dB)",
+          "description": "Gain in dB, source range -18..42; the action sends 18 + value (src/actions.js:36)",
+          "default": 0,
+          "useVariables": true,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 250
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "transmitter_turned_off",
+      "name": "Transmitter Turned Off",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "1",
+          "choicesNote": "Channel numbers 1..N of the selected receiver model (N = 1, 2 or 4; src/index.js:405-450). Ids are numbers, the field default is the string '1'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 268
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "slot_is_active",
+      "name": "Slot is Active",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot Number",
+          "default": "1:1",
+          "choicesNote": "Slot ids '<channel>:<slot>' (strings, e.g. '1:1') for Axient Digital models only (8 slots per channel)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 290
+      },
+      "feedbackType": "boolean",
+      "availability": "Only registered for Axient Digital (src/feedback.js:289)"
+    },
+    {
+      "id": "slot_status",
+      "name": "Slot Status",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot Number",
+          "default": "1:1",
+          "choicesNote": "Slot ids '<channel>:<slot>' (strings, e.g. '1:1') for Axient Digital models only (8 slots per channel)"
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "LINKED.ACTIVE",
+          "choices": [
+            {
+              "id": "EMPTY",
+              "label": "Empty"
+            },
+            {
+              "id": "STANDARD",
+              "label": "Standard"
+            },
+            {
+              "id": "LINKED.INACTIVE",
+              "label": "Linked - Inactive"
+            },
+            {
+              "id": "LINKED.ACTIVE",
+              "label": "Linked - Active"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 313
+      },
+      "feedbackType": "boolean",
+      "availability": "Only registered for Axient Digital (src/feedback.js:289)"
+    },
+    {
+      "id": "slot_rf_output",
+      "name": "Slot RF Output",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot Number",
+          "default": "1:1",
+          "choicesNote": "Slot ids '<channel>:<slot>' (strings, e.g. '1:1') for Axient Digital models only (8 slots per channel)"
+        },
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": "RF_ON",
+          "choices": [
+            {
+              "id": "RF_ON",
+              "label": "RF On"
+            },
+            {
+              "id": "RF_MUTE",
+              "label": "RF Mute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 332
+      },
+      "feedbackType": "boolean",
+      "availability": "Only registered for Axient Digital (src/feedback.js:289)"
+    },
+    {
+      "id": "slot_rf_power",
+      "name": "Slot RF Power",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot Number",
+          "default": "1:1",
+          "choicesNote": "Slot ids '<channel>:<slot>' (strings, e.g. '1:1') for Axient Digital models only (8 slots per channel)"
+        },
+        {
+          "id": "power",
+          "type": "dropdown",
+          "label": "Power Level",
+          "description": "Source quirk: the default '10' is not one of the choices (src/setup.js)",
+          "default": "10",
+          "choices": [
+            {
+              "id": "LOW",
+              "label": "Low"
+            },
+            {
+              "id": "NORMAL",
+              "label": "Normal"
+            },
+            {
+              "id": "HIGH",
+              "label": "High"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.js",
+        "line": 351
+      },
+      "feedbackType": "boolean",
+      "availability": "Only registered for Axient Digital (src/feedback.js:289)"
+    }
+  ]
+}

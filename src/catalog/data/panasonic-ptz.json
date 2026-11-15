@@ -1,0 +1,1498 @@
+{
+  "moduleId": "panasonic-ptz",
+  "name": "Panasonic PTZ cameras (AW-HE/UE series)",
+  "repo": "bitfocus/companion-module-panasonic-ptz",
+  "version": "2.6.1",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-11-02",
+  "lastCommitSha": "628fd2d",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Actions are registered per camera series (src/models.js), so not every action exists for every camera; the catalog lists the union.",
+    "Pan/tilt/zoom/focus direction actions carry a liveSpeed checkbox (the research notes had marked these options as not read).",
+    "Gain, shutter, pedestal, ND filter and colour temperature dropdowns take series-specific choice lists (seriesActions.*.dropdown in src/models.js); they are not enumerated here.",
+    "Built on @companion-module/base 1.x: options are fixed dropdown values, no expressions.",
+    "Alternative module for similar cameras: panasonic-cameras (not catalogued in detail)."
+  ],
+  "actions": [
+    {
+      "id": "left",
+      "name": "Pan/Tilt - Pan Left",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of panning left on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 93
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "right",
+      "name": "Pan/Tilt - Pan Right",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of panning right on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 123
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "up",
+      "name": "Pan/Tilt - Tilt Up",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of tilting up on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 148
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "down",
+      "name": "Pan/Tilt - Tilt Down",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of tilting down on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 173
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "upLeft",
+      "name": "Pan/Tilt - Up Left",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of the up left movement on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 203
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "upRight",
+      "name": "Pan/Tilt - Up Right",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of the up right movement on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 233
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "downLeft",
+      "name": "Pan/Tilt - Down Left",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of the down left movement on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 258
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "downRight",
+      "name": "Pan/Tilt - Down Right",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of the down right movement on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 292
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "stop",
+      "name": "Pan/Tilt - Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 322
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "home",
+      "name": "Pan/Tilt - Home",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 333
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "ptSpeedS",
+      "name": "Pan/Tilt - Speed",
+      "options": [
+        {
+          "id": "advanced",
+          "type": "checkbox",
+          "label": "Advanced mode - set independent speed for panning and tilting",
+          "default": false
+        },
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Speed setting",
+          "default": 25,
+          "choicesNote": "Speed ids 49 (fast) down to 1 (slow) and 0 = Stop (src/choices.js CHOICES_SPEED, 50 entries, numeric ids)",
+          "visibleWhen": "(options) => (options.advanced ? false : true)",
+          "valueType": "number",
+          "min": 0,
+          "max": 49,
+          "integer": true
+        },
+        {
+          "id": "pSpeed",
+          "type": "dropdown",
+          "label": "Pan speed setting",
+          "default": 25,
+          "choicesNote": "Speed ids 49 (fast) down to 1 (slow) and 0 = Stop (src/choices.js CHOICES_SPEED, 50 entries, numeric ids)",
+          "visibleWhen": "(options) => (options.advanced ? true : false)",
+          "valueType": "number",
+          "min": 0,
+          "max": 49,
+          "integer": true
+        },
+        {
+          "id": "tSpeed",
+          "type": "dropdown",
+          "label": "Tilt speed setting",
+          "default": 25,
+          "choicesNote": "Speed ids 49 (fast) down to 1 (slow) and 0 = Stop (src/choices.js CHOICES_SPEED, 50 entries, numeric ids)",
+          "visibleWhen": "(options) => (options.advanced ? true : false)",
+          "valueType": "number",
+          "min": 0,
+          "max": 49,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 343
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "ptSpeedU",
+      "name": "Pan/Tilt - Speed Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 408
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "pSpeedU",
+      "name": "Pan/Tilt - Pan - Speed Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 431
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "tSpeedU",
+      "name": "Pan/Tilt - Tilt - Speed Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 452
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "ptSpeedD",
+      "name": "Pan/Tilt - Speed Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 473
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "pSpeedD",
+      "name": "Pan/Tilt - Pan - Speed Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 496
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "tSpeedD",
+      "name": "Pan/Tilt - Tilt - Speed Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 517
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "zoomI",
+      "name": "Lens - Zoom In",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of zooming in on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 542
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "zoomO",
+      "name": "Lens - Zoom Out",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity of zooming out on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 567
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "zoomS",
+      "name": "Lens - Zoom Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 597
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "zSpeedS",
+      "name": "Lens - Zoom Speed",
+      "options": [
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Speed setting",
+          "default": 25,
+          "choicesNote": "Speed ids 49 (fast) down to 1 (slow) and 0 = Stop (src/choices.js CHOICES_SPEED, 50 entries, numeric ids)",
+          "valueType": "number",
+          "min": 0,
+          "max": 49,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 608
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "zSpeedU",
+      "name": "Lens - Zoom Speed Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 633
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "zSpeedD",
+      "name": "Lens - Zoom Speed Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 650
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "focusN",
+      "name": "Lens - Focus Near",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the quickness of near focusing on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 667
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "focusF",
+      "name": "Lens - Focus Far",
+      "options": [
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the quickness of far focusing on speed change",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 697
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "focusS",
+      "name": "Lens - Focus Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 722
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "fSpeedS",
+      "name": "Lens - Focus Speed",
+      "options": [
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Speed setting",
+          "default": 25,
+          "choicesNote": "Speed ids 49 (fast) down to 1 (slow) and 0 = Stop (src/choices.js CHOICES_SPEED, 50 entries, numeric ids)",
+          "valueType": "number",
+          "min": 0,
+          "max": 49,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 733
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "fSpeedU",
+      "name": "Lens - Focus Speed Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 758
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "fSpeedD",
+      "name": "Lens - Focus Speed Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 775
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "focusM",
+      "name": "Lens - Focus Mode (Auto Focus)",
+      "options": [
+        {
+          "id": "bol",
+          "type": "dropdown",
+          "label": "Auto / Manual Focus",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Auto Focus"
+            },
+            {
+              "id": 1,
+              "label": "Manual Focus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 792
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "focusOTAF",
+      "name": "Lens - Focus One Touch Auto (OTAF)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 813
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "irisU",
+      "name": "Exposure - Iris Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 827
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "irisD",
+      "name": "Exposure - Iris Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 843
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "irisS",
+      "name": "Exposure - Set Iris",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Iris setting",
+          "choices": [],
+          "default": "00",
+          "valueType": "string",
+          "valuePattern": "^\\d{2}$",
+          "choicesNote": "Two-digit ids '00'..'99' (labels 'Iris 0'..'Iris 99')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 859
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "irisM",
+      "name": "Exposure - Iris Mode (Auto Iris)",
+      "options": [
+        {
+          "id": "bol",
+          "type": "dropdown",
+          "label": "Auto / Manual Iris",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Auto Iris"
+            },
+            {
+              "id": 1,
+              "label": "Manual Iris"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 879
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "gainU",
+      "name": "Exposure - Gain Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 900
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "gainD",
+      "name": "Exposure - Gain Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 922
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "gainS",
+      "name": "Exposure - Set Gain",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Gain setting",
+          "choicesNote": "Dynamic list (source: seriesActions.gain.dropdown); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 944
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "shutU",
+      "name": "Exposure - Shutter Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 962
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "shutD",
+      "name": "Exposure - Shutter Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 979
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "shutS",
+      "name": "Exposure - Set Shutter",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Shutter setting",
+          "choicesNote": "Dynamic list (source: seriesActions.shut.dropdown); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 996
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "pedU",
+      "name": "Exposure - Pedestal Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1014
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "pedD",
+      "name": "Exposure - Pedestal Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1031
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "pedS",
+      "name": "Exposure - Set Pedestal",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Pedestal setting",
+          "choicesNote": "Dynamic list (source: seriesActions.ped.dropdown); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1048
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorTemperatureUp",
+      "name": "Color Temperature Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1066
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorTemperatureDown",
+      "name": "Color Temperature Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1083
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorTemperatureSet",
+      "name": "Set Color Temperature",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Color Temperature",
+          "choicesNote": "Dynamic list (source: seriesActions.colorTemperature.dropdown); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1100
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "filterU",
+      "name": "Exposure - ND Filter Up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1124
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "filterD",
+      "name": "Exposure - ND Filter Down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1141
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "filterS",
+      "name": "Exposure - Set ND Filter",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "ND Filter setting",
+          "choicesNote": "Dynamic list (source: seriesActions.filter.dropdown); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1158
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "sceneSelect",
+      "name": "Scene - Select",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Scene 1"
+            },
+            {
+              "id": 2,
+              "label": "Scene 2"
+            },
+            {
+              "id": 3,
+              "label": "Scene 3"
+            },
+            {
+              "id": 4,
+              "label": "Scene 4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1176
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "sceneSet",
+      "name": "White Balance - Mode",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Auto"
+            },
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1199
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "savePset",
+      "name": "Preset - Save",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset Nr.",
+          "choices": [],
+          "default": "00",
+          "valueType": "string",
+          "valuePattern": "^\\d{2}$",
+          "choicesNote": "Two-digit zero-based preset ids '00'..'99' (labels 'Preset 1'..'Preset 100'; the id is the preset number minus 1)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1225
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "recallPset",
+      "name": "Preset - Recall",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset Nr.",
+          "choices": [],
+          "default": "00",
+          "valueType": "string",
+          "valuePattern": "^\\d{2}$",
+          "choicesNote": "Two-digit zero-based preset ids '00'..'99' (labels 'Preset 1'..'Preset 100'; the id is the preset number minus 1)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1242
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "recallModePset",
+      "name": "Preset - Mode A, B, C",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Mode A - PTZ + Iris + WB/Color"
+            },
+            {
+              "id": "1",
+              "label": "Mode B - PTZ + Iris"
+            },
+            {
+              "id": "2",
+              "label": "Mode C - PTZ only"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1259
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "speedPset",
+      "name": "Preset - Drive Speed",
+      "options": [
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "speed setting",
+          "default": 999,
+          "choicesNote": "Numeric ids 999 (fast) down to 275 (slow) in steps of 25 (src/choices.js CHOICES_PSSPEED, 30 entries)",
+          "valueType": "number",
+          "min": 275,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1280
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "timePset",
+      "name": "Preset - Drive Time",
+      "options": [
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Time Secconds",
+          "default": "001",
+          "choicesNote": "Three-digit uppercase hex strings '001'..'063' for 1..99 seconds (src/choices.js CHOICES_PSTIME)",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{3}$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1297
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "modePset",
+      "name": "Preset - Drive Speed/Time Mode",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Select mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Speed mode"
+            },
+            {
+              "id": "1",
+              "label": "Time mode"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1316
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "powerOff",
+      "name": "System - Power Off",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1342
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "powerOn",
+      "name": "System - Power On",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1352
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "tallyOff",
+      "name": "System - Red Tally Off",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1363
+      },
+      "availability": "Defined more than once in the source (lines 1363, 1393), e.g. per device series; the first definition is recorded. Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "tallyOn",
+      "name": "System - Red Tally On",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1370
+      },
+      "availability": "Defined more than once in the source (lines 1370, 1400), e.g. per device series; the first definition is recorded. Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "tally2Off",
+      "name": "System - Green Tally Off",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1377
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "tally2On",
+      "name": "System - Green Tally On",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1384
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "insPosition",
+      "name": "System - Installation position",
+      "options": [
+        {
+          "id": "position",
+          "type": "dropdown",
+          "label": "Position",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "Desktop"
+            },
+            {
+              "id": "1",
+              "label": "Hanging"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1411
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "sdCardRec",
+      "name": "System - SD Card Recording",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Option",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start Recording"
+            },
+            {
+              "id": "end",
+              "label": "Stop Recording"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1432
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsOn",
+      "name": "Color Bars - Enable",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1453
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsOff",
+      "name": "Color Bars - Disable",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1460
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarSetupsOn",
+      "name": "Color Bars - Setup On (7.5IRE)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1468
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsSetupOff",
+      "name": "Color Bars - Setup Off (0.0IRE)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1475
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsTitleOn",
+      "name": "Color Bars - Title On",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1484
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsTitleOff",
+      "name": "Color Bars - Title Off",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1491
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsTone",
+      "name": "Color Bars - Tone",
+      "options": [
+        {
+          "id": "tone",
+          "type": "dropdown",
+          "label": "Tone",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0h",
+              "label": "Off"
+            },
+            {
+              "id": "1h",
+              "label": "Low"
+            },
+            {
+              "id": "2h",
+              "label": "Normal"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1500
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    },
+    {
+      "id": "colorBarsType",
+      "name": "Color Bars - Type",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 1,
+          "choices": [
+            {
+              "id": "1",
+              "label": "Type 1"
+            },
+            {
+              "id": "0",
+              "label": "Type 2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1521
+      },
+      "availability": "Registered only for camera series that support it (src/models.js, seriesActions.*)."
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "powerState",
+      "name": "System - Power State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 19
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "tallyState",
+      "name": "System - Red Tally State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 61
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "tally2State",
+      "name": "System - Green Tally State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 103
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "insState",
+      "name": "System - Install Position",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X position",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Desktop"
+            },
+            {
+              "id": "1",
+              "label": "Hanging"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 145
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "autoFocus",
+      "name": "Lens - Auto Focus State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Manual"
+            },
+            {
+              "id": "1",
+              "label": "Auto"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 187
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "autoIris",
+      "name": "Lens - Auto Iris State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Manual"
+            },
+            {
+              "id": "1",
+              "label": "Auto"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 229
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "recallModePset",
+      "name": "Preset - Mode A, B, C",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Select Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Mode A - PTZ + Iris + WB/Color"
+            },
+            {
+              "id": "1",
+              "label": "Mode B - PTZ + Iris"
+            },
+            {
+              "id": "2",
+              "label": "Mode C - PTZ only"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 271
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "colorBarsState",
+      "name": "System - Color Bars State",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 319
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "colorBarsSetupState",
+      "name": "System - Color Bars Setup",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF (0.0IRE)"
+            },
+            {
+              "id": "1",
+              "label": "ON (7.5IRE)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 349
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "colorBarsTitleState",
+      "name": "System - Color Bars Title",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 380
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "colorBarsToneState",
+      "name": "System - Color Bars Tone",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "0h",
+          "choices": [
+            {
+              "id": "0h",
+              "label": "Off"
+            },
+            {
+              "id": "1h",
+              "label": "Low"
+            },
+            {
+              "id": "2h",
+              "label": "Normal"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 411
+      },
+      "feedbackType": "boolean",
+      "availability": "Defined more than once in the source (lines 411, 443), e.g. per device series; the first definition is recorded."
+    }
+  ]
+}

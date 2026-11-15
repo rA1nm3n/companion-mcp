@@ -1,0 +1,623 @@
+{
+  "moduleId": "dataton-watchout",
+  "name": "Dataton WATCHOUT (production commands, TCP)",
+  "repo": "bitfocus/companion-module-dataton-watchout",
+  "version": "2.0.2",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "8cec5d6",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "For WATCHOUT 7 and newer use dataton-watchout-json (HTTP API) instead.",
+    "The module is CommonJS (require) and built on @companion-module/base 1.x: no expressions.",
+    "The load action takes a path (production computer) or a bare show name (display cluster) according to companion/HELP.md."
+  ],
+  "actions": [
+    {
+      "id": "run",
+      "name": "Run",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "textinput",
+          "label": "timeline (optional)",
+          "description": "Textinput by default; becomes a dropdown with allowCustom (choices = timelines reported by Watchout) when the feedback mode is 'simple' or 'advanced' (actions.js:20-35)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 38
+      }
+    },
+    {
+      "id": "halt",
+      "name": "Pause",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "textinput",
+          "label": "timeline (optional)",
+          "description": "Textinput by default; becomes a dropdown with allowCustom (choices = timelines reported by Watchout) when the feedback mode is 'simple' or 'advanced' (actions.js:20-35)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 48
+      }
+    },
+    {
+      "id": "kill",
+      "name": "Kill",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "textinput",
+          "label": "timeline (optional)",
+          "description": "Textinput by default; becomes a dropdown with allowCustom (choices = timelines reported by Watchout) when the feedback mode is 'simple' or 'advanced' (actions.js:20-35)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 58
+      }
+    },
+    {
+      "id": "reset",
+      "name": "Reset",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 70
+      }
+    },
+    {
+      "id": "gototime",
+      "name": "Jump to time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "time position",
+          "default": "\"00:00:00.000\"",
+          "regex": "/^(\\d{1,12}|\"\\d{1,2}:\\d{1,2}:\\d{1,2}\\.\\d{1,3}\")$/",
+          "description": "Milliseconds as a number, or \"hh:mm:ss.mmm\" including the double quotes (actions.js:81-87)"
+        },
+        {
+          "id": "timeline",
+          "type": "textinput",
+          "label": "timeline (optional)",
+          "description": "Textinput by default; becomes a dropdown with allowCustom (choices = timelines reported by Watchout) when the feedback mode is 'simple' or 'advanced' (actions.js:20-35)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 78
+      }
+    },
+    {
+      "id": "gotocue",
+      "name": "Jump to cue",
+      "options": [
+        {
+          "id": "cuename",
+          "type": "textinput",
+          "label": "Cue name",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "timeline",
+          "type": "textinput",
+          "label": "timeline (optional)",
+          "description": "Textinput by default; becomes a dropdown with allowCustom (choices = timelines reported by Watchout) when the feedback mode is 'simple' or 'advanced' (actions.js:20-35)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 102
+      }
+    },
+    {
+      "id": "online",
+      "name": "Go online",
+      "options": [
+        {
+          "id": "online",
+          "type": "dropdown",
+          "label": "go online",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 127
+      }
+    },
+    {
+      "id": "standby",
+      "name": "Enter Standby",
+      "options": [
+        {
+          "id": "standby",
+          "type": "dropdown",
+          "label": "Enter Standby",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "fadetime",
+          "type": "number",
+          "label": "Fade time in ms",
+          "default": 1000,
+          "min": 0,
+          "max": 60000,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 146
+      }
+    },
+    {
+      "id": "setinput",
+      "name": "Set Input",
+      "options": [
+        {
+          "id": "inputname",
+          "type": "textinput",
+          "label": "Input Name",
+          "default": ""
+        },
+        {
+          "id": "inputvalue",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1.0",
+          "useVariables": true
+        },
+        {
+          "id": "inputfade",
+          "type": "textinput",
+          "label": "Fadetime (ms)",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 177
+      }
+    },
+    {
+      "id": "load",
+      "name": "Load Show",
+      "options": [
+        {
+          "id": "show",
+          "type": "textinput",
+          "label": "Showfile or Showname",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^[a-zA-Z0-9\\/:.-_ ]+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 230
+      }
+    },
+    {
+      "id": "layerCond",
+      "name": "Set Layer Conditions",
+      "options": [
+        {
+          "id": "0",
+          "type": "checkbox",
+          "label": "Condition 1",
+          "default": false
+        },
+        {
+          "id": "1",
+          "type": "checkbox",
+          "label": "Condition 2",
+          "default": false
+        },
+        {
+          "id": "2",
+          "type": "checkbox",
+          "label": "Condition 3",
+          "default": false
+        },
+        {
+          "id": "3",
+          "type": "checkbox",
+          "label": "Condition 4",
+          "default": false
+        },
+        {
+          "id": "4",
+          "type": "checkbox",
+          "label": "Condition 5",
+          "default": false
+        },
+        {
+          "id": "5",
+          "type": "checkbox",
+          "label": "Condition 6",
+          "default": false
+        },
+        {
+          "id": "6",
+          "type": "checkbox",
+          "label": "Condition 7",
+          "default": false
+        },
+        {
+          "id": "7",
+          "type": "checkbox",
+          "label": "Condition 8",
+          "default": false
+        },
+        {
+          "id": "8",
+          "type": "checkbox",
+          "label": "Condition 9",
+          "default": false
+        },
+        {
+          "id": "9",
+          "type": "checkbox",
+          "label": "Condition 10",
+          "default": false
+        },
+        {
+          "id": "10",
+          "type": "checkbox",
+          "label": "Condition 11",
+          "default": false
+        },
+        {
+          "id": "11",
+          "type": "checkbox",
+          "label": "Condition 12",
+          "default": false
+        },
+        {
+          "id": "12",
+          "type": "checkbox",
+          "label": "Condition 13",
+          "default": false
+        },
+        {
+          "id": "13",
+          "type": "checkbox",
+          "label": "Condition 14",
+          "default": false
+        },
+        {
+          "id": "14",
+          "type": "checkbox",
+          "label": "Condition 15",
+          "default": false
+        },
+        {
+          "id": "15",
+          "type": "checkbox",
+          "label": "Condition 16",
+          "default": false
+        },
+        {
+          "id": "16",
+          "type": "checkbox",
+          "label": "Condition 17",
+          "default": false
+        },
+        {
+          "id": "17",
+          "type": "checkbox",
+          "label": "Condition 18",
+          "default": false
+        },
+        {
+          "id": "18",
+          "type": "checkbox",
+          "label": "Condition 19",
+          "default": false
+        },
+        {
+          "id": "19",
+          "type": "checkbox",
+          "label": "Condition 20",
+          "default": false
+        },
+        {
+          "id": "20",
+          "type": "checkbox",
+          "label": "Condition 21",
+          "default": false
+        },
+        {
+          "id": "21",
+          "type": "checkbox",
+          "label": "Condition 22",
+          "default": false
+        },
+        {
+          "id": "22",
+          "type": "checkbox",
+          "label": "Condition 23",
+          "default": false
+        },
+        {
+          "id": "23",
+          "type": "checkbox",
+          "label": "Condition 24",
+          "default": false
+        },
+        {
+          "id": "24",
+          "type": "checkbox",
+          "label": "Condition 25",
+          "default": false
+        },
+        {
+          "id": "25",
+          "type": "checkbox",
+          "label": "Condition 26",
+          "default": false
+        },
+        {
+          "id": "26",
+          "type": "checkbox",
+          "label": "Condition 27",
+          "default": false
+        },
+        {
+          "id": "27",
+          "type": "checkbox",
+          "label": "Condition 28",
+          "default": false
+        },
+        {
+          "id": "28",
+          "type": "checkbox",
+          "label": "Condition 29",
+          "default": false
+        },
+        {
+          "id": "29",
+          "type": "checkbox",
+          "label": "Condition 30",
+          "default": false
+        },
+        {
+          "id": "30",
+          "type": "checkbox",
+          "label": "Force to default GUI conditions",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 251
+      },
+      "description": "31 checkboxes with the numeric ids 0..30 (Condition 1..30 and force-default flag)"
+    },
+    {
+      "id": "getAuxTimelines",
+      "name": "Update timeline list",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 278
+      },
+      "availability": "Only registered when the feedback mode is 'simple' or 'advanced' (actions.js:275)"
+    },
+    {
+      "id": "toggleRun",
+      "name": "Toggle run",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "textinput",
+          "label": "timeline (optional)",
+          "description": "Textinput by default; becomes a dropdown with allowCustom (choices = timelines reported by Watchout) when the feedback mode is 'simple' or 'advanced' (actions.js:20-35)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 286
+      },
+      "availability": "Only registered when the feedback mode is 'simple' or 'advanced' (actions.js:275)"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "task_status",
+      "name": "Task status",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "",
+          "choicesNote": "Timelines reported by Watchout (self.auxTimelinesChoices); free text allowed (allowCustom)",
+          "allowCustom": true
+        },
+        {
+          "id": "icons",
+          "type": "checkbox",
+          "label": "Use icons instead of colors",
+          "default": false
+        },
+        {
+          "id": "playfg",
+          "type": "colorpicker",
+          "label": "Play foreground color"
+        },
+        {
+          "id": "playbg",
+          "type": "colorpicker",
+          "label": "Play background color"
+        },
+        {
+          "id": "pausefg",
+          "type": "colorpicker",
+          "label": "Pause foreground color"
+        },
+        {
+          "id": "pausebg",
+          "type": "colorpicker",
+          "label": "Pause background color"
+        },
+        {
+          "id": "stopfg",
+          "type": "colorpicker",
+          "label": "Stop foreground color"
+        },
+        {
+          "id": "stopbg",
+          "type": "colorpicker",
+          "label": "Stop background color"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "task_playing",
+      "name": "Task playing",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "",
+          "choicesNote": "Timelines reported by Watchout (self.auxTimelinesChoices); free text allowed (allowCustom)",
+          "allowCustom": true
+        },
+        {
+          "id": "icons",
+          "type": "checkbox",
+          "label": "Use icons instead of colors",
+          "default": false
+        },
+        {
+          "id": "playfg",
+          "type": "colorpicker",
+          "label": "Foreground color"
+        },
+        {
+          "id": "playbg",
+          "type": "colorpicker",
+          "label": "Background color"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 121
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "task_paused",
+      "name": "Task paused",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "",
+          "choicesNote": "Timelines reported by Watchout (self.auxTimelinesChoices); free text allowed (allowCustom)",
+          "allowCustom": true
+        },
+        {
+          "id": "icons",
+          "type": "checkbox",
+          "label": "Use icons instead of colors",
+          "default": false
+        },
+        {
+          "id": "pausefg",
+          "type": "colorpicker",
+          "label": "Foreground color"
+        },
+        {
+          "id": "pausebg",
+          "type": "colorpicker",
+          "label": "Background color"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 182
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "task_stopped",
+      "name": "Task stopped",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "",
+          "choicesNote": "Timelines reported by Watchout (self.auxTimelinesChoices); free text allowed (allowCustom)",
+          "allowCustom": true
+        },
+        {
+          "id": "icons",
+          "type": "checkbox",
+          "label": "Use icons instead of colors",
+          "default": false
+        },
+        {
+          "id": "stopfg",
+          "type": "colorpicker",
+          "label": "Foreground color"
+        },
+        {
+          "id": "stopbg",
+          "type": "colorpicker",
+          "label": "Background color"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 243
+      },
+      "feedbackType": "advanced"
+    }
+  ]
+}

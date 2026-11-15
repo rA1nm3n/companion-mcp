@@ -1,0 +1,1582 @@
+{
+  "moduleId": "barco-eventmaster",
+  "name": "Barco Event Master (JSON-RPC)",
+  "repo": "bitfocus/companion-module-barco-eventmaster",
+  "version": "5.0.0",
+  "baseVersion": "~1.15.0",
+  "lastCommit": "2026-11-09",
+  "lastCommitSha": "49adfc9",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Protocol: official EventMaster JSON-RPC API. The older XML protocol is a different module (barco-eventmaster-xml).",
+    "All preset, source, destination, cue and layer dropdowns are filled from the connected frame (choices are device data, not enumerable offline). Ids are the frame internal ids, not the numbers shown in the GUI.",
+    "Dropdowns without a default in the source are marked required.",
+    "Companion module version 5.0.0 in package.json while companion/manifest.json carries the placeholder 1.0.0."
+  ],
+  "actions": [
+    {
+      "id": "recall_preset",
+      "name": "Recall Preset",
+      "options": [
+        {
+          "id": "id",
+          "type": "dropdown",
+          "label": "Preset",
+          "choicesNote": "Presets of the connected frame; id = internal preset id (NOT the displayed preset number), label = \"<presetSno> <name>\" (eventmaster.js:1923-1929)",
+          "required": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Preview"
+            },
+            {
+              "id": "1",
+              "label": "Program"
+            }
+          ],
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 1966
+      }
+    },
+    {
+      "id": "recall_next",
+      "name": "Recall Next Preset",
+      "options": [],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2001
+      }
+    },
+    {
+      "id": "cut_all",
+      "name": "Cut Active",
+      "options": [],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2013
+      }
+    },
+    {
+      "id": "trans_all",
+      "name": "Take/Trans Active",
+      "options": [],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2029
+      }
+    },
+    {
+      "id": "play_cue",
+      "name": "Play Cue",
+      "options": [
+        {
+          "id": "cueNumber",
+          "type": "dropdown",
+          "label": "Cue",
+          "default": "0",
+          "choicesNote": "Cues of the connected frame; id = cue id (eventmaster.js:1938-1941)"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2045
+      }
+    },
+    {
+      "id": "stop_cue",
+      "name": "Stop Cue",
+      "options": [
+        {
+          "id": "cueNumber",
+          "type": "dropdown",
+          "label": "Cue",
+          "default": "0",
+          "choicesNote": "Cues of the connected frame; id = cue id (eventmaster.js:1938-1941)"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2070
+      }
+    },
+    {
+      "id": "pause_cue",
+      "name": "Pause Cue",
+      "options": [
+        {
+          "id": "cueNumber",
+          "type": "dropdown",
+          "label": "Cue",
+          "default": "0",
+          "choicesNote": "Cues of the connected frame; id = cue id (eventmaster.js:1938-1941)"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2094
+      }
+    },
+    {
+      "id": "frz_Source",
+      "name": "Freeze/Unfreeze Source",
+      "options": [
+        {
+          "id": "frzType",
+          "type": "dropdown",
+          "label": "freeze/unfreeze",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze"
+            },
+            {
+              "id": 0,
+              "label": "Unfreeze"
+            }
+          ]
+        },
+        {
+          "id": "frzSource",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2119
+      }
+    },
+    {
+      "id": "testpattern_on_AUX",
+      "name": "Set testpattern for AUX",
+      "options": [
+        {
+          "id": "auxDestination",
+          "type": "dropdown",
+          "label": "aux destination",
+          "choicesNote": "Aux destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "testPattern",
+          "type": "dropdown",
+          "label": "Type number",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Horizontal Ramp"
+            },
+            {
+              "id": "2",
+              "label": "Vertical Ramp"
+            },
+            {
+              "id": "3",
+              "label": "100% Color Bars"
+            },
+            {
+              "id": "4",
+              "label": "16x16 grid"
+            },
+            {
+              "id": "5",
+              "label": "32x32 grid"
+            },
+            {
+              "id": "6",
+              "label": "Burst"
+            },
+            {
+              "id": "7",
+              "label": "75% Color Bars"
+            },
+            {
+              "id": "8",
+              "label": "50% Gray"
+            },
+            {
+              "id": "9",
+              "label": "Horizontal steps"
+            },
+            {
+              "id": "10",
+              "label": "Vertical steps"
+            },
+            {
+              "id": "11",
+              "label": "White"
+            },
+            {
+              "id": "12",
+              "label": "Black"
+            },
+            {
+              "id": "13",
+              "label": "SMPTE Bars"
+            },
+            {
+              "id": "14",
+              "label": "H Alignment"
+            },
+            {
+              "id": "15",
+              "label": "V Alignment"
+            },
+            {
+              "id": "16",
+              "label": "HV Alignment"
+            },
+            {
+              "id": "17",
+              "label": "Circle Alignment"
+            },
+            {
+              "id": "18",
+              "label": "Red"
+            },
+            {
+              "id": "19",
+              "label": "Green"
+            },
+            {
+              "id": "20",
+              "label": "Blue"
+            }
+          ],
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2156
+      }
+    },
+    {
+      "id": "change_aux_content",
+      "name": "Change AUX Content",
+      "options": [
+        {
+          "id": "auxDestination",
+          "type": "dropdown",
+          "label": "AUX Destination",
+          "choicesNote": "Aux destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "auxName",
+          "type": "textinput",
+          "label": "Name (Optional)",
+          "default": ""
+        },
+        {
+          "id": "pvwSource",
+          "type": "dropdown",
+          "label": "Preview Source",
+          "default": "",
+          "choicesNote": "Fixed ids \"\", -1 plus Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)"
+        },
+        {
+          "id": "pgmSource",
+          "type": "dropdown",
+          "label": "Program Source",
+          "default": "",
+          "choicesNote": "Fixed ids \"\", -1 plus Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)"
+        },
+        {
+          "id": "testPattern",
+          "type": "dropdown",
+          "label": "Test Pattern",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "No Test Pattern"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Horizontal Ramp"
+            },
+            {
+              "id": "2",
+              "label": "Vertical Ramp"
+            },
+            {
+              "id": "3",
+              "label": "100% Color Bars"
+            },
+            {
+              "id": "4",
+              "label": "16x16 grid"
+            },
+            {
+              "id": "5",
+              "label": "32x32 grid"
+            },
+            {
+              "id": "6",
+              "label": "Burst"
+            },
+            {
+              "id": "7",
+              "label": "75% Color Bars"
+            },
+            {
+              "id": "8",
+              "label": "50% Gray"
+            },
+            {
+              "id": "9",
+              "label": "Horizontal steps"
+            },
+            {
+              "id": "10",
+              "label": "Vertical steps"
+            },
+            {
+              "id": "11",
+              "label": "White"
+            },
+            {
+              "id": "12",
+              "label": "Black"
+            },
+            {
+              "id": "13",
+              "label": "SMPTE Bars"
+            },
+            {
+              "id": "14",
+              "label": "H Alignment"
+            },
+            {
+              "id": "15",
+              "label": "V Alignment"
+            },
+            {
+              "id": "16",
+              "label": "HV Alignment"
+            },
+            {
+              "id": "17",
+              "label": "Circle Alignment"
+            },
+            {
+              "id": "18",
+              "label": "Red"
+            },
+            {
+              "id": "19",
+              "label": "Green"
+            },
+            {
+              "id": "20",
+              "label": "Blue"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2188
+      }
+    },
+    {
+      "id": "testpattern_on_SCREEN",
+      "name": "Set testpattern for screen destinations",
+      "options": [
+        {
+          "id": "screenDestination",
+          "type": "dropdown",
+          "label": "destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "testPattern",
+          "type": "dropdown",
+          "label": "Type number",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Horizontal Ramp"
+            },
+            {
+              "id": "2",
+              "label": "Vertical Ramp"
+            },
+            {
+              "id": "3",
+              "label": "100% Color Bars"
+            },
+            {
+              "id": "4",
+              "label": "16x16 grid"
+            },
+            {
+              "id": "5",
+              "label": "32x32 grid"
+            },
+            {
+              "id": "6",
+              "label": "Burst"
+            },
+            {
+              "id": "7",
+              "label": "75% Color Bars"
+            },
+            {
+              "id": "8",
+              "label": "50% Gray"
+            },
+            {
+              "id": "9",
+              "label": "Horizontal steps"
+            },
+            {
+              "id": "10",
+              "label": "Vertical steps"
+            },
+            {
+              "id": "11",
+              "label": "White"
+            },
+            {
+              "id": "12",
+              "label": "Black"
+            },
+            {
+              "id": "13",
+              "label": "SMPTE Bars"
+            },
+            {
+              "id": "14",
+              "label": "H Alignment"
+            },
+            {
+              "id": "15",
+              "label": "V Alignment"
+            },
+            {
+              "id": "16",
+              "label": "HV Alignment"
+            },
+            {
+              "id": "17",
+              "label": "Circle Alignment"
+            },
+            {
+              "id": "18",
+              "label": "Red"
+            },
+            {
+              "id": "19",
+              "label": "Green"
+            },
+            {
+              "id": "20",
+              "label": "Blue"
+            }
+          ],
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2274
+      }
+    },
+    {
+      "id": "change_screen_content",
+      "name": "Change Screen Content",
+      "options": [
+        {
+          "id": "screenDestination",
+          "type": "dropdown",
+          "label": "Screen Destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "testPattern",
+          "type": "dropdown",
+          "label": "Test Pattern",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "No Test Pattern"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Horizontal Ramp"
+            },
+            {
+              "id": "2",
+              "label": "Vertical Ramp"
+            },
+            {
+              "id": "3",
+              "label": "100% Color Bars"
+            },
+            {
+              "id": "4",
+              "label": "16x16 grid"
+            },
+            {
+              "id": "5",
+              "label": "32x32 grid"
+            },
+            {
+              "id": "6",
+              "label": "Burst"
+            },
+            {
+              "id": "7",
+              "label": "75% Color Bars"
+            },
+            {
+              "id": "8",
+              "label": "50% Gray"
+            },
+            {
+              "id": "9",
+              "label": "Horizontal steps"
+            },
+            {
+              "id": "10",
+              "label": "Vertical steps"
+            },
+            {
+              "id": "11",
+              "label": "White"
+            },
+            {
+              "id": "12",
+              "label": "Black"
+            },
+            {
+              "id": "13",
+              "label": "SMPTE Bars"
+            },
+            {
+              "id": "14",
+              "label": "H Alignment"
+            },
+            {
+              "id": "15",
+              "label": "V Alignment"
+            },
+            {
+              "id": "16",
+              "label": "HV Alignment"
+            },
+            {
+              "id": "17",
+              "label": "Circle Alignment"
+            },
+            {
+              "id": "18",
+              "label": "Red"
+            },
+            {
+              "id": "19",
+              "label": "Green"
+            },
+            {
+              "id": "20",
+              "label": "Blue"
+            }
+          ]
+        },
+        {
+          "id": "pgmBgSource",
+          "type": "dropdown",
+          "label": "Program Background Source",
+          "default": "",
+          "choicesNote": "Fixed ids \"\" plus Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)"
+        },
+        {
+          "id": "pvwBgSource",
+          "type": "dropdown",
+          "label": "Preview Background Source",
+          "default": "",
+          "choicesNote": "Fixed ids \"\" plus Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)"
+        },
+        {
+          "id": "pgmBgMatte",
+          "type": "checkbox",
+          "label": "Show Program Background Matte",
+          "default": false
+        },
+        {
+          "id": "pvwBgMatte",
+          "type": "checkbox",
+          "label": "Show Preview Background Matte",
+          "default": false
+        },
+        {
+          "id": "layerId",
+          "type": "number",
+          "label": "Layer ID (Optional)",
+          "default": "",
+          "min": 0
+        },
+        {
+          "id": "layerSource",
+          "type": "dropdown",
+          "label": "Layer Source",
+          "default": "",
+          "choicesNote": "Fixed ids \"\" plus Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)"
+        },
+        {
+          "id": "layerMode",
+          "type": "dropdown",
+          "label": "Layer Mode",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "No Change"
+            },
+            {
+              "id": "preview",
+              "label": "Preview Only"
+            },
+            {
+              "id": "program",
+              "label": "Program Only"
+            },
+            {
+              "id": "both",
+              "label": "Both Preview & Program"
+            }
+          ]
+        },
+        {
+          "id": "winHPos",
+          "type": "number",
+          "label": "Window H Position",
+          "default": "",
+          "min": 0
+        },
+        {
+          "id": "winVPos",
+          "type": "number",
+          "label": "Window V Position",
+          "default": "",
+          "min": 0
+        },
+        {
+          "id": "winHSize",
+          "type": "number",
+          "label": "Window H Size",
+          "default": "",
+          "min": 1
+        },
+        {
+          "id": "winVSize",
+          "type": "number",
+          "label": "Window V Size",
+          "default": "",
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2306
+      }
+    },
+    {
+      "id": "reset_frame",
+      "name": "Reset Frame Settings",
+      "options": [
+        {
+          "id": "resetType",
+          "type": "dropdown",
+          "label": "Reset Type",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Soft reset"
+            },
+            {
+              "id": 1,
+              "label": "Factory reset"
+            },
+            {
+              "id": 2,
+              "label": "Factory reset (save IP)"
+            },
+            {
+              "id": 3,
+              "label": "Factory reset (save IP/EDID)"
+            },
+            {
+              "id": 4,
+              "label": "Factory reset (save VPID)"
+            },
+            {
+              "id": 5,
+              "label": "Power Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2525
+      }
+    },
+    {
+      "id": "save_preset",
+      "name": "Save Preset",
+      "options": [
+        {
+          "id": "presetName",
+          "type": "textinput",
+          "label": "Preset Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2571
+      }
+    },
+    {
+      "id": "delete_preset",
+      "name": "Delete Preset",
+      "options": [
+        {
+          "id": "preset_to_delete",
+          "type": "dropdown",
+          "label": "Preset",
+          "choicesNote": "Presets of the connected frame; id = internal preset id (NOT the displayed preset number), label = \"<presetSno> <name>\" (eventmaster.js:1923-1929)",
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2597
+      }
+    },
+    {
+      "id": "rename_preset",
+      "name": "Rename Preset",
+      "options": [
+        {
+          "id": "preset_to_rename",
+          "type": "dropdown",
+          "label": "Preset",
+          "choicesNote": "Presets of the connected frame; id = internal preset id (NOT the displayed preset number), label = \"<presetSno> <name>\" (eventmaster.js:1923-1929)",
+          "required": true
+        },
+        {
+          "id": "newPresetName",
+          "type": "textinput",
+          "label": "New Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2621
+      }
+    },
+    {
+      "id": "fill_hv",
+      "name": "Fit Layers to Screen Destination",
+      "options": [
+        {
+          "id": "screenDest",
+          "type": "dropdown",
+          "label": "Screen Destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "layerIds",
+          "type": "textinput",
+          "label": "Layer IDs (comma separated)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2652
+      }
+    },
+    {
+      "id": "clear_layers",
+      "name": "Clear Layers from Screen Destination",
+      "options": [
+        {
+          "id": "screenDest",
+          "type": "dropdown",
+          "label": "Screen Destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "layerIds",
+          "type": "textinput",
+          "label": "Layer IDs (comma separated)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2678
+      }
+    },
+    {
+      "id": "recall_userkey",
+      "name": "Recall User Key",
+      "options": [
+        {
+          "id": "userKeyId",
+          "type": "dropdown",
+          "label": "User Key",
+          "choicesNote": "User keys of the connected frame; id = user key id",
+          "required": true
+        },
+        {
+          "id": "screenDest",
+          "type": "dropdown",
+          "label": "Screen Destinations",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "layerIds",
+          "type": "textinput",
+          "label": "Layer IDs (comma separated)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2703
+      }
+    },
+    {
+      "id": "activate_mvr_preset",
+      "name": "Activate MVR Preset",
+      "options": [
+        {
+          "id": "mvrPresetId",
+          "type": "number",
+          "label": "MVR Preset ID",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2908
+      }
+    },
+    {
+      "id": "mvr_layout_change",
+      "name": "Change MVR Layout",
+      "options": [
+        {
+          "id": "mvrId",
+          "type": "number",
+          "label": "MVR ID",
+          "default": 0
+        },
+        {
+          "id": "layoutId",
+          "type": "number",
+          "label": "Layout ID",
+          "default": 0
+        },
+        {
+          "id": "frameUnitId",
+          "type": "number",
+          "label": "Frame Unit ID",
+          "default": 0,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2930
+      }
+    },
+    {
+      "id": "activate_dest_group",
+      "name": "Activate Destination Group",
+      "options": [
+        {
+          "id": "groupIdOrName",
+          "type": "textinput",
+          "label": "Group ID or Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2968
+      }
+    },
+    {
+      "id": "arm_unarm_destination",
+      "name": "Arm/Unarm Destination",
+      "options": [
+        {
+          "id": "destId",
+          "type": "dropdown",
+          "label": "Destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "arm",
+          "type": "dropdown",
+          "label": "Arm (true) or Unarm (false)",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Arm"
+            },
+            {
+              "id": 0,
+              "label": "Unarm"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 2992
+      }
+    },
+    {
+      "id": "arm_unarm_aux_destination",
+      "name": "Arm/Unarm AUX Destination",
+      "options": [
+        {
+          "id": "auxDestId",
+          "type": "dropdown",
+          "label": "AUX Destination",
+          "choicesNote": "Aux destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "arm",
+          "type": "dropdown",
+          "label": "Arm (true) or Unarm (false)",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Arm"
+            },
+            {
+              "id": 0,
+              "label": "Unarm"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3033
+      }
+    },
+    {
+      "id": "freeze_dest",
+      "name": "Freeze/Unfreeze Destination",
+      "options": [
+        {
+          "id": "destId",
+          "type": "dropdown",
+          "label": "Destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)",
+          "required": true
+        },
+        {
+          "id": "freeze",
+          "type": "dropdown",
+          "label": "Freeze (true) or Unfreeze (false)",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze"
+            },
+            {
+              "id": 0,
+              "label": "Unfreeze"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3068
+      }
+    },
+    {
+      "id": "frz_source_toggle",
+      "name": "Freeze Source (Toggle)",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources of the connected frame that can be frozen"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            },
+            {
+              "id": "0",
+              "label": "Unfreeze"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3103
+      }
+    },
+    {
+      "id": "frz_screen_toggle",
+      "name": "Freeze Screen Destination (Toggle)",
+      "options": [
+        {
+          "id": "destId",
+          "type": "dropdown",
+          "label": "Screen destination",
+          "choicesNote": "Screen destinations of the connected frame; id = destination id (numeric)"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            },
+            {
+              "id": "0",
+              "label": "Unfreeze"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3136
+      }
+    },
+    {
+      "id": "frz_aux_toggle",
+      "name": "Freeze Aux Destination (Toggle)",
+      "options": [
+        {
+          "id": "auxId",
+          "type": "dropdown",
+          "label": "Aux destination",
+          "choicesNote": "Aux destinations of the connected frame; id = destination id (numeric)"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            },
+            {
+              "id": "0",
+              "label": "Unfreeze"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3168
+      }
+    },
+    {
+      "id": "frz_layer_toggle",
+      "name": "Freeze Layer (Toggle)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "choicesNote": "Layers of the connected frame; depends on the device state"
+        },
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus (mixing layers)",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            },
+            {
+              "id": "0",
+              "label": "Unfreeze"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3208
+      }
+    },
+    {
+      "id": "activate_source_main_backup",
+      "name": "Activate Source Main Backup",
+      "options": [
+        {
+          "id": "inputId",
+          "type": "dropdown",
+          "label": "Input/Background Source",
+          "choicesNote": "Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)",
+          "required": true
+        },
+        {
+          "id": "backup1SourceId",
+          "type": "dropdown",
+          "label": "Backup 1 Source",
+          "choicesNote": "Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)",
+          "required": true
+        },
+        {
+          "id": "backup2SourceId",
+          "type": "dropdown",
+          "label": "Backup 2 Source",
+          "choicesNote": "Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)",
+          "required": true
+        },
+        {
+          "id": "backup3SourceId",
+          "type": "dropdown",
+          "label": "Backup 3 Source",
+          "choicesNote": "Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)",
+          "required": true
+        },
+        {
+          "id": "backupState",
+          "type": "dropdown",
+          "label": "Backup State",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Primary (Default)"
+            },
+            {
+              "id": 0,
+              "label": "Backup 1"
+            },
+            {
+              "id": 1,
+              "label": "Backup 2"
+            },
+            {
+              "id": 2,
+              "label": "Backup 3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3296
+      }
+    },
+    {
+      "id": "reset_source_main_backup",
+      "name": "Reset Source Main Backup",
+      "options": [
+        {
+          "id": "sourceId",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources of the connected frame; id = EventMaster source id (eventmaster.js:1930-1937)",
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3383
+      }
+    },
+    {
+      "id": "refresh_source_monitoring",
+      "name": "Refresh Source Monitoring",
+      "options": [],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3408
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "source_active_simple",
+      "name": "Source Active (Simple)",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choices": []
+        },
+        {
+          "id": "tallyState",
+          "type": "dropdown",
+          "label": "Tally State",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3579
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "source_active_on_destinations",
+      "name": "Source Active on Destinations",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choices": []
+        },
+        {
+          "id": "destinations",
+          "type": "multidropdown",
+          "label": "Monitor Destinations",
+          "default": ["anywhere"],
+          "choices": [
+            {
+              "id": "anywhere",
+              "label": "Anywhere (Any PGM or PVW)"
+            },
+            {
+              "id": "anywhere_pgm",
+              "label": "Anywhere PGM"
+            },
+            {
+              "id": "anywhere_pvw",
+              "label": "Anywhere PVW"
+            }
+          ]
+        },
+        {
+          "id": "tallyState",
+          "type": "dropdown",
+          "label": "Tally State",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3621
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "screen_armed",
+      "name": "Screen Destination Armed",
+      "options": [
+        {
+          "id": "destId",
+          "type": "dropdown",
+          "label": "Screen destination",
+          "choicesNote": "Screen destinations of the connected frame"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3743
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "source_signal_problem",
+      "name": "Source Signal",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources of the connected frame"
+        },
+        {
+          "id": "when",
+          "type": "dropdown",
+          "label": "Lights when",
+          "default": "problem",
+          "choices": [
+            {
+              "id": "problem",
+              "label": "Any problem (no signal, format mismatch, out of range, invalid)"
+            },
+            {
+              "id": "ok",
+              "label": "Signal OK"
+            },
+            {
+              "id": "4",
+              "label": "No signal"
+            },
+            {
+              "id": "2",
+              "label": "Format mismatch"
+            },
+            {
+              "id": "3",
+              "label": "Out of range"
+            },
+            {
+              "id": "0",
+              "label": "Invalid (sync but cannot lock)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3765
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "test_pattern_active",
+      "name": "Test Pattern Active",
+      "options": [
+        {
+          "id": "dest",
+          "type": "dropdown",
+          "label": "Destination",
+          "choicesNote": "Destinations that support test patterns, ids like \"screen:0\""
+        },
+        {
+          "id": "pattern",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": "any",
+          "choicesNote": "Fixed ids \"any\" plus dynamic list ((this.CHOICES_TESTPATTERN || []).filter((c) => c.id !== '0')); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3812
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "source_frozen",
+      "name": "Source Frozen",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources of the connected frame that can be frozen"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3853
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "screen_frozen",
+      "name": "Screen Destination Frozen",
+      "options": [
+        {
+          "id": "destId",
+          "type": "dropdown",
+          "label": "Screen destination",
+          "choicesNote": "Screen destinations of the connected frame"
+        },
+        {
+          "id": "match",
+          "type": "dropdown",
+          "label": "Match",
+          "default": "any",
+          "choices": [
+            {
+              "id": "any",
+              "label": "Any output frozen"
+            },
+            {
+              "id": "all",
+              "label": "All outputs frozen"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3877
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "aux_frozen",
+      "name": "Aux Destination Frozen",
+      "options": [
+        {
+          "id": "auxId",
+          "type": "dropdown",
+          "label": "Aux destination",
+          "choicesNote": "Aux destinations of the connected frame"
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3910
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layer_frozen",
+      "name": "Layer Frozen",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "choicesNote": "Layers of the connected frame"
+        },
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus (mixing layers)",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "eventmaster.js",
+        "line": 3936
+      },
+      "feedbackType": "boolean"
+    }
+  ]
+}

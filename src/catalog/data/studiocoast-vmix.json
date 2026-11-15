@@ -1,0 +1,3263 @@
+{
+  "moduleId": "studiocoast-vmix",
+  "name": "vMix (StudioCoast)",
+  "repo": "bitfocus/companion-module-studiocoast-vmix",
+  "version": "5.0.6",
+  "baseVersion": "~2.0.4",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "7d24400",
+  "status": "read",
+  "coverage": "partial",
+  "notes": [
+    "Partial catalog: general, input, playback, transition, output and overlay actions and the general, tally, playback and transition feedbacks. Audio, audio presets, browser, config, data source, layer, list, NDI, OMT, playlist, preset, PTZ, replay, scripting, title, util, video call, virtual set and zoom actions are not catalogued (src/actions/*.ts).",
+    "The 'input' option is a free text field (number, name or GUID, variables allowed), not a dropdown (src/utils.ts:137-144).",
+    "The mix dropdown (1..16 or Selected) is shared through options.mixSelect (src/utils.ts:146-171).",
+    "Built on @companion-module/base ~2.0.4: expressions are supported for option values; the module declares valid values per dropdown in expressionDescription.",
+    "Entries that spread a shared option (input, mixSelect, adjustment) carry the visibility condition of the spread site."
+  ],
+  "actions": [
+    {
+      "id": "keyPress",
+      "name": "General - KeyPress",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Key",
+          "description": "Send a single key press to vMix",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 30
+      }
+    },
+    {
+      "id": "sendKeys",
+      "name": "General - Send keys",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Key",
+          "description": "Comma separated list of keys to send ot vMIx",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 46
+      }
+    },
+    {
+      "id": "tbar",
+      "name": "General - Set t-bar position",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "postion",
+          "description": "0 to 255",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 62
+      }
+    },
+    {
+      "id": "dynamic",
+      "name": "General - Set Dynamic Inputs and Values",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Select Type",
+          "default": "Input",
+          "choices": [
+            {
+              "id": "Input",
+              "label": "Dynamic Input"
+            },
+            {
+              "id": "Value",
+              "label": "Dynamic Value"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "dropdown",
+          "label": "Select Number",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 82
+      }
+    },
+    {
+      "id": "activatorRefresh",
+      "name": "General - Activator Refresh",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 125
+      }
+    },
+    {
+      "id": "callManagerShowHide",
+      "name": "General - Toggle Call Manager",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 132
+      }
+    },
+    {
+      "id": "vMixConnection",
+      "name": "General - vMix Connection",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Connect / Disconnect / Reconnect",
+          "default": "Connect",
+          "choices": [
+            {
+              "id": "Connect",
+              "label": "Connect"
+            },
+            {
+              "id": "Disconnect",
+              "label": "Disconnect"
+            },
+            {
+              "id": "Reconnect",
+              "label": "Reconnect"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/generalActions.ts",
+        "line": 139
+      }
+    },
+    {
+      "id": "addInput",
+      "name": "Input - Add Input",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "description": "Must be in the format of: TYPE|FILENAME, eg Video|c:\\path\\to\\video.avi",
+          "default": "TYPE|FILENAME",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 168
+      }
+    },
+    {
+      "id": "removeInput",
+      "name": "Input - Remove Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 183
+      }
+    },
+    {
+      "id": "setInputName",
+      "name": "Input - Set Input Name",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Name",
+          "description": "Recommend to avoid special characters in Input Names",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 190
+      }
+    },
+    {
+      "id": "previewInput",
+      "name": "Input - Send Input to Preview",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            },
+            {
+              "id": "Selected",
+              "label": "Selected"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 207
+      }
+    },
+    {
+      "id": "previewInputNext",
+      "name": "Input - Send Next input to Preview",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 214
+      }
+    },
+    {
+      "id": "previewInputPrevious",
+      "name": "Input - Send Previous input to Preview",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 221
+      }
+    },
+    {
+      "id": "go",
+      "name": "Input - GO Action",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 228
+      }
+    },
+    {
+      "id": "resetInput",
+      "name": "Input - Reset",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 235
+      }
+    },
+    {
+      "id": "undo",
+      "name": "Input - Undo",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 242
+      }
+    },
+    {
+      "id": "inputEffect",
+      "name": "Input - Effect Toggle/On/Off",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "effect",
+          "type": "dropdown",
+          "label": "Effect",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Effect 1"
+            },
+            {
+              "id": "2",
+              "label": "Effect 2"
+            },
+            {
+              "id": "3",
+              "label": "Effect 3"
+            },
+            {
+              "id": "4",
+              "label": "Effect 4"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "Toggle"
+            },
+            {
+              "id": "On",
+              "label": "On"
+            },
+            {
+              "id": "Off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 249
+      }
+    },
+    {
+      "id": "inputEffectStrength",
+      "name": "Input - Effect Strength",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "effect",
+          "type": "dropdown",
+          "label": "Effect",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Effect 1"
+            },
+            {
+              "id": "2",
+              "label": "Effect 2"
+            },
+            {
+              "id": "3",
+              "label": "Effect 3"
+            },
+            {
+              "id": "4",
+              "label": "Effect 4"
+            }
+          ]
+        },
+        {
+          "id": "strength",
+          "type": "textinput",
+          "label": "Strength",
+          "description": "0 to 1",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 287
+      }
+    },
+    {
+      "id": "setAlpha",
+      "name": "Input - Set Alpha",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "description": "Valid Values: 0 to 255",
+          "default": 255,
+          "min": 0,
+          "max": 255,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 326
+      }
+    },
+    {
+      "id": "setCC",
+      "name": "Input - Colour Correction",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "SetCCGainR",
+          "choices": [
+            {
+              "id": "ColourCorrectionAuto",
+              "label": "Auto Colour Correction"
+            },
+            {
+              "id": "ColourCorrectionReset",
+              "label": "Reset Colour Correction"
+            },
+            {
+              "id": "SetCCGainR",
+              "label": "Gain R"
+            },
+            {
+              "id": "SetCCGainG",
+              "label": "Gain G"
+            },
+            {
+              "id": "SetCCGainB",
+              "label": "Gain B"
+            },
+            {
+              "id": "SetCCGainY",
+              "label": "Gain Y"
+            },
+            {
+              "id": "SetCCGammaR",
+              "label": "Gamma R"
+            },
+            {
+              "id": "SetCCGammaG",
+              "label": "Gamma G"
+            },
+            {
+              "id": "SetCCGammaB",
+              "label": "Gamma B"
+            },
+            {
+              "id": "SetCCGammaY",
+              "label": "Gamma Y"
+            },
+            {
+              "id": "SetCCHue",
+              "label": "Hue"
+            },
+            {
+              "id": "SetCCLiftR",
+              "label": "Lift R"
+            },
+            {
+              "id": "SetCCLiftG",
+              "label": "Lift G"
+            },
+            {
+              "id": "SetCCLiftB",
+              "label": "Lift B"
+            },
+            {
+              "id": "SetCCLiftY",
+              "label": "Lift Y"
+            },
+            {
+              "id": "SetCCSaturation",
+              "label": "Saturation"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "adjustment",
+          "type": "dropdown",
+          "label": "Adjustment",
+          "default": "Set",
+          "choices": [
+            {
+              "id": "Set",
+              "label": "Set"
+            },
+            {
+              "id": "Increase",
+              "label": "Increase"
+            },
+            {
+              "id": "Decrease",
+              "label": "Decrease"
+            }
+          ],
+          "visibleWhen": "!includes($(options:setting), 'ColourCorrection')"
+        },
+        {
+          "id": "gainValue",
+          "type": "textinput",
+          "label": "Gain Value",
+          "description": "0 to 2",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "includes($(options:setting), 'SetCCGain')"
+        },
+        {
+          "id": "otherValue",
+          "type": "textinput",
+          "label": "Gain Value",
+          "description": "-1 to 1",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "!includes($(options:setting), 'SetCCGain') && !includes($(options:setting), 'ColourCorrection')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 345
+      }
+    },
+    {
+      "id": "inputPosition",
+      "name": "Input - Position",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "SetZoom",
+          "choices": [
+            {
+              "id": "SetZoom",
+              "label": "Zoom"
+            },
+            {
+              "id": "SetCrop",
+              "label": "Crop"
+            },
+            {
+              "id": "SetCropX1",
+              "label": "Crop X1"
+            },
+            {
+              "id": "SetCropX2",
+              "label": "Crop X2"
+            },
+            {
+              "id": "SetCropY1",
+              "label": "Crop Y1"
+            },
+            {
+              "id": "SetCropY2",
+              "label": "Crop Y2"
+            },
+            {
+              "id": "SetPanX",
+              "label": "Pan X"
+            },
+            {
+              "id": "SetPanY",
+              "label": "Pan Y"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "adjustment",
+          "type": "dropdown",
+          "label": "Adjustment",
+          "default": "Set",
+          "choices": [
+            {
+              "id": "Set",
+              "label": "Set"
+            },
+            {
+              "id": "Increase",
+              "label": "Increase"
+            },
+            {
+              "id": "Decrease",
+              "label": "Decrease"
+            }
+          ],
+          "visibleWhen": "$(options:setting) !== 'SetCrop'"
+        },
+        {
+          "id": "zoomValue",
+          "type": "textinput",
+          "label": "Zoom Value",
+          "description": "0 to 5 (1 = 100%, 0.5 = 50%, 2 = 200%)",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:setting) === 'SetZoom'"
+        },
+        {
+          "id": "cropValue",
+          "type": "textinput",
+          "label": "Crop",
+          "description": "(0 = No Crop, 1 = Full Crop) X1,Y1,X2,Y2",
+          "default": "0,0,1,1",
+          "useVariables": true,
+          "visibleWhen": "$(options:setting) === 'SetCrop'"
+        },
+        {
+          "id": "cropValue2",
+          "type": "textinput",
+          "label": "Crop",
+          "description": "0 = No Crop, 1 = Full Crop",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "includes($(options:setting), 'SetCropX') || includes($(options:setting), 'SetCropY')"
+        },
+        {
+          "id": "panValue",
+          "type": "textinput",
+          "label": "Pan",
+          "description": "0 = Centered, -2 = 100% to left/top, 2 = 100% to right/bottom",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "includes($(options:setting), 'SetPan')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 436
+      }
+    },
+    {
+      "id": "inputSharpen",
+      "name": "Input - Sharpen On/Off",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Category",
+          "default": "SharpenOn",
+          "choices": [
+            {
+              "id": "SharpenOn",
+              "label": "On"
+            },
+            {
+              "id": "SharpenOff",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 565
+      }
+    },
+    {
+      "id": "inputFrameDelay",
+      "name": "Input - Frame Delay",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Frames",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 585
+      }
+    },
+    {
+      "id": "inputAuto",
+      "name": "Input - Auto Play/Pause/Restart",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "AutoPlayOn",
+          "choices": [
+            {
+              "id": "AutoPlayOn",
+              "label": "Auto Play ON"
+            },
+            {
+              "id": "AutoPlayOff",
+              "label": "Auto Play Off"
+            },
+            {
+              "id": "AutoPauseOn",
+              "label": "Auto Pause On"
+            },
+            {
+              "id": "AutoPauseOff",
+              "label": "Auto Pause Off"
+            },
+            {
+              "id": "AutoRestartOn",
+              "label": "Auto Restart On"
+            },
+            {
+              "id": "AutoRestartOff",
+              "label": "Auto Restart Off"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 610
+      }
+    },
+    {
+      "id": "createVirtualInput",
+      "name": "Input - Create Virtual Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 634
+      }
+    },
+    {
+      "id": "deinterlace",
+      "name": "Input - Deinterlace",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "DeinterlaceOn",
+          "choices": [
+            {
+              "id": "DeinterlaceOn",
+              "label": "Deinterlace ON"
+            },
+            {
+              "id": "DeinterlaceOff",
+              "label": "Deinterlace Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 641
+      }
+    },
+    {
+      "id": "inputPreview",
+      "name": "Input - Input Preview",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "InputPreviewShowHide",
+          "choices": [
+            {
+              "id": "InputPreviewShowHide",
+              "label": "Toggle Preview"
+            },
+            {
+              "id": "InputPreviewShow",
+              "label": "Show Preview"
+            },
+            {
+              "id": "InputPreviewHide",
+              "label": "Hide Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 661
+      }
+    },
+    {
+      "id": "mirrorInput",
+      "name": "Input - Mirror Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "MirrorOn",
+          "choices": [
+            {
+              "id": "MirrorOn",
+              "label": "Mirror On"
+            },
+            {
+              "id": "MirrorOff",
+              "label": "Mirror Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 682
+      }
+    },
+    {
+      "id": "moveInput",
+      "name": "Input - Move Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Input Number",
+          "description": "Number to move the Input to",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 702
+      }
+    },
+    {
+      "id": "selectCategory",
+      "name": "Input - Select Category",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Category",
+          "default": "All",
+          "choices": [
+            {
+              "id": "All",
+              "label": "All"
+            },
+            {
+              "id": "Red",
+              "label": "Red"
+            },
+            {
+              "id": "Green",
+              "label": "Green"
+            },
+            {
+              "id": "Orange",
+              "label": "Orange"
+            },
+            {
+              "id": "Purple",
+              "label": "Purple"
+            },
+            {
+              "id": "Aqua",
+              "label": "Aqua"
+            },
+            {
+              "id": "Blue",
+              "label": "Blue"
+            },
+            {
+              "id": "Custom1",
+              "label": "Custom1"
+            },
+            {
+              "id": "Custom2",
+              "label": "Custom2"
+            },
+            {
+              "id": "Custom3",
+              "label": "Custom3"
+            },
+            {
+              "id": "Custom4",
+              "label": "Custom4"
+            },
+            {
+              "id": "Custom5",
+              "label": "Custom5"
+            },
+            {
+              "id": "Custom6",
+              "label": "Custom6"
+            },
+            {
+              "id": "Custom7",
+              "label": "Custom7"
+            },
+            {
+              "id": "Custom8",
+              "label": "Custom8"
+            },
+            {
+              "id": "Custom9",
+              "label": "Custom9"
+            },
+            {
+              "id": "Custom10",
+              "label": "Custom10"
+            },
+            {
+              "id": "Custom11",
+              "label": "Custom11"
+            },
+            {
+              "id": "Custom12",
+              "label": "Custom12"
+            },
+            {
+              "id": "Custom13",
+              "label": "Custom13"
+            },
+            {
+              "id": "Custom14",
+              "label": "Custom14"
+            },
+            {
+              "id": "Custom15",
+              "label": "Custom15"
+            },
+            {
+              "id": "Custom16",
+              "label": "Custom16"
+            },
+            {
+              "id": "Search",
+              "label": "Search"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 721
+      }
+    },
+    {
+      "id": "saveVideoDelay",
+      "name": "Input - Save Video Delay",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration",
+          "description": "Milliseconds (max from Number.MAX_SAFE_INTEGER)",
+          "default": 1,
+          "min": 1,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 762
+      }
+    },
+    {
+      "id": "setPictureEffect",
+      "name": "Input - Set Picture Effect/Duration",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "Effect",
+          "choices": [
+            {
+              "id": "Effect",
+              "label": "Effect"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "transition",
+          "type": "dropdown",
+          "label": "Select transition",
+          "default": "Cut",
+          "choicesNote": "Transition names defined in TRANSITIONS (src/utils.ts), e.g. Cut, Fade, Zoom, Wipe, Slide, Fly, CrossZoom, FlyRotate, Cube, CubeZoom, VerticalWipe, VerticalSlide, Merge, WipeReverse, SlideReverse, VerticalWipeReverse, VerticalSlideReverse, Stinger1..4",
+          "visibleWhen": "$(options:type) === 'Effect'"
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration",
+          "description": "Milliseconds",
+          "default": 1000,
+          "min": 0,
+          "max": 60000,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 781
+      }
+    },
+    {
+      "id": "setPictureTransition",
+      "name": "Input - Set Picture Transition",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Duration",
+          "description": "Seconds",
+          "default": 5,
+          "min": 0,
+          "max": 86400,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 826
+      }
+    },
+    {
+      "id": "setRate",
+      "name": "Input - Set Rate",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Duration",
+          "description": "0.5=50%, 1=100%, 2=200% etc",
+          "default": 5,
+          "min": 0.1,
+          "max": 4,
+          "step": 0.01
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 845
+      }
+    },
+    {
+      "id": "videoDelayRecording",
+      "name": "Input - Video Delay Recording",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Option",
+          "default": "VideoDelayStartStopRecording",
+          "choices": [
+            {
+              "id": "VideoDelayStartStopRecording",
+              "label": "Toggle"
+            },
+            {
+              "id": "VideoDelayStartRecording",
+              "label": "Start"
+            },
+            {
+              "id": "VideoDelayStopRecording",
+              "label": "Stop"
+            }
+          ]
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration",
+          "description": "Milliseconds",
+          "default": 1000,
+          "min": 0,
+          "max": 86400,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/inputActions.ts",
+        "line": 864
+      }
+    },
+    {
+      "id": "videoActions",
+      "name": "Playback - Playback Actions",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "inputType",
+          "type": "checkbox",
+          "label": "Use Preview instead of inputs",
+          "default": false
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Options",
+          "default": "Play",
+          "choices": [
+            {
+              "id": "Play",
+              "label": "Play Video"
+            },
+            {
+              "id": "Pause",
+              "label": "Pause Video"
+            },
+            {
+              "id": "PlayPause",
+              "label": "Toggle Play and Pause"
+            },
+            {
+              "id": "LivePlayPause",
+              "label": "Toggle Play and Pause (Live Input)"
+            },
+            {
+              "id": "Restart",
+              "label": "Restart Video"
+            },
+            {
+              "id": "LoopOn",
+              "label": "Loop Video On"
+            },
+            {
+              "id": "LoopOff",
+              "label": "Loop Video Off"
+            },
+            {
+              "id": "Loop",
+              "label": "Loop Video Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/playbackActions.ts",
+        "line": 27
+      }
+    },
+    {
+      "id": "videoPlayhead",
+      "name": "Playback - Adjust or Set Playhead",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "inputType",
+          "type": "checkbox",
+          "label": "Use Preview instead of inputs",
+          "default": false
+        },
+        {
+          "id": "adjustment",
+          "type": "dropdown",
+          "label": "Adjustment",
+          "default": "Set",
+          "choices": [
+            {
+              "id": "Set",
+              "label": "Set"
+            },
+            {
+              "id": "Increase",
+              "label": "Increase"
+            },
+            {
+              "id": "Decrease",
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "value in ms - vMix will round to the nearest frame",
+          "default": 0,
+          "min": 0,
+          "description": "(max from Number.MAX_SAFE_INTEGER)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/playbackActions.ts",
+        "line": 61
+      }
+    },
+    {
+      "id": "videoMark",
+      "name": "Playback - Mark Functions",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "inputType",
+          "type": "checkbox",
+          "label": "Use Preview instead of inputs",
+          "default": false
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Function",
+          "default": "MarkIn",
+          "choices": [
+            {
+              "id": "MarkIn",
+              "label": "Mark In"
+            },
+            {
+              "id": "MarkOut",
+              "label": "Mark Out"
+            },
+            {
+              "id": "MarkReset",
+              "label": "Mark Reset"
+            },
+            {
+              "id": "MarkResetIn",
+              "label": "Mark Reset In"
+            },
+            {
+              "id": "MarkResetOut",
+              "label": "Mark Reset Out"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/playbackActions.ts",
+        "line": 97
+      }
+    },
+    {
+      "id": "programCut",
+      "name": "Transition - Send Input to Program",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            },
+            {
+              "id": "Selected",
+              "label": "Selected"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 42
+      }
+    },
+    {
+      "id": "transitionMix",
+      "name": "Transition - Transition Mix",
+      "options": [
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            },
+            {
+              "id": "Selected",
+              "label": "Selected"
+            }
+          ]
+        },
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Select transition",
+          "default": "Cut",
+          "choicesNote": "Transition names defined in TRANSITIONS (src/utils.ts), e.g. Cut, Fade, Zoom, Wipe, Slide, Fly, CrossZoom, FlyRotate, Cube, CubeZoom, VerticalWipe, VerticalSlide, Merge, WipeReverse, SlideReverse, VerticalWipeReverse, VerticalSlideReverse, Stinger1..4"
+        },
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Duration in ms",
+          "description": "0 to 9999",
+          "default": "1000",
+          "useVariables": true
+        },
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input - Leave blank to transition Preview",
+          "description": "Number, Name, or GUID",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 63
+      }
+    },
+    {
+      "id": "transition",
+      "name": "Transition - Auto/Stinger Transition",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Select transition",
+          "default": "Transition1",
+          "choices": [
+            {
+              "id": "Transition1",
+              "label": "Transition 1"
+            },
+            {
+              "id": "Transition2",
+              "label": "Transition 2"
+            },
+            {
+              "id": "Transition3",
+              "label": "Transition 3"
+            },
+            {
+              "id": "Transition4",
+              "label": "Transition 4"
+            },
+            {
+              "id": "Stinger1",
+              "label": "Stinger 1"
+            },
+            {
+              "id": "Stinger2",
+              "label": "Stinger 2"
+            },
+            {
+              "id": "Stinger3",
+              "label": "Stinger 3"
+            },
+            {
+              "id": "Stinger4",
+              "label": "Stinger 4"
+            },
+            {
+              "id": "Stinger5",
+              "label": "Stinger 5"
+            },
+            {
+              "id": "Stinger6",
+              "label": "Stinger 6"
+            },
+            {
+              "id": "Stinger7",
+              "label": "Stinger 7"
+            },
+            {
+              "id": "Stinger8",
+              "label": "Stinger 8"
+            }
+          ]
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choicesNote": "Dynamic list (source: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((id) => ({ id, label: `${id}` }))); depends on device or model",
+          "visibleWhen": "includes($(options:feedbackID), 'Stinger')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 120
+      }
+    },
+    {
+      "id": "setTransitionEffect",
+      "name": "Transition - Set Auto Transition Effect",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Select transition",
+          "default": "SetTransitionEffect1",
+          "choices": [
+            {
+              "id": "SetTransitionEffect1",
+              "label": "Transition 1"
+            },
+            {
+              "id": "SetTransitionEffect2",
+              "label": "Transition 2"
+            },
+            {
+              "id": "SetTransitionEffect3",
+              "label": "Transition 3"
+            },
+            {
+              "id": "SetTransitionEffect4",
+              "label": "Transition 4"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Select transition type",
+          "default": "Cut",
+          "choicesNote": "Transition names defined in TRANSITIONS (src/utils.ts), e.g. Cut, Fade, Zoom, Wipe, Slide, Fly, CrossZoom, FlyRotate, Cube, CubeZoom, VerticalWipe, VerticalSlide, Merge, WipeReverse, SlideReverse, VerticalWipeReverse, VerticalSlideReverse, Stinger1..4"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 174
+      }
+    },
+    {
+      "id": "setTransitionDuration",
+      "name": "Transition - Set Auto Transition Duration",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Select transition",
+          "default": "SetTransitionDuration1",
+          "choices": [
+            {
+              "id": "SetTransitionDuration1",
+              "label": "Transition 1"
+            },
+            {
+              "id": "SetTransitionDuration2",
+              "label": "Transition 2"
+            },
+            {
+              "id": "SetTransitionDuration3",
+              "label": "Transition 3"
+            },
+            {
+              "id": "SetTransitionDuration4",
+              "label": "Transition 4"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Duration in ms",
+          "description": "0 to 9999",
+          "default": 1000,
+          "min": 0,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 203
+      }
+    },
+    {
+      "id": "quickPlay",
+      "name": "Transition - Quick Play input to Program",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 233
+      }
+    },
+    {
+      "id": "setStingerGTInput",
+      "name": "Transition - Set Stinger GT Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "stinger",
+          "type": "number",
+          "label": "Stinger",
+          "description": "Valid Values: 1 to 8",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitionActions.ts",
+        "line": 240
+      }
+    },
+    {
+      "id": "outputSet",
+      "name": "Output - Set Output Source",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Select Output",
+          "default": "SetOutput2",
+          "choices": [
+            {
+              "id": "SetOutput2",
+              "label": "Output 2"
+            },
+            {
+              "id": "SetOutput3",
+              "label": "Output 3"
+            },
+            {
+              "id": "SetOutput4",
+              "label": "Output 4"
+            },
+            {
+              "id": "SetOutputExternal2",
+              "label": "Output External 2"
+            },
+            {
+              "id": "SetOutputFullscreen",
+              "label": "Output Fullscreen 1"
+            },
+            {
+              "id": "SetOutputFullscreen2",
+              "label": "Output Fullscreen 2"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Select Input Type",
+          "default": "Output",
+          "choices": [
+            {
+              "id": "Output",
+              "label": "Output (Program)"
+            },
+            {
+              "id": "Preview",
+              "label": "Preview"
+            },
+            {
+              "id": "MultiView",
+              "label": "Multiview"
+            },
+            {
+              "id": "MultiView2",
+              "label": "Multiview2"
+            },
+            {
+              "id": "Replay",
+              "label": "Replay"
+            },
+            {
+              "id": "Mix",
+              "label": "Mix"
+            },
+            {
+              "id": "Input",
+              "label": "Input"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            },
+            {
+              "id": "Selected",
+              "label": "Selected"
+            }
+          ],
+          "visibleWhen": "$(options:value) === 'Mix'"
+        },
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:value) === 'Input'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 51
+      }
+    },
+    {
+      "id": "multicorderFunctions",
+      "name": "Output - Multicorder",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "StartStopMultiCorder",
+          "choices": [
+            {
+              "id": "StartMultiCorder",
+              "label": "Start MultiCorder"
+            },
+            {
+              "id": "StopMultiCorder",
+              "label": "Stop MultiCorder"
+            },
+            {
+              "id": "StartStopMultiCorder",
+              "label": "Start / Stop MultiCorder"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 112
+      }
+    },
+    {
+      "id": "recordingFunctions",
+      "name": "Output - Recording",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "StartRecording",
+          "choices": [
+            {
+              "id": "StartRecording",
+              "label": "Start Recording"
+            },
+            {
+              "id": "StopRecording",
+              "label": "Stop Recording"
+            },
+            {
+              "id": "StartStopRecording",
+              "label": "Toggle Recording"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 132
+      }
+    },
+    {
+      "id": "streamingFunctions",
+      "name": "Output - Streaming",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "StartStreaming",
+          "choices": [
+            {
+              "id": "StartStreaming",
+              "label": "Start Stream"
+            },
+            {
+              "id": "StopStreaming",
+              "label": "Stop Stream"
+            },
+            {
+              "id": "StartStopStreaming",
+              "label": "Toggle Stream"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Stream Value",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "All"
+            },
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 152
+      }
+    },
+    {
+      "id": "externalFunctions",
+      "name": "Output - External",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "StartExternal",
+          "choices": [
+            {
+              "id": "StartExternal",
+              "label": "Start External"
+            },
+            {
+              "id": "StopExternal",
+              "label": "Stop External"
+            },
+            {
+              "id": "StartStopExternal",
+              "label": "Toggle External"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 195
+      }
+    },
+    {
+      "id": "fullscreenFunctions",
+      "name": "Output - Fullscreen",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "FullscreenOn",
+          "choices": [
+            {
+              "id": "FullscreenOn",
+              "label": "Fullscreen On"
+            },
+            {
+              "id": "FullscreenOff",
+              "label": "Fullscreen Off"
+            },
+            {
+              "id": "Fullscreen",
+              "label": "Fullscreen Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 215
+      }
+    },
+    {
+      "id": "srtFunctions",
+      "name": "Output - SRT",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "StartStopSRTOutput",
+          "choices": [
+            {
+              "id": "StartSRTOutput",
+              "label": "SRT On"
+            },
+            {
+              "id": "StopSRTOutput",
+              "label": "SRT Off"
+            },
+            {
+              "id": "StartStopSRTOutput",
+              "label": "Toggle SRT"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 235
+      }
+    },
+    {
+      "id": "fadeToBlack",
+      "name": "Output - Fade to Black",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 255
+      }
+    },
+    {
+      "id": "streamingSettings",
+      "name": "Output - Streaming Settings",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "dropdown",
+          "label": "Output Function",
+          "default": "StreamingSetURL",
+          "choices": [
+            {
+              "id": "StreamingSetURL",
+              "label": "URL"
+            },
+            {
+              "id": "StreamingSetKey",
+              "label": "Key"
+            },
+            {
+              "id": "StreamingSetUsername",
+              "label": "Username"
+            },
+            {
+              "id": "StreamingSetPassword",
+              "label": "Password"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Custom RTMP Stream. Optional stream number starting from 0 at start followed by comma, e.g 0,rtmp://myurl/",
+          "default": "",
+          "visibleWhen": "$(options:functionID) === 'StreamingSetURL'"
+        },
+        {
+          "id": "key",
+          "type": "textinput",
+          "label": "Key",
+          "description": "Key on Custom RTMP Stream. Optional stream number starting from 0 at start followed by comma, e.g 0,myStreamKey",
+          "default": "",
+          "visibleWhen": "$(options:functionID) === 'StreamingSetKey'"
+        },
+        {
+          "id": "username",
+          "type": "textinput",
+          "label": "Username",
+          "description": "Username on Custom RTMP Stream. Optional stream number starting from 0 at start followed by comma, e.g 0,username",
+          "default": "",
+          "visibleWhen": "$(options:functionID) === 'StreamingSetUsername'"
+        },
+        {
+          "id": "password",
+          "type": "textinput",
+          "label": "Password",
+          "description": "Password on Custom RTMP Stream. Optional stream number starting from 0 at start followed by comma, e.g 0,password",
+          "default": "",
+          "visibleWhen": "$(options:functionID) === 'StreamingSetPassword'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 262
+      }
+    },
+    {
+      "id": "snapshot",
+      "name": "Output - Snapshot / Snapshot Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, GUID, or leave blank to Snapshot Output",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Filename",
+          "description": "Leave blank for a Save dialog window, otherwise Filename can specify date, for example mySnapshot {0:dd MMM yyyy}.jpg",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 323
+      }
+    },
+    {
+      "id": "writeDurationToRecordingLog",
+      "name": "Output - Write Recording duration to log",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Tag text",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputActions.ts",
+        "line": 352
+      }
+    },
+    {
+      "id": "overlayFunctions",
+      "name": "Overlay - Functions",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Select Overlay Function",
+          "default": "OverlayInput",
+          "choices": [
+            {
+              "id": "OverlayInput",
+              "label": "Overlay Toggle on Program"
+            },
+            {
+              "id": "PreviewOverlayInput",
+              "label": "Overlay Toggle on Preview"
+            },
+            {
+              "id": "In",
+              "label": " Overlay Transition In"
+            },
+            {
+              "id": "Out",
+              "label": " Overlay Transition Out"
+            },
+            {
+              "id": "Last",
+              "label": "Overlay Last Input On/Off"
+            },
+            {
+              "id": "Off",
+              "label": "Overlay Off"
+            },
+            {
+              "id": "Zoom",
+              "label": "Zoom PIP Overlay to/from fullscreen"
+            },
+            {
+              "id": "OverlayInputAllOff",
+              "label": "All Overlays Off"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:type) === 'OverlayInput' || $(options:type) === 'PreviewOverlayInput' || $(options:type) === 'In'"
+        },
+        {
+          "id": "overlay",
+          "type": "textinput",
+          "label": "Overlay",
+          "description": "1 to 8",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:type) !== 'OverlayInputAllOff'"
+        },
+        {
+          "id": "mix",
+          "type": "multidropdown",
+          "label": "Mix",
+          "default": [1],
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            }
+          ],
+          "visibleWhen": "$(options:type) !== 'OverlayInputAllOff' && $(options:type) !== 'Off' && $(options:type) !== 'Out' && $(options:type) !== 'Zoom' && $(options:type) !== 'PreviewOverlayInput'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/overlayActions.ts",
+        "line": 16
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "dynamic",
+      "name": "General - Dynamic Input or Value",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Select Type",
+          "default": "dynamicInput",
+          "choices": [
+            {
+              "id": "dynamicInput",
+              "label": "Dynamic Input"
+            },
+            {
+              "id": "dynamicValue",
+              "label": "Dynamic Value"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "dropdown",
+          "label": "Select Number",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "1"
+            },
+            {
+              "id": 1,
+              "label": "2"
+            },
+            {
+              "id": 2,
+              "label": "3"
+            },
+            {
+              "id": 3,
+              "label": "4"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/generalFeedbacks.ts",
+        "line": 28
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "outputStatus",
+      "name": "General - Output Status",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "Fullscreen 1",
+          "choices": [
+            {
+              "id": "Fullscreen 1",
+              "label": "Fullscreen 1"
+            },
+            {
+              "id": "Fullscreen 2",
+              "label": "Fullscreen 2"
+            },
+            {
+              "id": "Output 1",
+              "label": "Output 1"
+            },
+            {
+              "id": "Output 2",
+              "label": "Output 2"
+            },
+            {
+              "id": "Output 3",
+              "label": "Output 3"
+            },
+            {
+              "id": "Output 4",
+              "label": "Output 4"
+            },
+            {
+              "id": "Custom",
+              "label": "Use Variable"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "Output",
+          "choices": [
+            {
+              "id": "Output",
+              "label": "Output"
+            },
+            {
+              "id": "Preview",
+              "label": "Preview"
+            },
+            {
+              "id": "MultiView",
+              "label": "MultiView"
+            },
+            {
+              "id": "MultiView2",
+              "label": "MultiView2"
+            },
+            {
+              "id": "Replay",
+              "label": "Replay"
+            },
+            {
+              "id": "Mix",
+              "label": "Mix"
+            },
+            {
+              "id": "Input",
+              "label": "Input"
+            }
+          ]
+        },
+        {
+          "id": "mix",
+          "type": "textinput",
+          "label": "Mix",
+          "description": "Only if Type is set to Mix",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Only if Type is set to Input",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/generalFeedbacks.ts",
+        "line": 74
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "outputNDISRT",
+      "name": "General - Output NDI/OMT/SRT Status",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "Output 1",
+          "choices": [
+            {
+              "id": "Output 1",
+              "label": "Output 1"
+            },
+            {
+              "id": "Output 2",
+              "label": "Output 2"
+            },
+            {
+              "id": "Output 3",
+              "label": "Output 3"
+            },
+            {
+              "id": "Output 4",
+              "label": "Output 4"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "ndi",
+          "choices": [
+            {
+              "id": "ndi",
+              "label": "NDI"
+            },
+            {
+              "id": "omt",
+              "label": "OMT"
+            },
+            {
+              "id": "srt",
+              "label": "SRT"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/generalFeedbacks.ts",
+        "line": 155
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "status",
+      "name": "General - vMix Status",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status Type",
+          "default": "connection",
+          "choicesNote": "Dynamic list (source: ['connection', 'fadeToBlack', 'recording', 'external', 'streaming', 'multiCorder', 'fullscreen', 'playList'].map((id) => ({ id, label: id }))); depends on device or model",
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Stream Feedback Value",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "Any"
+            },
+            {
+              "id": "0",
+              "label": "1"
+            },
+            {
+              "id": "1",
+              "label": "2"
+            },
+            {
+              "id": "2",
+              "label": "3"
+            },
+            {
+              "id": "3",
+              "label": "4"
+            },
+            {
+              "id": "4",
+              "label": "5"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "$(options:status) === 'streaming'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/generalFeedbacks.ts",
+        "line": 201
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "inputPreview",
+      "name": "Tally - Preview state",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            },
+            {
+              "id": "Selected",
+              "label": "Selected"
+            }
+          ]
+        },
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 65280
+        },
+        {
+          "id": "tally",
+          "type": "dropdown",
+          "label": "Layer Tally Indicator",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "None"
+            },
+            {
+              "id": "border",
+              "label": "Border"
+            },
+            {
+              "id": "cornerTL",
+              "label": "Corner Top Left"
+            },
+            {
+              "id": "cornerTR",
+              "label": "Corner Top Right"
+            },
+            {
+              "id": "cornerBL",
+              "label": "Corner Bottom Left"
+            },
+            {
+              "id": "cornerBR",
+              "label": "Corner Bottom Right"
+            },
+            {
+              "id": "full",
+              "label": "Full Background"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/tallyFeedbacks.ts",
+        "line": 34
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "inputLive",
+      "name": "Tally - Program state",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            },
+            {
+              "id": 11,
+              "label": "11"
+            },
+            {
+              "id": 12,
+              "label": "12"
+            },
+            {
+              "id": 13,
+              "label": "13"
+            },
+            {
+              "id": 14,
+              "label": "14"
+            },
+            {
+              "id": 15,
+              "label": "15"
+            },
+            {
+              "id": 16,
+              "label": "16"
+            },
+            {
+              "id": "Selected",
+              "label": "Selected"
+            }
+          ]
+        },
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 16711680
+        },
+        {
+          "id": "tally",
+          "type": "dropdown",
+          "label": "Layer Tally Indicator",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "None"
+            },
+            {
+              "id": "border",
+              "label": "Border"
+            },
+            {
+              "id": "cornerTL",
+              "label": "Corner Top Left"
+            },
+            {
+              "id": "cornerTR",
+              "label": "Corner Top Right"
+            },
+            {
+              "id": "cornerBL",
+              "label": "Corner Bottom Left"
+            },
+            {
+              "id": "cornerBR",
+              "label": "Corner Bottom Right"
+            },
+            {
+              "id": "full",
+              "label": "Full Background"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/tallyFeedbacks.ts",
+        "line": 100
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "overlayStatus",
+      "name": "Tally - Overlay state",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "overlay",
+          "type": "dropdown",
+          "label": "Overlay",
+          "default": "1",
+          "choicesNote": "Dynamic list (source: ['Any', '1', '2', '3', '4', '5', '6', '7', '8', 'Stinger 1', 'Stinger 2', 'Stinger 3', 'Stinger 4', 'Stinger 5', 'Stinger 6', 'Stinger 7', 'Stinger 8'].map(\n            (id, index) => ({\n              id: index.toString(),\n              label: id,\n            }),\n          )); depends on device or model"
+        },
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bgPreview",
+          "type": "colorpicker",
+          "label": "Preview Background Color",
+          "default": 65280
+        },
+        {
+          "id": "bgProgram",
+          "type": "colorpicker",
+          "label": "Program Background Color",
+          "default": 16711680
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/tallyFeedbacks.ts",
+        "line": 166
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "inputState",
+      "name": "Playback - Input Playing/Loop",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "playing",
+          "choices": [
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "loop",
+              "label": "Loop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/playbackFeedbacks.ts",
+        "line": 21
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "videoTimer",
+      "name": "Playback - Video Timer",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Number, Name, or GUID",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "color",
+          "type": "colorpicker",
+          "label": "Text color",
+          "default": 16777215
+        },
+        {
+          "id": "color30",
+          "type": "colorpicker",
+          "label": "Text color under 30s",
+          "default": 16776960
+        },
+        {
+          "id": "color10",
+          "type": "colorpicker",
+          "label": "Text color under 10s",
+          "default": 16711680
+        },
+        {
+          "id": "loop",
+          "type": "checkbox",
+          "label": "Disable color change if looping",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/playbackFeedbacks.ts",
+        "line": 52
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "transition",
+      "name": "Transition - Transition Effect / Duration",
+      "options": [
+        {
+          "id": "number",
+          "type": "textinput",
+          "label": "Transition Number",
+          "description": "1 to 4",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "effect",
+          "type": "dropdown",
+          "label": "Select transition",
+          "default": "Cut",
+          "choicesNote": "Transition names defined in TRANSITIONS (src/utils.ts), e.g. Cut, Fade, Zoom, Wipe, Slide, Fly, CrossZoom, FlyRotate, Cube, CubeZoom, VerticalWipe, VerticalSlide, Merge, WipeReverse, SlideReverse, VerticalWipeReverse, VerticalSlideReverse, Stinger1..4"
+        },
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Transition Duration",
+          "description": "Leave empty for any",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transitionFeedbacks.ts",
+        "line": 15
+      },
+      "feedbackType": "boolean"
+    }
+  ]
+}
