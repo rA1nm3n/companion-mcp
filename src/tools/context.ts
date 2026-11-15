@@ -18,10 +18,12 @@ export interface ToolContext {
   readonly config: AppConfig;
   /** Serializes applied imports and rollbacks. */
   readonly writeQueue: Mutex;
+  /** Serializes Satellite tool calls: they share one fixed DEVICEID, which Companion allows once at a time. */
+  readonly satelliteQueue: Mutex;
 }
 
 export function createContext(config: AppConfig): ToolContext {
-  return { config, writeQueue: new Mutex() };
+  return { config, writeQueue: new Mutex(), satelliteQueue: new Mutex() };
 }
 
 /**

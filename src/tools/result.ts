@@ -1,9 +1,11 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { ConfigError } from '../config.js';
 import { SafetyError } from '../safety/index.js';
+import { SatelliteError } from '../satellite/index.js';
 import { TransportError } from '../transport/index.js';
 
-export type ErrorSource = 'safety' | 'transport' | 'config' | 'input' | 'validation' | 'internal';
+export type ErrorSource =
+  'safety' | 'transport' | 'satellite' | 'config' | 'input' | 'validation' | 'internal';
 
 /** Machine readable error of a tool result (`ok: false`). Never contains a stack trace or a token. */
 export interface ToolFailure {
@@ -52,6 +54,9 @@ export function describeError(error: unknown): ToolFailure {
       source: 'transport',
       ...(Object.keys(details).length === 0 ? {} : { details }),
     };
+  }
+  if (error instanceof SatelliteError) {
+    return { code: error.code, message: error.message, source: 'satellite' };
   }
   if (error instanceof ConfigError) {
     return { code: 'CONFIG_INVALID', message: error.message, source: 'config' };

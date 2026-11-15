@@ -12,28 +12,30 @@ Every tool returns one text content item with JSON.
 ```
 
 - `ok: false` results also set `isError: true`. They never contain a stack trace or a token.
-- `source` is one of `safety`, `transport`, `config`, `input`, `validation`, `internal`. Codes come from `SafetyError` (`WRITE_DISABLED`, `HOST_NOT_ALLOWED`, `SNAPSHOT_INVALID`, ...), `TransportError` (`VERSION_UNSUPPORTED`, `CONNECT_FAILED`, `REMOTE_ERROR`, ...) or the tools (`VALIDATION_FAILED`, `READBACK_MISMATCH`, `REST_TOKEN_MISSING`, ...).
+- `source` is one of `safety`, `transport`, `satellite`, `config`, `input`, `validation`, `internal`. Codes come from `SafetyError` (`WRITE_DISABLED`, `HOST_NOT_ALLOWED`, `SNAPSHOT_INVALID`, ...), `TransportError` (`VERSION_UNSUPPORTED`, `CONNECT_FAILED`, `REMOTE_ERROR`, ...), `SatelliteError` (`SNAPSHOT_TIMEOUT`, `KEY_CHANGED`, `KEY_NOT_FOUND`, `SURFACE_LOCKED`, ...) or the tools (`VALIDATION_FAILED`, `READBACK_MISMATCH`, `REST_TOKEN_MISSING`, ...).
 - Arguments that violate the input schema (unknown key, wrong type, out of range) are rejected by the MCP SDK before the tool runs. That answer is `isError: true` with a plain text message, not the JSON above.
 
 ## Tools
 
-| Tool                         | Purpose                                                                     | Side effects                                                 | Gate                                             |
-| ---------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
-| `companion_catalog_search`   | Search the offline module catalog                                           | none (offline)                                               | none                                             |
-| `companion_catalog_module`   | Actions and feedbacks of one module                                         | none (offline)                                               | none                                             |
-| `companion_catalog_action`   | Full definition of one action or feedback (options, choices, ranges)        | none (offline)                                               | none                                             |
-| `companion_validate_config`  | Validate an export against the format rules and the catalog                 | none (offline)                                               | none                                             |
-| `companion_generate_page`    | Page from a template (`atem`, `videohub`, `vmix`, `birddog`), validated     | none (offline)                                               | none                                             |
-| `companion_build_page`       | Page from a free specification (buttons, actions, feedbacks), validated     | none (offline)                                               | none                                             |
-| `companion_status`           | Reachability, version, REST state, safety configuration (no tokens)         | short read-only connection                                   | host allow-list (nothing is contacted otherwise) |
-| `companion_export`           | Export `full` configuration or `{ page: n }`                                | read-only                                                    | host allow-list, version guard                   |
-| `companion_get_page`         | Read a page back (name and every control)                                   | read-only                                                    | host allow-list, version guard                   |
-| `companion_list_connections` | Connections via REST v2 (secret-looking fields redacted)                    | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
-| `companion_list_surfaces`    | Surfaces via REST v2                                                        | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
-| `companion_import_page`      | Validate, snapshot, import, read back, diff. `dry_run` defaults to **true** | **replaces a page** (or appends); may **create connections** | write gate, host allow-list, version guard       |
-| `companion_rollback`         | Re-import a snapshot of a page. `dry_run` defaults to **true**              | **replaces a page**; may re-create missing connections       | write gate, host allow-list, version guard       |
+| Tool                           | Purpose                                                                     | Side effects                                                 | Gate                                             |
+| ------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| `companion_catalog_search`     | Search the offline module catalog                                           | none (offline)                                               | none                                             |
+| `companion_catalog_module`     | Actions and feedbacks of one module                                         | none (offline)                                               | none                                             |
+| `companion_catalog_action`     | Full definition of one action or feedback (options, choices, ranges)        | none (offline)                                               | none                                             |
+| `companion_validate_config`    | Validate an export against the format rules and the catalog                 | none (offline)                                               | none                                             |
+| `companion_generate_page`      | Page from a template (`atem`, `videohub`, `vmix`, `birddog`), validated     | none (offline)                                               | none                                             |
+| `companion_build_page`         | Page from a free specification (buttons, actions, feedbacks), validated     | none (offline)                                               | none                                             |
+| `companion_status`             | Reachability, version, REST state, safety configuration (no tokens)         | short read-only connection                                   | host allow-list (nothing is contacted otherwise) |
+| `companion_export`             | Export `full` configuration or `{ page: n }`                                | read-only                                                    | host allow-list, version guard                   |
+| `companion_get_page`           | Read a page back (name and every control)                                   | read-only                                                    | host allow-list, version guard                   |
+| `companion_list_connections`   | Connections via REST v2 (secret-looking fields redacted)                    | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
+| `companion_list_surfaces`      | Surfaces via REST v2                                                        | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
+| `companion_import_page`        | Validate, snapshot, import, read back, diff. `dry_run` defaults to **true** | **replaces a page** (or appends); may **create connections** | write gate, host allow-list, version guard       |
+| `companion_rollback`           | Re-import a snapshot of a page. `dry_run` defaults to **true**              | **replaces a page**; may re-create missing connections       | write gate, host allow-list, version guard       |
+| `companion_satellite_snapshot` | Read what every button of the shown page renders (text, color, bitmap)      | registers a virtual surface for the call, removes it again   | host allow-list                                  |
+| `companion_press`              | Press one button. `dry_run` defaults to **true**                            | **a real press triggers the button's actions**               | write gate, host allow-list, press allow-list    |
 
-Button presses are not part of this server yet. Triggers and full imports are intentionally not implemented.
+Triggers and full imports are intentionally not implemented.
 
 ### `companion_generate_page`
 
@@ -90,13 +92,41 @@ Result fields of an applied import: `target_page` (resolved, also for `-1`), `re
 Behaviors measured on Companion 5.1.3 that you should know about:
 
 - An unmapped connection of the file is **created as a new connection** on every import (`atem`, then `atem_2`, ...). Pass `connection_mapping: { "<id in file>": "<existing connection id>" }` to reuse one. The dry run warns about every unmapped connection; `created_connections` lists what an applied import created.
-- Companion assigns new ids to entities and remaps `connectionId`; entities of module connections come back without an empty `children` object. The read-back diff compensates for exactly these two differences and reports everything else.
+- Companion assigns new ids to entities and remaps `connectionId`; entities of module connections come back without an empty `children` object. The read-back diff (`diffReadback`) handles exactly these differences itself: the tool passes the remapping of the import as `connectionIdMap` (a different id than the mapped one is an error) and an absent `children` equals an empty one. Everything else is reported.
 - Imports are serialized inside the server (Companion allows one upload session at a time); parallel calls wait for each other.
 - Appending (`target_page: -1`) has no snapshot. Undo it by deleting the page in Companion.
 
 ### `companion_rollback`
 
 Takes the `snapshot` object exactly as returned by `companion_import_page`. The checksum is verified first (a modified snapshot is `SNAPSHOT_INVALID`); a snapshot taken on another host is refused (`SNAPSHOT_HOST_MISMATCH`). The applied rollback exports the current page first (`pre_rollback_snapshot`, so the rollback can be undone), re-imports the snapshot into the same page number, reusing connections that still exist, and reads back.
+
+### `companion_satellite_snapshot`
+
+Connects as a virtual Stream Deck through the Satellite API (TCP, default port `16622`), waits for a quiet and complete page and returns the grid. Read-only.
+
+| Input                    | Default                               | Meaning                                                                             |
+| ------------------------ | ------------------------------------- | ----------------------------------------------------------------------------------- |
+| `host`, `port`           | host of `COMPANION_URL`, 16622        | Satellite target; the host must be on the allow-list (checked before connecting).   |
+| `deck`                   | `{ keys_total: 32, keys_per_row: 8 }` | Geometry of the virtual surface; only keys inside it are visible.                   |
+| `page_hint`              | unset                                 | Wait until all keys belong to this page. It does **not** switch the page.           |
+| `quiet_ms`, `timeout_ms` | 300, 10000                            | Silence required after the last update; budget for connecting and for the snapshot. |
+| `include_bitmaps`        | `false`                               | Adds `bitmap: { format, base64 }` per key (includes Companion's top bar).           |
+
+Result: `page`, `complete`, `locked`, `deck`, `keys` (`row`, `column`, `key`, `text`, `color`, `text_color`, `font_size`, `key_type`, `empty`, `fingerprint`, optional `bitmap`) and `warnings`. The `fingerprint` ignores bitmaps and can be passed to `companion_press` as `expect_fingerprint`.
+
+The surface starts on **page 1** and keeps its last page when the same device id reconnects. Choosing a page from outside is not implemented (it needs Companion internals); use a page navigation key. The device id is fixed (`mcp-virtual-deck`): Companion keeps one permanent surface entry for it. Calls are serialized because they share that id.
+
+### `companion_press`
+
+Takes `row` and `column` (0-based Companion coordinates on the page the surface shows), `dry_run` (default **true**), optional `expect_fingerprint`, and the connection inputs of the snapshot plus `change_timeout_ms` (default 2000).
+
+1. Dry run: reads the key and returns the plan (`current`, `fingerprint`, `empty`, `locked`, `gate`, `would_send`, `would_be_allowed`). Nothing is sent, and a closed gate is shown in `gate` instead of failing.
+2. Real press (`dry_run: false`): write gate and host allow-list are checked **before** any connection; then the key is read, a locked surface is refused, the press allow-list is checked for the key's `page/row/column`, `expect_fingerprint` is compared (`KEY_CHANGED` on a difference) and KEY-PRESS down and up are sent.
+3. Result: `accepted` (Companion answered OK), `render_changed`, `target_changed`, `page_changed`, `changes`, `before`, `after`. `accepted` is also true for empty keys and `render_changed` can be a false positive on live buttons; **neither proves the intended effect**. Verify that independently (for example a custom variable).
+
+Refusals and failures are `ok: false` with `code`, `message` and `source` (`safety` for `WRITE_DISABLED`, `HOST_NOT_ALLOWED`, `PRESS_NOT_ALLOWED`; `satellite` for `KEY_CHANGED`, `SNAPSHOT_TIMEOUT`, ...).
+
+**Security note:** the Satellite ports of Companion (`16622` TCP, `16623` WebSocket) listen on `0.0.0.0` (or `::`) **without authentication**, even if the admin address is `127.0.0.1`, and cannot be disabled. Anyone who can reach them can read and press buttons. Keep them behind a firewall or a separate network segment and never expose them to an untrusted network. This server only talks to allow-listed hosts and never uses subscriptions (see `docs/satellite.md`).
 
 ## Configuration
 
@@ -105,9 +135,9 @@ Takes the `snapshot` object exactly as returned by `companion_import_page`. The 
 | `COMPANION_URL`                       | `http://127.0.0.1:8000`   | Base URL of Companion. Credentials and path are dropped.                                  |
 | `COMPANION_REST_TOKEN`                | unset                     | REST v2 token (`cpn_...`); only for `list_connections` and `list_surfaces`. Never output. |
 | `COMPANION_MCP_ALLOW_UNKNOWN_VERSION` | `0`                       | `1`/`true` accepts Companion versions other than 5.1.x (the tRPC API is internal).        |
-| `COMPANION_MCP_WRITE`                 | `0`                       | `1`/`true` enables `import_page` and `rollback` with `dry_run: false`.                    |
+| `COMPANION_MCP_WRITE`                 | `0`                       | `1`/`true` enables `import_page`, `rollback` and `press` with `dry_run: false`.           |
 | `COMPANION_MCP_ALLOWED_HOSTS`         | `127.0.0.1,localhost,::1` | Comma separated hosts the server may contact. Ports are ignored.                          |
-| `COMPANION_MCP_PRESS_ALLOW`           | unset                     | `page/row/column` list for button presses (reserved for the Satellite tools).             |
+| `COMPANION_MCP_PRESS_ALLOW`           | unset                     | `page/row/column` list; if set, `companion_press` only presses listed buttons.            |
 
 An invalid environment stops the server with a message on stderr and exit code 1. Diagnostics go to stderr only; stdout belongs to the protocol.
 
@@ -150,6 +180,13 @@ Writes stay off until you add `COMPANION_MCP_WRITE=1` (and, for a Companion on a
 7. `companion_get_page`: independent read-back; `ok` of the import already includes the diff.
 8. `companion_rollback` with the snapshot (dry run first), if the result is not what you want.
 
+Import, look, press:
+
+1. `companion_import_page` (`dry_run: false`) imports the page; `readback.ok` confirms what Companion stored.
+2. `companion_satellite_snapshot` shows what the buttons render; take the `fingerprint` of the key.
+3. `companion_press` with `row`, `column` and `expect_fingerprint` as a dry run: check `gate`, `current` and `would_be_allowed`.
+4. `companion_press` with `dry_run: false` (needs `COMPANION_MCP_WRITE=1`): read `accepted`, `render_changed`, `target_changed`, then verify the effect independently. Only press on equipment you may operate.
+
 ## Tests
 
-`npm test` runs the tools against an in-memory MCP client and a fake Companion built on the shared mock WebSocket server. With `COMPANION_TEST_URL` set (a **throw-away** Companion 5.1.x), `test/tools/integration.test.ts` additionally runs `generate_page(atem)`, `import_page`, `get_page` and `rollback` against the real instance; it replaces page 1 and restores it, and the ATEM page adds a connection.
+`npm test` runs the tools against an in-memory MCP client and a fake Companion built on the shared mock WebSocket server. With `COMPANION_TEST_URL` set (a **throw-away** Companion 5.1.x), `test/tools/integration.test.ts` additionally runs `generate_page(atem)`, `import_page`, `get_page` and `rollback` against the real instance; it replaces page 1 and restores it, and the ATEM page adds a connection. The satellite tools are tested against the mock Satellite server of `test/satellite`; with `COMPANION_TEST_URL` and `COMPANION_TEST_SATELLITE_PORT` (for example `16622`) set, `test/tools/satellite-integration.test.ts` imports the ATEM template, takes a snapshot and checks the press plan and gates on it (no real press on ATEM keys), then presses a key with an Internal action on a test page. Run the integration files one after another (`--no-file-parallelism`); they share page 1.

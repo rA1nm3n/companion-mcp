@@ -12,7 +12,9 @@ const EXPECTED_TOOLS = [
   'import_page',
   'list_connections',
   'list_surfaces',
+  'press',
   'rollback',
+  'satellite_snapshot',
   'status',
   'validate_config',
 ].map((name) => `companion_${name}`);
@@ -42,7 +44,7 @@ describe('tool listing', () => {
     const byName = new Map(tools.map((t) => [t.name, t]));
     for (const name of EXPECTED_TOOLS) {
       const annotations = byName.get(name)?.annotations;
-      if (name.endsWith('import_page') || name.endsWith('rollback')) {
+      if (name.endsWith('import_page') || name.endsWith('rollback') || name.endsWith('press')) {
         expect(annotations).toMatchObject({
           readOnlyHint: false,
           destructiveHint: true,
@@ -54,9 +56,9 @@ describe('tool listing', () => {
     }
   });
 
-  it('advertises dry_run with default true on both write tools', async () => {
+  it('advertises dry_run with default true on all write tools', async () => {
     const { tools } = await h.client.listTools();
-    for (const name of ['companion_import_page', 'companion_rollback']) {
+    for (const name of ['companion_import_page', 'companion_rollback', 'companion_press']) {
       const props = tools.find((t) => t.name === name)?.inputSchema.properties as
         Record<string, { default?: unknown }> | undefined;
       expect(props?.['dry_run']?.default).toBe(true);

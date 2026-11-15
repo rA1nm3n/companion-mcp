@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { ConfigError } from '../../src/config.js';
 import { startStdioServer } from '../../src/server.js';
 
-const EXPECTED_TOOL_COUNT = 13;
+const EXPECTED_TOOL_COUNT = 15;
 
 /** Newline-delimited JSON-RPC over two in-process streams: exactly what the stdio transport does on a real pipe. */
 describe('stdio server (in-process streams)', () => {

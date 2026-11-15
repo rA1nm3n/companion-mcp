@@ -8,7 +8,9 @@ export type DeviationKind =
   | 'missing-property'
   | 'extra-property'
   | 'extra-control'
-  | 'page-name-mismatch';
+  | 'page-name-mismatch'
+  /** A `connectionId` differs but is explained by a consistent 1:1 mapping (inferred, informational). */
+  | 'connection-remapped';
 
 export interface Deviation {
   kind: DeviationKind;
@@ -36,7 +38,30 @@ export interface ReadbackResult {
 export interface DiffOptions {
   /** Report properties present only in the actual data as warnings. Default true. */
   reportExtraProperties?: boolean;
+  /**
+   * Intended entity `connectionId` to the id Companion reports after the import (the `remapping` that
+   * `importSinglePage` returns, e.g. `{ fileId: realId, internal: 'internal', 'bitfocus-companion': 'internal' }`).
+   * A listed id must map to exactly this id; every other value is a `value-mismatch`.
+   */
+  connectionIdMap?: Record<string, string>;
+  /**
+   * Accept a `connectionId` that differs between intended and actual data if all occurrences agree on a
+   * consistent 1:1 mapping (the built-in `internal` target may be shared). Applies to ids that are not listed in
+   * `connectionIdMap`. Each inferred remapping is reported once as a `connection-remapped` warning; a
+   * contradiction stays a `value-mismatch` error. Default true.
+   */
+  inferConnectionIds?: boolean;
 }
+
+interface DiffContext {
+  options: Required<Pick<DiffOptions, 'reportExtraProperties' | 'inferConnectionIds'>>;
+  explicit: Record<string, string>;
+  forward: Map<string, string>;
+  reverse: Map<string, string>;
+}
+
+/** Connection ids that Companion maps to the built-in `internal` connection, never to a module instance. */
+const BUILT_IN_CONNECTIONS = new Set(['internal', 'bitfocus-companion']);
 
 /** Control types Companion adds to every page itself; extra ones in the actual data are not a deviation. */
 const NAVIGATION_TYPES = new Set(['pageup', 'pagenum', 'pagedown']);
@@ -76,12 +101,78 @@ function isEntity(value: JsonObject): boolean {
   return (value['type'] === 'action' || value['type'] === 'feedback') && 'connectionId' in value;
 }
 
+/** An absent `children` and an empty one are the same (measured: module entities come back without it). */
+function isEmptyContainer(value: JsonValue | undefined): boolean {
+  if (Array.isArray(value)) return value.length === 0;
+  return isJsonObject(value) && Object.keys(value).length === 0;
+}
+
+/** Checks the `connectionId` of one entity against the explicit map or the consistent mapping learned so far. */
+function relateConnection(
+  want: string,
+  got: string,
+  path: string,
+  out: Deviation[],
+  ctx: DiffContext,
+): void {
+  const mismatch = (message: string): void => {
+    out.push({
+      kind: 'value-mismatch',
+      severity: 'error',
+      path,
+      message,
+      intended: want,
+      actual: got,
+    });
+  };
+  const explicit = ctx.explicit[want];
+  if (explicit !== undefined) {
+    if (explicit !== got) {
+      mismatch(`connectionId at ${path} is "${got}", the import mapped "${want}" to "${explicit}"`);
+    }
+    return;
+  }
+  if (!ctx.options.inferConnectionIds) {
+    if (want !== got) mismatch(`Value differs at ${path}`);
+    return;
+  }
+  // Built-in ids stay built-in and module connections never become `internal`.
+  if (want !== got && BUILT_IN_CONNECTIONS.has(want) !== (got === 'internal')) {
+    mismatch(`connectionId at ${path}: "${want}" cannot become "${got}"`);
+    return;
+  }
+  const known = ctx.forward.get(want);
+  if (known !== undefined) {
+    if (known !== got) {
+      mismatch(`connectionId at ${path} is "${got}" but "${want}" was mapped to "${known}" before`);
+    }
+    return;
+  }
+  const owner = ctx.reverse.get(got);
+  if (owner !== undefined && owner !== want && got !== 'internal') {
+    mismatch(`connectionId at ${path}: "${got}" already stands for "${owner}", not for "${want}"`);
+    return;
+  }
+  ctx.forward.set(want, got);
+  if (owner === undefined) ctx.reverse.set(got, want);
+  if (want !== got) {
+    out.push({
+      kind: 'connection-remapped',
+      severity: 'warning',
+      path,
+      message: `connectionId "${want}" was stored as "${got}" (consistent mapping inferred)`,
+      intended: want,
+      actual: got,
+    });
+  }
+}
+
 function compare(
   intended: JsonValue,
   actual: JsonValue,
   path: string,
   out: Deviation[],
-  options: Required<DiffOptions>,
+  ctx: DiffContext,
   insideEntity: boolean,
 ): void {
   if (isJsonObject(intended) && isJsonObject(actual)) {
@@ -93,6 +184,11 @@ function compare(
       const want = intended[key];
       const got = actual[key];
       if (want === undefined) continue;
+      if (got === undefined && entity && key === 'children' && isEmptyContainer(want)) continue;
+      if (entity && key === 'connectionId' && typeof want === 'string' && typeof got === 'string') {
+        relateConnection(want, got, here, out, ctx);
+        continue;
+      }
       if (got === undefined) {
         out.push({
           kind: 'missing-property',
@@ -103,14 +199,15 @@ function compare(
         });
         continue;
       }
-      compare(want, got, here, out, options, entity || insideEntity);
+      compare(want, got, here, out, ctx, entity || insideEntity);
     }
     for (const key of Object.keys(actual)) {
       if (key in intended) continue;
       if (entity && (key === 'id' || key === 'upgradeIndex')) continue;
       // Measured: the v16 to v17 import upgrade adds pinnedProperties to layers when the file lacks them.
       if (key === 'pinnedProperties') continue;
-      if (!options.reportExtraProperties) continue;
+      if (entity && key === 'children' && isEmptyContainer(actual[key])) continue;
+      if (!ctx.options.reportExtraProperties) continue;
       const here = `${path}.${key}`;
       out.push({
         kind: 'extra-property',
@@ -140,7 +237,7 @@ function compare(
         actual[i] as JsonValue,
         `${path}.${i}`,
         out,
-        options,
+        ctx,
         insideEntity,
       );
     }
@@ -160,8 +257,9 @@ function compare(
 
 /**
  * Compares the content intended for an import with what Companion reports afterwards. Tolerates the
- * differences measured on Companion 5.1.3: newly assigned entity IDs, `upgradeIndex` inheritance and
- * `pinnedProperties` added by the import upgrade. Everything else is a deviation. A control that is missing
+ * differences measured on Companion 5.1.3: newly assigned entity IDs, `upgradeIndex` inheritance,
+ * `pinnedProperties` added by the import upgrade, remapped entity `connectionId`s (explicit `connectionIdMap` or a
+ * consistent 1:1 mapping) and an empty `children` object that is absent on one side. Everything else is a deviation. A control that is missing
  * after the import is reported as `control-dropped` (Companion drops unknown control types silently).
  */
 export function diffReadback(
@@ -169,8 +267,14 @@ export function diffReadback(
   actual: JsonObject,
   options: DiffOptions = {},
 ): ReadbackResult {
-  const opts: Required<DiffOptions> = {
-    reportExtraProperties: options.reportExtraProperties ?? true,
+  const ctx: DiffContext = {
+    options: {
+      reportExtraProperties: options.reportExtraProperties ?? true,
+      inferConnectionIds: options.inferConnectionIds ?? true,
+    },
+    explicit: options.connectionIdMap ?? {},
+    forward: new Map(),
+    reverse: new Map(),
   };
   const want = extractControls(intended);
   const got = extractControls(actual);
@@ -218,7 +322,7 @@ export function diffReadback(
       continue;
     }
     const before = deviations.length;
-    compare(control, found, path, deviations, opts, false);
+    compare(control, found, path, deviations, ctx, false);
     if (!deviations.slice(before).some((d) => d.severity === 'error')) matched++;
   }
 

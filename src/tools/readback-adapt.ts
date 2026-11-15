@@ -1,9 +1,6 @@
 import { isJsonObject, type JsonObject, type JsonValue } from '../safety/index.js';
 import type { CompanionTrpc } from '../transport/index.js';
 
-/** Connection ids that Companion never remaps to a module instance. */
-const BUILT_IN_CONNECTIONS = new Set(['internal', 'bitfocus-companion']);
-
 /** Reads the `{ fileConnectionId: actualConnectionId }` object that `importSinglePage` returns. */
 export function remappingOf(value: JsonValue): Record<string, string> {
   const result: Record<string, string> = {};
@@ -13,45 +10,6 @@ export function remappingOf(value: JsonValue): Record<string, string> {
     }
   }
   return result;
-}
-
-function isEntity(value: JsonObject): boolean {
-  return (value['type'] === 'action' || value['type'] === 'feedback') && 'connectionId' in value;
-}
-
-function adapt(value: JsonValue, remapping: Record<string, string>): JsonValue {
-  if (Array.isArray(value)) return value.map((entry) => adapt(entry, remapping));
-  if (!isJsonObject(value)) return value;
-  const out: JsonObject = {};
-  const entity = isEntity(value);
-  const original = entity ? value['connectionId'] : undefined;
-  for (const [key, child] of Object.entries(value)) {
-    if (entity && key === 'connectionId' && typeof child === 'string') {
-      out[key] = remapping[child] ?? child;
-    } else if (
-      entity &&
-      key === 'children' &&
-      isJsonObject(child) &&
-      Object.keys(child).length === 0 &&
-      typeof original === 'string' &&
-      !BUILT_IN_CONNECTIONS.has(original)
-    ) {
-      // Measured on 5.1.3: entities of module connections come back without an empty `children` object.
-      continue;
-    } else {
-      out[key] = adapt(child, remapping);
-    }
-  }
-  return out;
-}
-
-/**
- * Prepares the intended export for the read-back diff with two differences that were measured on Companion 5.1.3
- * and are not content changes: entity `connectionId`s are replaced by the ids Companion reports in the import
- * remapping, and an empty `children` object of module entities is not stored. Everything else is compared as is.
- */
-export function adaptIntended(file: JsonObject, remapping: Record<string, string>): JsonObject {
-  return adapt(file, remapping) as JsonObject;
 }
 
 /** Connections of the file that the import created (not in `mapping`), with the id Companion gave them. */

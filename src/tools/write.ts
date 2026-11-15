@@ -20,7 +20,6 @@ import { withCompanion, type ToolContext } from './context.js';
 import { defineTool } from './define.js';
 import { failure, failureFrom, success } from './result.js';
 import {
-  adaptIntended,
   createdConnections,
   existingConnectionIds,
   identityMapping,
@@ -251,10 +250,10 @@ async function applyImport(
       created = createdConnections(config, remapping, mapping);
       const resolvedPage = targetPage === -1 ? await pageCount(client) : targetPage;
       const readback = await client.getPage(resolvedPage);
-      const diff = diffReadback(
-        adaptIntended(config, remapping),
-        readback as unknown as JsonObject,
-      );
+      const diff = diffReadback(config, readback as unknown as JsonObject, {
+        connectionIdMap: remapping,
+        inferConnectionIds: false,
+      });
       const common = {
         dry_run: false,
         target_page: resolvedPage,
@@ -325,10 +324,10 @@ async function applyRollback(
         remapping = remappingOf(result.remapping);
       }
       const readback = await client.getPage(page);
-      const diff = diffReadback(
-        adaptIntended(snapshot.exportFile, remapping),
-        readback as unknown as JsonObject,
-      );
+      const diff = diffReadback(snapshot.exportFile, readback as unknown as JsonObject, {
+        connectionIdMap: remapping,
+        inferConnectionIds: false,
+      });
       const common = {
         dry_run: false,
         target_page: page,
