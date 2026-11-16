@@ -129,6 +129,18 @@
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
+      "moduleId": "arena-osc",
+      "repo": "ElytaM/companion-module-resolume-arena-osc-unofficial",
+      "version": "2.1.9",
+      "baseVersion": "^2.1.2",
+      "lastCommit": "2026-10-10",
+      "kind": "index-only",
+      "manufacturer": "Resolume",
+      "products": ["Arena (OSC only)"],
+      "keywords": ["Protocol", "OSC"],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store; unofficial community module, Arena over OSC only (clip and column slots, encoders, playback feedback, two-machine control, optional clip thumbnails)"
+    },
+    {
       "moduleId": "arkaos-mediamaster",
       "repo": "bitfocus/companion-module-arkaos-mediamaster",
       "version": "2.0.0",
@@ -600,6 +612,30 @@
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
+      "moduleId": "garagecube-madmapper5",
+      "repo": "jb-guedon/companion-module-garagecube-madmapper5",
+      "version": "1.0.0",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-10-20",
+      "kind": "full",
+      "manufacturer": "GarageCube",
+      "products": ["MadMapper 5"],
+      "keywords": ["projection mapping", "video", "led", "dmx", "laser", "osc", "oscquery", "vj"],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store"
+    },
+    {
+      "moduleId": "garagecube-madmapper6",
+      "repo": "jb-guedon/companion-module-garagecube-madmapper6",
+      "version": "1.0.0",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-10-20",
+      "kind": "full",
+      "manufacturer": "GarageCube",
+      "products": ["MadMapper 6"],
+      "keywords": ["projection mapping", "video", "led", "dmx", "laser", "osc", "oscquery", "vj"],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store. Legacy id garagecube-madmapper belongs to the MadMapper 6 module"
+    },
+    {
       "moduleId": "generic-artnet",
       "repo": "bitfocus/companion-module-generic-artnet",
       "version": "3.0.0",
@@ -781,6 +817,18 @@
       "manufacturer": "Luminex",
       "products": ["GigaCore"],
       "keywords": ["Switch", "Luminex", "GigaCore"]
+    },
+    {
+      "moduleId": "madrix-aura",
+      "repo": "bitfocus/companion-module-madrix-aura",
+      "version": "1.0.1",
+      "baseVersion": "~1.14.1",
+      "lastCommit": "2026-10-31",
+      "kind": "full",
+      "manufacturer": "Madrix",
+      "products": ["Aura 2/8/12/32"],
+      "keywords": ["madrix", "aura", "lighting", "http"],
+      "note": "Controls MADRIX Aura hardware nodes over HTTP only; no module exists for MADRIX 5, MADRIX 3 or MADRIX Luna (see noModule). Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
       "moduleId": "modulopi-moduloplayer",
@@ -1164,6 +1212,18 @@
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
+      "moduleId": "resolume-ws",
+      "repo": "chabad360/companion-module-resolume-ws",
+      "version": "0.1.0",
+      "baseVersion": "~1.8.0",
+      "lastCommit": "2024-06-03",
+      "kind": "index-only",
+      "manufacturer": "Resolume",
+      "products": ["Arena (WebSockets)"],
+      "keywords": ["resolume", "arena", "websockets"],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store; manifest repository field names bitfocus/companion-module-resolume-ws. Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
       "moduleId": "ross-carbonite",
       "repo": "a2mSystemes/companion-module-ross-carbonite",
       "version": "0.2.0",
@@ -1399,7 +1459,7 @@
       "version": "0.1.0",
       "baseVersion": "~1.11.2",
       "lastCommit": "2025-01-22",
-      "kind": "index-only",
+      "kind": "full",
       "manufacturer": "Derivative",
       "products": ["Touch Designer"],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
@@ -1522,10 +1582,16 @@
       "note": "Use generic-pjlink if the projector speaks PJLink, otherwise generic-tcp-udp"
     },
     {
-      "device": "Resolume Wire / Avenue (separate module)",
-      "result": "no separate module; Avenue is only mentioned indirectly in the REST types of the Arena module, the manifest names Arena only",
+      "device": "Resolume Wire",
+      "result": "no module found for Resolume Wire",
       "alternatives": ["generic-osc"],
-      "note": "The resolume-arena module may be usable; not verified for Avenue or Wire"
+      "note": "Searched GitHub for companion-module repositories naming Resolume (2026-11-16): resolume-arena (bitfocus), resolume-ws, arena-osc and resolume-redundant (community); none targets Wire"
+    },
+    {
+      "device": "Resolume Avenue (as a separate module)",
+      "result": "no separate module; the resolume-arena module manifest names Arena only ('Resolume Arena 6 & 7 module')",
+      "alternatives": ["generic-osc"],
+      "note": "Avenue appears only in comments of the generated REST types of resolume-arena (src/domain/api.ts: product name 'Arena' or 'Avenue'), so the module may work with Avenue's WebAPI and OSC; not verified"
     },
     {
       "device": "Modulo Kinetic",
@@ -1554,6 +1620,12 @@
       "result": "no separate module",
       "alternatives": ["generic-tcp-udp"],
       "note": "rossvideo-rosstalk and rossvideo-nkrouter may be usable; not verified for Ultrix"
+    },
+    {
+      "device": "MADRIX 5 / MADRIX 3 / MADRIX Luna (software and other hardware than Aura)",
+      "result": "no module found; only madrix-aura exists (MADRIX Aura 2/8/12/32 hardware over HTTP)",
+      "alternatives": ["generic-osc", "generic-artnet", "generic-midi"],
+      "note": "The MADRIX 5 help (help.madrix.com/m5: OSC, DMX-IN and Art-Net remote control, MIDI remote editor) describes these remote inputs; not verified against a running MADRIX and not checked for MADRIX 3 or Luna. GitHub search for companion-module and madrix (2026-11-16) found only madrix-aura (bitfocus and the author's repository verledung/companion-module-madrix-aura)"
     }
   ],
   "unusable": [
@@ -1566,6 +1638,11 @@
       "repo": "bitfocus/companion-module-yamaha-dm",
       "directory": "yamaha-dm",
       "reason": "Manifest id is the template placeholder 'your-module-name'; the repository is an unmodified module template and cannot be addressed as a connection module"
+    },
+    {
+      "repo": "VideoBridgeSolutions/companion-module-resolume-redundant",
+      "directory": "resolume-redundant",
+      "reason": "The repository holds only a README at the inspected commit (30e9980, 2026-10-18); there is no manifest and no module source. Its description names Resolume Arena MAIN + BACKUP redundancy control"
     }
   ]
 }

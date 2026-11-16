@@ -7,12 +7,16 @@ import bmdHyperdeck from './data/bmd-hyperdeck.json' with { type: 'json' };
 import bmdVideohub from './data/bmd-videohub.json' with { type: 'json' };
 import datatonWatchoutJson from './data/dataton-watchout-json.json' with { type: 'json' };
 import datatonWatchout from './data/dataton-watchout.json' with { type: 'json' };
+import garagecubeMadmapper5 from './data/garagecube-madmapper5.json' with { type: 'json' };
+import garagecubeMadmapper6 from './data/garagecube-madmapper6.json' with { type: 'json' };
 import internal from './data/internal.json' with { type: 'json' };
 import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
+import madrixAura from './data/madrix-aura.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
 import studiocoastVmix from './data/studiocoast-vmix.json' with { type: 'json' };
+import touchDesigner from './data/touch-designer.json' with { type: 'json' };
 import indexData from './data/_index.json' with { type: 'json' };
 import {
   IndexFileSchema,
@@ -45,12 +49,16 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'bmd-videohub': bmdVideohub,
   'dataton-watchout': datatonWatchout,
   'dataton-watchout-json': datatonWatchoutJson,
+  'garagecube-madmapper5': garagecubeMadmapper5,
+  'garagecube-madmapper6': garagecubeMadmapper6,
   internal,
   'luminex-gigacore': luminexGigacore,
+  'madrix-aura': madrixAura,
   'panasonic-ptz': panasonicPtz,
   'resolume-arena': resolumeArena,
   'shure-wireless': shureWireless,
   'studiocoast-vmix': studiocoastVmix,
+  'touch-designer': touchDesigner,
 };
 
 let indexCache: IndexFile | undefined;

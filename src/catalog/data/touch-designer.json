@@ -1,0 +1,118 @@
+{
+  "moduleId": "touch-designer",
+  "name": "Touch Designer",
+  "repo": "patopesto/companion-module-touch-designer",
+  "version": "0.1.0",
+  "baseVersion": "~1.11.2",
+  "lastCommit": "2025-01-22",
+  "lastCommitSha": "e596ff3",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "operator_parameter",
+      "name": "Operator Parameter",
+      "description": "Send an operator parameter",
+      "options": [
+        {
+          "id": "op_name",
+          "type": "textinput",
+          "label": "Operator Name",
+          "default": ""
+        },
+        {
+          "id": "parameter",
+          "type": "textinput",
+          "label": "Operator Parameter",
+          "default": ""
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "int",
+          "choices": [
+            {
+              "id": "int",
+              "label": "Number"
+            },
+            {
+              "id": "float",
+              "label": "Float"
+            },
+            {
+              "id": "string",
+              "label": "String"
+            },
+            {
+              "id": "bool",
+              "label": "Boolean"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 38
+      }
+    },
+    {
+      "id": "expression",
+      "name": "Expression",
+      "description": "Send a python expression",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 92
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "operator_parameter",
+      "name": "Operator Parameter",
+      "description": "Listen for an operator parameter value",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "op_name",
+          "type": "textinput",
+          "label": "Operator Name",
+          "default": ""
+        },
+        {
+          "id": "parameter",
+          "type": "textinput",
+          "label": "Operator Parameter",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 6
+      }
+    }
+  ],
+  "notes": [
+    "Transport is OSC over UDP to a host and port set in the connection config; there is no reply channel and no state is read back from TouchDesigner.",
+    "operator_parameter sends the OSC address /op/<Operator Name>/param/<Parameter> with one argument whose OSC type follows the Type dropdown (int, float, string, bool). For bool the module sends T when the value parses to a number greater than 0, otherwise F (source marks this as not ideal, actions.js:26). The receiving side (an OSC In operator or script in the TouchDesigner project) is not part of this module.",
+    "expression sends the OSC address /python with one string argument (a Python expression); the receiving TouchDesigner project must evaluate it. Not verified against a running TouchDesigner.",
+    "The feedback operator_parameter is boolean and reads only a local cache that the operator_parameter action fills when it is pressed (state.js); it does not reflect the real parameter value in TouchDesigner and is true for any non-empty cached value. Without a prior action press for the same operator and parameter it is false.",
+    "The module parses companion variables in the text inputs inside the callbacks (parseVariablesInString) although the option definitions do not set useVariables, so the catalog does not set useVariables.",
+    "Built on @companion-module/base ~1.11.2: options do not support expressions. The module defines placeholder variables only (variables.js), no real ones.",
+    "Complete list of the two actions and one feedback in the source at the inspected commit."
+  ]
+}

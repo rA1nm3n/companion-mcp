@@ -129,6 +129,12 @@ Files are formatted with Prettier (`npx prettier --write src/catalog`).
 - ATEM `dskAuto` uses the option id `downstreamKeyerId`; the other DSK actions use `key`.
 - Option ids for the same concept differ between action and feedback (Videohub feedbacks use
   `output`, the actions use `destination`).
+- The MadMapper modules (`garagecube-madmapper5`, `garagecube-madmapper6`) expose only a subset in
+  their default `light` edition; entries outside it carry an `availability` note. Their column
+  dropdowns list `current` and columns 1 to 16 but accept any number (`allowCustom`), catalogued with
+  `allowInvalidValues` so the validator does not reject other columns.
+- Third-party modules (outside the bitfocus organization) are catalogued like the others; the
+  module `notes` say so.
 - ATEM and several others hide the M/E or DSK picker on single-M/E or single-DSK models and ignore
   its value.
 

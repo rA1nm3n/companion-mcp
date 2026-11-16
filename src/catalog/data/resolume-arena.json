@@ -7,14 +7,18 @@
   "lastCommit": "2026-10-30",
   "lastCommitSha": "193e843",
   "status": "verified-sample",
-  "coverage": "partial",
+  "coverage": "complete",
   "notes": [
     "REST/WebSocket actions are registered in src/actions/<area>/<area>Actions.ts, one file per action; the registry key (for example triggerClip) differs from the factory name (connectClip) in some cases. The catalog uses the registry key.",
     "Layer, column, clip, deck and layer group positions are text inputs with useVariables and Regex.NUMBER, not dropdowns; indices are 1-based.",
     "Actions starting with osc work over OSC only; the other actions need the REST/WebSocket connection and fall back to OSC only where the source implements it (for example triggerClip, selectClip).",
     "Effect actions come in five scopes (layer, clip, clipList, group, composition); the effect and parameter dropdowns are filled from the running composition and are listed as dynamic choices.",
     "layerActions.ts also registers bypassLayerGroup (imported from the layer-group folder); the same key is registered in layerGroupActions.ts with the same factory.",
-    "Built on @companion-module/base ~1.10.0: no expressions; variables only through useVariables text inputs."
+    "Built on @companion-module/base ~1.10.0: no expressions; variables only through useVariables text inputs.",
+    "Effect feedbacks (effectBypassed<Scope> boolean, effectParameter<Scope> advanced, five scopes like the effect actions) are built with the same option helpers as the effect actions (buildScopedEffectOptions, buildParamNameOptions in src/actions/effect/effect-action-options.ts); their option lists are therefore the scoped effect fields, plus the parameter picker (collection, paramChoice_*, paramName) for the parameter feedbacks. Effect dropdown choices are dynamic (ids '<scope>:<layer>:<column>:<group>:<effect index>' plus '__manual__'), see src/domain/effects/effect-utils.ts buildEffectChoices.",
+    "Registry cross-check: all 107 action keys and all 64 feedback keys registered in the get*Actions/get*Feedbacks files of src/actions and src/feedbacks are in this file (compared by script on 2026-11-16; option ids, types, labels, defaults, choice ids, limits, useVariables and regex of the 97 non-effect actions and feedbacks agree with the source). Variables, presets and the connection settings are not catalogued. 'complete' means every registered action and feedback is listed; dynamic dropdown contents remain choicesNote only.",
+    "Connection settings (src/config-fields.ts): host (default 127.0.0.1), REST/WebSocket on or off (useRest, default on) with Resolume WebAPI port (default 8080), optional SSL, OSC send port (default 7000), optional OSC listener (useOscListener, default off) with receive port (default 7001). API feedbacks are only registered with the REST connection; oscProgressBar and oscActiveColumn only with the OSC listener (src/index.ts setupFeedback).",
+    "Product scope: the manifest names Arena only ('Resolume Arena 6 & 7 module'); Avenue appears only in comments of the generated REST types (src/domain/api.ts), so Avenue is not documented as supported. There is no module for Resolume Wire in the surveyed sources. Community modules exist outside the bitfocus organization and are not catalogued here: chabad360/companion-module-resolume-ws (id resolume-ws, Arena over WebSockets, base ~1.8.0, last commit 2024-06-03), ElytaM/companion-module-resolume-arena-osc-unofficial (id arena-osc, Arena over OSC only, base ^2.1.2, version 2.1.9, last commit 2026-10-10) and VideoBridgeSolutions/companion-module-resolume-redundant (MAIN + BACKUP Arena redundancy; only a README was present in the inspected clone, so no module source to read)."
   ],
   "actions": [
     {
@@ -2675,7 +2679,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -2731,7 +2735,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -3073,7 +3077,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -3138,7 +3142,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -3291,7 +3295,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -3347,7 +3351,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -3491,7 +3495,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -3538,7 +3542,7 @@
         {
           "id": "effectChoice",
           "type": "dropdown",
-          "label": "Effect",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
           "default": "__manual__",
           "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
         },
@@ -4880,17 +4884,20 @@
         {
           "id": "runningColor",
           "type": "colorpicker",
-          "label": "Running color (green)"
+          "label": "Running color (green)",
+          "default": 51200
         },
         {
           "id": "warningColor",
           "type": "colorpicker",
-          "label": "Warning color (orange)"
+          "label": "Warning color (orange)",
+          "default": 16747520
         },
         {
           "id": "criticalColor",
           "type": "colorpicker",
-          "label": "Critical color (red)"
+          "label": "Critical color (red)",
+          "default": 16711680
         }
       ],
       "provenance": {
@@ -4913,18 +4920,658 @@
         {
           "id": "bg_active",
           "type": "colorpicker",
-          "label": "Background: Active"
+          "label": "Background: Active",
+          "default": 51200
         },
         {
           "id": "text_active",
           "type": "colorpicker",
-          "label": "Text: Active"
+          "label": "Text: Active",
+          "default": 16777215
         }
       ],
       "provenance": {
         "file": "src/feedbacks/osc-transport/oscTransportFeedbacks.ts",
         "line": 121
       },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedLayer",
+      "name": "Effect Bypassed (Layer)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:8",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterLayer",
+      "name": "Effect Parameter Value (Layer)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:13",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedClip",
+      "name": "Effect Bypassed (Clip)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:9",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterClip",
+      "name": "Effect Parameter Value (Clip)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:14",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedClipList",
+      "name": "Effect Bypassed (Clip — from list)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:10",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterClipList",
+      "name": "Effect Parameter Value (Clip — from list)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:15",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedGroup",
+      "name": "Effect Bypassed (Layer Group)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:11",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterGroup",
+      "name": "Effect Parameter Value (Layer Group)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:16",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedComposition",
+      "name": "Effect Bypassed (Composition)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:12",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterComposition",
+      "name": "Effect Parameter Value (Composition)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:17",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
       "feedbackType": "advanced"
     }
   ]
