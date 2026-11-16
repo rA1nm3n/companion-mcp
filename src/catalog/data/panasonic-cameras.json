@@ -1,0 +1,3653 @@
+{
+  "moduleId": "panasonic-cameras",
+  "name": "panasonic-cameras",
+  "repo": "bitfocus/companion-module-panasonic-cameras",
+  "version": "2.1.0",
+  "baseVersion": "~2.1.2",
+  "lastCommit": "2026-11-05",
+  "lastCommitSha": "27e9f8c",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "ptMove",
+      "name": "Pan/Tilt - Move",
+      "options": [
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "11",
+          "choices": [
+            {
+              "id": "11",
+              "label": "Stop"
+            },
+            {
+              "id": "21",
+              "label": "➡ Right"
+            },
+            {
+              "id": "01",
+              "label": "⬅ Left"
+            },
+            {
+              "id": "12",
+              "label": "⬆ Up"
+            },
+            {
+              "id": "10",
+              "label": "⬇ Down"
+            },
+            {
+              "id": "22",
+              "label": "⬈ Up Right"
+            },
+            {
+              "id": "02",
+              "label": "⬉ Up Left"
+            },
+            {
+              "id": "00",
+              "label": "⬋ Down Left"
+            },
+            {
+              "id": "20",
+              "label": "⬊ Down Right"
+            }
+          ]
+        },
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity on speed change",
+          "default": false
+        }
+      ],
+      "availability": "Registered when the model has a pan/tilt head (caps.panTilt). Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 422
+      }
+    },
+    {
+      "id": "home",
+      "name": "Pan/Tilt - Home Position",
+      "options": [],
+      "availability": "Registered when the model has a pan/tilt head. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 468
+      }
+    },
+    {
+      "id": "ptLimit",
+      "name": "Pan/Tilt - Movement Range Limit",
+      "description": "Switches the movement range limit for one direction. Each direction is independent, and the camera reports every change back.",
+      "options": [
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Tilt Up"
+            },
+            {
+              "id": "2",
+              "label": "Tilt Down"
+            },
+            {
+              "id": "3",
+              "label": "Pan Left"
+            },
+            {
+              "id": "4",
+              "label": "Pan Right"
+            }
+          ]
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Limit",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.panTilt and caps.panTiltLimit. Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 471
+      }
+    },
+    {
+      "id": "ptSpeed",
+      "name": "Pan/Tilt - Speed",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "pt",
+          "choices": [
+            {
+              "id": "pt",
+              "label": "Pan + Tilt"
+            },
+            {
+              "id": "p",
+              "label": "Pan"
+            },
+            {
+              "id": "t",
+              "label": "Tilt"
+            }
+          ]
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Raise"
+            },
+            {
+              "id": -1,
+              "label": "Lower"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Speed",
+          "default": 25,
+          "min": 0,
+          "max": 49,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Range 0 to 49. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 49,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when the model has a pan/tilt head. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 492
+      }
+    },
+    {
+      "id": "zoom",
+      "name": "Lens - Zoom",
+      "options": [
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Stop"
+            },
+            {
+              "id": 1,
+              "label": "⬆ In"
+            },
+            {
+              "id": -1,
+              "label": "⬇ Out"
+            }
+          ]
+        },
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity on speed change",
+          "default": false
+        }
+      ],
+      "availability": "Registered when caps.zoom.jog is defined. Models: all models except AW-HE2, AW-UB50.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 362
+      }
+    },
+    {
+      "id": "zoomControl",
+      "name": "Lens - Zoom Speed Control",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Speed Change",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set Speed"
+            },
+            {
+              "id": 1,
+              "label": "Raise Speed"
+            },
+            {
+              "id": -1,
+              "label": "Lower Speed"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Direct speed setting",
+          "default": 0,
+          "min": -49,
+          "max": 49,
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 7,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.zoom.jog.cmd is defined (the jog command carries direction and magnitude). Models: all models except AW-HE2, AW-UB10, AW-UB50, AK-UB300.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 380
+      }
+    },
+    {
+      "id": "zoomSpeed",
+      "name": "Lens - Zoom Speed",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Speed Change",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set Speed"
+            },
+            {
+              "id": 1,
+              "label": "Raise Speed"
+            },
+            {
+              "id": -1,
+              "label": "Lower Speed"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Speed setting",
+          "default": 25,
+          "min": 0,
+          "max": 49,
+          "description": "Range and default depend on the model: 0 to 49 with default 25 where the jog command carries the speed; 0 to 9 with default 9 (constrainRange(25, 0, 9)) on series UB300, UB10, where the camera has its own tempo setting (LZS).",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 7,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.zoom.jog is defined. Models: all models except AW-HE2, AW-UB50.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 397
+      }
+    },
+    {
+      "id": "focus",
+      "name": "Lens - Focus",
+      "options": [
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Stop"
+            },
+            {
+              "id": 1,
+              "label": "⬆ Far"
+            },
+            {
+              "id": -1,
+              "label": "⬇ Near"
+            }
+          ]
+        },
+        {
+          "id": "liveSpeed",
+          "type": "checkbox",
+          "label": "Adjust the velocity on speed change",
+          "default": false
+        }
+      ],
+      "availability": "Registered when caps.focus.jog is defined. Models: all models except AW-HE2, AW-UE4.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 362
+      }
+    },
+    {
+      "id": "focusControl",
+      "name": "Lens - Focus Speed Control",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Speed Change",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set Speed"
+            },
+            {
+              "id": 1,
+              "label": "Raise Speed"
+            },
+            {
+              "id": -1,
+              "label": "Lower Speed"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Direct speed setting",
+          "default": 0,
+          "min": -49,
+          "max": 49,
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 7,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.focus.jog.cmd is defined (the jog command carries direction and magnitude). Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AK-UB300.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 380
+      }
+    },
+    {
+      "id": "focusSpeed",
+      "name": "Lens - Focus Speed",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Speed Change",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set Speed"
+            },
+            {
+              "id": 1,
+              "label": "Raise Speed"
+            },
+            {
+              "id": -1,
+              "label": "Lower Speed"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Speed setting",
+          "default": 25,
+          "min": 0,
+          "max": 49,
+          "description": "Range and default depend on the model: 0 to 49 with default 25 where the jog command carries the speed; 0 to 9 with default 9 (constrainRange(25, 0, 9)) on series UB300, UB10, UB50, where the camera has its own tempo setting (LFS).",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 7,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.focus.jog is defined. Models: all models except AW-HE2, AW-UE4.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 397
+      }
+    },
+    {
+      "id": "focusFollow",
+      "name": "Lens - Follow Focus",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Focus setting",
+          "default": 1365,
+          "min": 0,
+          "max": 2730,
+          "step": 10,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 10,
+          "min": 10,
+          "max": 2730,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.focus.position is defined (AXF over the PTZ transport, LFP over the cam transport on AK-UBX100, AW-UB10 and AW-UB50). Models: all models except AW-HE2, AW-UE4, AK-UB300.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 562
+      }
+    },
+    {
+      "id": "focusMode",
+      "name": "Lens - Focus Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Manual"
+            },
+            {
+              "id": "1",
+              "label": "Auto"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.focusAuto. Models: all models except AW-HE2, AW-UE4, AW-UE5, AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 571
+      }
+    },
+    {
+      "id": "focusPushAuto",
+      "name": "Lens - Focus Push Auto",
+      "options": [],
+      "availability": "Registered when caps.focusPushAuto. Models: all models except AW-HE2, AW-UE4, AW-UE5, AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 575
+      }
+    },
+    {
+      "id": "ois",
+      "name": "Lens - Image Stabilization Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_OIS_OTHER [0=OFF; 1=ON] for series Other, CX350, HE40, HE130, UE50, UE70, UE150, UE150A, POVCAM; ENUM_OIS_HR140 [0=OFF; 1=OIS; 2=Dynamic I.S. System] for series HR140; ENUM_OIS_UE80 [0=OFF; 1=OIS (STABLE); 2=OIS (PAN/TILT)] for series UE80; ENUM_OIS_UE100 [0=OFF; 1=OIS; 2=Hybrid (STABLE); 3=Hybrid (PAN/TILT)] for series UE100, UR100; ENUM_OIS_UE160 [0=OFF; 1=OIS (STABLE); 2=OIS (PAN/TILT); 3=Hybrid (STABLE); 4=Hybrid (PAN/TILT)] for series UE160.",
+          "valueType": "string",
+          "valuePattern": "^[0-9]$",
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.ois. Models: all models except AW-HE2, AW-HE20, AW-HE50, AW-HE60, AW-HE120, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20, AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 579
+      }
+    },
+    {
+      "id": "iris",
+      "name": "Exposure - Iris",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Iris setting",
+          "default": 1365,
+          "min": 0,
+          "max": 2730,
+          "step": 30,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 30,
+          "min": 30,
+          "max": 2730,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.iris.position is defined (AXI over the PTZ transport; the box cameras AK-UBX100, AK-UB300, AW-UB10 and AW-UB50 have iris but no position). Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 590
+      }
+    },
+    {
+      "id": "irisVolume",
+      "name": "Exposure - Iris Volume",
+      "description": "ORV is the manual iris volume, a set-point on its own scale (0 to 1023, sent as 3 hex digits).",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Iris volume",
+          "default": 511,
+          "min": 0,
+          "max": 1023,
+          "step": 10,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 10,
+          "min": 10,
+          "max": 1023,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.irisVolume. Models: AK-UBX100, AK-UB300, AW-UB10, AW-UB50.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 601
+      }
+    },
+    {
+      "id": "irisMode",
+      "name": "Exposure - Iris Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Manual"
+            },
+            {
+              "id": "1",
+              "label": "Auto"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.irisAuto. Models: all models except AW-UE4.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 610
+      }
+    },
+    {
+      "id": "filter",
+      "name": "Exposure - ND Filter",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_FILTER_OTHER [0=Clear (Through); 1=1/4 ND; 2=1/16 ND; 3=1/64 ND; 4=1/8 ND; 8=AUTO ND] for series Other; ENUM_FILTER_3 [0=Clear (Through); 1=1/4 ND; 2=1/16 ND; 3=1/64 ND] for series CX350, HE120, UBX100, UB300, UE100, UE150, UE150A, UE160, POVCAM; ENUM_FILTER_2 [0=Clear (Through); 3=1/64 ND; 4=1/8 ND] for series HE130, HR140; ENUM_FILTER_3A [0=Clear (Through); 1=1/4 ND; 2=1/16 ND; 3=1/64 ND; 8=AUTO ND] for series UE70, UE80, UR100.",
+          "valueType": "string",
+          "valuePattern": "^[0-8]$",
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.filter. Models: all models except AW-HE2, AW-HE20, AW-HE35, AW-HE38, AW-HE40, AW-HE48, AW-HE50, AW-HE58, AW-HE60, AW-HE65, AW-HE70, AW-HN38, AW-HN40, AW-HN65, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20, AW-UE30, AW-UE40, AW-UE50.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 614
+      }
+    },
+    {
+      "id": "shutter",
+      "name": "Exposure - Shutter",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_SHUTTER_ADV [0=OFF; 1=Step; 2=Synchro Scan; 3=ELC] for series Other, UE50, UE80, UE100, UR100, UE150, UE150A, UE160; ENUM_SHUTTER_HE40 [0=OFF; 3=Step 1/100 (59.94Hz) or 1/120 (50Hz); 5=Step 1/250; 6=Step 1/500; 7=Step 1/1000; 8=Step 1/2000; 9=Step 1/4000; A=Step 1/10000; B=Syncro Scan] for series HE40, HE50, UE70; ENUM_SHUTTER_HE120 [0=OFF; 3=Step 1/100 (59.94Hz) or 1/120 (50Hz); 5=Step 1/250; 6=Step 1/500; 7=Step 1/1000; 8=Step 1/2000; 9=Step 1/4000; A=Step 1/10000; B=Syncro Scan; C=ELC] for series HE120; ENUM_SHUTTER_HE130 [0=OFF; 2=Step 1/60; 3=Step 1/100; 4=Step 1/120; 5=Step 1/250; 6=Step 1/500; 7=Step 1/1000; 8=Step 1/2000; 9=Step 1/4000; A=Step 1/10000; B=Syncro Scan; C=ELC; D=Step 1/24; E=Step 1/25; F=Step 1/30] for series HE130, HR140; ENUM_SHUTTER_ADV_UE20 [0=OFF; 1=Step; 2=Synchro Scan] for series UBX100, UE20; ENUM_SHUTTER_ADV_UE4 [0=OFF; 1=Step] for series UE5, UE4; ENUM_SHUTTER_POVCAM [00=Auto; 74=Step 1/2; 75=Step 1/3 (23.98p, 50Hz only); 76=Step 1/4 (59.94Hz, 29.97p only); 77=Step 1/6 (23.98p, 50Hz only); 78=Step 1/8 (59.94Hz, 29.97p only); 79=Step 1/12 (23.98p, 50Hz only); 7A=Step 1/15 (59.94Hz, 29.97p only); 7B=Step 1/24 (23.98p only); 7C=Step 1/25 (50Hz only); 7D=Step 1/30 (59.94Hz, 29.97p only); 7E=Step 1/48 (23.98p only); 7F=Step 1/50 (29.97p, 23.98p, 50Hz only); 80=Step 1/60; 81=Step 1/100; 82=Step 1/120 (59.94Hz, 29.97p, 23.98p only); 83=Step 1/125 (50Hz only); 84=Step 1/180; 85=Step 1/250; 86=Step 1/350; 87=Step 1/500; 88=Step 1/750; 89=Step 1/1000; 8A=Step 1/1500; 8B=Step 1/2000; 8C=Step 1/3000; 8D=Step 1/4000; 8E=Step 1/8000; FF=Syncro Scan] for series POVCAM. The command differs per series: OSH (HE40, HE50, UE70, HE120, HE130, HR140), OSJ:03 (Other, UE5, UE4, UE20, UE50, UE80, UE100, UR100, UE150, UE150A, UE160, UBX100) or OSK:08 (POVCAM).",
+          "valueType": "string",
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.shutter. Models: all models except AW-HE2, AW-UB10, AW-UB50, AK-UB300, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 620
+      }
+    },
+    {
+      "id": "shutterStepUp",
+      "name": "Exposure - Shutter Step Up",
+      "options": [],
+      "availability": "Registered when caps.shutter.inc and caps.shutter.dec are defined (OSJ:04/OSJ:05 shutter series; not the OSH or OSK:08 series). Models: Other, AK-UBX100, AW-UE5, AW-UE4, AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 630
+      }
+    },
+    {
+      "id": "shutterStepDown",
+      "name": "Exposure - Shutter Step Down",
+      "options": [],
+      "availability": "Registered when caps.shutter.inc and caps.shutter.dec are defined. Models: Other, AK-UBX100, AW-UE5, AW-UE4, AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 631
+      }
+    },
+    {
+      "id": "nightMode",
+      "name": "Exposure - Night Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.night. Models: all models except AW-HE2, AW-HE20, AW-HE120, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 636
+      }
+    },
+    {
+      "id": "gain",
+      "name": "Image - Gain",
+      "description": "Two option shapes. Models with caps.gain.inc (AW-UB10, AW-UB50, command OSL:25 with :p / :m) get only the op dropdown with choices 1 = Increase and -1 = Decrease (default 1). All other models with caps.gain.cmd get the Set/Toggle/Next/Previous shape recorded here; the set dropdown has no fixed default (its default is the first id of the model list).",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_GAIN_CX350 (Auto(80), -6..42 dB step 1, plus Manual(81)) for series Other, CX350; ENUM_GAIN_HE40 (ids 2 hex digits = dB+8: Auto(80), 0..48 dB step 3) for series HE40, UE70; ENUM_GAIN_HE50 (ids 2 hex digits = dB+8: Auto(80), 0..18 dB step 3) for series HE50; ENUM_GAIN_HE120 (Auto(80), 0..18 dB step 1) for series HE120; ENUM_GAIN_HE130 (Auto(80), 0..36 dB step 1) for series HE130; ENUM_GAIN_HR140 (Auto(80), 0..42 dB step 1) for series HR140; ENUM_GAIN_UBX100 (Auto(80), -6..18 dB step 3) for series UBX100; ENUM_GAIN_UB300 [01=LOW; 04=MID; 08=HIGH; 06=S.GAIN1; 0C=S.GAIN2; 0E=S.GAIN3] for series UB300; ENUM_GAIN_UE4 (no Auto; 0..42 dB step 3) for series UE5, UE4; ENUM_GAIN_UE100 (Auto(80), 0..42 dB step 1) for series UE20, UE50, UE80, UE100, UR100; ENUM_GAIN_UE150 (Auto(80), -3..42 dB step 1) for series UE150, UE150A; ENUM_GAIN_UE160 (Auto(80), -6..12 dB step 1) for series UE160; ENUM_GAIN_POVCAM (Auto(80), 0..30 dB step 1) for series POVCAM.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{2}$",
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "optionsComplete": false,
+      "availability": "Registered when caps.gain.inc (UB10, UB50) or caps.gain.cmd (all other models with gain); not the AW-HE2. Models: all models except AW-HE2.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 644
+      }
+    },
+    {
+      "id": "chromaPhase",
+      "name": "Image - Chroma Phase",
+      "description": "Bipolar level centred on zero, sent to OSJ:0B (OSK:03 on POVCAM) as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Setting",
+          "default": 0,
+          "min": -31,
+          "max": 31,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±31, step 1: Other, UE50, UE80, UE100, UR100, UE150, UE150A, POVCAM. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 62,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.chromaPhase. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 669
+      }
+    },
+    {
+      "id": "chromaLevel",
+      "name": "Image - Chroma Level",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_CHROMA_LEVEL_3 (ids 2 hex digits = value+3: -3..+3) for series Other, HE40, HE50, HE120, UE70; ENUM_CHROMA_PCT_99 (OFF(00) plus -99%..+99% as 2 hex digits = pct+0x80) for series CX350, UE50, UE80, UE100, UR100, UE150, UE150A; ENUM_CHROMA_LEVEL_HE2 (ids 00..06 for -5,-3,-1,0,+1,+3,+5) for series HE2; ENUM_CHROMA_PCT_40 (OFF(00) plus -99%..+40% as 2 hex digits = pct+0x80) for series HE130, HR140, UB300, UE160; ENUM_CHROMA_PCT_UBX100 (OFF(00) plus -100%..+80% as 2 hex digits = pct+0x80) for series UBX100; ENUM_CHROMA_LEVEL_10 (ids 2 hex digits = value+3: 0..+10) for series UE5, UE4, UE20; ENUM_CHROMA_PCT_POVCAM (-70%..+30% as 2 hex digits = pct+0x80, no OFF step) for series POVCAM. Command OCG, OSD:B0 or OSK:02 (POVCAM) depending on the series.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{2}$",
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.chromaLevel.cmd is defined. Models: all models except AW-UB10, AW-UB50.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 658
+      }
+    },
+    {
+      "id": "dnr",
+      "name": "Image - Digital Noise Reduction",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_DNR [00=Off; 01=Low; 02=High] for series Other, HE40, HE50, HE120, HE130, HR140, UE5, UE4, UE20, UE50, UE70, UE80, UE100, UR100, UE150, UE150A; ENUM_OFF_ON [0=OFF; 1=ON] for series UBX100, UB300, UE160; ENUM_NR_LEVEL_7 (ids 2 hex digits = level+0x80: -7..+7) for series POVCAM. Command OSD:3A (OSK:05 on POVCAM).",
+          "valueType": "string",
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.dnr.dropdown is defined. Models: all models except AW-HE2, AW-UB10, AW-UB50, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 679
+      }
+    },
+    {
+      "id": "drs",
+      "name": "Image - Dynamic Range Stretch",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_DRS [0=Off; 1=Low; 2=Mid; 3=High] for series Other, HE120, HE130, HR140, UE50, UE80, UE100, UR100, UE150, UE150A, POVCAM; ENUM_OFF_ON [0=OFF; 1=ON] for series HE2, UE5, UE4, UE20; ENUM_DRS_OFF_LOW_HIGH [0=Off; 1=Low; 3=High] for series HE40, HE50, UE70. All lists start with id 0 (Off), which is the default.",
+          "valueType": "string",
+          "valuePattern": "^[0-3]$",
+          "visibleWhen": "$(options:op) == \"s\"",
+          "default": "0"
+        }
+      ],
+      "availability": "Registered when caps.drs.dropdown is defined. Models: all models except AW-UB10, AW-UB50, AW-UE160, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 690
+      }
+    },
+    {
+      "id": "ped",
+      "name": "Image - Pedestal",
+      "description": "Bipolar level centred on zero, sent to OSJ:0F, OTD, OTP or OSG:4A depending on the series as offset + value. The step field has min and default = the step of the model (recorded: 1, other models 1/3), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -200,
+          "max": 200,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±200, step 1: Other, CX350, UBX100, UE50, UE80, UE100, UR100, UE150, UE150A, UE160; ±30, step 3: HE40, HE50, UE70; ±150, step 1: HE120, HE130, HR140; ±99, step 1: UB300; ±15, step 1: UB10, UB50, POVCAM; ±10, step 1: UE20. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 400,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.pedestal.cmd is defined. Models: all models except AW-HE2, AW-UE4, AW-UE5.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 696
+      }
+    },
+    {
+      "id": "pedRed",
+      "name": "Image - Red Pedestal",
+      "description": "Bipolar level centred on zero, sent to the red pedestal command of the series as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -800,
+          "max": 800,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±150, step 1: Other, HE120; ±100, step 1: CX350, HE130, HR140, UE100, UR100, UE150, UE150A; ±800, step 1: UBX100, UB300, UE160. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 1600,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorPedestal.cmd.red is defined. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-HE120, AW-HE130, AW-HN130, AW-HR140, AK-UBX100, AK-UB300, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 714
+      }
+    },
+    {
+      "id": "gainRed",
+      "name": "Image - Red Gain",
+      "description": "Bipolar level centred on zero, sent to the red gain command of the series as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -1000,
+          "max": 1000,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±150, step 1: Other, HE120, HE130, HR140; ±200, step 1: CX350, UB10, UB50, UE50, UE80, UE100, UR100, UE150, UE150A; ±30, step 1: HE40, HE50, UE20, UE70, POVCAM; ±1000, step 1: UBX100, UB300, UE160. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 2000,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorGain.cmd.red is defined. Models: all models except AW-HE2, AW-UE4, AW-UE5.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 724
+      }
+    },
+    {
+      "id": "pedBlue",
+      "name": "Image - Blue Pedestal",
+      "description": "Bipolar level centred on zero, sent to the blue pedestal command of the series as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -800,
+          "max": 800,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±150, step 1: Other, HE120; ±100, step 1: CX350, HE130, HR140, UE100, UR100, UE150, UE150A; ±800, step 1: UBX100, UB300, UE160. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 1600,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorPedestal.cmd.blue is defined. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-HE120, AW-HE130, AW-HN130, AW-HR140, AK-UBX100, AK-UB300, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 714
+      }
+    },
+    {
+      "id": "gainBlue",
+      "name": "Image - Blue Gain",
+      "description": "Bipolar level centred on zero, sent to the blue gain command of the series as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -1000,
+          "max": 1000,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±150, step 1: Other, HE120, HE130, HR140; ±200, step 1: CX350, UB10, UB50, UE50, UE80, UE100, UR100, UE150, UE150A; ±30, step 1: HE40, HE50, UE20, UE70, POVCAM; ±1000, step 1: UBX100, UB300, UE160. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 2000,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorGain.cmd.blue is defined. Models: all models except AW-HE2, AW-UE4, AW-UE5.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 724
+      }
+    },
+    {
+      "id": "pedGreen",
+      "name": "Image - Green Pedestal",
+      "description": "Bipolar level centred on zero, sent to the green pedestal command of the series as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -800,
+          "max": 800,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±100, step 1: CX350, UE100, UR100, UE150, UE150A; ±800, step 1: UBX100, UE160. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 1600,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorPedestal.cmd.green is defined. Models: AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AK-UBX100, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 714
+      }
+    },
+    {
+      "id": "gainGreen",
+      "name": "Image - Green Gain",
+      "description": "Bipolar level centred on zero, sent to the green gain command of the series as offset + value. The step field has min and default = the step of the model (recorded: 1), max = 2 * limit of the model.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Level",
+          "default": 0,
+          "min": -1000,
+          "max": 1000,
+          "step": 1,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (range, step of the set field): ±1000, step 1: UBX100, UE160. The widest range is recorded as min/max. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 2000,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorGain.cmd.green is defined. Models: AK-UBX100, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 724
+      }
+    },
+    {
+      "id": "whiteBalanceMode",
+      "name": "Image - White Balance Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "choicesNote": "Per series: ENUM_WHITEBALANCE [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 9=VAR] for series Other, HE40, HE50, HE120, HE130, HR140, UE5, UE4, UE20, UE50, UE70, UE80, UE100, UR100, UE150, UE150A, UE160; ENUM_WHITEBALANCE_CX350 [0=ATW; 1=AWC A; 2=AWC B; 3=VAR; 4=Preset 3200K; 5=Preset 5600K] for series CX350; ENUM_WHITEBALANCE_HE2 [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 6=Preset 4500K; 7=Preset 6000K; 8=Preset 2800K] for series HE2; ENUM_WHITEBALANCE_UB50 [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 9=VAR; F=Other] for series UB10, UB50; ENUM_WHITEBALANCE_POVCAM [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 9=VAR; E=ATW Lock] for series POVCAM. All lists start with id 0 (ATW), which is the default.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]$",
+          "visibleWhen": "$(options:op) == \"s\"",
+          "default": "0"
+        }
+      ],
+      "availability": "Registered when caps.whiteBalance.dropdown is defined (not AK-UBX100 and AK-UB300, where caps.whiteBalance is only true). Models: all models except AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 736
+      }
+    },
+    {
+      "id": "whiteBalanceExecAWB",
+      "name": "Image - Execute AWC/AWB",
+      "options": [],
+      "availability": "Registered when caps.whiteBalance is truthy. Models: all models.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 746
+      }
+    },
+    {
+      "id": "whiteBalanceExecABB",
+      "name": "Image - Execute ABC/ABB",
+      "options": [],
+      "availability": "Registered when caps.blackBalance. Models: all models except AW-HE2, AW-HE20, AW-HE50, AW-HE60, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 750
+      }
+    },
+    {
+      "id": "colorTemperature",
+      "name": "Image - Color Temperature",
+      "description": "One registered id with option shapes that depend on the model, see the options. For the index shape the set dropdown has default 000 (first id).",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choicesNote": "Three shapes. (1) Index series (HE40, UE70, HE130, HR140, POVCAM): ids 's' Set, 't' Toggle, 1 Next, -1 Previous. (2) Series with a settable advanced range (Other, CX350, UE50, UE80, UE100, UR100, UE150, UE150A, UE160, UB10, UB50): ids 's' Set, 1 Increase, -1 Decrease, default 's'. (3) AK-UB300 (advanced without a set command): only 1 Increase and -1 Decrease, default 1."
+        },
+        {
+          "id": "set",
+          "type": "other",
+          "rawType": "dropdown (index series) or number (advanced series)",
+          "label": "Setting / Color Temperature [K]",
+          "description": "Index series: dropdown with string ids (3 hex digits, see availability). Advanced series with a set command: number, default 3200, step 20, min/max 2000 to 15000 (AW-UB10, AW-UB50: 2500 to 10000), sent as 5 hex digits plus ':0'. Index lists: ENUM_COLOR_TEMPERATURE_LINEAR (HE40, UE70; ids 000..04B = 2400K + index*100K, 76 steps), ENUM_COLOR_TEMPERATURE_NONLINEAR (HE130, HR140; ids 000..078, 121 irregular steps 2000K to 15000K), ENUM_COLOR_TEMPERATURE_POVCAM (the same 121-step grid with 14 differing values).",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Steps",
+          "default": 1,
+          "min": 1,
+          "max": 10,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Count of the camera notches (OSI:1E / OSI:1F take a count of 1 to A hex, not a Kelvin delta). Max is 10 on series with a settable range. Not present on AK-UB300 (it steps one notch).",
+          "visibleWhen": "$(options:op) != \"s\""
+        }
+      ],
+      "optionsComplete": false,
+      "availability": "Registered when caps.colorTemperature.index or caps.colorTemperature.advanced is defined. Models: all models except AW-HE2, AW-HE20, AW-HE50, AW-HE60, AW-HE120, AW-UE4, AW-UE5, AW-UE20, AK-UBX100.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 754
+      }
+    },
+    {
+      "id": "shootingMode",
+      "name": "Image - Shooting Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Normal"
+            },
+            {
+              "id": "1",
+              "label": "High Sens."
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.shootingMode (command OSI:30). Models: AK-UBX100, AK-UB300, AW-UE100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 798
+      }
+    },
+    {
+      "id": "presetMem",
+      "name": "Preset - Memory Operation",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "R",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "R",
+              "label": "Recall / Play"
+            },
+            {
+              "id": "M",
+              "label": "Memorize / Save"
+            },
+            {
+              "id": "C",
+              "label": "Clear / Delete"
+            }
+          ]
+        },
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true
+        }
+      ],
+      "availability": "Registered when caps.preset is set (100 presets; AW-HE2: 9). Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 813
+      }
+    },
+    {
+      "id": "presetResetSelectedCompletedState",
+      "name": "Preset - Reset Selected / Completed State",
+      "options": [],
+      "availability": "Registered when caps.preset is set. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 837
+      }
+    },
+    {
+      "id": "presetRecallScope",
+      "name": "Preset - Recall Scope",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Preset Recall Scope",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Mode A - Pan, Tilt, Zoom, Focus, Iris, Gain, White Balance"
+            },
+            {
+              "id": "1",
+              "label": "Mode B - Pan, Tilt, Zoom, Focus, Iris"
+            },
+            {
+              "id": "2",
+              "label": "Mode C - Pan, Tilt, Zoom, Focus"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.preset and caps.presetScope (AW-HE2 and AW-UE4/UE5 have presets but no scope). Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 849
+      }
+    },
+    {
+      "id": "presetClearAll",
+      "name": "Preset - Clear All",
+      "description": "Wipes all stored preset memories on the camera (100; AW-HE2: 9). This cannot be undone. Requires the confirmation option to be checked to take effect.",
+      "options": [
+        {
+          "id": "confirm",
+          "type": "checkbox",
+          "label": "I understand this will instantly clear all presets",
+          "default": false
+        }
+      ],
+      "availability": "Registered when caps.preset is set. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 859
+      }
+    },
+    {
+      "id": "presetName",
+      "name": "Preset - Name",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set"
+            },
+            {
+              "id": "reset",
+              "label": "Reset to Default"
+            },
+            {
+              "id": "resetAll",
+              "label": "Reset All to Default"
+            }
+          ]
+        },
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"resetAll\""
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": "",
+          "useVariables": false,
+          "visibleWhen": "$(options:op) == \"set\"",
+          "description": "The name is sent as at most 15 characters from A-Z, a-z, 0-9, underscore and space (other characters are removed, padded with spaces)."
+        },
+        {
+          "id": "confirm",
+          "type": "checkbox",
+          "label": "I understand this will instantly reset all preset names",
+          "default": false,
+          "visibleWhen": "$(options:op) == \"resetAll\""
+        }
+      ],
+      "availability": "Registered when caps.preset and caps.presetNames. Models: AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 881
+      }
+    },
+    {
+      "id": "presetSpeedTime",
+      "name": "Preset - Recall Velocity",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Speed / Time",
+          "choicesNote": "Ids are 3 characters. '000' = Speed Max, then Speed 30 down to Speed 1 with id String(min(250 + 25 * s, 999)) (Speed 30 = '999', Speed 29 = '975', ..., Speed 1 = '275'). Models with caps.presetTime (Other, UE50, UE80, UE100, UR100, UE150, UE150A, UE160) additionally offer 'Time 99s' down to 'Time 1s' with the whole seconds as 3 uppercase hex digits ('063' .. '001'). Default is '000'.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{3}$",
+          "visibleWhen": "$(options:op) == \"s\"",
+          "default": "000"
+        }
+      ],
+      "availability": "Registered when caps.presetSpeed (the list includes the time entries when caps.presetTime is set). Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 934
+      }
+    },
+    {
+      "id": "presetSpeedTable",
+      "name": "Preset - Recall Speed Table",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Slow"
+            },
+            {
+              "id": "2",
+              "label": "Fast"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.presetSpeed. Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 946
+      }
+    },
+    {
+      "id": "presetSpeedTimeUnit",
+      "name": "Preset - Recall Velocity Unit",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Next"
+            },
+            {
+              "id": -1,
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Speed"
+            },
+            {
+              "id": "1",
+              "label": "Time"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.presetTime. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 957
+      }
+    },
+    {
+      "id": "presetTime",
+      "name": "Preset - Recall Time",
+      "options": [
+        {
+          "id": "val",
+          "type": "number",
+          "label": "Time Seconds",
+          "default": 1,
+          "min": 1,
+          "max": 99
+        }
+      ],
+      "availability": "Registered when caps.presetTime. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 966
+      }
+    },
+    {
+      "id": "autotrackingMode",
+      "name": "Auto Tracking - Mode",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.trackingAuto. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE150A.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 991
+      }
+    },
+    {
+      "id": "autotrackingAngle",
+      "name": "Auto Tracking - Angle",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Full Body"
+            },
+            {
+              "id": "2",
+              "label": "Upper Body"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.trackingAuto. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE150A.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 999
+      }
+    },
+    {
+      "id": "autotrackingStartStop",
+      "name": "Auto Tracking - Start/Stop Tracking",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Stop"
+            },
+            {
+              "id": "1",
+              "label": "Start"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.trackingAuto. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE150A.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1007
+      }
+    },
+    {
+      "id": "audioVolumeLevel",
+      "name": "Audio - Volume Level",
+      "description": "The set field uses the widest range over all models; the step size of the set field and the step field is 3 on AW-UE20/UE50/UE80/UE100/UE150/UE150A, 1 on the others.",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Audio Channel",
+          "default": 0,
+          "choicesNote": "Ids are numbers 0-based, labels Ch 1..Ch n, list cut to the model channel count (1, 2 or 4; see description of the action).",
+          "valueType": "number",
+          "min": 0,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": 1,
+              "label": "Increase"
+            },
+            {
+              "id": -1,
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "number",
+          "label": "Volume Level (dB)",
+          "default": 0,
+          "min": -40,
+          "max": 20,
+          "integer": true,
+          "allowInvalidValues": true,
+          "description": "Per series (channels, range, step): Other: 2 ch, -40 to 20 dB, step 1; HR140: 4 ch, -40 to 12 dB, step 1; UE20: 1 ch, -36 to 12 dB, step 3; UE50: 2 ch, -36 to 12 dB, step 3; UE80: 2 ch, -36 to 12 dB, step 3; UE100: 1 ch, -36 to 12 dB, step 3; UR100: 2 ch, -30 to 20 dB, step 1; UE150: 1 ch, -36 to 12 dB, step 3; UE150A: 1 ch, -36 to 12 dB, step 3; UE160: 2 ch, -40 to 20 dB, step 1. Values outside the range are constrained to it; an unreadable value takes no action.",
+          "visibleWhen": "$(options:op) == \"s\""
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step size",
+          "default": 1,
+          "min": 1,
+          "max": 60,
+          "integer": true,
+          "allowInvalidValues": true,
+          "visibleWhen": "$(options:op) != \"s\"",
+          "description": "Step field limits per model: default and min = the step of the model (1 or 3), max = range width (max - min of the model)."
+        }
+      ],
+      "availability": "Registered when caps.audioVolumeLevel. Models: Other, AW-HR140, AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1022
+      }
+    },
+    {
+      "id": "power",
+      "name": "System - Power",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.power. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1055
+      }
+    },
+    {
+      "id": "restart",
+      "name": "System - Restart",
+      "description": "Restarts the camera. Requires valid credentials with administrator privileges.",
+      "options": [],
+      "availability": "Registered when caps.restart. Models: all models except AW-HE2, AW-HE50, AW-HE60, AW-HE120, AW-HE130, AW-HN130, AW-HR140, AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1059
+      }
+    },
+    {
+      "id": "tally",
+      "name": "System - Red Tally",
+      "description": "Registered under the name 'System - Red Tally' (command TLR over the cam transport) on models with caps.tally2; on the other models with caps.tally it is registered under the name 'System - Tally' (legacy PTZ tally, command DA).",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.tally. Models: all models except AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1071
+      }
+    },
+    {
+      "id": "tally2",
+      "name": "System - Green Tally",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.tally and caps.tally2. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AK-UBX100, AK-UB300, AW-UE5, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1072
+      }
+    },
+    {
+      "id": "tally3",
+      "name": "System - Yellow Tally",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.tally, caps.tally2 and caps.tally3. Models: Other, AK-UBX100, AW-UE5, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1075
+      }
+    },
+    {
+      "id": "colorbar",
+      "name": "System - Color Bar",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.colorbar. Models: all models.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1084
+      }
+    },
+    {
+      "id": "installPosition",
+      "name": "System - Installation Position",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Desktop"
+            },
+            {
+              "id": "1",
+              "label": "Hanging"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.install. Models: all models except AW-HE2, AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1088
+      }
+    },
+    {
+      "id": "sdCardRec",
+      "name": "System - SD Card Recording Control",
+      "description": "Web transport: sdctrl?save=start or sdctrl?save=end.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.recordSD. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-HE35, AW-HE38, AW-HE40, AW-HE48, AW-HE58, AW-HE65, AW-HE70, AW-HN38, AW-HN40, AW-HN65, AW-HE42, AW-HE68, AW-HE75, AW-UE63, AW-UE65, AW-UE70, AW-UN70, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1098
+      }
+    },
+    {
+      "id": "srtStreamCtrl",
+      "name": "Streaming - SRT Caller Control",
+      "description": "Web transport: srt_ctrl?cmd=start or srt_ctrl?cmd=stop.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.streamSRT. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1107
+      }
+    },
+    {
+      "id": "tsStreamCtrl",
+      "name": "Streaming - MPEG-TS Output Control",
+      "description": "Web transport: ts_ctrl?cmd=start or ts_ctrl?cmd=stop.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.streamTS. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1111
+      }
+    },
+    {
+      "id": "rtmpStreamCtrl",
+      "name": "Streaming - RTMP Push Control",
+      "description": "Web transport: rtmp_ctrl?cmd=start or rtmp_ctrl?cmd=stop.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "s",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "s",
+              "label": "Set"
+            },
+            {
+              "id": "t",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "set",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ],
+          "visibleWhen": "$(options:op) == \"s\""
+        }
+      ],
+      "availability": "Registered when caps.streamRTMP. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-UE5, AW-UE4, AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1115
+      }
+    },
+    {
+      "id": "customCommand",
+      "name": "Custom Command",
+      "description": "Sends a custom command to the camera. This enables operations that are not (yet) covered by this module. Please read the public protocol specifications for details!",
+      "options": [
+        {
+          "id": "dest",
+          "type": "dropdown",
+          "label": "Target",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Cam"
+            },
+            {
+              "id": 1,
+              "label": "PTZ"
+            },
+            {
+              "id": 2,
+              "label": "Web"
+            }
+          ]
+        },
+        {
+          "id": "cmd",
+          "type": "textinput",
+          "label": "Command (without leading # for PTZ commands)",
+          "default": ""
+        }
+      ],
+      "availability": "Registered for all models.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1118
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "error",
+      "name": "System - Error Condition",
+      "description": "Indicates if an error condition currently exists",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.error or caps.errorCamera. Models: all models except AW-HE2, AW-HE20, AW-UE4, AW-UE5, AW-UE20, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 78
+      }
+    },
+    {
+      "id": "powerState",
+      "name": "System - Power State",
+      "description": "Indicates if the camera is currently fully powered",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.power. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 89
+      }
+    },
+    {
+      "id": "colorbarState",
+      "name": "System - Color Bar State",
+      "description": "Indicates if the color bar is currently enabled",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.colorbar. Models: all models.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 97
+      }
+    },
+    {
+      "id": "tallyState",
+      "name": "System - Red Tally State",
+      "description": "Indicates if the red Tally is currently active",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.tally. Models: all models except AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 106
+      }
+    },
+    {
+      "id": "tally2State",
+      "name": "System - Green Tally State",
+      "description": "Indicates if the green Tally is currently active",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.tally2. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AK-UBX100, AK-UB300, AW-UE5, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 114
+      }
+    },
+    {
+      "id": "tally3State",
+      "name": "System - Yellow Tally State",
+      "description": "Indicates if the yellow Tally is currently active",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.tally3. Models: Other, AK-UBX100, AW-UE5, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 123
+      }
+    },
+    {
+      "id": "installState",
+      "name": "System - Install Position",
+      "description": "Indicates if the selected mounting position is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Position",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Desktop"
+            },
+            {
+              "id": "1",
+              "label": "Hanging"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.install. Models: all models except AW-HE2, AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 132
+      }
+    },
+    {
+      "id": "liveImage",
+      "name": "System - Live Image",
+      "description": "Provides the current camera image as the button background, refreshed periodically",
+      "options": [],
+      "feedbackType": "advanced",
+      "availability": "Registered when caps.imageTransmission (snapshot via view.cgi?action=snapshot, or camera?resolution=320 on AW-HE130 and AW-HR140). Models: all models except AW-HE50, AW-HE60, AW-HE120, AW-UB10, AW-UB50, AK-UB300.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 142
+      }
+    },
+    {
+      "id": "ptLimit",
+      "name": "Pan/Tilt - Movement Range Limit",
+      "description": "Indicates if the movement range is currently limited in the selected direction",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Tilt Up"
+            },
+            {
+              "id": "2",
+              "label": "Tilt Down"
+            },
+            {
+              "id": "3",
+              "label": "Pan Left"
+            },
+            {
+              "id": "4",
+              "label": "Pan Right"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.panTiltLimit. Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 161
+      }
+    },
+    {
+      "id": "focusMode",
+      "name": "Lens - Focus Mode Auto",
+      "description": "Indicates if Auto Focus is currently enabled",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.focusAuto. Models: all models except AW-HE2, AW-UE4, AW-UE5, AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 174
+      }
+    },
+    {
+      "id": "irisMode",
+      "name": "Lens - Iris Mode Auto",
+      "description": "Indicates if Auto Iris is currently enabled",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.irisAuto. Models: all models except AW-UE4.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 182
+      }
+    },
+    {
+      "id": "oisMode",
+      "name": "Lens - Image Stabilization",
+      "description": "Indicates if the selected image stabilization mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Per series: ENUM_OIS_OTHER [0=OFF; 1=ON] for series Other, CX350, HE40, HE130, UE50, UE70, UE150, UE150A, POVCAM; ENUM_OIS_HR140 [0=OFF; 1=OIS; 2=Dynamic I.S. System] for series HR140; ENUM_OIS_UE80 [0=OFF; 1=OIS (STABLE); 2=OIS (PAN/TILT)] for series UE80; ENUM_OIS_UE100 [0=OFF; 1=OIS; 2=Hybrid (STABLE); 3=Hybrid (PAN/TILT)] for series UE100, UR100; ENUM_OIS_UE160 [0=OFF; 1=OIS (STABLE); 2=OIS (PAN/TILT); 3=Hybrid (STABLE); 4=Hybrid (PAN/TILT)] for series UE160.",
+          "valueType": "string",
+          "valuePattern": "^[0-9]$",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.ois. Models: all models except AW-HE2, AW-HE20, AW-HE50, AW-HE60, AW-HE120, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20, AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 190
+      }
+    },
+    {
+      "id": "zoomControl",
+      "name": "Lens - Zoom Control",
+      "description": "Indicates if Zoom is currently in operation",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.zoom.jog.cmd is defined. Models: all models except AW-HE2, AW-UB10, AW-UB50, AK-UB300.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 200
+      }
+    },
+    {
+      "id": "autotrackingMode",
+      "name": "Auto Tracking - On/Off",
+      "description": "Indicates if Auto Tracking is enabled",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.trackingAuto. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE150A.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 210
+      }
+    },
+    {
+      "id": "autotrackingAngle",
+      "name": "Auto Tracking - Angle",
+      "description": "Indicates if the selected angle is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "State",
+          "default": "2",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Full Body"
+            },
+            {
+              "id": "2",
+              "label": "Upper Body"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.trackingAuto. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE150A.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 216
+      }
+    },
+    {
+      "id": "autotrackingStatus",
+      "name": "Auto Tracking - Status",
+      "description": "Indicates if the selected status is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Not Tracking"
+            },
+            {
+              "id": "1",
+              "label": "Tracking"
+            },
+            {
+              "id": "2",
+              "label": "Lost"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.trackingAuto. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE150A.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 225
+      }
+    },
+    {
+      "id": "presetSpeedTime",
+      "name": "Preset - Recall Speed/Time",
+      "description": "Indicates if the selected preset recall velocity is currently set",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Speed / Time",
+          "choicesNote": "Same list as the action 'presetSpeedTime': '000' = Speed Max, Speed 30..1 (ids 999, 975 .. 275), and on models with caps.presetTime also 'Time 99s'..'Time 1s' (3 hex digits). Default is '000'.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{3}$",
+          "default": "000"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.preset. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 238
+      }
+    },
+    {
+      "id": "presetRecallScope",
+      "name": "Preset - Recall Scope",
+      "description": "Indicates if the selected preset recall scope is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Mode A - Pan, Tilt, Zoom, Focus, Iris, Gain, White Balance"
+            },
+            {
+              "id": "1",
+              "label": "Mode B - Pan, Tilt, Zoom, Focus, Iris"
+            },
+            {
+              "id": "2",
+              "label": "Mode C - Pan, Tilt, Zoom, Focus"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.preset and caps.presetScope. Models: all models except AW-HE2, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 247
+      }
+    },
+    {
+      "id": "presetSelected",
+      "name": "Preset - Selected / Active",
+      "description": "Indicates if the selected preset is currently active (last selected)",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.preset. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 256
+      }
+    },
+    {
+      "id": "presetComplete",
+      "name": "Preset - Recall Completion Notification",
+      "description": "Indicates if the last recall to the selected preset is completed",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.preset. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 269
+      }
+    },
+    {
+      "id": "presetMemory",
+      "name": "Preset - Memory State",
+      "description": "Indicates if the selected preset memory is in use",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.preset. Models: all models except AW-UB10, AW-UB50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 282
+      }
+    },
+    {
+      "id": "presetThumbnail",
+      "name": "Preset - Thumbnail",
+      "description": "Provides the thumbnail of the selected preset as the button background image",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true
+        }
+      ],
+      "feedbackType": "advanced",
+      "availability": "Registered when caps.preset and caps.presetThumbnails. Models: AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 296
+      }
+    },
+    {
+      "id": "presetName",
+      "name": "Preset - Name",
+      "description": "Provides the preset name stored in the camera as the button text",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Preset #",
+          "default": "00",
+          "valueType": "numeric",
+          "valuePattern": "^[0-9]{2}$",
+          "min": 0,
+          "max": 99,
+          "choicesNote": "Ids are 0-based zero-padded preset numbers '00'..'99', labels 'Preset 1'..'Preset 100'; the list is cut to the number of presets of the model (100, AW-HE2: 9 so '00'..'08'). Expressions yield an unpadded number, hence allowInvalidValues; the module constrains it to the valid range.",
+          "allowInvalidValues": true
+        }
+      ],
+      "feedbackType": "advanced",
+      "availability": "Registered when caps.preset and caps.presetNames. Models: AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 311
+      }
+    },
+    {
+      "id": "filter",
+      "name": "Exposure - ND Filter",
+      "description": "Indicates if the selected ND filter is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Filter",
+          "choicesNote": "Per series: ENUM_FILTER_OTHER [0=Clear (Through); 1=1/4 ND; 2=1/16 ND; 3=1/64 ND; 4=1/8 ND; 8=AUTO ND] for series Other; ENUM_FILTER_3 [0=Clear (Through); 1=1/4 ND; 2=1/16 ND; 3=1/64 ND] for series CX350, HE120, UBX100, UB300, UE100, UE150, UE150A, UE160, POVCAM; ENUM_FILTER_2 [0=Clear (Through); 3=1/64 ND; 4=1/8 ND] for series HE130, HR140; ENUM_FILTER_3A [0=Clear (Through); 1=1/4 ND; 2=1/16 ND; 3=1/64 ND; 8=AUTO ND] for series UE70, UE80, UR100. All lists start with id 0 (Clear), which is the default.",
+          "valueType": "string",
+          "valuePattern": "^[0-8]$",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.filter. Models: all models except AW-HE2, AW-HE20, AW-HE35, AW-HE38, AW-HE40, AW-HE48, AW-HE50, AW-HE58, AW-HE60, AW-HE65, AW-HE70, AW-HN38, AW-HN40, AW-HN65, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20, AW-UE30, AW-UE40, AW-UE50.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 330
+      }
+    },
+    {
+      "id": "shutter",
+      "name": "Exposure - Shutter",
+      "description": "Indicates if the selected shutter mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Per series: ENUM_SHUTTER_ADV [0=OFF; 1=Step; 2=Synchro Scan; 3=ELC] for series Other, UE50, UE80, UE100, UR100, UE150, UE150A, UE160; ENUM_SHUTTER_HE40 [0=OFF; 3=Step 1/100 (59.94Hz) or 1/120 (50Hz); 5=Step 1/250; 6=Step 1/500; 7=Step 1/1000; 8=Step 1/2000; 9=Step 1/4000; A=Step 1/10000; B=Syncro Scan] for series HE40, HE50, UE70; ENUM_SHUTTER_HE120 [0=OFF; 3=Step 1/100 (59.94Hz) or 1/120 (50Hz); 5=Step 1/250; 6=Step 1/500; 7=Step 1/1000; 8=Step 1/2000; 9=Step 1/4000; A=Step 1/10000; B=Syncro Scan; C=ELC] for series HE120; ENUM_SHUTTER_HE130 [0=OFF; 2=Step 1/60; 3=Step 1/100; 4=Step 1/120; 5=Step 1/250; 6=Step 1/500; 7=Step 1/1000; 8=Step 1/2000; 9=Step 1/4000; A=Step 1/10000; B=Syncro Scan; C=ELC; D=Step 1/24; E=Step 1/25; F=Step 1/30] for series HE130, HR140; ENUM_SHUTTER_ADV_UE20 [0=OFF; 1=Step; 2=Synchro Scan] for series UBX100, UE20; ENUM_SHUTTER_ADV_UE4 [0=OFF; 1=Step] for series UE5, UE4; ENUM_SHUTTER_POVCAM [00=Auto; 74=Step 1/2; 75=Step 1/3 (23.98p, 50Hz only); 76=Step 1/4 (59.94Hz, 29.97p only); 77=Step 1/6 (23.98p, 50Hz only); 78=Step 1/8 (59.94Hz, 29.97p only); 79=Step 1/12 (23.98p, 50Hz only); 7A=Step 1/15 (59.94Hz, 29.97p only); 7B=Step 1/24 (23.98p only); 7C=Step 1/25 (50Hz only); 7D=Step 1/30 (59.94Hz, 29.97p only); 7E=Step 1/48 (23.98p only); 7F=Step 1/50 (29.97p, 23.98p, 50Hz only); 80=Step 1/60; 81=Step 1/100; 82=Step 1/120 (59.94Hz, 29.97p, 23.98p only); 83=Step 1/125 (50Hz only); 84=Step 1/180; 85=Step 1/250; 86=Step 1/350; 87=Step 1/500; 88=Step 1/750; 89=Step 1/1000; 8A=Step 1/1500; 8B=Step 1/2000; 8C=Step 1/3000; 8D=Step 1/4000; 8E=Step 1/8000; FF=Syncro Scan] for series POVCAM. The default is the first id of the model list (0, or 00 on POVCAM).",
+          "valueType": "string"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.shutter. Models: all models except AW-HE2, AW-UB10, AW-UB50, AK-UB300, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 340
+      }
+    },
+    {
+      "id": "nightMode",
+      "name": "Exposure - Night Mode",
+      "description": "Indicates if Night Mode is currently enabled",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.night. Models: all models except AW-HE2, AW-HE20, AW-HE120, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 350
+      }
+    },
+    {
+      "id": "gain",
+      "name": "Image - Gain",
+      "description": "Indicates if the selected gain mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Per series: ENUM_GAIN_CX350 (Auto(80), -6..42 dB step 1, plus Manual(81)) for series Other, CX350; ENUM_GAIN_HE40 (ids 2 hex digits = dB+8: Auto(80), 0..48 dB step 3) for series HE40, UE70; ENUM_GAIN_HE50 (ids 2 hex digits = dB+8: Auto(80), 0..18 dB step 3) for series HE50; ENUM_GAIN_HE120 (Auto(80), 0..18 dB step 1) for series HE120; ENUM_GAIN_HE130 (Auto(80), 0..36 dB step 1) for series HE130; ENUM_GAIN_HR140 (Auto(80), 0..42 dB step 1) for series HR140; ENUM_GAIN_UBX100 (Auto(80), -6..18 dB step 3) for series UBX100; ENUM_GAIN_UB300 [01=LOW; 04=MID; 08=HIGH; 06=S.GAIN1; 0C=S.GAIN2; 0E=S.GAIN3] for series UB300; ENUM_GAIN_UB10 (no Auto; -6..62 dB step 2) for series UB10; ENUM_GAIN_UB50 (no Auto; -6..66 dB step 2) for series UB50; ENUM_GAIN_UE4 (no Auto; 0..42 dB step 3) for series UE5, UE4; ENUM_GAIN_UE100 (Auto(80), 0..42 dB step 1) for series UE20, UE50, UE80, UE100, UR100; ENUM_GAIN_UE150 (Auto(80), -3..42 dB step 1) for series UE150, UE150A; ENUM_GAIN_UE160 (Auto(80), -6..12 dB step 1) for series UE160; ENUM_GAIN_POVCAM (Auto(80), 0..30 dB step 1) for series POVCAM. The default is the first id of the model list.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{2}$"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.gain (truthy; not the AW-HE2). Models: all models except AW-HE2.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 360
+      }
+    },
+    {
+      "id": "shootingMode",
+      "name": "Image - Shooting Mode",
+      "description": "Indicates if the selected shooting mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Shooting Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Normal"
+            },
+            {
+              "id": "1",
+              "label": "High Sens."
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.shootingMode. Models: AK-UBX100, AK-UB300, AW-UE100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 370
+      }
+    },
+    {
+      "id": "chromaLevel",
+      "name": "Image - Chroma Level",
+      "description": "Indicates if the selected chroma level is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Level",
+          "choicesNote": "Per series: ENUM_CHROMA_LEVEL_3 (ids 2 hex digits = value+3: -3..+3) for series Other, HE40, HE50, HE120, UE70; ENUM_CHROMA_PCT_99 (OFF(00) plus -99%..+99% as 2 hex digits = pct+0x80) for series CX350, UE50, UE80, UE100, UR100, UE150, UE150A; ENUM_CHROMA_LEVEL_HE2 (ids 00..06 for -5,-3,-1,0,+1,+3,+5) for series HE2; ENUM_CHROMA_PCT_40 (OFF(00) plus -99%..+40% as 2 hex digits = pct+0x80) for series HE130, HR140, UB300, UE160; ENUM_CHROMA_PCT_UBX100 (OFF(00) plus -100%..+80% as 2 hex digits = pct+0x80) for series UBX100; ENUM_CHROMA_LEVEL_10 (ids 2 hex digits = value+3: 0..+10) for series UE5, UE4, UE20; ENUM_CHROMA_PCT_POVCAM (-70%..+30% as 2 hex digits = pct+0x80, no OFF step) for series POVCAM. The default is the first id of the model list.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]{2}$"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.chromaLevel.dropdown is defined. Models: all models except AW-UB10, AW-UB50.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 380
+      }
+    },
+    {
+      "id": "dnr",
+      "name": "Image - Digital Noise Reduction",
+      "description": "Indicates if the selected digital noise reduction mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Per series: ENUM_DNR [00=Off; 01=Low; 02=High] for series Other, HE40, HE50, HE120, HE130, HR140, UE5, UE4, UE20, UE50, UE70, UE80, UE100, UR100, UE150, UE150A; ENUM_OFF_ON [0=OFF; 1=ON] for series UBX100, UB300, UE160; ENUM_NR_LEVEL_7 (ids 2 hex digits = level+0x80: -7..+7) for series POVCAM. The default is the first id of the model list.",
+          "valueType": "string"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.dnr.dropdown is defined. Models: all models except AW-HE2, AW-UB10, AW-UB50, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 390
+      }
+    },
+    {
+      "id": "drs",
+      "name": "Image - Dynamic Range Stretch",
+      "description": "Indicates if the selected dynamic range stretch mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Per series: ENUM_DRS [0=Off; 1=Low; 2=Mid; 3=High] for series Other, HE120, HE130, HR140, UE50, UE80, UE100, UR100, UE150, UE150A, POVCAM; ENUM_OFF_ON [0=OFF; 1=ON] for series HE2, UE5, UE4, UE20; ENUM_DRS_OFF_LOW_HIGH [0=Off; 1=Low; 3=High] for series HE40, HE50, UE70. All lists start with id 0 (Off), which is the default.",
+          "valueType": "string",
+          "valuePattern": "^[0-3]$",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.drs.dropdown is defined. Models: all models except AW-UB10, AW-UB50, AW-UE160, AK-UB300, AK-UBX100, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 400
+      }
+    },
+    {
+      "id": "whiteBalance",
+      "name": "Image - White Balance",
+      "description": "Indicates if the selected white balance mode is currently active",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Per series: ENUM_WHITEBALANCE [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 9=VAR] for series Other, HE40, HE50, HE120, HE130, HR140, UE5, UE4, UE20, UE50, UE70, UE80, UE100, UR100, UE150, UE150A, UE160; ENUM_WHITEBALANCE_CX350 [0=ATW; 1=AWC A; 2=AWC B; 3=VAR; 4=Preset 3200K; 5=Preset 5600K] for series CX350; ENUM_WHITEBALANCE_HE2 [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 6=Preset 4500K; 7=Preset 6000K; 8=Preset 2800K] for series HE2; ENUM_WHITEBALANCE_UB50 [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 9=VAR; F=Other] for series UB10, UB50; ENUM_WHITEBALANCE_POVCAM [0=ATW; 1=AWC A; 2=AWC B; 4=Preset 3200K; 5=Preset 5600K; 9=VAR; E=ATW Lock] for series POVCAM. All lists start with id 0 (ATW), which is the default.",
+          "valueType": "string",
+          "valuePattern": "^[0-9A-F]$",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.whiteBalance.dropdown is defined. Models: all models except AK-UB300, AK-UBX100.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 410
+      }
+    },
+    {
+      "id": "awbResultOk",
+      "name": "Image - AWC/AWB Result OK",
+      "description": "Indicates that the last automatic white balance the camera reported succeeded",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.whiteBalance. Models: all models.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 420
+      }
+    },
+    {
+      "id": "awbResultNg",
+      "name": "Image - AWC/AWB Result NG",
+      "description": "Indicates that the last automatic white balance the camera reported failed",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.whiteBalance. Models: all models.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 427
+      }
+    },
+    {
+      "id": "abbResultOk",
+      "name": "Image - ABC/ABB Result OK",
+      "description": "Indicates that the last automatic black balance the camera reported succeeded",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.blackBalance. Models: all models except AW-HE2, AW-HE20, AW-HE50, AW-HE60, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 435
+      }
+    },
+    {
+      "id": "abbResultNg",
+      "name": "Image - ABC/ABB Result NG",
+      "description": "Indicates that the last automatic black balance the camera reported failed",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.blackBalance. Models: all models except AW-HE2, AW-HE20, AW-HE50, AW-HE60, AW-UB10, AW-UB50, AW-UE4, AW-UE5, AW-UE20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 442
+      }
+    },
+    {
+      "id": "sdRecState",
+      "name": "Recording - State",
+      "description": "Indicates if recording is currently in progress",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.recordSD. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-HE35, AW-HE38, AW-HE40, AW-HE48, AW-HE58, AW-HE65, AW-HE70, AW-HN38, AW-HN40, AW-HN65, AW-HE42, AW-HE68, AW-HE75, AW-UE63, AW-UE65, AW-UE70, AW-UN70, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 452
+      }
+    },
+    {
+      "id": "sdSlotState",
+      "name": "Recording - SD card inserted",
+      "description": "Indicates if at least one SD card is inserted into a slot on the camera",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.recordSD. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-HE35, AW-HE38, AW-HE40, AW-HE48, AW-HE58, AW-HE65, AW-HE70, AW-HN38, AW-HN40, AW-HN65, AW-HE42, AW-HE68, AW-HE75, AW-UE63, AW-UE65, AW-UE70, AW-UN70, AG-UCK20, AG-MDC20.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 458
+      }
+    },
+    {
+      "id": "streamStateRTMP",
+      "name": "Streaming - RTMP Push State",
+      "description": "Indicates if streaming in RTMP Push mode is currently active",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.streamRTMP. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-UE5, AW-UE4, AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 467
+      }
+    },
+    {
+      "id": "streamStateSRT",
+      "name": "Streaming - SRT Caller State",
+      "description": "Indicates if streaming in SRT caller mode is currently active",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.streamSRT. Models: Other, AG-CX350, AG-CX200, AJ-UPX360, AJ-CX4000, AJ-UPX900, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 475
+      }
+    },
+    {
+      "id": "streamStateTS",
+      "name": "Streaming - MPEG-TS Output State",
+      "description": "Indicates if streaming in MPEG-TS output mode is currently active",
+      "options": [],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.streamTS. Models: Other, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 483
+      }
+    },
+    {
+      "id": "audioVolumeLevel",
+      "name": "Audio - Volume Level",
+      "description": "Indicates if the audio volume level of the selected channel is at the configured one",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Audio Channel",
+          "default": 0,
+          "valueType": "number",
+          "choicesNote": "Ids are numbers 0-based, labels Channel 1..Channel n, list cut to the model channel count (1, 2 or 4).",
+          "min": 0,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Volume Level (dB)",
+          "default": 0,
+          "valueType": "number",
+          "choicesNote": "Ids are the dB values as numbers from min to max in steps of the model, labels \"<dB> dB\". Per series (channels, range, step): Other: 2 ch, -40 to 20, step 1; HR140: 4 ch, -40 to 12, step 1; UE20: 1 ch, -36 to 12, step 3; UE50: 2 ch, -36 to 12, step 3; UE80: 2 ch, -36 to 12, step 3; UE100: 1 ch, -36 to 12, step 3; UR100: 2 ch, -30 to 20, step 1; UE150: 1 ch, -36 to 12, step 3; UE150A: 1 ch, -36 to 12, step 3; UE160: 2 ch, -40 to 20, step 1. Default 0 is present for every model.",
+          "min": -40,
+          "max": 20
+        }
+      ],
+      "feedbackType": "boolean",
+      "availability": "Registered when caps.audioVolumeLevel. Models: Other, AW-HR140, AW-HE20, AW-UE20, AW-UE30, AW-UE40, AW-UE50, AW-UE80, AW-UE100, AW-UR100, AW-HE145, AW-UE150, AW-UE155, AW-UN145, AW-UE150A, AW-UE160.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 500
+      }
+    }
+  ],
+  "notes": [
+    "Source read statically from src/actions.js, src/feedbacks.js, src/models.js, src/enum.js and src/common.js; nothing was executed. Presets (src/presets.js), variables (src/variables.js), config fields and upgrade scripts are not catalogued (the schema has no fields for them).",
+    "Model dependent: the module builds its action and feedback lists from the capability table of the model series (src/models.js: BASE_CAPABILITIES; 24 series specs, Other being the base set itself: Other, CX350, HE2, HE40, HE50, HE120, HE130, HR140, UBX100, UB300, UB10, UB50, UE5, UE4, UE20, UE50, UE70, UE80, UE100, UR100, UE150, UE150A, UE160, POVCAM). Each entry lists the models that register it in `availability`. The config option Camera Model defaults to Auto Detect (QID); an unknown detected model and the model \"Other\" use the Other series (base capabilities). Not the same module as `panasonic-ptz`.",
+    "Protocol: HTTP via the got library. PTZ commands go to /cgi-bin/aw_ptz?cmd=%23<cmd>&res=1, camera commands to /cgi-bin/aw_cam?cmd=<cmd>&res=1, web commands (sdctrl, srt_ctrl, ts_ctrl, rtmp_ctrl, initial?cmd=reset) to /cgi-bin/<cmd>. Status updates come from an event subscription over a local TCP port (default 31004, config tcpPort) or from polling. Config defaults: HTTP port 80, timeout 2000 ms.",
+    "Base library @companion-module/base ~2.1.2: option values may be expressions. Many number and preset fields set allowInvalidValues and the module constrains expression results into the valid range; an unreadable value sends no command.",
+    "Option ids of the stepped actions (op, set, step): op ids are the string s (set) and the numbers 1 / -1 (increase/decrease, raise/lower, next/previous), plus t (toggle) as a string on enum actions. Dropdown ids of enum lists are strings (hex digits or digits). Numeric defaults and the choice id types are recorded as written in the source (for example the Lens direction ids 0, 1, -1 are numbers, the Pan/Tilt direction ids are strings).",
+    "Where the dropdown list depends on the model series (gain, shutter, filter, OIS, chroma level, DNR, DRS, white balance, color temperature, preset velocity), the options carry choicesNote with the per-series lists instead of a closed `choices` list; lists generated by arithmetic in src/enum.js are described as patterns. Where the default is the first entry of a model list and that differs between models, no default is recorded.",
+    "Level actions (chromaPhase, ped, pedRed/Blue/Green, gainRed/Blue/Green, audioVolumeLevel) have ranges that differ per model; min/max record the widest range and the per-series ranges are in the option description. The source option flag `range: true` (slider) and `expressionDescription` texts are not recorded.",
+    "Some entries are one registered id with a model dependent shape: `tally` (name System - Red Tally or System - Tally), `gain` (UB10/UB50 get only Increase/Decrease), `colorTemperature` (index lists or advanced Kelvin range); these are marked optionsComplete false or described in `description`.",
+    "Provenance of lens actions (zoom, zoomControl, zoomSpeed, focus, focusControl, focusSpeed) points to their definition inside the lensAxis helper in src/actions.js; level and position actions point to the assignment line."
+  ]
+}
