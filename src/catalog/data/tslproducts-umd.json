@@ -1,0 +1,604 @@
+{
+  "moduleId": "tslproducts-umd",
+  "name": "tslproducts-umd",
+  "repo": "bitfocus/companion-module-tslproducts-umd",
+  "version": "2.3.0",
+  "baseVersion": "^1.12.1",
+  "lastCommit": "2026-11-03",
+  "lastCommitSha": "f320819",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "tallyV3",
+      "name": "V3.1 Set text and single tally",
+      "options": [
+        {
+          "id": "address",
+          "type": "textinput",
+          "label": "Tally address",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "tallyNumber",
+          "type": "dropdown",
+          "label": "Tally number",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "UMD message",
+          "default": "CAM 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 6
+      }
+    },
+    {
+      "id": "tallyV3lastValues",
+      "name": "V3.1 Set single tally (using last sent for other tally values and UMD message)",
+      "options": [
+        {
+          "id": "address",
+          "type": "textinput",
+          "label": "Tally address",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "tallyNumber",
+          "type": "dropdown",
+          "label": "Tally number",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "onOff",
+          "type": "checkbox",
+          "label": "On/Off",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 125
+      }
+    },
+    {
+      "id": "tallyV3lastValuesMessage",
+      "name": "V3.1 Set UMD message only (using last sent for other tally values)",
+      "options": [
+        {
+          "id": "address",
+          "type": "textinput",
+          "label": "Tally address",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "UMD message",
+          "default": "CAM 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 258
+      }
+    },
+    {
+      "id": "tallyV3Multi",
+      "name": "V3.1 Set text and multiple tallies",
+      "options": [
+        {
+          "id": "address",
+          "type": "textinput",
+          "label": "Tally address",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "tally1",
+          "type": "checkbox",
+          "label": "Tally 1"
+        },
+        {
+          "id": "tally2",
+          "type": "checkbox",
+          "label": "Tally 2"
+        },
+        {
+          "id": "tally3",
+          "type": "checkbox",
+          "label": "Tally 3"
+        },
+        {
+          "id": "tally4",
+          "type": "checkbox",
+          "label": "Tally 4"
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "UMD message",
+          "default": "CAM 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 363
+      }
+    },
+    {
+      "id": "tallyV4",
+      "name": "V4 Set text and multiple tallies",
+      "options": [
+        {
+          "id": "address",
+          "type": "textinput",
+          "label": "Tally address",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "tally1",
+          "type": "dropdown",
+          "label": "Tally 1",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "tally2",
+          "type": "dropdown",
+          "label": "Tally 2",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "tally3",
+          "type": "dropdown",
+          "label": "Tally 3",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "tally4",
+          "type": "dropdown",
+          "label": "Tally 4",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "textColor",
+          "type": "dropdown",
+          "label": "Text Color",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            }
+          ]
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "UMD message",
+          "default": "CAM 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 472
+      }
+    },
+    {
+      "id": "tallyV5UDP",
+      "name": "V5 UDP Set text and multiple tallies",
+      "options": [
+        {
+          "id": "address",
+          "type": "number",
+          "label": "Tally address",
+          "default": 1
+        },
+        {
+          "id": "screen",
+          "type": "number",
+          "label": "Screen",
+          "default": 0
+        },
+        {
+          "id": "text_tally",
+          "type": "dropdown",
+          "label": "Text Tally",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "rh_tally",
+          "type": "dropdown",
+          "label": "Right Tally",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "lh_tally",
+          "type": "dropdown",
+          "label": "Left Tally",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "brightness",
+          "type": "number",
+          "label": "Brightness",
+          "default": 3,
+          "min": 0,
+          "max": 3
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "UMD message",
+          "default": "CAM 1"
+        },
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "DLE/STX",
+          "default": "default",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "default",
+              "label": "Default"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 582
+      }
+    },
+    {
+      "id": "tallyV5TCP",
+      "name": "V5 TCP Set text and multiple tallies",
+      "options": [
+        {
+          "id": "address",
+          "type": "number",
+          "label": "Tally address",
+          "default": 1,
+          "useVariables": true
+        },
+        {
+          "id": "screen",
+          "type": "number",
+          "label": "Screen",
+          "default": 0,
+          "useVariables": true
+        },
+        {
+          "id": "text_tally",
+          "type": "dropdown",
+          "label": "Text Tally",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "rh_tally",
+          "type": "dropdown",
+          "label": "Right Tally",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "lh_tally",
+          "type": "dropdown",
+          "label": "Left Tally",
+          "default": "red",
+          "choices": [
+            {
+              "id": "red",
+              "label": "red"
+            },
+            {
+              "id": "green",
+              "label": "green"
+            },
+            {
+              "id": "amber",
+              "label": "amber"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        },
+        {
+          "id": "brightness",
+          "type": "number",
+          "label": "Brightness",
+          "default": 3,
+          "min": 0,
+          "max": 3
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "UMD message",
+          "default": "CAM 1",
+          "useVariables": true
+        },
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "DLE/STX",
+          "default": "default",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "default",
+              "label": "Default"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 712
+      }
+    },
+    {
+      "id": "stopRepeat",
+      "name": "Stop repeating last sent packet",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 845
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 8 actions (src/actions.js, all assigned as actions.<id> = {...} and registered with one setActionDefinitions call). The module has no feedbacks (no feedbacks file, no setFeedbackDefinitions call); it only defines variables (address<N>_tally1_last ... tally4_last, address<N>_message_last) for addresses that were sent at least once.",
+    "Sends TSL UMD to a target host: V3.1 and V4 as UDP datagrams (UDPHelper, host and port from the config, default port \"40001\", src/config.js) and V5 as UDP (tallyV5UDP) or TCP (tallyV5TCP) via the tsl-umd-v5 library to the same host and port. The module itself does not listen for or receive anything.",
+    "V3.1/V4 packets are a fixed 18-byte buffer padded with 0 (the source comments \"ignore spec and pad with 0\"); byte 0 is 0x80 + address, assigned to a single byte without a range check (values above 255 wrap). The message is written with Buffer.write (UTF-8) from offset 2, so long messages are cut to the buffer size.",
+    "The \"Tally address\" text inputs declare regex: self.REGEX_NUMBER, but REGEX_NUMBER is not defined anywhere in the module (grep over src/ and index.js). The property is undefined, so the field has no effective pattern and the catalog records none. The callbacks parse the value with parseInt and log an error \"Address is not a number\" for non-numeric input.",
+    "tallyV3 and tallyV3lastValues treat tallyNumber \"off\" as \"no tally\": tallyV3 sends tally byte 0x30 (all off) and tallyV3lastValues leaves all tally states unchanged (it still sends the packet). tallyV3lastValues keeps the last sent tally states and message per address in an internal store (self.DATA.tallies); for an address never sent it starts with all tallies off and an empty message.",
+    "tallyV5UDP declares Tally address, Screen and Brightness as number fields without useVariables, yet the callback also runs parseVariablesInString on them (a no-op for numbers); tallyV5TCP declares useVariables on them. tallyV5UDP has no useVariables on the message either. The \"Brightness\" number has min 0 and max 3 (V5 range); address and screen have no limits in the source. Colour dropdowns map red=1, green=2, amber=3, anything else (off) = 0 (colorToBits, src/utils.js).",
+    "tallyV4 sends the 18-byte buffer followed by four bytes: a checksum, the constant 2 and two tally bytes in which the colours of text and tallies 1-4 are packed with colorToBits.",
+    "With \"Enable Repeat Interval\" in the config (default false; repeat interval default 1000 ms, min 500, max 60000), the last sent packet is resent periodically. stopRepeat clears that interval (clearRepeatInterval) without sending anything.",
+    "Built on @companion-module/base ^1.12.1: options do not support expressions."
+  ]
+}

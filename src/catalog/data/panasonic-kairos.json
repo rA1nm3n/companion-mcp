@@ -1,0 +1,925 @@
+{
+  "moduleId": "panasonic-kairos",
+  "name": "Panasonic Kairos",
+  "repo": "bitfocus/companion-module-panasonic-kairos",
+  "version": "4.2.2",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "7e7525d",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 17 actions (src/actions.ts, enum ActionId) and 5 boolean feedbacks (src/feedback.ts, enum FeedbackId). One action (nextTransition) is commented out in the source and not catalogued. The definitions are rebuilt by updateInstance (src/index.ts) whenever data from the Kairos arrives, so the dropdown lists change at runtime.",
+    "Two protocols are used: REST API (HTTP, config default port 1234, Basic auth with the config username/password, PATCH requests; src/rest.ts, config default username 'Kairos') for scenes, layers, AUX, macros, snapshots and multiviewers, and the Simple Panasonic Kairos Control Protocol over TCP (config default port 3005; SimpleControl.md) for the other commands. Which one an action uses is visible in its callback: setSource, runAction, setAUX, macroControl, macroSceneControl, mvRecall and triggerSnapshot use REST PATCH, the rest use TCP.",
+    "Almost all dropdowns are filled at runtime from the connected Kairos (scenes, layers, sources, AUX, macros, snapshots, multiviewers, media stills). They are recorded with choicesNote and valueType; only the hard-coded lists (player ids, action/macro state, audio channels, sourceA/B, mute) are closed choices. Defaults of runtime lists are the first entry of the list, or an empty/placeholder value when it is empty; the note of each option gives the fallback.",
+    "Source quirks kept as written: muteChannel and the audioMuteChannel feedback default to 'Channel1' (no space), which is not in the choice list; macroSceneControl and triggerSnapshot default to a bare uuid while their choice ids have the form \"<scene>/macros/<uuid>\" or \"<scene>/snapshots/<uuid>\"; the custom action never uses its text option; forceSource uses a different layer id format (\"<scene>.Layers.<layer>\") than setSource (\"/<sceneUuid>/<layerUuid>\").",
+    "Base library @companion-module/base ~1.4.1 (no expression support in options). Variables and presets are not catalogued."
+  ],
+  "actions": [
+    {
+      "id": "setSource",
+      "name": "Set Source",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Scene/Layer",
+          "default": "",
+          "choicesNote": "Runtime list built from the scenes and layers of the connected Kairos (src/rest.ts, combinedLayerArray). Ids have the form \"/<sceneUuid>/<layerUuid>\" (uuids from the REST API), labels \"<scene name>/<layer name>\".",
+          "valueType": "string",
+          "valuePattern": "^/[^/]+/[^/]+$"
+        },
+        {
+          "id": "sourceAB",
+          "type": "dropdown",
+          "label": "SourceA/B",
+          "default": "sourceA",
+          "choices": [
+            {
+              "id": "sourceA",
+              "label": "sourceA"
+            },
+            {
+              "id": "sourceB",
+              "label": "sourceB"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "",
+          "choicesNote": "Names of the sources known to the module: all entries of the \"sources\" lists of the scene layers and AUX outputs read from the REST API (/scenes, /aux), plus the internal sources Black, White, ColorBar and ColorCircle (src/rest.ts addInternalSources); a source can be renamed by TCP messages (src/tcp.ts). Filled at runtime from the connected Kairos.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 90
+      }
+    },
+    {
+      "id": "forceSource",
+      "name": "Force Source",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Scene/Layer",
+          "default": "",
+          "choicesNote": "Runtime list built from the scenes and layers of the connected Kairos. Ids have the form \"<sceneName>.Layers.<layerName>\" (labels \"<scene name>/<layer name>\"). The callback looks the id up by uuid, so the optimistic local state update does not match; the command is sent through the TCP protocol as SCENES.<id>.<sourceAB>=<source>.",
+          "valueType": "string"
+        },
+        {
+          "id": "sourceAB",
+          "type": "dropdown",
+          "label": "SourceA/B",
+          "default": "sourceA",
+          "choices": [
+            {
+              "id": "sourceA",
+              "label": "sourceA"
+            },
+            {
+              "id": "sourceB",
+              "label": "sourceB"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "",
+          "choicesNote": "Names of the sources known to the module: all entries of the \"sources\" lists of the scene layers and AUX outputs read from the REST API (/scenes, /aux), plus the internal sources Black, White, ColorBar and ColorCircle (src/rest.ts addInternalSources); a source can be renamed by TCP messages (src/tcp.ts). Filled at runtime from the connected Kairos.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 137
+      }
+    },
+    {
+      "id": "runAction",
+      "name": "Run Action",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "action",
+          "default": "",
+          "choicesNote": "Runtime list of scene actions: ids \"/<sceneName>/actions/<actionUuid>\", labels \"<scene name>/<action name>\" (built from KairosObj.SCENES).",
+          "valueType": "string",
+          "valuePattern": "^/[^/]+/actions/[^/]+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 185
+      }
+    },
+    {
+      "id": "setMediaStill",
+      "name": "Set Media Still",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Scene/Layer",
+          "default": "",
+          "choicesNote": "Runtime list built from the scenes and layers of the connected Kairos; ids \"/<sceneUuid>/<layerUuid>\", labels \"<scene name>/<layer name>\". The default is the id of the first layer, or '' when none were read.",
+          "valueType": "string",
+          "valuePattern": "^/[^/]+/[^/]+$"
+        },
+        {
+          "id": "sourceAB",
+          "type": "dropdown",
+          "label": "SourceA/B",
+          "default": "sourceA",
+          "choices": [
+            {
+              "id": "sourceA",
+              "label": "sourceA"
+            },
+            {
+              "id": "sourceB",
+              "label": "sourceB"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "1",
+          "choicesNote": "Runtime list of media still ids read from the Kairos TCP protocol (list:MEDIA.stills, only entries containing \"&#46;rr\", src/tcp.ts). The default is the first still, or '1' when none were read. The label expression in the source always evaluates truthy and cuts the last 7 characters of the id.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 207
+      }
+    },
+    {
+      "id": "programCut",
+      "name": "Master CUT Transition",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "default": "1",
+          "choicesNote": "Runtime list of scene names (KairosObj.SCENES). Default is the name of the first scene, or '1' when none were read.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 259
+      }
+    },
+    {
+      "id": "programAuto",
+      "name": "Master AUTO Transition",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "default": "1",
+          "choicesNote": "Runtime list of scene names (KairosObj.SCENES). Default is the name of the first scene, or '1' when none were read.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 281
+      }
+    },
+    {
+      "id": "autoTransition",
+      "name": "Layer AUTO Transition",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "",
+          "choicesNote": "Runtime list of \"<sceneName>.<layerName>\" ids built from the scenes and layers of the connected Kairos (labels identical). Default is the first entry, or '' when none were read.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 327
+      }
+    },
+    {
+      "id": "cutTransition",
+      "name": "Layer CUT Transition",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "",
+          "choicesNote": "Runtime list of \"<sceneName>.<layerName>\" ids built from the scenes and layers of the connected Kairos (labels identical). Default is the first entry, or '' when none were read.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 356
+      }
+    },
+    {
+      "id": "setAUX",
+      "name": "Set AUX",
+      "options": [
+        {
+          "id": "aux",
+          "type": "dropdown",
+          "label": "AUX",
+          "default": "",
+          "choicesNote": "Runtime list of AUX output names read from the REST API (/aux), ids and labels are the AUX names.",
+          "valueType": "string"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "",
+          "choicesNote": "Names of the sources known to the module: all entries of the \"sources\" lists of the scene layers and AUX outputs read from the REST API (/scenes, /aux), plus the internal sources Black, White, ColorBar and ColorCircle (src/rest.ts addInternalSources); a source can be renamed by TCP messages (src/tcp.ts). Filled at runtime from the connected Kairos.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 386
+      }
+    },
+    {
+      "id": "playerControl",
+      "name": "RAM/Clip Player action",
+      "description": "The player list is hard-coded in src/rest.ts (setupKairos, line 30): RR1 to RR8, CP1, CP2 and AP1 to AP16. The default is the first entry, '1' if the list were empty. The action option shared by this action is defined in src/utils.ts (options.playerControl).",
+      "options": [
+        {
+          "id": "player",
+          "type": "dropdown",
+          "label": "Player Source",
+          "default": "RR1",
+          "choices": [
+            {
+              "id": "RR1",
+              "label": "RR1"
+            },
+            {
+              "id": "RR2",
+              "label": "RR2"
+            },
+            {
+              "id": "RR3",
+              "label": "RR3"
+            },
+            {
+              "id": "RR4",
+              "label": "RR4"
+            },
+            {
+              "id": "RR5",
+              "label": "RR5"
+            },
+            {
+              "id": "RR6",
+              "label": "RR6"
+            },
+            {
+              "id": "RR7",
+              "label": "RR7"
+            },
+            {
+              "id": "RR8",
+              "label": "RR8"
+            },
+            {
+              "id": "CP1",
+              "label": "CP1"
+            },
+            {
+              "id": "CP2",
+              "label": "CP2"
+            },
+            {
+              "id": "AP1",
+              "label": "AP1"
+            },
+            {
+              "id": "AP2",
+              "label": "AP2"
+            },
+            {
+              "id": "AP3",
+              "label": "AP3"
+            },
+            {
+              "id": "AP4",
+              "label": "AP4"
+            },
+            {
+              "id": "AP5",
+              "label": "AP5"
+            },
+            {
+              "id": "AP6",
+              "label": "AP6"
+            },
+            {
+              "id": "AP7",
+              "label": "AP7"
+            },
+            {
+              "id": "AP8",
+              "label": "AP8"
+            },
+            {
+              "id": "AP9",
+              "label": "AP9"
+            },
+            {
+              "id": "AP10",
+              "label": "AP10"
+            },
+            {
+              "id": "AP11",
+              "label": "AP11"
+            },
+            {
+              "id": "AP12",
+              "label": "AP12"
+            },
+            {
+              "id": "AP13",
+              "label": "AP13"
+            },
+            {
+              "id": "AP14",
+              "label": "AP14"
+            },
+            {
+              "id": "AP15",
+              "label": "AP15"
+            },
+            {
+              "id": "AP16",
+              "label": "AP16"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "begin",
+          "choices": [
+            {
+              "id": "begin",
+              "label": "Go to Begin"
+            },
+            {
+              "id": "rewind",
+              "label": "Rewind"
+            },
+            {
+              "id": "step_back",
+              "label": "Step back"
+            },
+            {
+              "id": "reverse",
+              "label": "Reverse play"
+            },
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "step_forward",
+              "label": "Step forward"
+            },
+            {
+              "id": "fast_forward",
+              "label": "Fast forward"
+            },
+            {
+              "id": "end",
+              "label": "Go to End"
+            },
+            {
+              "id": "repeat=0",
+              "label": "Repeat off"
+            },
+            {
+              "id": "repeat=1",
+              "label": "Repeat on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 419
+      }
+    },
+    {
+      "id": "macroControl",
+      "name": "Macro (global) action",
+      "options": [
+        {
+          "id": "macro",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": "none exist",
+          "choicesNote": "Runtime list of global macros from the REST API (/macros): ids are the macro uuids, labels \"<path><name>\". The default is the uuid of the first macro, or the text 'none exist'.",
+          "valueType": "string"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "record",
+              "label": "Record"
+            },
+            {
+              "id": "stop_record",
+              "label": "Stop record"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 441
+      }
+    },
+    {
+      "id": "macroSceneControl",
+      "name": "Macro (scene) action",
+      "options": [
+        {
+          "id": "macro",
+          "type": "dropdown",
+          "label": "Scene macro",
+          "default": "none exist",
+          "choicesNote": "Runtime list of scene macros from the REST API (scenes/<scene>/macros): ids \"<sceneName>/macros/<uuid>\", labels \"<scene path><scene name>-<macro name>\" (the module prefixes the macro name with the scene, src/rest.ts line 119). The source default is the bare uuid of the first scene macro (not in the \"<scene>/macros/<uuid>\" id form of the choices), or the text 'none exist'.",
+          "valueType": "string"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "record",
+              "label": "Record"
+            },
+            {
+              "id": "stop_record",
+              "label": "Stop record"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 463
+      }
+    },
+    {
+      "id": "mvRecall",
+      "name": "Recall Multiviewer preset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "",
+          "choicesNote": "Runtime list built from the presets of all multiviewers (REST /multiviewers): ids are the preset ids, labels \"<multiviewer name> - <preset name>\". Default is the first preset id, or ''.",
+          "valueType": "string"
+        },
+        {
+          "id": "mv",
+          "type": "dropdown",
+          "label": "Multiviewer",
+          "default": "",
+          "choicesNote": "Runtime list of multiviewers (REST /multiviewers): ids are the multiviewer uuids, labels their names.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 489
+      }
+    },
+    {
+      "id": "triggerSnapshot",
+      "name": "Trigger Snapshots",
+      "options": [
+        {
+          "id": "snapshot",
+          "type": "dropdown",
+          "label": "Snapshot",
+          "default": "",
+          "choicesNote": "Runtime list of scene snapshots (REST scenes): ids \"<sceneName>/snapshots/<uuid>\", labels \"<scene>/<snapshot name>\". The source default is the bare uuid of the first snapshot (not in the id form of the choices), or ''.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 518
+      }
+    },
+    {
+      "id": "muteMaster",
+      "name": "Audio Mixer Master Mute",
+      "options": [
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "unmute"
+            },
+            {
+              "id": 1,
+              "label": "mute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 544
+      }
+    },
+    {
+      "id": "muteChannel",
+      "name": "Audio Mixer Channel Mute",
+      "description": "The channel option defaults to 'Channel1' (without a space), which is not one of the listed ids (\"Channel 1\" ... \"Channel 16\"); the source is kept as written. The choice list is defined in src/utils.ts (options.channel).",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "Channel1",
+          "choices": [
+            {
+              "id": "Channel 1",
+              "label": "Channel 1"
+            },
+            {
+              "id": "Channel 2",
+              "label": "Channel 2"
+            },
+            {
+              "id": "Channel 3",
+              "label": "Channel 3"
+            },
+            {
+              "id": "Channel 4",
+              "label": "Channel 4"
+            },
+            {
+              "id": "Channel 5",
+              "label": "Channel 5"
+            },
+            {
+              "id": "Channel 6",
+              "label": "Channel 6"
+            },
+            {
+              "id": "Channel 7",
+              "label": "Channel 7"
+            },
+            {
+              "id": "Channel 8",
+              "label": "Channel 8"
+            },
+            {
+              "id": "Channel 9",
+              "label": "Channel 9"
+            },
+            {
+              "id": "Channel 10",
+              "label": "Channel 10"
+            },
+            {
+              "id": "Channel 11",
+              "label": "Channel 11"
+            },
+            {
+              "id": "Channel 12",
+              "label": "Channel 12"
+            },
+            {
+              "id": "Channel 13",
+              "label": "Channel 13"
+            },
+            {
+              "id": "Channel 14",
+              "label": "Channel 14"
+            },
+            {
+              "id": "Channel 15",
+              "label": "Channel 15"
+            },
+            {
+              "id": "Channel 16",
+              "label": "Channel 16"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "unmute"
+            },
+            {
+              "id": 1,
+              "label": "mute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 561
+      }
+    },
+    {
+      "id": "custom",
+      "name": "Send custom command",
+      "description": "The callback takes no arguments and sends the literal id \"custom\" (sendSimpleProtocolCommand is called with options {}), so the text entered in the option is never used by the source.",
+      "options": [
+        {
+          "id": "functionID",
+          "type": "textinput",
+          "label": "command",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 583
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "inputSource",
+      "name": "Switched state",
+      "description": "Indicates if an source is in Program/Preview",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "",
+          "choicesNote": "Runtime list built from the scenes and layers of the connected Kairos; ids and labels are \"/<sceneName>/<layerName>\" (names, not uuids).",
+          "valueType": "string",
+          "valuePattern": "^/[^/]+/[^/]+$"
+        },
+        {
+          "id": "sourceAB",
+          "type": "dropdown",
+          "label": "SourceA/B",
+          "default": "sourceA",
+          "choices": [
+            {
+              "id": "sourceA",
+              "label": "sourceA"
+            },
+            {
+              "id": "sourceB",
+              "label": "sourceB"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "",
+          "choicesNote": "Names of the sources known to the module: all entries of the \"sources\" lists of the scene layers and AUX outputs read from the REST API (/scenes, /aux), plus the internal sources Black, White, ColorBar and ColorCircle (src/rest.ts addInternalSources); a source can be renamed by TCP messages (src/tcp.ts). Filled at runtime from the connected Kairos.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "inputMediaStill",
+      "name": "Switched state",
+      "description": "Indicates if an still is in Program/Preview",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "layer1",
+          "choicesNote": "Runtime list built from the scenes and layers of the connected Kairos; ids and labels are \"/<sceneName>/<layerName>\" (names, not uuids). The default is the first entry, or 'layer1' when none were read.",
+          "valueType": "string",
+          "valuePattern": "^/[^/]+/[^/]+$"
+        },
+        {
+          "id": "sourceAB",
+          "type": "dropdown",
+          "label": "SourceA/B",
+          "default": "sourceA",
+          "choices": [
+            {
+              "id": "sourceA",
+              "label": "sourceA"
+            },
+            {
+              "id": "sourceB",
+              "label": "sourceB"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "1",
+          "choicesNote": "Runtime list of media still ids read from the Kairos TCP protocol (list:MEDIA.stills); ids and labels are identical. The default is the first still, or '1' when none were read.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 61
+      }
+    },
+    {
+      "id": "audioMuteMaster",
+      "name": "Mute audio master",
+      "description": "Indicates if audio mixer is muted",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 106
+      }
+    },
+    {
+      "id": "audioMuteChannel",
+      "name": "Mute audio channel",
+      "description": "Indicates if audio channel is muted",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "Channel1",
+          "choices": [
+            {
+              "id": "Channel 1",
+              "label": "Channel 1"
+            },
+            {
+              "id": "Channel 2",
+              "label": "Channel 2"
+            },
+            {
+              "id": "Channel 3",
+              "label": "Channel 3"
+            },
+            {
+              "id": "Channel 4",
+              "label": "Channel 4"
+            },
+            {
+              "id": "Channel 5",
+              "label": "Channel 5"
+            },
+            {
+              "id": "Channel 6",
+              "label": "Channel 6"
+            },
+            {
+              "id": "Channel 7",
+              "label": "Channel 7"
+            },
+            {
+              "id": "Channel 8",
+              "label": "Channel 8"
+            },
+            {
+              "id": "Channel 9",
+              "label": "Channel 9"
+            },
+            {
+              "id": "Channel 10",
+              "label": "Channel 10"
+            },
+            {
+              "id": "Channel 11",
+              "label": "Channel 11"
+            },
+            {
+              "id": "Channel 12",
+              "label": "Channel 12"
+            },
+            {
+              "id": "Channel 13",
+              "label": "Channel 13"
+            },
+            {
+              "id": "Channel 14",
+              "label": "Channel 14"
+            },
+            {
+              "id": "Channel 15",
+              "label": "Channel 15"
+            },
+            {
+              "id": "Channel 16",
+              "label": "Channel 16"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 120
+      }
+    },
+    {
+      "id": "aux",
+      "name": "AUX",
+      "description": "Indicates if an source is in an AUX",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "aux",
+          "type": "dropdown",
+          "label": "AUX",
+          "default": "1",
+          "choicesNote": "Runtime list of AUX output names read from the REST API (/aux); ids and labels are the AUX names. The default is the first AUX name, or '1'.",
+          "valueType": "string"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "",
+          "choicesNote": "Names of the sources known to the module: all entries of the \"sources\" lists of the scene layers and AUX outputs read from the REST API (/scenes, /aux), plus the internal sources Black, White, ColorBar and ColorCircle (src/rest.ts addInternalSources); a source can be renamed by TCP messages (src/tcp.ts). Filled at runtime from the connected Kairos.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 136
+      }
+    }
+  ]
+}

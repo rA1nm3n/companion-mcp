@@ -1,0 +1,2425 @@
+{
+  "moduleId": "christie-projector",
+  "name": "Christie Projector",
+  "repo": "bitfocus/companion-module-christie-projector",
+  "version": "4.1.0",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "14fa1e6",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "alc",
+      "name": "Automatic Lens Calibration On / Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 8
+      }
+    },
+    {
+      "id": "apw",
+      "name": "Auto Power Up On / Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 27
+      }
+    },
+    {
+      "id": "aro",
+      "name": "Aspect Ratio Overlay / Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 45
+      }
+    },
+    {
+      "id": "asr",
+      "name": "Auto Source On / Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Source Setup (1-50)",
+          "default": 1,
+          "min": 1,
+          "max": 50,
+          "required": true
+        },
+        {
+          "id": "p2",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 63
+      }
+    },
+    {
+      "id": "asu",
+      "name": "Auto Setup",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 92
+      }
+    },
+    {
+      "id": "brt",
+      "name": "Brightness",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Brightness (0-1000 = 0%-100%, 505 = 50.5%)",
+          "default": 1,
+          "min": 0,
+          "max": 1000,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 102
+      }
+    },
+    {
+      "id": "ccs",
+      "name": "Select Output Color",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Color Profile",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Max Drives (Default)"
+            },
+            {
+              "id": "1",
+              "label": "Color Temperature"
+            },
+            {
+              "id": "2",
+              "label": "SD Video"
+            },
+            {
+              "id": "3",
+              "label": "HD Video"
+            },
+            {
+              "id": "4",
+              "label": "User 1"
+            },
+            {
+              "id": "5",
+              "label": "User 2"
+            },
+            {
+              "id": "6",
+              "label": "User 3"
+            },
+            {
+              "id": "7",
+              "label": "User 4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 124
+      }
+    },
+    {
+      "id": "cha",
+      "name": "Channel Select",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Channel Number (1-50)",
+          "default": 1,
+          "min": 1,
+          "max": 50,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 142
+      }
+    },
+    {
+      "id": "cle",
+      "name": "Color Enable",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Color",
+          "default": "8",
+          "choices": [
+            {
+              "id": "0",
+              "label": "White (all colors on)"
+            },
+            {
+              "id": "1",
+              "label": "Red"
+            },
+            {
+              "id": "2",
+              "label": "Green"
+            },
+            {
+              "id": "3",
+              "label": "Blue"
+            },
+            {
+              "id": "4",
+              "label": "Yellow"
+            },
+            {
+              "id": "5",
+              "label": "Cyan"
+            },
+            {
+              "id": "6",
+              "label": "Magenta"
+            },
+            {
+              "id": "7",
+              "label": "White"
+            },
+            {
+              "id": "8",
+              "label": "Black"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 164
+      }
+    },
+    {
+      "id": "clr",
+      "name": "Color Intensity",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Intensity (0-1000 = 0%-100%, 505 = 50.5%)",
+          "default": 1,
+          "min": 0,
+          "max": 1000,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 182
+      }
+    },
+    {
+      "id": "con",
+      "name": "Contrast",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Contrast (0-1000 = 0%-100%, 505 = 50.5%)",
+          "default": 1,
+          "min": 0,
+          "max": 1000,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 204
+      }
+    },
+    {
+      "id": "csp",
+      "name": "Color Space",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Color Space",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "RGB"
+            },
+            {
+              "id": "1",
+              "label": "YPbPr (SDTV)"
+            },
+            {
+              "id": "2",
+              "label": "YPbPr (HDTV)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 226
+      }
+    },
+    {
+      "id": "def",
+      "name": "Factory Defaults",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Are you sure?",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "No"
+            },
+            {
+              "id": "111",
+              "label": "Yes"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 244
+      }
+    },
+    {
+      "id": "eme",
+      "name": "Error Message Enable",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select an Option",
+          "default": "3",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On-Screen display"
+            },
+            {
+              "id": "2",
+              "label": "ASCII message"
+            },
+            {
+              "id": "3",
+              "label": "Both"
+            },
+            {
+              "id": "4",
+              "label": "All except error 1E & F"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 265
+      }
+    },
+    {
+      "id": "fcs",
+      "name": "Focus (Fixed)",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Focus Set (-1200 to 1200)",
+          "default": 0,
+          "min": -1200,
+          "max": 1200,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 283
+      }
+    },
+    {
+      "id": "fil",
+      "name": "Input Filter",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Filter Type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "HDTV"
+            },
+            {
+              "id": "2",
+              "label": "SDTV"
+            },
+            {
+              "id": "3",
+              "label": "EDTV"
+            },
+            {
+              "id": "4",
+              "label": "Graphics/RGB"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 305
+      }
+    },
+    {
+      "id": "frz",
+      "name": "Freeze On / Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 323
+      }
+    },
+    {
+      "id": "gam",
+      "name": "Gamma",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Gamma Set (100-280)",
+          "default": 220,
+          "min": 100,
+          "max": 280,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 341
+      }
+    },
+    {
+      "id": "hor",
+      "name": "Horizontal Position",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Horizontal Position",
+          "default": 500,
+          "min": 0,
+          "max": 9999,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 363
+      }
+    },
+    {
+      "id": "ils",
+      "name": "Intelligent Lens System On/Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 385
+      }
+    },
+    {
+      "id": "iop",
+      "name": "Image Optimization",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select an Option",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Best Image Quality"
+            },
+            {
+              "id": "1",
+              "label": "Smooth Switching"
+            },
+            {
+              "id": "2",
+              "label": "Seamless Switching"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 403
+      }
+    },
+    {
+      "id": "itpBasic",
+      "name": "Internal testpattern Basic collection (general use)",
+      "options": [
+        {
+          "id": "info",
+          "type": "other",
+          "rawType": "text",
+          "label": "Information",
+          "description": "These options might change between models"
+        },
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Testpattern",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Grid"
+            },
+            {
+              "id": "2",
+              "label": "Grey Scale 16"
+            },
+            {
+              "id": "3",
+              "label": "White"
+            },
+            {
+              "id": "4",
+              "label": "Flat Grey"
+            },
+            {
+              "id": "5",
+              "label": "Black"
+            },
+            {
+              "id": "6",
+              "label": "Checker"
+            },
+            {
+              "id": "7",
+              "label": "13 Point"
+            },
+            {
+              "id": "8",
+              "label": "Color Bars"
+            },
+            {
+              "id": "9",
+              "label": "RGBW Gray Scale"
+            },
+            {
+              "id": "10",
+              "label": "Multi Color"
+            },
+            {
+              "id": "11",
+              "label": "Edge Blend"
+            },
+            {
+              "id": "12",
+              "label": "Aspect Ratio"
+            },
+            {
+              "id": "13",
+              "label": "Red & Blue Ramp"
+            },
+            {
+              "id": "14",
+              "label": "Calibration Line Ramp"
+            },
+            {
+              "id": "15",
+              "label": "Calibration Black & White Grid"
+            },
+            {
+              "id": "16",
+              "label": "Calibration White & Red Grid"
+            },
+            {
+              "id": "17",
+              "label": "Calibration White & Green Grid"
+            },
+            {
+              "id": "18",
+              "label": "Calibration White & Blue Grid"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 421
+      }
+    },
+    {
+      "id": "itpBoxer",
+      "name": "Internal testpattern Boxer series",
+      "options": [
+        {
+          "id": "info",
+          "type": "other",
+          "rawType": "text",
+          "label": "Information",
+          "description": "These options might change between models"
+        },
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Testpattern",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Grid"
+            },
+            {
+              "id": "2",
+              "label": "Grey Scale 16"
+            },
+            {
+              "id": "3",
+              "label": "Flat White"
+            },
+            {
+              "id": "4",
+              "label": "Flat Grey"
+            },
+            {
+              "id": "5",
+              "label": "Flat Black"
+            },
+            {
+              "id": "6",
+              "label": "Checker"
+            },
+            {
+              "id": "7",
+              "label": "17 Point"
+            },
+            {
+              "id": "8",
+              "label": "Edge Blend"
+            },
+            {
+              "id": "9",
+              "label": "Color Bars"
+            },
+            {
+              "id": "10",
+              "label": "Multi Color"
+            },
+            {
+              "id": "11",
+              "label": "RGBW Ramp"
+            },
+            {
+              "id": "12",
+              "label": "Horizontal Ramp"
+            },
+            {
+              "id": "13",
+              "label": "Vertical Ramp"
+            },
+            {
+              "id": "14",
+              "label": "Diagonal Ramp"
+            },
+            {
+              "id": "15",
+              "label": "Square Grid"
+            },
+            {
+              "id": "16",
+              "label": "Diagonal Grid"
+            },
+            {
+              "id": "17",
+              "label": "Maximum Activity"
+            },
+            {
+              "id": "18",
+              "label": "Prism/Convergence"
+            },
+            {
+              "id": "21",
+              "label": "Boresight"
+            },
+            {
+              "id": "22",
+              "label": "Convergence"
+            },
+            {
+              "id": "23",
+              "label": "Integrator Rod"
+            },
+            {
+              "id": "25",
+              "label": "Resolution Demo"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 446
+      }
+    },
+    {
+      "id": "itpMser",
+      "name": "Internal testpattern M series",
+      "options": [
+        {
+          "id": "info",
+          "type": "other",
+          "rawType": "text",
+          "label": "Information",
+          "description": "These options might change between models"
+        },
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Testpattern",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Grid"
+            },
+            {
+              "id": "2",
+              "label": "Grey Scale 16"
+            },
+            {
+              "id": "3",
+              "label": "White"
+            },
+            {
+              "id": "4",
+              "label": "Flat Grey"
+            },
+            {
+              "id": "5",
+              "label": "Black"
+            },
+            {
+              "id": "6",
+              "label": "Checker"
+            },
+            {
+              "id": "7",
+              "label": "13 Point"
+            },
+            {
+              "id": "8",
+              "label": "Color Bars"
+            },
+            {
+              "id": "11",
+              "label": "Aspect Ratio"
+            },
+            {
+              "id": "12",
+              "label": "Edge Blend"
+            },
+            {
+              "id": "14",
+              "label": "Boresight"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 471
+      }
+    },
+    {
+      "id": "ken",
+      "name": "Keypad Enable",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Wired"
+            },
+            {
+              "id": "1",
+              "label": "IR Front"
+            },
+            {
+              "id": "2",
+              "label": "IR Back"
+            }
+          ]
+        },
+        {
+          "id": "p2",
+          "type": "dropdown",
+          "label": "Protocol",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Protocol Any"
+            },
+            {
+              "id": "10",
+              "label": "Protocol A"
+            },
+            {
+              "id": "11",
+              "label": "Protocol B"
+            },
+            {
+              "id": "12",
+              "label": "Protocol C"
+            },
+            {
+              "id": "13",
+              "label": "Protocol D"
+            },
+            {
+              "id": "14",
+              "label": "Protocol E"
+            },
+            {
+              "id": "15",
+              "label": "Protocol F"
+            },
+            {
+              "id": "16",
+              "label": "Protocol G"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 496
+      }
+    },
+    {
+      "id": "key",
+      "name": "Key Code / Key Press",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Key",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "0"
+            },
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            },
+            {
+              "id": "5",
+              "label": "5"
+            },
+            {
+              "id": "6",
+              "label": "6"
+            },
+            {
+              "id": "7",
+              "label": "7"
+            },
+            {
+              "id": "8",
+              "label": "8"
+            },
+            {
+              "id": "9",
+              "label": "9"
+            },
+            {
+              "id": "12",
+              "label": "Shift"
+            },
+            {
+              "id": "13",
+              "label": "Enter"
+            },
+            {
+              "id": "14",
+              "label": "Func"
+            },
+            {
+              "id": "22",
+              "label": "Proj"
+            },
+            {
+              "id": "27",
+              "label": "Exit"
+            },
+            {
+              "id": "41",
+              "label": "Cont"
+            },
+            {
+              "id": "44",
+              "label": "Menu"
+            },
+            {
+              "id": "46",
+              "label": "Power"
+            },
+            {
+              "id": "47",
+              "label": "OSD"
+            },
+            {
+              "id": "58",
+              "label": "Up (On)"
+            },
+            {
+              "id": "59",
+              "label": "Down (Off)"
+            },
+            {
+              "id": "60",
+              "label": "Left (-)"
+            },
+            {
+              "id": "61",
+              "label": "Lamp"
+            },
+            {
+              "id": "62",
+              "label": "Right (+)"
+            },
+            {
+              "id": "63",
+              "label": "Help"
+            },
+            {
+              "id": "64",
+              "label": "Input"
+            },
+            {
+              "id": "65",
+              "label": "Input 1 / BNC"
+            },
+            {
+              "id": "66",
+              "label": "Input 2 / DVI"
+            },
+            {
+              "id": "67",
+              "label": "Input 3 / VID"
+            },
+            {
+              "id": "68",
+              "label": "Input 4 / S-Vid"
+            },
+            {
+              "id": "69",
+              "label": "Input 5 / Opt-1"
+            },
+            {
+              "id": "70",
+              "label": "Input 6 / Opt-2"
+            },
+            {
+              "id": "71",
+              "label": "Zoom IN"
+            },
+            {
+              "id": "72",
+              "label": "Zoom Out"
+            },
+            {
+              "id": "73",
+              "label": "Focus IN"
+            },
+            {
+              "id": "74",
+              "label": "Focus Out"
+            },
+            {
+              "id": "75",
+              "label": "Lens H Right"
+            },
+            {
+              "id": "76",
+              "label": "Lens H Left"
+            },
+            {
+              "id": "77",
+              "label": "Lens V Up"
+            },
+            {
+              "id": "78",
+              "label": "Lens V Down"
+            },
+            {
+              "id": "80",
+              "label": "Bright"
+            },
+            {
+              "id": "81",
+              "label": "Channel"
+            },
+            {
+              "id": "82",
+              "label": "Test"
+            },
+            {
+              "id": "83",
+              "label": "Shutter"
+            },
+            {
+              "id": "84",
+              "label": "PIP"
+            },
+            {
+              "id": "85",
+              "label": "Gamma"
+            },
+            {
+              "id": "86",
+              "label": "Auto"
+            },
+            {
+              "id": "87",
+              "label": "Focus"
+            },
+            {
+              "id": "88",
+              "label": "Zoom"
+            },
+            {
+              "id": "89",
+              "label": "Swap"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 521
+      }
+    },
+    {
+      "id": "lcb",
+      "name": "Lens Calibrate",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Relative"
+            },
+            {
+              "id": "1",
+              "label": "Manual"
+            },
+            {
+              "id": "2",
+              "label": "Calibrate"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 539
+      }
+    },
+    {
+      "id": "lcn",
+      "name": "Lens Center",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 557
+      }
+    },
+    {
+      "id": "lco",
+      "name": "Lamp Conditioning On/Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 567
+      }
+    },
+    {
+      "id": "lng",
+      "name": "Language",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Language",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "English"
+            },
+            {
+              "id": "2",
+              "label": "French"
+            },
+            {
+              "id": "3",
+              "label": "Spanish"
+            },
+            {
+              "id": "4",
+              "label": "German"
+            },
+            {
+              "id": "5",
+              "label": "Italian"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 585
+      }
+    },
+    {
+      "id": "lop",
+      "name": "Lamp Operation",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Mode",
+          "default": "3",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Lamp 1 only"
+            },
+            {
+              "id": "2",
+              "label": "Lamp 2 only"
+            },
+            {
+              "id": "3",
+              "label": "Both"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 603
+      }
+    },
+    {
+      "id": "lpc",
+      "name": "Lamp Changed",
+      "options": [
+        {
+          "id": "p1",
+          "type": "textinput",
+          "label": "Serial nr: (Max 8 Charactors)",
+          "default": "",
+          "required": true,
+          "regex": "/^.{1,8}$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 621
+      }
+    },
+    {
+      "id": "lph",
+      "name": "Lamp Hours Of Use?",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 640
+      }
+    },
+    {
+      "id": "lpi",
+      "name": "Lamp Intensity",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Setpoint (0-9999)",
+          "default": 100,
+          "min": 0,
+          "max": 9999,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 650
+      }
+    },
+    {
+      "id": "lpm",
+      "name": "Lamp Mode",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Auto"
+            },
+            {
+              "id": "1",
+              "label": "Still"
+            },
+            {
+              "id": "2",
+              "label": "Motion"
+            },
+            {
+              "id": "3",
+              "label": "Film"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 672
+      }
+    },
+    {
+      "id": "mot",
+      "name": "Motion Filter",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Filter",
+          "default": "0",
+          "choicesNote": "The source passes choices.motionFilter, which src/choices.js does not define (the second \"lampMode\" block there is probably meant to be it), so the dropdown has no choices."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 690
+      }
+    },
+    {
+      "id": "osd",
+      "name": "On Screen Display On/Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 708
+      }
+    },
+    {
+      "id": "pip",
+      "name": "Picture In Picture On/Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 726
+      }
+    },
+    {
+      "id": "ppp",
+      "name": "PIP Position Preset",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Select Preset",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Top Left"
+            },
+            {
+              "id": "1",
+              "label": "Top Right"
+            },
+            {
+              "id": "2",
+              "label": "Bottom Left"
+            },
+            {
+              "id": "3",
+              "label": "Bottom Right"
+            },
+            {
+              "id": "4",
+              "label": "Custom"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 744
+      }
+    },
+    {
+      "id": "pps",
+      "name": "Picture In Picture Swap",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 762
+      }
+    },
+    {
+      "id": "pwr",
+      "name": "Power On/Off",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 772
+      }
+    },
+    {
+      "id": "sde",
+      "name": "Source Dialog Enable",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Show / Hide",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Disable"
+            },
+            {
+              "id": "1",
+              "label": "Enable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 790
+      }
+    },
+    {
+      "id": "shu",
+      "name": "Shutter Open / Close",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Open / Close",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Open"
+            },
+            {
+              "id": "1",
+              "label": "Close"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 808
+      }
+    },
+    {
+      "id": "sin",
+      "name": "Select Input",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "BNC"
+            },
+            {
+              "id": "2",
+              "label": "DVI-I"
+            },
+            {
+              "id": "3",
+              "label": "Composite"
+            },
+            {
+              "id": "4",
+              "label": "S-Video"
+            },
+            {
+              "id": "5",
+              "label": "Option slot #1"
+            },
+            {
+              "id": "6",
+              "label": "Option slot #2"
+            },
+            {
+              "id": "7",
+              "label": "Option slot #3"
+            },
+            {
+              "id": "8",
+              "label": "Option slot #4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 826
+      }
+    },
+    {
+      "id": "sinSlot",
+      "name": "Select Input by Slot and Input Number",
+      "options": [
+        {
+          "id": "slot",
+          "type": "textinput",
+          "label": "Slot Number",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input Number",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "MAIN",
+          "choices": [
+            {
+              "id": "MAIN",
+              "label": "Main"
+            },
+            {
+              "id": "PIIP",
+              "label": "PIP"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 844
+      }
+    },
+    {
+      "id": "sor",
+      "name": "Select Orientation",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Orientation:",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Front Projection"
+            },
+            {
+              "id": "1",
+              "label": "Rear Projection"
+            },
+            {
+              "id": "2",
+              "label": "Front Projection Inverted"
+            },
+            {
+              "id": "3",
+              "label": "Rear Projection Inverted"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 883
+      }
+    },
+    {
+      "id": "std",
+      "name": "Video Standard",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Video Standard",
+          "default": "8",
+          "choices": [
+            {
+              "id": "0",
+              "label": "PAL"
+            },
+            {
+              "id": "1",
+              "label": "NTSC"
+            },
+            {
+              "id": "2",
+              "label": "SECAM"
+            },
+            {
+              "id": "3",
+              "label": "NTSC4.43"
+            },
+            {
+              "id": "4",
+              "label": "PAL-M"
+            },
+            {
+              "id": "5",
+              "label": "PAL-NC"
+            },
+            {
+              "id": "6",
+              "label": "PAL-60"
+            },
+            {
+              "id": "7",
+              "label": "NTSC"
+            },
+            {
+              "id": "8",
+              "label": "Auto-select"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 901
+      }
+    },
+    {
+      "id": "szp",
+      "name": "Size Presets Position",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Size",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Default"
+            },
+            {
+              "id": "1",
+              "label": "No Resizing"
+            },
+            {
+              "id": "2",
+              "label": "Full Screen"
+            },
+            {
+              "id": "3",
+              "label": "Full Width"
+            },
+            {
+              "id": "4",
+              "label": "Full Height"
+            },
+            {
+              "id": "5",
+              "label": "Anamorphic"
+            },
+            {
+              "id": "6",
+              "label": "Custom resizing"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 919
+      }
+    },
+    {
+      "id": "tnt",
+      "name": "Tint",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Tint (0-1000 = 0%-100%, 505 = 50.5%)",
+          "default": 1,
+          "min": 0,
+          "max": 1000,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 937
+      }
+    },
+    {
+      "id": "vrt",
+      "name": "Vertical Position",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Vertical Position",
+          "default": 500,
+          "min": 0,
+          "max": 9999,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 959
+      }
+    },
+    {
+      "id": "wps",
+      "name": "Geometry Correction (General)",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Warp Select",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "2D Warp"
+            },
+            {
+              "id": "2",
+              "label": "User 1"
+            },
+            {
+              "id": "3",
+              "label": "User 2"
+            },
+            {
+              "id": "4",
+              "label": "User 3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 981
+      }
+    },
+    {
+      "id": "wrp",
+      "name": "Geometry Correction (Mseries & Boxer)",
+      "options": [
+        {
+          "id": "p1",
+          "type": "dropdown",
+          "label": "Warp Select",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Mseries 2D Warp, Boxer User 1"
+            },
+            {
+              "id": "2",
+              "label": "Mseries User 1, Boxer User 2"
+            },
+            {
+              "id": "3",
+              "label": "Mseries User 2, Boxer User 3"
+            },
+            {
+              "id": "4",
+              "label": "Mseries User 3, Boxer User 4"
+            },
+            {
+              "id": "5",
+              "label": "Mseries User 4"
+            },
+            {
+              "id": "6",
+              "label": "Mseries User 5"
+            },
+            {
+              "id": "7",
+              "label": "Mseries User 6"
+            },
+            {
+              "id": "8",
+              "label": "Mseries User 7"
+            },
+            {
+              "id": "9",
+              "label": "Mseries User 8"
+            },
+            {
+              "id": "10",
+              "label": "Mseries User 9"
+            },
+            {
+              "id": "11",
+              "label": "Mseries User 10, Boxer Keystone"
+            },
+            {
+              "id": "12",
+              "label": "Mseries User 11"
+            },
+            {
+              "id": "13",
+              "label": "Mseries User 12"
+            },
+            {
+              "id": "14",
+              "label": "Mseries User 13"
+            },
+            {
+              "id": "15",
+              "label": "Mseries User 14"
+            },
+            {
+              "id": "16",
+              "label": "Mseries User 15"
+            },
+            {
+              "id": "17",
+              "label": "Mseries User 16"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 999
+      }
+    },
+    {
+      "id": "zom",
+      "name": "Zoom (Fixed)",
+      "options": [
+        {
+          "id": "p1",
+          "type": "number",
+          "label": "Zoom Set (-1200 to 1200)",
+          "default": 0,
+          "min": -1200,
+          "max": 1200,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1017
+      }
+    },
+    {
+      "id": "lensshift_move_h_neg",
+      "name": "Lens Shift - Start to Move Horizontal Motor to Negative Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1039
+      }
+    },
+    {
+      "id": "lensshift_move_h_pos",
+      "name": "Lens Shift - Start to Move Horizontal Motor to Positive Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1048
+      }
+    },
+    {
+      "id": "lensshift_move_h_stop",
+      "name": "Lens Shift - Stop Move Horizontal Motor",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1057
+      }
+    },
+    {
+      "id": "lensshift_move_h_number",
+      "name": "Lens Shift - Move Horizontal Motor to Position",
+      "options": [
+        {
+          "id": "pos",
+          "type": "number",
+          "label": "Position (-2050 to 2050)",
+          "default": 0,
+          "min": -2050,
+          "max": 2050,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1066
+      }
+    },
+    {
+      "id": "lensshift_move_v_neg",
+      "name": "Lens Shift - Start to Move Vertical Motor to Negative Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1088
+      }
+    },
+    {
+      "id": "lensshift_move_v_pos",
+      "name": "Lens Shift - Start to Move Vertical Motor to Positive Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1097
+      }
+    },
+    {
+      "id": "lensshift_move_v_stop",
+      "name": "Lens Shift - Stop Move Vertical Motor",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1106
+      }
+    },
+    {
+      "id": "lensshift_move_v_number",
+      "name": "Lens Shift - Move Vertical Motor to Position",
+      "options": [
+        {
+          "id": "pos",
+          "type": "number",
+          "label": "Position (-2050 to 2050)",
+          "default": 0,
+          "min": -2050,
+          "max": 2050,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1115
+      }
+    },
+    {
+      "id": "lensshift_focus_neg",
+      "name": "Lens Shift - Start to Move Focus Motor to Negative Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1137
+      }
+    },
+    {
+      "id": "lensshift_focus_pos",
+      "name": "Lens Shift - Start to Move Focus Motor to Positive Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1146
+      }
+    },
+    {
+      "id": "lensshift_focus_stop",
+      "name": "Lens Shift - Stop Move Focus Motor",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1155
+      }
+    },
+    {
+      "id": "lensshift_zoom_neg",
+      "name": "Lens Shift - Start to Move Zoom Motor to Negative Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1164
+      }
+    },
+    {
+      "id": "lensshift_zoom_pos",
+      "name": "Lens Shift - Start to Move Zoom Motor to Positive Max",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1173
+      }
+    },
+    {
+      "id": "lensshift_zoom_stop",
+      "name": "Lens Shift - Stop Move Zoom Motor",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1182
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "power_state",
+      "name": "Power State",
+      "description": "Change colors of bank depending on Power State",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color light",
+          "default": 16777215
+        },
+        {
+          "id": "fg2",
+          "type": "colorpicker",
+          "label": "Foreground color dark",
+          "default": 0
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color on",
+          "default": 52224
+        },
+        {
+          "id": "bg2",
+          "type": "colorpicker",
+          "label": "Background color off",
+          "default": 16711680
+        },
+        {
+          "id": "bg3",
+          "type": "colorpicker",
+          "label": "Background color boot mode",
+          "default": 16776960
+        },
+        {
+          "id": "bg4",
+          "type": "colorpicker",
+          "label": "Background color cooldown",
+          "default": 16776960
+        },
+        {
+          "id": "bg5",
+          "type": "colorpicker",
+          "label": "Background color warm up",
+          "default": 16776960
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 8
+      }
+    },
+    {
+      "id": "standby",
+      "name": "Standby On / Off",
+      "description": "Change colors of bank if standby mode is on or not",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color Off",
+          "default": 16711680
+        },
+        {
+          "id": "bg2",
+          "type": "colorpicker",
+          "label": "Background color On",
+          "default": 52224
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 92
+      }
+    },
+    {
+      "id": "signal_state",
+      "name": "Signal Status",
+      "description": "Change colors of bank depending on signal status",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color light",
+          "default": 16777215
+        },
+        {
+          "id": "fg2",
+          "type": "colorpicker",
+          "label": "Foreground color dark",
+          "default": 0
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color good signal",
+          "default": 52224
+        },
+        {
+          "id": "bg2",
+          "type": "colorpicker",
+          "label": "Background color signal missing",
+          "default": 16711680
+        },
+        {
+          "id": "bg3",
+          "type": "colorpicker",
+          "label": "Background color bad sync",
+          "default": 16776960
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 134
+      }
+    },
+    {
+      "id": "osd_enabled",
+      "name": "OSD On / Off",
+      "description": "Change colors of bank if On-Screen-Display mode is on or not",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color Off",
+          "default": 16711680
+        },
+        {
+          "id": "bg2",
+          "type": "colorpicker",
+          "label": "Background color On",
+          "default": 52224
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 194
+      }
+    },
+    {
+      "id": "shutter_closed",
+      "name": "Shutter is closed",
+      "description": "Change colors of bank if the shutter is closed",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color Closed",
+          "default": 16711680
+        },
+        {
+          "id": "bg2",
+          "type": "colorpicker",
+          "label": "Background color Open",
+          "default": 52224
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 236
+      }
+    },
+    {
+      "id": "input_channel",
+      "name": "Video Channel: Change background color",
+      "description": "If the channel specified is the active video channel, change colors of the bank",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 16711680
+        },
+        {
+          "id": "input",
+          "type": "number",
+          "label": "Channel: (1-50)",
+          "default": 1,
+          "min": 1,
+          "max": 50,
+          "required": true
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 278
+      }
+    },
+    {
+      "id": "input_slot",
+      "name": "Input Slot: Change background color",
+      "description": "If the slot specified is the active input slot, change colors of the bank",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 16711680
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "1",
+          "choicesNote": "The source passes self.inputSelect, which the module never defines (the list is choices.inputSelect in src/choices.js), so the dropdown has no choices."
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 319
+      }
+    },
+    {
+      "id": "pip_enabled",
+      "name": "PIP On / Off",
+      "description": "Change colors of bank if Picture-in-Picture mode is on or not",
+      "options": [
+        {
+          "id": "fg1",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg1",
+          "type": "colorpicker",
+          "label": "Background color Off",
+          "default": 16711680
+        },
+        {
+          "id": "bg2",
+          "type": "colorpicker",
+          "label": "Background color On",
+          "default": 52224
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 357
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 67 actions (src/actions.js) and 8 advanced feedbacks (src/feedbacks.js). Every definition is a plain assignment (actions.<id> = {...}, feedbacks.<id> = {...}) in initActions/initFeedbacks; nothing is generated at runtime.",
+    "Protocol: TCP via TCPHelper to the configured port (config field default 3002, src/config.js); commands are Christie serial-style strings in parentheses such as (PWR 1) or (BRT 0505) (src/api.js sendCommand). The module polls on a configurable interval. Variables and presets are not catalogued.",
+    "Almost all dropdown ids are strings ('0', '1', ...). The choice lists come from src/choices.js and are copied as written there, including model-specific lists (tpatBasic, tpatBoxer, tpatMser, warpSelBasic, warpSelMseries); the module does not hide actions per model (config field pjtype exists but the action definitions do not use it).",
+    "src/choices.js defines the key lampMode twice in one object literal. The later block (Auto, Still, Motion, Film) overrides the first (max brightness, maintain intensity setting, maintain power setting), so action lpm (Lamp Mode) offers Auto/Still/Motion/Film. The catalog records the effective (later) list.",
+    "Action mot (Motion Filter) passes choices.motionFilter, which choices.js does not define; its dropdown therefore has no choices (the presets loop over the same undefined key). Feedback input_slot passes self.inputSelect, which is also undefined. Both are recorded with a choicesNote and without choices.",
+    "Number options carry regex: self.REGEX_NUMBER and range: false. The module never defines REGEX_NUMBER and @companion-module/base 1.15.0 (the version available for checking; the module pins ~1.4.1, not checked) has no such property, so no regex is effective and none is recorded. Ranges are the min/max of the number fields; the command builders pad values with pad2/pad4 and do not clamp.",
+    "Actions lcn (Lens Center) and pps (Picture In Picture Swap) use the key label where all others use name; the catalog takes that text as the name. Companion reads name, so these two may show without a name in the UI (not verified against a running Companion).",
+    "Action def (Factory Defaults): the default is the empty string, whose choice is labelled No; id '111' (Yes) sends the command. Action sinSlot has two text inputs (slot, input) with useVariables: true; the callback resolves them with parseVariablesInString and concatenates slot and input without a separator. Its Target choice id 'PIIP' (label PIP) is as written in the source and builds (SIN+PIIP <slot><input>).",
+    "The action ids for the lens shift motors (lensshift_*) send (LMV+...) and (LHO/LVO ...) commands without model checks.",
+    "Feedback colorpicker defaults are combineRgb values converted to integers. Built on @companion-module/base ~1.4.1: options do not support expressions."
+  ]
+}

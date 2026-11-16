@@ -1,0 +1,242 @@
+{
+  "moduleId": "techministry-tallyarbiter",
+  "name": "Tally Arbiter",
+  "repo": "bitfocus/companion-module-techministry-tallyarbiter",
+  "version": "2.5.0",
+  "baseVersion": "^1.10.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "c7ba214",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "flash_device",
+      "name": "Flash All Listener Clients of a Device",
+      "options": [
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"devices\", src/api.js:69-78; label = device name); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Device)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module). Before the first \"devices\" event the module initialises the array as \"No Devices Found\" (index.js:34).",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 6
+      }
+    },
+    {
+      "id": "flash_listener_client",
+      "name": "Flash A Specific Listener Client",
+      "options": [
+        {
+          "id": "listener_client",
+          "type": "dropdown",
+          "label": "Listener Client",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"listener_clients\", src/api.js:170-178; only clients with inactive === false are listed, label \"<device name> - <ip> (<listener type>)\" built by GetListenerClientLabel() in src/utils.js:32); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Listener Client)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module).",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 26
+      }
+    },
+    {
+      "id": "reassign_listener_client",
+      "name": "Reassign A Specific Listener Client",
+      "options": [
+        {
+          "id": "listener_client",
+          "type": "dropdown",
+          "label": "Listener Client",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"listener_clients\", src/api.js:170-178; only clients with inactive === false are listed, label \"<device name> - <ip> (<listener type>)\" built by GetListenerClientLabel() in src/utils.js:32); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Listener Client)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module).",
+          "default": "0"
+        },
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"devices\", src/api.js:69-78; label = device name); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Device)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module). Before the first \"devices\" event the module initialises the array as \"No Devices Found\" (index.js:34).",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 42
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "sources",
+      "name": "Source is Offline",
+      "description": "If the selected Source goes offline, change the color of the button. Default style: white text on red.",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"sources\", src/api.js:53-60; label = source name); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Source)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module).",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 12
+      }
+    },
+    {
+      "id": "devices",
+      "name": "Device In Preview or Program",
+      "description": "If Device is in Preview or Program, change the color of the button. Default style: white text on red.",
+      "options": [
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"devices\", src/api.js:69-78; label = device name); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Device)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module). Before the first \"devices\" event the module initialises the array as \"No Devices Found\" (index.js:34).",
+          "default": "0"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "previewprogram",
+              "label": "Preview + Program"
+            }
+          ],
+          "description": "No default in the source: a new feedback has no mode selected until one is chosen."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 43
+      }
+    },
+    {
+      "id": "deviceinBus",
+      "name": "Device In Bus",
+      "description": "If Device is in the selected Bus, change the color of the button. Default style: white text on red.",
+      "options": [
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"devices\", src/api.js:69-78; label = device name); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Device)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module). Before the first \"devices\" event the module initialises the array as \"No Devices Found\" (index.js:34).",
+          "default": "0"
+        },
+        {
+          "id": "busOption",
+          "type": "dropdown",
+          "label": "Bus",
+          "choicesNote": "Filled at runtime from the Tally Arbiter event \"bus_options\" (src/api.js:85-98); label = bus label. The list starts with the placeholder {id: \"0\", label: \"(no bus options available)\"} (index.js:39) and the event handler pushes the received buses onto the existing array without resetting it (placeholder stays; repeated events append duplicates).",
+          "description": "No default in the source."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 96
+      }
+    },
+    {
+      "id": "listener_clients",
+      "name": "Listener Client Offline",
+      "description": "If the selected Listener Client goes offline, change the color of the button. No default style is defined.",
+      "options": [
+        {
+          "id": "listener_client",
+          "type": "dropdown",
+          "label": "Listener client",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"listener_clients\", src/api.js:170-178; only clients with inactive === false are listed, label \"<device name> - <ip> (<listener type>)\" (src/utils.js:32)); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Listener Client)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module).",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 142
+      }
+    },
+    {
+      "id": "tsl_clients",
+      "name": "TSL Client Offline",
+      "description": "If the selected TSL Client goes offline, change the color of the button. No default style is defined.",
+      "options": [
+        {
+          "id": "tsl_client",
+          "type": "dropdown",
+          "label": "TSL Client",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"tsl_clients\", src/api.js:189-195; label \"<ip>:<port> (<transport>)\"); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a TSL Client)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module).",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 170
+      }
+    },
+    {
+      "id": "cloud_destinations",
+      "name": "Cloud Destination Offline",
+      "description": "If the selected Cloud Destination goes offline, change the color of the button. Default style: white text on red.",
+      "options": [
+        {
+          "id": "cloud_destination",
+          "type": "dropdown",
+          "label": "Cloud Destination",
+          "choicesNote": "Filled at runtime from the Tally Arbiter server (event \"cloud_destinations\", src/api.js:203-209; label \"<host>:<port>\"); closed list of the connected server, so it cannot be enumerated offline. The first entry is always the placeholder {id: \"0\", label: \"(Select a Cloud Destination)\"} (src/api.js), the other ids are the ids reported by the server (copied unchanged, their type is not fixed by the module).",
+          "default": "0"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 197
+      }
+    },
+    {
+      "id": "busActive",
+      "name": "Bus Has Active Device(s)",
+      "description": "If any device is currently active (has a source) on the selected Bus, change the color of the button. Default style: white text on red.",
+      "options": [
+        {
+          "id": "busOption",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the Tally Arbiter event \"bus_options\" (src/api.js:85-98); label = bus label. The list starts with the placeholder {id: \"0\", label: \"(no bus options available)\"} (index.js:39) and the event handler pushes the received buses onto the existing array without resetting it (placeholder stays; repeated events append duplicates)."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 226
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 3 actions (src/actions.js) and 7 boolean feedbacks (src/feedbacks.js); each file registers its definitions in a single call. Variables and presets are not catalogued.",
+    "Protocol: Socket.IO (socket.io-client) connection to the Tally Arbiter server (config default port 4455; config also has login fields for Tally Arbiter 3.3+). All dropdowns are filled from data the server pushes (sources, devices, bus options, listener clients, TSL clients, cloud destinations), so no list can be enumerated offline.",
+    "Definitions are rebuilt on server events (src/api.js: initActions on \"devices\" and \"listener_clients\", initFeedbacks on most events). The default of each device/source/client dropdown is the first array entry, which is the placeholder \"0\" until the server has sent data.",
+    "listener_clients_array contains only clients that are currently active; the feedback \"listener_clients\" therefore offers only active clients in its dropdown.",
+    "Actions send Socket.IO events through sendCommand(): \"flash\" with the listener client id, and \"reassign\" with listener client id, old device id and new device id (src/actions.js:20, 38, 67). flash_device flashes every listener client whose deviceId equals the selected device.",
+    "The ids of the server-filled dropdowns are copied unchanged from the server data (the module does not convert them); only the placeholder id \"0\" is known to be a string, so no valueType is declared.",
+    "Built on @companion-module/base ^1.10.0: options do not support expressions."
+  ]
+}

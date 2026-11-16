@@ -1,0 +1,176 @@
+{
+  "moduleId": "barco-dp",
+  "name": "Barco DP (projectors)",
+  "repo": "bitfocus/companion-module-barco-dp",
+  "version": "2.0.2",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "7b8c11a",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "lamp",
+      "name": "Lamp control",
+      "options": [
+        {
+          "id": "lamp",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": "lamp_on",
+          "choices": [
+            {
+              "id": "lamp_on",
+              "label": "Lamp On"
+            },
+            {
+              "id": "lamp_off",
+              "label": "Lamp Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 69
+      }
+    },
+    {
+      "id": "shutter",
+      "name": "Shutter",
+      "options": [
+        {
+          "id": "shutter",
+          "type": "dropdown",
+          "label": "Open/Close",
+          "default": "shutter_close",
+          "choices": [
+            {
+              "id": "shutter_close",
+              "label": "Close"
+            },
+            {
+              "id": "shutter_open",
+              "label": "Open"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 94
+      }
+    },
+    {
+      "id": "lensShift",
+      "name": "Lens Shift",
+      "options": [
+        {
+          "id": "side",
+          "type": "dropdown",
+          "label": "Shift Direction",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Up"
+            },
+            {
+              "id": "1",
+              "label": "Down"
+            },
+            {
+              "id": "2",
+              "label": "Left"
+            },
+            {
+              "id": "3",
+              "label": "Right"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 117
+      }
+    },
+    {
+      "id": "lensZoom",
+      "name": "Lens Zoom",
+      "options": [
+        {
+          "id": "zoom",
+          "type": "dropdown",
+          "label": "Zoom",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Zoom In"
+            },
+            {
+              "id": "1",
+              "label": "Zoom Out"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 139
+      }
+    },
+    {
+      "id": "lensFocus",
+      "name": "Lens Focus",
+      "options": [
+        {
+          "id": "focus",
+          "type": "dropdown",
+          "label": "Focus",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Near"
+            },
+            {
+              "id": "1",
+              "label": "Far"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 159
+      }
+    },
+    {
+      "id": "macro",
+      "name": "Execute Macro",
+      "options": [
+        {
+          "id": "macro",
+          "type": "textinput",
+          "label": "Macro Name"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 179
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 6 actions in initActions (index.js:67-194), no feedbacks (the module defines none and never calls setFeedbackDefinitions).",
+    "Protocol: raw binary frames over TCP to the host/port from the config (config port default '43728', tooltip 'Port 43728 for Series 2'). Frame = 0xFE 0x00 <command bytes> [<param byte>] <checksum> 0xFF; the checksum is the byte sum modulo 256 (index.js:196-210). Commands are not catalogued per byte.",
+    "lamp and shutter dropdown ids are strings used only for an equality test in the callback; lensShift/lensZoom/lensFocus ids are numeric strings passed through parseInt as the parameter byte.",
+    "Execute Macro sends the macro name as raw bytes appended to 0xE8 0x81 (index.js:189), followed by a 0x00 byte and the checksum (getCommandValue with a null parameter, index.js:207-208); the text input has no variable support, no default and no regex.",
+    "The shutter action's default is 'shutter_close' (index.js:101).",
+    "Built on @companion-module/base ~1.12.1: options do not support expressions.",
+    "Written in CommonJS, no presets/variables catalogued."
+  ]
+}

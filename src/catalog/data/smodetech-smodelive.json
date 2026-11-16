@@ -1,0 +1,507 @@
+{
+  "moduleId": "smodetech-smodelive",
+  "name": "Smode Live",
+  "repo": "bitfocus/companion-module-smodetech-smodelive",
+  "version": "1.1.2",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "9439271",
+  "status": "verified-sample",
+  "coverage": "partial",
+  "notes": [
+    "Actions: 27 distinct keys (src/actions.js, one setActionDefinitions call), all static. statusActions is declared twice in the same object literal (28 declarations); the later definition (\"Get Statistics\") replaces the first (\"Get Status\"), so \"Get Status\" is never registered.",
+    "Feedbacks are partial: the 7 static feedbacks (on_air, eco_mode, output, smode_state, vramStep0, vramStep1, vramStep2) are catalogued. In addition src/feedbacks.js:7-153 generates boolean feedbacks without options at runtime from the objects the module has read from Smode Live (feedback definitions are re-registered after the module has read the parameters, timelines, scenes and devices, src/smode_live.js:152, 232, 297-299, 549-551): <parameterUuid>_index (name = parameter label), <timelineKey>_playing and <timelineKey>_loop (names \"<label> Playing\", \"<label> Looping\"), <sceneKey>_activation and <sceneKey>_loading (names \"<label> activation\", \"<label> loading\") and <deviceUuid>_isMuted (name \"<label> isMuted\"). Their ids and names depend on the show content, so they are not enumerable offline and not catalogued.",
+    "The generated feedbacks are inverted or odd in places, recorded here as the source reads: \"<timelineKey>_playing\" returns true when tl_<key>_playing === false; \"<sceneKey>_activation\" and \"<sceneKey>_loading\" return true when the variable equals \"inactive\".",
+    "Protocol: HTTP(S) REST calls with axios to the Smode Live web API (config host default 127.0.0.1, port default \"8080\" as string, httpMode http/https/httpsWithCa, optional certificate paths, password field, pollingInterval default 1000, autoDevices default false; src/configFields.js). Requests are POST /api/live/trigger/<uuid>, /api/live/animations/<uuid>/trigger?state=<play|pause|reset|finalize|next|previous|apply>, /move, and PATCH /api/live/objects/<uuid>?variablePath=... or /api/live/{on-air,eco-mode,output}. Variables and presets are not catalogued.",
+    "Every action that takes an id has one free textinput (uuid, default \"0\") for the Smode object uuid; no dropdowns are defined, so the uuids have to be copied from Smode Live or from the variables the module creates after the Get ... actions. The source does not mark any option required or useVariables.",
+    "The source puts a tooltip key on most actions (e.g. \"Smode Live Get Contents\"). tooltip is not a field of the Companion action definition (the field is description), so it is not recorded. Option labels keep the source typo \"Paramaters UUID\".",
+    "trigTrigger reads action.options.bankUuid in its response handler although it only defines the option uuid; the option does not exist there (src/actions.js:43).",
+    "Get Contents, Get TimeLines, Get Scenes, Get Devices, Get Statistics and Get Version only read data from Smode Live into module state and variables; they take no options. On Air, Power Save Mode, Output, Devices Mute, TimeLines Looping, TimeLine Play Pause, Scene Activation Toggle and Contents Loading Toggle compute the value to send from the module's stored variable (for example status_on_air, device_<uuid>_isMuted), not from the device at press time.",
+    "Built on @companion-module/base ~1.4.3: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "getContentsAction",
+      "name": "Get Contents",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 13
+      }
+    },
+    {
+      "id": "trigTrigger",
+      "name": "Trig a trigger",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "Paramaters UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 21
+      }
+    },
+    {
+      "id": "parameterStateIndex",
+      "name": "Parameters state",
+      "options": [
+        {
+          "id": "parUuid",
+          "type": "textinput",
+          "label": "Paramaters UUID",
+          "default": "0"
+        },
+        {
+          "id": "bankUuid",
+          "type": "textinput",
+          "label": "Bank UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 52
+      }
+    },
+    {
+      "id": "getTimelinesActions",
+      "name": "Get TimeLines",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 100
+      }
+    },
+    {
+      "id": "markersMove",
+      "name": "TimeLines Marker Move",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 109
+      }
+    },
+    {
+      "id": "tlPlayingToggle",
+      "name": "TimeLine Play Pause",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 135
+      }
+    },
+    {
+      "id": "tlPlay",
+      "name": "TimeLine Play",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 170
+      }
+    },
+    {
+      "id": "tlPause",
+      "name": "TimeLine Pause",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 203
+      }
+    },
+    {
+      "id": "tlReset",
+      "name": "TimeLines Reset",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 236
+      }
+    },
+    {
+      "id": "tlFinalize",
+      "name": "TimeLines Finalize",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 269
+      }
+    },
+    {
+      "id": "tlNext",
+      "name": "TimeLines Next",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 302
+      }
+    },
+    {
+      "id": "tlPrevious",
+      "name": "TimeLines Previous",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 335
+      }
+    },
+    {
+      "id": "tlLooping",
+      "name": "TimeLines Looping",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 368
+      }
+    },
+    {
+      "id": "getScenesActions",
+      "name": "Get Scenes",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 411
+      }
+    },
+    {
+      "id": "sceneActivationToggle",
+      "name": "Scene Activation Toggle",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 421
+      }
+    },
+    {
+      "id": "sceneActivationOn",
+      "name": "Contents Activation On",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 454
+      }
+    },
+    {
+      "id": "sceneActivationOff",
+      "name": "Contents Activation Off",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 492
+      }
+    },
+    {
+      "id": "sceneLoadingToogle",
+      "name": "Contents Loading Toggle",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 530
+      }
+    },
+    {
+      "id": "sceneLoadingOn",
+      "name": "Contents Loading On",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 575
+      }
+    },
+    {
+      "id": "sceneLoadingOff",
+      "name": "Contents Loading Off",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 613
+      }
+    },
+    {
+      "id": "devices_is_muted",
+      "name": "Devices Mute",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "UUID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 657
+      }
+    },
+    {
+      "id": "getDeviceActions",
+      "name": "Get Devices",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 701
+      }
+    },
+    {
+      "id": "setOnAir",
+      "name": "On Air",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 716
+      }
+    },
+    {
+      "id": "setEcoMode",
+      "name": "Power Save Mode",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 744
+      }
+    },
+    {
+      "id": "setOutPut",
+      "name": "Output",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 772
+      }
+    },
+    {
+      "id": "statusActions",
+      "name": "Get Statistics",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 815
+      },
+      "description": "The source declares this key twice (src/actions.js:800 'Get Status' and src/actions.js:815 'Get Statistics'); the later definition wins, so only Get Statistics is registered."
+    },
+    {
+      "id": "versionActions",
+      "name": "Get Version",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 830
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "on_air",
+      "name": "Smode On Air",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 161
+      },
+      "description": "True while the variable status_on_air is truthy."
+    },
+    {
+      "id": "eco_mode",
+      "name": "Smode Power Save Mode",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 183
+      },
+      "description": "True while the variable status_eco_mode is truthy."
+    },
+    {
+      "id": "output",
+      "name": "Smode Output",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 205
+      },
+      "description": "True while the variable status_output equals \"active\"."
+    },
+    {
+      "id": "smode_state",
+      "name": "Smode state",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "smodeState",
+          "type": "number",
+          "label": "State",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 227
+      },
+      "description": "True when the number equals the module state code: 0 while the reported Smode status state is \"running\", -1 otherwise (strict comparison, so only 0 or -1 can match)."
+    },
+    {
+      "id": "vramStep0",
+      "name": "VRam00",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 50
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 260
+      },
+      "description": "True while the VRAM percentage is less than or equal to Step."
+    },
+    {
+      "id": "vramStep1",
+      "name": "VRam01",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 80
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 283
+      },
+      "description": "True while the VRAM percentage is between 50 (hard coded) and Step, both inclusive."
+    },
+    {
+      "id": "vramStep2",
+      "name": "VRam02",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 80
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 309
+      },
+      "description": "True while the VRAM percentage is greater than Step."
+    }
+  ]
+}

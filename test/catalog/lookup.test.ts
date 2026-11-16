@@ -17,9 +17,9 @@ describe('listModules', () => {
     expect(atem?.baseVersion).toMatch(/2\./);
   });
 
-  it('marks modules without catalog data as index-only', () => {
+  it('marks the generic modules as full', () => {
     const entry = listModules().find((m) => m.moduleId === 'generic-osc');
-    expect(entry?.kind).toBe('index-only');
+    expect(entry?.kind).toBe('full');
   });
 
   it('does not expose internal state through the returned array', () => {
@@ -41,9 +41,8 @@ describe('getModule', () => {
     expect(mod?.actions.length).toBeGreaterThan(10);
   });
 
-  it('returns undefined for unknown and index-only modules', () => {
+  it('returns undefined for unknown modules', () => {
     expect(getModule('does-not-exist')).toBeUndefined();
-    expect(getModule('generic-osc')).toBeUndefined();
     expect(getModule('__proto__')).toBeUndefined();
     expect(getModule('toString')).toBeUndefined();
   });

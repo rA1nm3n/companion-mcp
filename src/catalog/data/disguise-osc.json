@@ -1,0 +1,1094 @@
+{
+  "moduleId": "disguise-osc",
+  "name": "Disguise OSC",
+  "repo": "bitfocus/companion-module-disguise-osc",
+  "version": "2.2.0",
+  "baseVersion": "~1.15.0",
+  "lastCommit": "2026-11-09",
+  "lastCommitSha": "4afb903",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "shift",
+      "name": "Toggle shift",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 48
+      }
+    },
+    {
+      "id": "play",
+      "name": "Play",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 57
+      }
+    },
+    {
+      "id": "playsection",
+      "name": "Play to end of section",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 66
+      }
+    },
+    {
+      "id": "loopsection",
+      "name": "Loop section",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 75
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 84
+      }
+    },
+    {
+      "id": "previoussection",
+      "name": "Previous section",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 93
+      }
+    },
+    {
+      "id": "nextsection",
+      "name": "Next section",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 102
+      }
+    },
+    {
+      "id": "returntostart",
+      "name": "Return to start",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 111
+      }
+    },
+    {
+      "id": "previoustrack",
+      "name": "Previous track",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 120
+      }
+    },
+    {
+      "id": "nexttrack",
+      "name": "Next track",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 129
+      }
+    },
+    {
+      "id": "trackname",
+      "name": "Track name",
+      "options": [
+        {
+          "id": "string",
+          "type": "textinput",
+          "label": "Track name (string)",
+          "default": "text",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 138
+      }
+    },
+    {
+      "id": "trackid",
+      "name": "Track ID",
+      "options": [
+        {
+          "id": "int",
+          "type": "textinput",
+          "label": "Track ID (integer)",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d+$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 163
+      }
+    },
+    {
+      "id": "cue",
+      "name": "Cue",
+      "options": [
+        {
+          "id": "int",
+          "type": "textinput",
+          "label": "Cue (integer parts or variable)",
+          "description": "Enter 1 to 3 unsigned integers separated by dots, e.g. 1.2.5, or a variable with this value.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^\\d+(?:\\.\\d+){0,2}$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 198
+      }
+    },
+    {
+      "id": "floatcue",
+      "name": "Float Cue",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Float Cue (float or variable)",
+          "description": "Enter a float or a variable that resolves to a float.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 238
+      }
+    },
+    {
+      "id": "fadeup",
+      "name": "Fade up",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 270
+      }
+    },
+    {
+      "id": "fadedown",
+      "name": "Fade down",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 279
+      }
+    },
+    {
+      "id": "hold",
+      "name": "Hold",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 288
+      }
+    },
+    {
+      "id": "shift_brightness",
+      "name": "Shift aware brightness",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Step (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0.01,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 297
+      }
+    },
+    {
+      "id": "increment_brightness",
+      "name": "Increase brightness",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Step (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0.01,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 333
+      }
+    },
+    {
+      "id": "decrement_brightness",
+      "name": "Decrease brightness",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Step (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0.01,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 367
+      }
+    },
+    {
+      "id": "shift_volume",
+      "name": "Shift aware volume",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Step (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0.01,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 401
+      }
+    },
+    {
+      "id": "increment_volume",
+      "name": "Increase volume",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Step (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0.01,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 435
+      }
+    },
+    {
+      "id": "decrement_volume",
+      "name": "Decrease volume",
+      "options": [
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Step (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0.01,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 469
+      }
+    },
+    {
+      "id": "layer_blendmode",
+      "name": "Layer blendmode",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Blendmode:",
+          "default": "00",
+          "choices": [
+            {
+              "id": "00",
+              "label": "Over"
+            },
+            {
+              "id": "01",
+              "label": "Alpha"
+            },
+            {
+              "id": "02",
+              "label": "Add"
+            },
+            {
+              "id": "03",
+              "label": "Multiply"
+            },
+            {
+              "id": "04",
+              "label": "Mask"
+            },
+            {
+              "id": "05",
+              "label": "Multiply-fade"
+            },
+            {
+              "id": "06",
+              "label": "Multiply-alpha"
+            },
+            {
+              "id": "07",
+              "label": "Premult-Alpha"
+            },
+            {
+              "id": "08",
+              "label": "Screen"
+            },
+            {
+              "id": "09",
+              "label": "Overlay"
+            },
+            {
+              "id": "10",
+              "label": "Hard Light"
+            },
+            {
+              "id": "11",
+              "label": "Soft Light"
+            },
+            {
+              "id": "12",
+              "label": "Colour Burn"
+            },
+            {
+              "id": "13",
+              "label": "Darken"
+            },
+            {
+              "id": "14",
+              "label": "Lighten"
+            },
+            {
+              "id": "15",
+              "label": "Difference"
+            },
+            {
+              "id": "16",
+              "label": "Exclusion"
+            },
+            {
+              "id": "17",
+              "label": "Colour Dodge"
+            },
+            {
+              "id": "18",
+              "label": "Hard Mix"
+            },
+            {
+              "id": "19",
+              "label": "Over-alpha"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 504
+      }
+    },
+    {
+      "id": "layer_brightness",
+      "name": "Layer brightness",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Brightness (float)",
+          "description": "Source declares min 0, max 1 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 543
+      }
+    },
+    {
+      "id": "layer_tint",
+      "name": "Layer tint",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel:",
+          "default": "r",
+          "choices": [
+            {
+              "id": "r",
+              "label": "Red"
+            },
+            {
+              "id": "g",
+              "label": "Green"
+            },
+            {
+              "id": "b",
+              "label": "Blue"
+            },
+            {
+              "id": "a",
+              "label": "Alpha"
+            }
+          ]
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Tint (float)",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 584
+      }
+    },
+    {
+      "id": "layer_speed",
+      "name": "Layer speed",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "int",
+          "type": "textinput",
+          "label": "Speed (int)",
+          "description": "Source declares min -4, max 4 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d+$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 634
+      }
+    },
+    {
+      "id": "layer_mode",
+      "name": "Layer mode",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "int",
+          "type": "dropdown",
+          "label": "Mode:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Locked"
+            },
+            {
+              "id": "1",
+              "label": "Normal"
+            },
+            {
+              "id": "2",
+              "label": "Reset"
+            },
+            {
+              "id": "3",
+              "label": "Pause"
+            },
+            {
+              "id": "4",
+              "label": "Inframe"
+            },
+            {
+              "id": "5",
+              "label": "Reverse"
+            },
+            {
+              "id": "6",
+              "label": "Outframe"
+            },
+            {
+              "id": "7",
+              "label": "Timecode"
+            },
+            {
+              "id": "8",
+              "label": "LoopInFrame"
+            },
+            {
+              "id": "9",
+              "label": "LoopOutFrame"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 675
+      }
+    },
+    {
+      "id": "layer_at_end_point",
+      "name": "Layer at end point",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "int",
+          "type": "dropdown",
+          "label": "At end point:",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Loop"
+            },
+            {
+              "id": "1",
+              "label": "Ping-pong"
+            },
+            {
+              "id": "2",
+              "label": "Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 713
+      }
+    },
+    {
+      "id": "layer_transition_time",
+      "name": "Layer transition time",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "int",
+          "type": "textinput",
+          "label": "Transition time (int):",
+          "description": "Source declares min 0, max 10 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d+$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 751
+      }
+    },
+    {
+      "id": "layer_volume",
+      "name": "Layer volume",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Volume (float):",
+          "description": "Source declares min 0, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 792
+      }
+    },
+    {
+      "id": "layer_brightness_shift",
+      "name": "Layer brightness (shift)",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Brightness (shift) (float):",
+          "description": "Source declares min -1, max 1, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 834
+      }
+    },
+    {
+      "id": "layer_contrast_scale",
+      "name": "Layer contrast scale",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Contrast scale (float):",
+          "description": "Source declares min 0, max 2, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 876
+      }
+    },
+    {
+      "id": "layer_saturation_scale",
+      "name": "Layer saturation scale",
+      "options": [
+        {
+          "id": "base_address",
+          "type": "textinput",
+          "label": "Base address:",
+          "default": "/d3/layer/",
+          "useVariables": true
+        },
+        {
+          "id": "layer_name",
+          "type": "textinput",
+          "label": "Layer name:",
+          "default": "video",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Saturation scale (float):",
+          "description": "Source declares min 0, max 4, step 0.01 on this text input; Companion does not enforce limits on text inputs, so they are not recorded as limits.",
+          "default": 1,
+          "useVariables": true,
+          "regex": "/^[-+]?\\d*\\.?\\d+(e[-+]?\\d+)?$|^\\$\\(.+\\)$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 918
+      }
+    },
+    {
+      "id": "custom_osc",
+      "name": "Send custom OSC message",
+      "options": [
+        {
+          "id": "osc_path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "description": "OSC path, e.g. /d3/custom/path. Supports variables.",
+          "default": "/d3/custom/path",
+          "useVariables": true,
+          "regex": "/^\\/.+|^\\$\\(.+\\)$/"
+        },
+        {
+          "id": "arg_type",
+          "type": "dropdown",
+          "label": "Argument Type",
+          "default": "string",
+          "choices": [
+            {
+              "id": "string",
+              "label": "String"
+            },
+            {
+              "id": "int",
+              "label": "Integer"
+            },
+            {
+              "id": "float",
+              "label": "Float"
+            },
+            {
+              "id": "int_parts",
+              "label": "Integer parts, e.g. 1.2.5"
+            },
+            {
+              "id": "none",
+              "label": "No arguments"
+            }
+          ]
+        },
+        {
+          "id": "arg_value",
+          "type": "textinput",
+          "label": "Argument Value",
+          "description": "Value to send. Supports variables.",
+          "default": "",
+          "useVariables": true,
+          "regex": "/.*/",
+          "visibleWhen": "(options) => options.arg_type !== 'none'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 961
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "decrease_brightness",
+      "name": "Reduce brightness",
+      "description": "Indicates \"shift aware brightness\" action mode",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 10
+      }
+    },
+    {
+      "id": "increase_brightness",
+      "name": "Increase brightness",
+      "description": "Indicates \"shift aware brightness\" action mode",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 31
+      }
+    },
+    {
+      "id": "decrease_volume",
+      "name": "Reduce volume",
+      "description": "Indicates \"shift aware volume\" action mode",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 52
+      }
+    },
+    {
+      "id": "increase_volume",
+      "name": "Increase volume",
+      "description": "Indicates \"shift aware volume\" action mode",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 73
+      }
+    },
+    {
+      "id": "PlayMode",
+      "name": "playmode",
+      "description": "Blinks background if selected playmode is active",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Playmode :",
+          "default": "00",
+          "choices": [
+            {
+              "id": "00",
+              "label": "Play"
+            },
+            {
+              "id": "01",
+              "label": "PlaySection"
+            },
+            {
+              "id": "02",
+              "label": "LoopSection"
+            },
+            {
+              "id": "03",
+              "label": "Stop"
+            },
+            {
+              "id": "04",
+              "label": "HoldSection"
+            },
+            {
+              "id": "05",
+              "label": "HoldEnd"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 94
+      }
+    },
+    {
+      "id": "Heartbeat",
+      "name": "heartbeat",
+      "description": "Blinks background if Disguise heartbeat is detected",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 118
+      }
+    },
+    {
+      "id": "Brightness",
+      "name": "Master brightness",
+      "description": "Blinks background if Disguise master brightness is zero",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 136
+      }
+    },
+    {
+      "id": "Volume",
+      "name": "Master volume",
+      "description": "Blinks background if Disguise master volume is zero",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 153
+      }
+    },
+    {
+      "id": "custom_osc_feedback",
+      "name": "Custom OSC Feedback",
+      "description": "User-configurable feedback for OSC address and value",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "d3_osc_path",
+          "type": "textinput",
+          "label": "Disguise OSC Path",
+          "description": "Disguise OSC path to match (can use variables)",
+          "default": "/d3/fadestatus",
+          "useVariables": true
+        },
+        {
+          "id": "expected_value",
+          "type": "textinput",
+          "label": "Expected Value",
+          "description": "Expected value to match (can use variables)",
+          "default": "Fade up",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison Type",
+          "description": "How to compare the received value",
+          "default": "equals",
+          "choices": [
+            {
+              "id": "equals",
+              "label": "Equals"
+            },
+            {
+              "id": "contains",
+              "label": "Contains"
+            },
+            {
+              "id": "regex",
+              "label": "Regex"
+            }
+          ]
+        },
+        {
+          "id": "value_type",
+          "type": "dropdown",
+          "label": "Value Type",
+          "description": "Type of value for validation",
+          "default": "string",
+          "choices": [
+            {
+              "id": "string",
+              "label": "String"
+            },
+            {
+              "id": "int",
+              "label": "Integer"
+            },
+            {
+              "id": "float",
+              "label": "Float"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 171
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 35 actions (src/actions.js, all registered in one setActionDefinitions call) and 9 boolean feedbacks (src/feedbacks.js). Nothing is generated at runtime.",
+    "Protocol: OSC over UDP. The module sends to the configured target host and send port (default 7401) and listens on the receive port (default 7400, bound to 0.0.0.0); src/main.js getConfigFields, src/osc_server.js. Disguise has to be set up to send OSC feedback (companion/HELP.md: full functionality only if Disguise is configured to always send OSC feedback).",
+    "Most fields are text inputs with useVariables. Several numeric text inputs declare min/max/step in the source; Companion does not enforce limits on text inputs and the module does not clamp them (only the brightness and volume step actions clamp the resulting value to 0.0-1.0 in src/utils.js), so these bounds appear only in the option description. The regular expressions are recorded as written in the source; each numeric one also accepts a $(variable) reference.",
+    "Defaults of text inputs are partly numbers in the source (for example default 1 on the cue and trackid actions); they are recorded unchanged.",
+    "shift, shift_brightness and shift_volume use a module-internal shift flag (src/utils.js) that the shift action toggles. The brightness and volume step actions compute the new value from the variables \"brightness\" and \"volume\", which are filled from OSC messages received from Disguise.",
+    "layer_speed sends an OSC float argument built with parseInt, so only whole numbers are sent (src/actions.js:669-670). Layer actions build the path from the base address (default /d3/layer/), the layer name and a fixed suffix, for example /d3/layer/<layer>/tint.r.",
+    "custom_osc sends any path starting with \"/\" with one string, integer or float argument, integer parts such as 1.2.5 as several integer arguments, or no argument; the value field is only shown when the argument type is not \"none\". It can address anything Disguise accepts.",
+    "The feedbacks PlayMode, Heartbeat, Brightness and Volume depend on a 500 ms blink timer (src/main.js) and on variables from received OSC; custom_osc_feedback compares the last received first argument for an OSC path with an expected value (equals, contains or regex). Variables (heartbeat, trackposition_*, timecodeposition_*, trackname, trackid, section names and times, volume, brightness, bpm, playMode) are defined in src/variables.js and are not catalogued.",
+    "Built on @companion-module/base ~1.15.0: options do not support expressions."
+  ]
+}

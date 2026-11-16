@@ -1,0 +1,345 @@
+{
+  "moduleId": "analogway-picturall",
+  "name": "Analog Way Picturall",
+  "repo": "bitfocus/companion-module-analogway-picturall",
+  "version": "2.0.1",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "8ea3f41",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "run_cue",
+      "name": "Run Cue",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "regex": "/^0*[1-9][0-9]*$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 90
+      }
+    },
+    {
+      "id": "playback_go",
+      "name": "Playback Go",
+      "options": [
+        {
+          "id": "playback",
+          "type": "textinput",
+          "label": "Playback to go",
+          "default": "1",
+          "regex": "/^0*[1-8]$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 105
+      }
+    },
+    {
+      "id": "playback_goto",
+      "name": "Playback Goto",
+      "description": "Cue may be `major` or `major.minor`; the callback sends `select major=<n>` plus `,minor=<m>` when the text contains a dot (analogway_picturall.js:137-146).",
+      "options": [
+        {
+          "id": "playback",
+          "type": "textinput",
+          "label": "Playback to goto",
+          "default": "1",
+          "regex": "/^0*[1-8]$/",
+          "useVariables": true
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue to go",
+          "default": "1.0",
+          "regex": "/^0*[1-9][0-9]*(.[0-9]+)?$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 120
+      }
+    },
+    {
+      "id": "playback_selectcuestack",
+      "name": "Select Cuestack into Playback",
+      "options": [
+        {
+          "id": "cuestack",
+          "type": "textinput",
+          "label": "Cuestack",
+          "default": "1",
+          "regex": "/^0*[1-9][0-9]*$/",
+          "useVariables": true
+        },
+        {
+          "id": "playback",
+          "type": "textinput",
+          "label": "Playback to select into",
+          "default": "1",
+          "regex": "/^0*[1-8]$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 149
+      }
+    },
+    {
+      "id": "playback_release",
+      "name": "Playback Release",
+      "options": [
+        {
+          "id": "playback",
+          "type": "textinput",
+          "label": "Playback to release",
+          "default": "1",
+          "regex": "/^0*[1-8]$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 174
+      }
+    },
+    {
+      "id": "layer_playback",
+      "name": "Layer Playback control",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "regex": "/^0*[1-9][0-9]*$/",
+          "useVariables": true
+        },
+        {
+          "id": "playstate",
+          "type": "dropdown",
+          "label": "Play command",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Play"
+            },
+            {
+              "id": "5",
+              "label": "Pause"
+            },
+            {
+              "id": "6",
+              "label": "Stop"
+            },
+            {
+              "id": "t",
+              "label": "Toggle Play/Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 189
+      }
+    },
+    {
+      "id": "layer_playback_seek",
+      "name": "Layer Playback Seek",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "regex": "/^0*[1-9][0-9]*$/",
+          "useVariables": true
+        },
+        {
+          "id": "seek",
+          "type": "dropdown",
+          "label": "Seek command",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Goto Inpoint"
+            },
+            {
+              "id": "1",
+              "label": "Goto Outpoint"
+            },
+            {
+              "id": "5",
+              "label": "Previous Frame"
+            },
+            {
+              "id": "6",
+              "label": "Next Frame"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 222
+      }
+    },
+    {
+      "id": "layer_playback_endaction",
+      "name": "Set Layer Media End Action",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "regex": "/^0*[1-9][0-9]*$/",
+          "useVariables": true
+        },
+        {
+          "id": "endaction",
+          "type": "dropdown",
+          "label": "End Action",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Default"
+            },
+            {
+              "id": "4",
+              "label": "Loop"
+            },
+            {
+              "id": "10",
+              "label": "Loop Collection"
+            },
+            {
+              "id": "11",
+              "label": "Random"
+            },
+            {
+              "id": "1",
+              "label": "Play Next"
+            },
+            {
+              "id": "3",
+              "label": "Pause"
+            },
+            {
+              "id": "2",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 253
+      }
+    },
+    {
+      "id": "sendcustomcommand",
+      "name": "Send custom command",
+      "description": "The action defines a `learn` callback that fills the command from the last received control status (analogway_picturall.js:292-296).",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Command",
+          "default": "",
+          "regex": "/^.+$/i",
+          "useVariables": true,
+          "description": "Enter any command you like in plain ASCII. Beware of correct syntax, you mustn't enter the linefeed at the end of the command."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 281
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "playback_empty",
+      "name": "Playback has Cuestack",
+      "description": "Show if the specified playback has a cuestack (is not empty)",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "playback",
+          "type": "textinput",
+          "label": "Playback",
+          "default": "1",
+          "regex": "/^0*[1-9][0-9]*$/"
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 309
+      }
+    },
+    {
+      "id": "source_playstate",
+      "name": "Playstate",
+      "description": "Change the bank when playstate of the selected source changes",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "source",
+          "type": "textinput",
+          "label": "Source",
+          "default": "1",
+          "regex": "/^0*[1-9][0-9]*$/"
+        },
+        {
+          "id": "playstate",
+          "type": "dropdown",
+          "label": "Playstate",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Play"
+            },
+            {
+              "id": "5",
+              "label": "Pause"
+            },
+            {
+              "id": "6",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_picturall.js",
+        "line": 331
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 9 actions (analogway_picturall.js:89-302) and 2 boolean feedbacks (lines 306-364), each in a single object literal registered by updateActions/updateFeedbacks. The two feedbacks also have an upgrade script (CreateConvertToBooleanFeedbackUpgradeScript).",
+    "Protocol: Picturall server text commands over a plain TCP socket to port 11000 (hard-coded in connectTcp, analogway_picturall.js:859), a newline is appended to every command. Examples sent: `set cue1 playback cue=<n>`, `set stack<n> control command=1`, `set source<n> control play_state_req=<0|5|6>`.",
+    "'layer' and 'source' are layer/source numbers of the Picturall (the module's own preset generation assumes 32 layers; the server configuration can change that number, comment at line 15). The text options have no upper limit in their regex.",
+    "Regexes are the runtime values of the source strings. In playback_goto the source string '/^0*[1-9][0-9]*(\\.[0-9]+)?$/' (analogway_picturall.js:134) contains a `\\.` inside a normal string, which is just `.`, so the effective pattern is /^0*[1-9][0-9]*(.[0-9]+)?$/ (the dot matches any character).",
+    "Playback numbers are 1-8 (regex /^0*[1-8]$/). Option values of the action textinputs are processed with useVariables; the feedback textinputs have no variable support.",
+    "The Toggle Play/Pause value 't' in layer_playback toggles between Pause (5) and Play (0) from the module's tracked source play state (lines 209-219); layer is required but has no default.",
+    "Presets and variables (playbackN_cuestack/_cue/_state/_progress, software_version and per-source variables) are not catalogued; the module sets `disableVariableValidation` (line 35) because the per-source variables used in presets (elapsed, countdown, playstate) are not all defined in updateVariables.",
+    "Built on @companion-module/base ~1.4.3: options do not support expressions."
+  ]
+}

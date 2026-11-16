@@ -1,0 +1,1487 @@
+{
+  "moduleId": "panasonic-projector",
+  "name": "Panasonic Projector",
+  "repo": "bitfocus/companion-module-panasonic-projector",
+  "version": "3.4.0",
+  "baseVersion": "^1.12.1",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "3cb0cc1",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 18 actions (updateActions) and 12 boolean feedbacks (initFeedbacks) in index.js. A further action, grid_display (GridDisplay), is commented out in the source (index.js, marked TODO: untested with the upgrade kit) and is therefore not registered and not catalogued.",
+    "Protocol: Panasonic NTCONTROL over TCP through the npm package ntcontrol-connection (^0.5.0, lock file 0.5.0). Config default port 1024, default user and password come from the module config (index.js getConfigFields); the catalog stores no credentials. Config dropdown \"Use Feedback\" (yes/no, default yes) controls monitoring of brightness, test pattern, color matching, picture mode and operating mode.",
+    "Dropdown choice lists (input, color matching, shutter fade, test pattern, lamp state, lens memory, picture mode, operating mode, focus speed) are built from enums in ntcontrol-connection 0.5.0 (dist/Types.js, read from the published npm tarball, not executed). The choice ids are the enum values as strings (for example input HDMI1 = 'HD1', lens memory 1 = '+00000'); the labels are the enum keys. A different version of the library could change these lists.",
+    "Odd defaults kept as in the source: the input action and the input feedback default to '' (an id that is not in the choice list); the on/off/toggle choice ids are the strings on, off, toggle with the same text as labels.",
+    "The color actions and feedbacks (color_matching_3c, color_matching_7c) take free text \"R,G,B\" triples (defaults such as 2048,0,0; the source passes them to ntcontrol DefaultRgbConverter.parse). The textinput regex is written Regex.SOMETHING in the source; its resolved value was not checked because @companion-module/base is not installed in the clone.",
+    "Feedback matching: input, test_pattern, picture_mode, color_matching and operating_mode compare against the module's variables; color_matching_3c and _7c additionally require the current color matching mode, and compare the R,G,B strings for equality.",
+    "Base library 1.x: options do not support expressions. Variables and presets are not catalogued."
+  ],
+  "actions": [
+    {
+      "id": "power",
+      "name": "Turn on/off Projector",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            },
+            {
+              "id": "toggle",
+              "label": "toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 139
+      }
+    },
+    {
+      "id": "shutter",
+      "name": "Turn the Projector shutter on/off",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            },
+            {
+              "id": "toggle",
+              "label": "toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 163
+      }
+    },
+    {
+      "id": "shutter_fade_in",
+      "name": "Change the shutter fade-in time",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Fade-in setting",
+          "default": "0.0",
+          "choices": [
+            {
+              "id": "0.0",
+              "label": "0.0s(OFF)"
+            },
+            {
+              "id": "0.5",
+              "label": "0.5s"
+            },
+            {
+              "id": "1.0",
+              "label": "1.0s"
+            },
+            {
+              "id": "1.5",
+              "label": "1.5s"
+            },
+            {
+              "id": "2.0",
+              "label": "2.0s"
+            },
+            {
+              "id": "2.5",
+              "label": "2.5s"
+            },
+            {
+              "id": "3.0",
+              "label": "3.0s"
+            },
+            {
+              "id": "3.5",
+              "label": "3.5s"
+            },
+            {
+              "id": "4.0",
+              "label": "4.0s"
+            },
+            {
+              "id": "5.0",
+              "label": "5.0s"
+            },
+            {
+              "id": "7.0",
+              "label": "7.0s"
+            },
+            {
+              "id": "10.0",
+              "label": "10.0s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 187
+      }
+    },
+    {
+      "id": "shutter_fade_out",
+      "name": "Change the shutter fade-out time",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Fade-out setting",
+          "default": "0.0",
+          "choices": [
+            {
+              "id": "0.0",
+              "label": "0.0s(OFF)"
+            },
+            {
+              "id": "0.5",
+              "label": "0.5s"
+            },
+            {
+              "id": "1.0",
+              "label": "1.0s"
+            },
+            {
+              "id": "1.5",
+              "label": "1.5s"
+            },
+            {
+              "id": "2.0",
+              "label": "2.0s"
+            },
+            {
+              "id": "2.5",
+              "label": "2.5s"
+            },
+            {
+              "id": "3.0",
+              "label": "3.0s"
+            },
+            {
+              "id": "3.5",
+              "label": "3.5s"
+            },
+            {
+              "id": "4.0",
+              "label": "4.0s"
+            },
+            {
+              "id": "5.0",
+              "label": "5.0s"
+            },
+            {
+              "id": "7.0",
+              "label": "7.0s"
+            },
+            {
+              "id": "10.0",
+              "label": "10.0s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 203
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Turn the Projector freeze on/off",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            },
+            {
+              "id": "toggle",
+              "label": "toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 219
+      }
+    },
+    {
+      "id": "input",
+      "name": "Change the Input Source",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input Source",
+          "default": "",
+          "choices": [
+            {
+              "id": "RG1",
+              "label": "COMPUTER1"
+            },
+            {
+              "id": "RG2",
+              "label": "COMPUTER2"
+            },
+            {
+              "id": "VID",
+              "label": "VIDEO"
+            },
+            {
+              "id": "SVD",
+              "label": "Y/C"
+            },
+            {
+              "id": "DVI",
+              "label": "DVI"
+            },
+            {
+              "id": "HD1",
+              "label": "HDMI1"
+            },
+            {
+              "id": "HD2",
+              "label": "HDMI2"
+            },
+            {
+              "id": "HD3",
+              "label": "HDMI3"
+            },
+            {
+              "id": "NWP",
+              "label": "NETWORK/USB"
+            },
+            {
+              "id": "PA1",
+              "label": "Panasonic Application"
+            },
+            {
+              "id": "MC1",
+              "label": "Miracast/Mirroring"
+            },
+            {
+              "id": "MV1",
+              "label": "MEMORY VIEWER"
+            },
+            {
+              "id": "SD1",
+              "label": "SDI1"
+            },
+            {
+              "id": "SD2",
+              "label": "SDI2"
+            },
+            {
+              "id": "DL1",
+              "label": "DIGITAL LINK"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 243
+      }
+    },
+    {
+      "id": "color_matching",
+      "name": "Change the Color Matching mode",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Color Matching",
+          "default": "+00000",
+          "choices": [
+            {
+              "id": "+00000",
+              "label": "OFF"
+            },
+            {
+              "id": "+00001",
+              "label": "3COLORS"
+            },
+            {
+              "id": "+00002",
+              "label": "7COLORS"
+            },
+            {
+              "id": "+00004",
+              "label": "MEASURED"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 259
+      }
+    },
+    {
+      "id": "color_matching_3c",
+      "name": "Set colors in 3-Color-Mode",
+      "options": [
+        {
+          "id": "red",
+          "type": "textinput",
+          "label": "Red (R,G,B)",
+          "default": "2048,0,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "green",
+          "type": "textinput",
+          "label": "Green (R,G,B)",
+          "default": "0,2048,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "blue",
+          "type": "textinput",
+          "label": "Blue (R,G,B)",
+          "default": "0,0,2048",
+          "regex": "Regex.SOMETHING"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 275
+      }
+    },
+    {
+      "id": "color_matching_7c",
+      "name": "Set colors in 7-Color-Mode",
+      "options": [
+        {
+          "id": "red",
+          "type": "textinput",
+          "label": "Red (R,G,B)",
+          "default": "2048,0,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "green",
+          "type": "textinput",
+          "label": "Green (R,G,B)",
+          "default": "0,2048,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "blue",
+          "type": "textinput",
+          "label": "Blue (R,G,B)",
+          "default": "0,0,2048",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "cyan",
+          "type": "textinput",
+          "label": "Cyan (R,G,B)",
+          "default": "0,2048,2048",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "magenta",
+          "type": "textinput",
+          "label": "Magenta (R,G,B)",
+          "default": "2048,0,2048",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "yellow",
+          "type": "textinput",
+          "label": "Yellow (R,G,B)",
+          "default": "2048,2048,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "white",
+          "type": "textinput",
+          "label": "White (R,G,B)",
+          "default": "2048,2048,2048",
+          "regex": "Regex.SOMETHING"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 298
+      }
+    },
+    {
+      "id": "test_pattern",
+      "name": "Change the Test Pattern",
+      "options": [
+        {
+          "id": "test_pattern",
+          "type": "dropdown",
+          "label": "Test Pattern",
+          "default": "00",
+          "choices": [
+            {
+              "id": "00",
+              "label": "Off"
+            },
+            {
+              "id": "01",
+              "label": "White"
+            },
+            {
+              "id": "02",
+              "label": "Black"
+            },
+            {
+              "id": "22",
+              "label": "Red"
+            },
+            {
+              "id": "23",
+              "label": "Green"
+            },
+            {
+              "id": "24",
+              "label": "Blue"
+            },
+            {
+              "id": "28",
+              "label": "Cyan"
+            },
+            {
+              "id": "29",
+              "label": "Magenta"
+            },
+            {
+              "id": "30",
+              "label": "Yellow"
+            },
+            {
+              "id": "05",
+              "label": "Window"
+            },
+            {
+              "id": "06",
+              "label": "Window (Inversion)"
+            },
+            {
+              "id": "08",
+              "label": "Colorbars (Vertical)"
+            },
+            {
+              "id": "51",
+              "label": "Colorbars (Horizontal)"
+            },
+            {
+              "id": "59",
+              "label": "16:9 / 4:3"
+            },
+            {
+              "id": "07",
+              "label": "Crosshatch (White)"
+            },
+            {
+              "id": "70",
+              "label": "Crosshatch (Red)"
+            },
+            {
+              "id": "71",
+              "label": "Crosshatch (Green)"
+            },
+            {
+              "id": "72",
+              "label": "Crosshatch (Blue)"
+            },
+            {
+              "id": "73",
+              "label": "Crosshatch (Cyan)"
+            },
+            {
+              "id": "74",
+              "label": "Crosshatch (Magenta)"
+            },
+            {
+              "id": "75",
+              "label": "Crosshatch (Yellow)"
+            },
+            {
+              "id": "03",
+              "label": "Flag"
+            },
+            {
+              "id": "04",
+              "label": "Flag (Inversion)"
+            },
+            {
+              "id": "09",
+              "label": "Lamp"
+            },
+            {
+              "id": "11",
+              "label": "Convergence"
+            },
+            {
+              "id": "25",
+              "label": "10%-Luminance"
+            },
+            {
+              "id": "26",
+              "label": "5%-Luminance"
+            },
+            {
+              "id": "80",
+              "label": "3D-1"
+            },
+            {
+              "id": "81",
+              "label": "3D-2"
+            },
+            {
+              "id": "82",
+              "label": "3D-3"
+            },
+            {
+              "id": "83",
+              "label": "3D-4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 341
+      }
+    },
+    {
+      "id": "load_lens_mem",
+      "name": "Load lens memory",
+      "options": [
+        {
+          "id": "lens_mem",
+          "type": "dropdown",
+          "label": "Lens memory",
+          "default": "+00000",
+          "choices": [
+            {
+              "id": "+00000",
+              "label": "LENS MEMORY1"
+            },
+            {
+              "id": "+00001",
+              "label": "LENS MEMORY2"
+            },
+            {
+              "id": "+00002",
+              "label": "LENS MEMORY3"
+            },
+            {
+              "id": "+00003",
+              "label": "LENS MEMORY4"
+            },
+            {
+              "id": "+00004",
+              "label": "LENS MEMORY5"
+            },
+            {
+              "id": "+00005",
+              "label": "LENS MEMORY6"
+            },
+            {
+              "id": "+00006",
+              "label": "LENS MEMORY7"
+            },
+            {
+              "id": "+00007",
+              "label": "LENS MEMORY8"
+            },
+            {
+              "id": "+00008",
+              "label": "LENS MEMORY9"
+            },
+            {
+              "id": "+00009",
+              "label": "LENS MEMORY10"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 357
+      }
+    },
+    {
+      "id": "picture_mode",
+      "name": "Change the picture mode",
+      "options": [
+        {
+          "id": "picture_mode",
+          "type": "dropdown",
+          "label": "Picture Mode",
+          "default": "STD",
+          "choices": [
+            {
+              "id": "DYN",
+              "label": "DYNAMIC"
+            },
+            {
+              "id": "NAT",
+              "label": "NATURAL"
+            },
+            {
+              "id": "STD",
+              "label": "STANDARD"
+            },
+            {
+              "id": "BBD",
+              "label": "BLACK BOARD"
+            },
+            {
+              "id": "WBD",
+              "label": "WHITE BOARD"
+            },
+            {
+              "id": "CIN",
+              "label": "CINEMA"
+            },
+            {
+              "id": "GRA",
+              "label": "GRAPHIC"
+            },
+            {
+              "id": "DIC",
+              "label": "DICOM SIM"
+            },
+            {
+              "id": "USR",
+              "label": "USER"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 373
+      }
+    },
+    {
+      "id": "zoom_both",
+      "name": "Change Digital Zoom (ZoomBoth)",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Zoom (Both)",
+          "default": 999,
+          "min": 50,
+          "max": 999,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 389
+      }
+    },
+    {
+      "id": "quad_pixel_drive",
+      "name": "Turn the Quad Pixel Drive feature on/off",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 408
+      }
+    },
+    {
+      "id": "brightness",
+      "name": "Change brightness control gain",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Brightness",
+          "default": 100,
+          "min": 20,
+          "max": 100,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 462
+      }
+    },
+    {
+      "id": "operating_mode",
+      "name": "Change the operating mode",
+      "options": [
+        {
+          "id": "operating_mode",
+          "type": "dropdown",
+          "label": "Operating Mode",
+          "default": "+00000",
+          "choices": [
+            {
+              "id": "+00000",
+              "label": "NORMAL"
+            },
+            {
+              "id": "+00001",
+              "label": "ECO"
+            },
+            {
+              "id": "+00002",
+              "label": "SILENT"
+            },
+            {
+              "id": "+00011",
+              "label": "LONG LIFE1"
+            },
+            {
+              "id": "+00012",
+              "label": "LONG LIFE2"
+            },
+            {
+              "id": "+00013",
+              "label": "LONG LIFE3"
+            },
+            {
+              "id": "+00101",
+              "label": "USER1"
+            },
+            {
+              "id": "+00102",
+              "label": "USER2"
+            },
+            {
+              "id": "+00103",
+              "label": "USER3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 481
+      }
+    },
+    {
+      "id": "focus_near",
+      "name": "Focus Near",
+      "options": [
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Speed",
+          "default": "+00100",
+          "choices": [
+            {
+              "id": "+00000",
+              "label": "Slow"
+            },
+            {
+              "id": "+00100",
+              "label": "Normal"
+            },
+            {
+              "id": "+00200",
+              "label": "Fast"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 497
+      }
+    },
+    {
+      "id": "focus_far",
+      "name": "Focus Far",
+      "options": [
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Speed",
+          "default": "+00101",
+          "choices": [
+            {
+              "id": "+00001",
+              "label": "Slow"
+            },
+            {
+              "id": "+00101",
+              "label": "Normal"
+            },
+            {
+              "id": "+00201",
+              "label": "Fast"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 517
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "lamp_state",
+      "name": "Change background color by lamp status",
+      "description": "If the state of the projector lamps matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Lamp state",
+          "default": "2",
+          "choices": [
+            {
+              "id": "0",
+              "label": "LAMP OFF"
+            },
+            {
+              "id": "1",
+              "label": "In turning ON"
+            },
+            {
+              "id": "2",
+              "label": "LAMP ON"
+            },
+            {
+              "id": "3",
+              "label": "LAMP Cooling"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 901
+      }
+    },
+    {
+      "id": "power",
+      "name": "Change background color by power status",
+      "description": "If the state of the projector (power) matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Power state",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 927
+      }
+    },
+    {
+      "id": "shutter",
+      "name": "Change background color by shutter status",
+      "description": "If the state of the projector shutter matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Shutter state",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 950
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Change background color by freeze status",
+      "description": "If the state of the projector freeze matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Freeze state",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "on"
+            },
+            {
+              "id": "off",
+              "label": "off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 973
+      }
+    },
+    {
+      "id": "input",
+      "name": "Change background color by input selection",
+      "description": "If the selected input of the projector matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "",
+          "choices": [
+            {
+              "id": "RG1",
+              "label": "COMPUTER1"
+            },
+            {
+              "id": "RG2",
+              "label": "COMPUTER2"
+            },
+            {
+              "id": "VID",
+              "label": "VIDEO"
+            },
+            {
+              "id": "SVD",
+              "label": "Y/C"
+            },
+            {
+              "id": "DVI",
+              "label": "DVI"
+            },
+            {
+              "id": "HD1",
+              "label": "HDMI1"
+            },
+            {
+              "id": "HD2",
+              "label": "HDMI2"
+            },
+            {
+              "id": "HD3",
+              "label": "HDMI3"
+            },
+            {
+              "id": "NWP",
+              "label": "NETWORK/USB"
+            },
+            {
+              "id": "PA1",
+              "label": "Panasonic Application"
+            },
+            {
+              "id": "MC1",
+              "label": "Miracast/Mirroring"
+            },
+            {
+              "id": "MV1",
+              "label": "MEMORY VIEWER"
+            },
+            {
+              "id": "SD1",
+              "label": "SDI1"
+            },
+            {
+              "id": "SD2",
+              "label": "SDI2"
+            },
+            {
+              "id": "DL1",
+              "label": "DIGITAL LINK"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 996
+      }
+    },
+    {
+      "id": "test_pattern",
+      "name": "Change background color by current test pattern",
+      "description": "If the current test pattern of the projector matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "test_pattern",
+          "type": "dropdown",
+          "label": "Test pattern",
+          "default": "00",
+          "choices": [
+            {
+              "id": "00",
+              "label": "Off"
+            },
+            {
+              "id": "01",
+              "label": "White"
+            },
+            {
+              "id": "02",
+              "label": "Black"
+            },
+            {
+              "id": "22",
+              "label": "Red"
+            },
+            {
+              "id": "23",
+              "label": "Green"
+            },
+            {
+              "id": "24",
+              "label": "Blue"
+            },
+            {
+              "id": "28",
+              "label": "Cyan"
+            },
+            {
+              "id": "29",
+              "label": "Magenta"
+            },
+            {
+              "id": "30",
+              "label": "Yellow"
+            },
+            {
+              "id": "05",
+              "label": "Window"
+            },
+            {
+              "id": "06",
+              "label": "Window (Inversion)"
+            },
+            {
+              "id": "08",
+              "label": "Colorbars (Vertical)"
+            },
+            {
+              "id": "51",
+              "label": "Colorbars (Horizontal)"
+            },
+            {
+              "id": "59",
+              "label": "16:9 / 4:3"
+            },
+            {
+              "id": "07",
+              "label": "Crosshatch (White)"
+            },
+            {
+              "id": "70",
+              "label": "Crosshatch (Red)"
+            },
+            {
+              "id": "71",
+              "label": "Crosshatch (Green)"
+            },
+            {
+              "id": "72",
+              "label": "Crosshatch (Blue)"
+            },
+            {
+              "id": "73",
+              "label": "Crosshatch (Cyan)"
+            },
+            {
+              "id": "74",
+              "label": "Crosshatch (Magenta)"
+            },
+            {
+              "id": "75",
+              "label": "Crosshatch (Yellow)"
+            },
+            {
+              "id": "03",
+              "label": "Flag"
+            },
+            {
+              "id": "04",
+              "label": "Flag (Inversion)"
+            },
+            {
+              "id": "09",
+              "label": "Lamp"
+            },
+            {
+              "id": "11",
+              "label": "Convergence"
+            },
+            {
+              "id": "25",
+              "label": "10%-Luminance"
+            },
+            {
+              "id": "26",
+              "label": "5%-Luminance"
+            },
+            {
+              "id": "80",
+              "label": "3D-1"
+            },
+            {
+              "id": "81",
+              "label": "3D-2"
+            },
+            {
+              "id": "82",
+              "label": "3D-3"
+            },
+            {
+              "id": "83",
+              "label": "3D-4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1019
+      }
+    },
+    {
+      "id": "picture_mode",
+      "name": "Change background color by current picture mode",
+      "description": "If the current picture mode of the projector matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "picture_mode",
+          "type": "dropdown",
+          "label": "Picture Mode",
+          "default": "STD",
+          "choices": [
+            {
+              "id": "DYN",
+              "label": "DYNAMIC"
+            },
+            {
+              "id": "NAT",
+              "label": "NATURAL"
+            },
+            {
+              "id": "STD",
+              "label": "STANDARD"
+            },
+            {
+              "id": "BBD",
+              "label": "BLACK BOARD"
+            },
+            {
+              "id": "WBD",
+              "label": "WHITE BOARD"
+            },
+            {
+              "id": "CIN",
+              "label": "CINEMA"
+            },
+            {
+              "id": "GRA",
+              "label": "GRAPHIC"
+            },
+            {
+              "id": "DIC",
+              "label": "DICOM SIM"
+            },
+            {
+              "id": "USR",
+              "label": "USER"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1042
+      }
+    },
+    {
+      "id": "color_matching",
+      "name": "Change background color by current color matching mode",
+      "description": "If the current color matching mode matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Color matching mode",
+          "default": "+00000",
+          "choices": [
+            {
+              "id": "+00000",
+              "label": "OFF"
+            },
+            {
+              "id": "+00001",
+              "label": "3COLORS"
+            },
+            {
+              "id": "+00002",
+              "label": "7COLORS"
+            },
+            {
+              "id": "+00004",
+              "label": "MEASURED"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1065
+      }
+    },
+    {
+      "id": "color_matching_3c",
+      "name": "Change background color by current color values for 3 color matching mode",
+      "description": "If the current color values for 3 color matching mode matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "red",
+          "type": "textinput",
+          "label": "Red (R,G,B)",
+          "default": "2048,0,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "green",
+          "type": "textinput",
+          "label": "Green (R,G,B)",
+          "default": "0,2048,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "blue",
+          "type": "textinput",
+          "label": "Blue (R,G,B)",
+          "default": "0,0,2048",
+          "regex": "Regex.SOMETHING"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1088
+      }
+    },
+    {
+      "id": "color_matching_7c",
+      "name": "Change background color by current color values for 7 color matching mode",
+      "description": "If the current color values for 7 color matching mode matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "red",
+          "type": "textinput",
+          "label": "Red (R,G,B)",
+          "default": "2048,0,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "green",
+          "type": "textinput",
+          "label": "Green (R,G,B)",
+          "default": "0,2048,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "blue",
+          "type": "textinput",
+          "label": "Blue (R,G,B)",
+          "default": "0,0,2048",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "cyan",
+          "type": "textinput",
+          "label": "Cyan (R,G,B)",
+          "default": "0,2048,2048",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "magenta",
+          "type": "textinput",
+          "label": "Magenta (R,G,B)",
+          "default": "2048,0,2048",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "yellow",
+          "type": "textinput",
+          "label": "Yellow (R,G,B)",
+          "default": "2048,2048,0",
+          "regex": "Regex.SOMETHING"
+        },
+        {
+          "id": "white",
+          "type": "textinput",
+          "label": "White (R,G,B)",
+          "default": "2048,2048,2048",
+          "regex": "Regex.SOMETHING"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1112
+      }
+    },
+    {
+      "id": "brightness",
+      "name": "Change background color by current brightness",
+      "description": "If the current brightness of the projector matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Brightness",
+          "default": 100,
+          "min": 20,
+          "max": 100,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1146
+      }
+    },
+    {
+      "id": "operating_mode",
+      "name": "Change background color by current operating mode",
+      "description": "If the current operating mode of the projector matches the specified value, change background color of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "operating_mode",
+          "type": "dropdown",
+          "label": "Operating Mode",
+          "default": "+00000",
+          "choices": [
+            {
+              "id": "+00000",
+              "label": "NORMAL"
+            },
+            {
+              "id": "+00001",
+              "label": "ECO"
+            },
+            {
+              "id": "+00002",
+              "label": "SILENT"
+            },
+            {
+              "id": "+00011",
+              "label": "LONG LIFE1"
+            },
+            {
+              "id": "+00012",
+              "label": "LONG LIFE2"
+            },
+            {
+              "id": "+00013",
+              "label": "LONG LIFE3"
+            },
+            {
+              "id": "+00101",
+              "label": "USER1"
+            },
+            {
+              "id": "+00102",
+              "label": "USER2"
+            },
+            {
+              "id": "+00103",
+              "label": "USER3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1172
+      }
+    }
+  ]
+}

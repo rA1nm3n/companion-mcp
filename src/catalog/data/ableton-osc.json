@@ -1,0 +1,948 @@
+{
+  "moduleId": "ableton-osc",
+  "name": "Ableton Live (OSC)",
+  "repo": "bitfocus/companion-module-ableton-osc",
+  "version": "2.0.0",
+  "baseVersion": "^2.1.2",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "6d99f49",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "fire_clip",
+      "name": "Clip - Fire",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 20
+      }
+    },
+    {
+      "id": "stop_clip",
+      "name": "Clip - Stop",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 52
+      }
+    },
+    {
+      "id": "stop_track",
+      "name": "Track - Stop",
+      "options": [
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 80
+      }
+    },
+    {
+      "id": "mute_track",
+      "name": "Track - Mute",
+      "options": [
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "Mute"
+            },
+            {
+              "id": "off",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 101
+      }
+    },
+    {
+      "id": "device_toggle",
+      "name": "Device - Toggle",
+      "options": [
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime (main.js line 1103) from the scanned device names: string ids \"<track>_<device>\" (both 1-based). Falls back to a single id '1_1' 'T1 > D1'. The default is the first entry.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "parameter",
+          "type": "number",
+          "label": "Parameter Index (Default 1 = On/Off)",
+          "default": 1,
+          "min": 1,
+          "max": 1000
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 147
+      }
+    },
+    {
+      "id": "device_set_parameter",
+      "name": "Device - Set Parameter Value",
+      "options": [
+        {
+          "id": "parameterId",
+          "type": "dropdown",
+          "label": "Parameter (Scan project first)",
+          "default": "0_0_0",
+          "choicesNote": "Filled at runtime from the project scan (main.js line 908): string ids \"<track>_<device>_<parameter>\" (all 1-based), label \"<track> > <device> > <parameter>\". Before a scan the only entry is '0_0_0' ('No parameters found'), which the callbacks treat as 'no parameter selected'. The default is the first known parameter, else '0_0_0'.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+_\\d+$"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (0-100)",
+          "default": "50"
+        },
+        {
+          "id": "create_variable",
+          "type": "checkbox",
+          "label": "Create Variable for this parameter?",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 206
+      }
+    },
+    {
+      "id": "device_parameter_step",
+      "name": "Device - Step Parameter Value (Rotary/Button)",
+      "options": [
+        {
+          "id": "parameterId",
+          "type": "dropdown",
+          "label": "Parameter (Scan project first)",
+          "default": "0_0_0",
+          "choicesNote": "Filled at runtime from the project scan (main.js line 908): string ids \"<track>_<device>_<parameter>\" (all 1-based), label \"<track> > <device> > <parameter>\". Before a scan the only entry is '0_0_0' ('No parameters found'), which the callbacks treat as 'no parameter selected'. The default is the first known parameter, else '0_0_0'.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+_\\d+$"
+        },
+        {
+          "id": "step",
+          "type": "textinput",
+          "label": "Step (e.g. 1, 5, -5) (Scale 0-100)",
+          "default": "1"
+        },
+        {
+          "id": "create_variable",
+          "type": "checkbox",
+          "label": "Create Variable for this parameter?",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 254
+      }
+    },
+    {
+      "id": "select_device_parameter",
+      "name": "Device - Select Parameter",
+      "options": [
+        {
+          "id": "parameterId",
+          "type": "dropdown",
+          "label": "Parameter (Scan project first)",
+          "default": "0_0_0",
+          "choicesNote": "Filled at runtime from the project scan (main.js line 908): string ids \"<track>_<device>_<parameter>\" (all 1-based), label \"<track> > <device> > <parameter>\". Before a scan the only entry is '0_0_0' ('No parameters found'), which the callbacks treat as 'no parameter selected'. The default is the first known parameter, else '0_0_0'.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+_\\d+$"
+        },
+        {
+          "id": "createVariable",
+          "type": "checkbox",
+          "label": "Create Variable for this parameter?",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 315
+      }
+    },
+    {
+      "id": "toggle_selected_device_parameter",
+      "name": "Selected Device Parameter - Toggle",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 396
+      }
+    },
+    {
+      "id": "step_selected_device_parameter",
+      "name": "Selected Device Parameter - Step (+/-)",
+      "options": [
+        {
+          "id": "step",
+          "type": "textinput",
+          "label": "Step (e.g. 1, 5, -5) (Scale 0-100)",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 423
+      }
+    },
+    {
+      "id": "set_selected_device_parameter",
+      "name": "Selected Device Parameter - Set Value",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (0-100)",
+          "default": "50"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 464
+      }
+    },
+    {
+      "id": "fade_stop_clip",
+      "name": "Clip - Fade Out and Stop",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration (ms)",
+          "default": 3500,
+          "min": 100,
+          "max": 60000
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 493
+      }
+    },
+    {
+      "id": "fade_fire_clip",
+      "name": "Clip - Fire and Fade In",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration (ms)",
+          "default": 3500,
+          "min": 100,
+          "max": 60000
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 544
+      }
+    },
+    {
+      "id": "fade_stop_track",
+      "name": "Track - Fade Out and Stop",
+      "options": [
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration (ms)",
+          "default": 3500,
+          "min": 100,
+          "max": 60000
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 595
+      }
+    },
+    {
+      "id": "fade_in_track",
+      "name": "Track - Fade In",
+      "options": [
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration (ms)",
+          "default": 3500,
+          "min": 100,
+          "max": 60000
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 641
+      }
+    },
+    {
+      "id": "fade_track_toggle",
+      "name": "Track - Fade by State of a variable",
+      "options": [
+        {
+          "id": "state",
+          "type": "textinput",
+          "label": "State (True/False)",
+          "default": "false",
+          "useVariables": true
+        },
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "hold_time",
+          "type": "number",
+          "label": "Hold time (ms)",
+          "default": 0,
+          "min": 0,
+          "max": 60000
+        },
+        {
+          "id": "rise_time",
+          "type": "number",
+          "label": "Rise time (ms)",
+          "default": 750,
+          "min": 100,
+          "max": 60000
+        },
+        {
+          "id": "on_time",
+          "type": "number",
+          "label": "On time (ms)",
+          "default": 500,
+          "min": 0,
+          "max": 60000
+        },
+        {
+          "id": "fall_time",
+          "type": "number",
+          "label": "Fall time (ms)",
+          "default": 3500,
+          "min": 100,
+          "max": 60000
+        },
+        {
+          "id": "on_level",
+          "type": "number",
+          "label": "On Level (0-100%)",
+          "default": 85,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "off_level",
+          "type": "number",
+          "label": "Off Level (0-100%)",
+          "default": 0,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 687
+      }
+    },
+    {
+      "id": "refresh_clip_info",
+      "name": "Clip - Refresh Info",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 805
+      }
+    },
+    {
+      "id": "scan_project",
+      "name": "Project - Scan",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 835
+      }
+    },
+    {
+      "id": "clip_set_loop_start_now",
+      "name": "Clip - Set Loop Start to Now",
+      "description": "Sets the loop start point to the current playback position",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 846
+      }
+    },
+    {
+      "id": "clip_set_loop_end_now",
+      "name": "Clip - Set Loop End to Now",
+      "description": "Sets the loop end point to the current playback position",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 874
+      }
+    },
+    {
+      "id": "clip_set_start_marker_now",
+      "name": "Clip - Set Start Marker to Now",
+      "description": "Sets the start marker to the current playback position",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 900
+      }
+    },
+    {
+      "id": "clip_set_end_marker_now",
+      "name": "Clip - Set End Marker to Now",
+      "description": "Sets the end marker to the current playback position",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 926
+      }
+    },
+    {
+      "id": "clip_set_loop_start",
+      "name": "Clip - Set Loop Start (Value)",
+      "description": "Sets the loop start point to a specific beat value",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "position",
+          "type": "textinput",
+          "label": "Beat Position",
+          "default": "0",
+          "description": "Position in beats (e.g., 4.0 for beat 4)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 952
+      }
+    },
+    {
+      "id": "clip_set_loop_end",
+      "name": "Clip - Set Loop End (Value)",
+      "description": "Sets the loop end point to a specific beat value",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "position",
+          "type": "textinput",
+          "label": "Beat Position",
+          "default": "16",
+          "description": "Position in beats (e.g., 16.0 for beat 16)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 985
+      }
+    },
+    {
+      "id": "clip_warping_toggle",
+      "name": "Clip - Warping Toggle",
+      "description": "Toggles warping on/off for the clip",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Warping State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1021
+      }
+    },
+    {
+      "id": "clip_looping_toggle",
+      "name": "Clip - Looping Toggle",
+      "description": "Toggles looping on/off for the clip",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Looping State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1070
+      }
+    },
+    {
+      "id": "clip_get_info",
+      "name": "Clip - Get Info (Loop/Warp)",
+      "description": "Fetches current loop points, looping state, and warping state for the clip",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1116
+      }
+    },
+    {
+      "id": "raw_osc",
+      "name": "OSC - Send Raw Command",
+      "description": "Send a custom OSC message to AbletonOSC. Use this for commands not yet implemented in the module.",
+      "options": [
+        {
+          "id": "address",
+          "type": "textinput",
+          "label": "OSC Address",
+          "default": "/live/song/get/tempo",
+          "description": "The OSC address path (e.g., /live/song/set/tempo)"
+        },
+        {
+          "id": "args",
+          "type": "textinput",
+          "label": "Arguments (comma-separated)",
+          "default": "",
+          "description": "Comma-separated arguments. Prefix with type: i:123 (int), f:1.5 (float), s:text (string). Without prefix, auto-detected."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1161
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "clip_color",
+      "name": "Clip Color",
+      "description": "Change button color to match Ableton Clip Color",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 14
+      }
+    },
+    {
+      "id": "clip_playing",
+      "name": "Clip Playing (Blink)",
+      "description": "Blinks when clip is playing",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 44
+      }
+    },
+    {
+      "id": "clip_warping",
+      "name": "Clip Warping",
+      "description": "Change color when clip warping is enabled",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 71
+      }
+    },
+    {
+      "id": "clip_looping",
+      "name": "Clip Looping",
+      "description": "Change color when clip looping is enabled",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "clipId",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "1_1",
+          "choicesNote": "Filled at runtime by initActions() in main.js (line 1093): one id \"<track>_<scene>\" (both 1-based) per slot, numTracks x numScenes (8 x 8 until the project is scanned, then the scanned counts). Empty slots are listed too. The default is the first entry, or '1_1' when the list is empty.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 97
+      }
+    },
+    {
+      "id": "track_meter",
+      "name": "Track Meter Level",
+      "description": "Change color if track level is above threshold",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "threshold",
+          "type": "number",
+          "label": "Threshold (0.0 - 1.0)",
+          "default": 0.8,
+          "min": 0,
+          "max": 1,
+          "step": 0.01
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 127
+      }
+    },
+    {
+      "id": "track_mute",
+      "name": "Track Mute",
+      "description": "Change color if track is muted",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": 1,
+          "choicesNote": "Filled at runtime (main.js line 1084): numeric ids 1..numTracks (8 until the project is scanned, then the scanned track count); label \"<n>: <track name>\". Falls back to a single id 1 'Track 1'. The default is the first entry (1).",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 159
+      }
+    },
+    {
+      "id": "device_active",
+      "name": "Device (Plugin) Active",
+      "description": "Change color if device parameter is active (> 0.5)",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "parameterId",
+          "type": "dropdown",
+          "label": "Parameter (Scan project first)",
+          "default": "0_0_0",
+          "choicesNote": "Filled at runtime from the project scan (main.js line 908): string ids \"<track>_<device>_<parameter>\" (all 1-based), label \"<track> > <device> > <parameter>\". Before a scan the only entry is '0_0_0' ('No parameters found'), which the callbacks treat as 'no parameter selected'. The default is the first known parameter, else '0_0_0'.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 185
+      }
+    },
+    {
+      "id": "selected_parameter_active",
+      "name": "Selected Parameter Active",
+      "description": "Change color if this parameter is currently selected for control",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "parameterId",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "0_0_0",
+          "choicesNote": "Filled at runtime from the project scan (main.js line 908): string ids \"<track>_<device>_<parameter>\" (all 1-based), label \"<track> > <device> > <parameter>\". Before a scan the only entry is '0_0_0' ('No parameters found'), which the callbacks treat as 'no parameter selected'. The default is the first known parameter, else '0_0_0'.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 218
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 28 actions (actions.js, one setActionDefinitions call) and 8 feedbacks (feedbacks.js, one setFeedbackDefinitions call). Nothing is generated per track or clip; the lists are filled at runtime.",
+    "Protocol: OSC over UDP to the AbletonOSC remote script of Ableton Live. Config fields (main.js getConfigFields): Target IP (default 127.0.0.1), Target Port (Send, default 11000), Receive Port (Listen, default 11001). Variables are not catalogued (variables.js plus runtime checkVariableDefinition calls).",
+    "The Clip, Track, Device and Parameter dropdowns are rebuilt by initActions() in main.js from the project scan (8 tracks and 8 scenes until a scan reports the real counts), so their choices are not enumerable offline; they are described with choicesNote, valueType and valuePattern. Clip and device ids are strings \"<track>_<scene|device>\", track ids are numbers, all 1-based.",
+    "The default of a dropdown is the first entry of the runtime list (or the fallback when the list is empty); the catalog records the fallback values (clip '1_1', track 1, device '1_1', parameter '0_0_0').",
+    "The source also sets minChoicesForSearch: 0 on the clip and parameter dropdowns; the schema has no field for it. The feedback clip_color declares affectedProperties: ['bgcolor'] and the boolean feedbacks have default styles; neither is recorded.",
+    "Value text inputs (Value 0-100, Step, Beat Position) have no regex and no useVariables; the callbacks parse them with parseFloat. Only the State field of fade_track_toggle has useVariables.",
+    "The module is on @companion-module/base ^2.1.2 (2.x), so option values may be expressions. This was not tested against a running Companion."
+  ]
+}

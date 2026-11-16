@@ -1,0 +1,581 @@
+{
+  "moduleId": "twoloox-pandorasbox",
+  "name": "twoloox Pandoras Box",
+  "repo": "bitfocus/companion-module-twoloox-pandorasbox",
+  "version": "3.1.6",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-11-03",
+  "lastCommitSha": "1ec73b4",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "seq_transport",
+      "name": "Sequence Transport",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Transport",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Play"
+            },
+            {
+              "id": 3,
+              "label": "Pause"
+            },
+            {
+              "id": 2,
+              "label": "Stop"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 156
+      }
+    },
+    {
+      "id": "toggle_sequence",
+      "name": "Toggle Sequence Play/Pause",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 187
+      }
+    },
+    {
+      "id": "select_sequence",
+      "name": "Select Sequence (Edit)",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 210
+      }
+    },
+    {
+      "id": "set_smpte_mode",
+      "name": "Set Sequence SMPTE Timecode Mode",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "SMPTE Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "None (Off)"
+            },
+            {
+              "id": 1,
+              "label": "TC Send"
+            },
+            {
+              "id": 2,
+              "label": "TC Receive"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 228
+      }
+    },
+    {
+      "id": "goto_cue",
+      "name": "Goto Cue",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "cue",
+          "type": "number",
+          "label": "Cue ID",
+          "default": 1,
+          "min": 1,
+          "max": 2147483647,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 258
+      }
+    },
+    {
+      "id": "next_last_cue",
+      "name": "Goto Next/Last Cue",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "isNext",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Next cue"
+            },
+            {
+              "id": 0,
+              "label": "Last cue"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 278
+      }
+    },
+    {
+      "id": "ignore_next_cue",
+      "name": "Ignore Next Cue",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "doIgnore",
+          "type": "dropdown",
+          "label": "Ignore",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Ignore next cue"
+            },
+            {
+              "id": 0,
+              "label": "Do not ignore"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 308
+      }
+    },
+    {
+      "id": "set_playhead",
+      "name": "Set Playhead",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "absolute",
+          "choices": [
+            {
+              "id": "absolute",
+              "label": "Absolute (go to this time)"
+            },
+            {
+              "id": "relative",
+              "label": "Relative (offset from current position)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time (hh:mm:ss:ff or digits, e.g. 1000 = 10s; use +/- for a relative offset)",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "description": "Accepts \"hh:mm:ss:ff\" (shorter right-aligned forms allowed) or plain digits read in pairs from the right, with an optional leading +/-. Unparseable input is ignored. The action has a Learn function (absolute mode, current sequence time).",
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 338
+      }
+    },
+    {
+      "id": "apply_view",
+      "name": "Recall GUI View",
+      "options": [
+        {
+          "id": "view",
+          "type": "number",
+          "label": "View ID",
+          "default": 1,
+          "min": 1,
+          "max": 2147483647,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 404
+      }
+    },
+    {
+      "id": "save_project",
+      "name": "Save Project",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 413
+      }
+    },
+    {
+      "id": "toggle_fullscreen",
+      "name": "Toggle Fullscreen (Site ID)",
+      "options": [
+        {
+          "id": "site",
+          "type": "number",
+          "label": "Site ID",
+          "default": 1,
+          "min": 1,
+          "max": 2147483647,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 422
+      }
+    },
+    {
+      "id": "set_site_ip",
+      "name": "Set Site IP by ID",
+      "options": [
+        {
+          "id": "site",
+          "type": "number",
+          "label": "Site ID",
+          "default": 1,
+          "min": 1,
+          "max": 2147483647,
+          "step": 1
+        },
+        {
+          "id": "ip",
+          "type": "textinput",
+          "label": "IP address",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 431
+      }
+    },
+    {
+      "id": "clear_all_active",
+      "name": "Clear All Active",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 444
+      }
+    },
+    {
+      "id": "store_active",
+      "name": "Store Active to Sequence",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 453
+      }
+    },
+    {
+      "id": "store_active_to_beginning",
+      "name": "Store Active to Container Beginning",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 472
+      }
+    },
+    {
+      "id": "reset_all",
+      "name": "Reset All Values",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 491
+      }
+    },
+    {
+      "id": "refresh_sequences",
+      "name": "Refresh Sequence List",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 500
+      }
+    },
+    {
+      "id": "fade_sequence_visibility",
+      "name": "Sequence Opacity Fade",
+      "options": [
+        {
+          "id": "seq",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Fade to Value (%)",
+          "default": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Fading time (ms)",
+          "default": 1000,
+          "min": 0,
+          "max": 60000,
+          "step": 1
+        },
+        {
+          "id": "curve",
+          "type": "dropdown",
+          "label": "Fade Curve",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear (recommended, evenly spaced)"
+            },
+            {
+              "id": "ease_in",
+              "label": "Ease In (slow start)"
+            },
+            {
+              "id": "ease_out",
+              "label": "Ease Out (slow end)"
+            },
+            {
+              "id": "ease_in_out",
+              "label": "Ease In-Out (slow start and end)"
+            },
+            {
+              "id": "s_curve",
+              "label": "S-Curve (gentle sine)"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 509
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "remaining_threshold",
+      "name": "Remaining cue under threshold",
+      "feedbackType": "boolean",
+      "description": "True when remaining time until next cue is below threshold (seconds) for the selected sequence",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true
+        },
+        {
+          "id": "threshold",
+          "type": "number",
+          "label": "Threshold seconds",
+          "default": 10,
+          "min": 1,
+          "max": 3600,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 33
+      }
+    },
+    {
+      "id": "sequence_transport_state",
+      "name": "Sequence transport state matches",
+      "feedbackType": "boolean",
+      "description": "True when a specific sequence transport state matches",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "dropdown",
+          "label": "Sequence",
+          "default": 1,
+          "choicesNote": "Sequence ids are offered from the sequences the module reads from the device (src/index.ts getSequenceChoices: \"<id>: <name>\"; \"Sequence 1 (not connected)\" while no list is known).",
+          "valueType": "numeric",
+          "valuePattern": "^\\d+$",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "Play",
+          "choices": [
+            {
+              "id": "Play",
+              "label": "Play"
+            },
+            {
+              "id": "Pause",
+              "label": "Pause"
+            },
+            {
+              "id": "Stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 65
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 18 actions (src/actions.ts, ActionId enum, one object returned by GetActionsList) and 2 boolean feedbacks (src/feedback.ts). Nothing is generated per device model.",
+    "Protocol: PandorasAutomation (PBAU packets) over a TCP socket to port 6211 (src/constants.ts PR_PORT, src/client.ts). Connection config: host (Regex.IP), domain (Regex.NUMBER, default \"0\") and a debug traffic checkbox (src/config.ts). Variables and presets are not catalogued (src/variables.ts, src/presets.ts).",
+    "Sequence dropdowns (id seq or sequence) use allowCustom and, on some actions, an additional regex /^\\d+$/ (recorded in regex). The choices come from the sequence list read from the device at runtime, so they are described in choicesNote and checked through valueType/valuePattern. The source comments say a custom sequence id arrives as a string, so numeric ids (choice ids, default 1) and numeric strings both occur.",
+    "The Transport, SMPTE mode, direction, ignore, mode and curve dropdowns set disableAutoExpression: true.",
+    "The Sequence Opacity Fade action scales the percent value to the device range 0-65535 (SEQUENCE_OPACITY_MAX, src/constants.ts, \"confirmed empirically on hardware\" per the source comment).",
+    "Upgrade scripts (src/upgrades.ts): the removed global feedback transport_state is converted to sequence_transport_state for sequence 1 (3.1.2); remaining_threshold without a sequence option gets sequence 1 (3.1.6).",
+    "Built on @companion-module/base ~2.1.3: option values may be expressions."
+  ]
+}

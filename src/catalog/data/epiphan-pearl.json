@@ -1,0 +1,1137 @@
+{
+  "moduleId": "epiphan-pearl",
+  "name": "Epiphan Pearl",
+  "repo": "bitfocus/companion-module-epiphan-pearl",
+  "version": "3.0.2",
+  "baseVersion": "2.2.2",
+  "lastCommit": "2026-11-14",
+  "lastCommitSha": "e6c9177",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "recorder",
+      "name": "Recorder",
+      "description": "Start / Stop starts a stopped recorder and stops a running or paused one; Start and Stop always send that one command; Pause / Resume pauses a running recorder and resumes a paused one; \"All recorders\" controls every recorder on the device.",
+      "options": [
+        {
+          "id": "recorderId",
+          "type": "dropdown",
+          "label": "Recorder",
+          "default": "all",
+          "choicesNote": "Runtime list (state polled from the device): the entry \"all\" (label \"All recorders\") first, then one entry per recorder, id = recorder id as string (src/choices.js choicesRecordersWithAll). Default 'all'.",
+          "valueType": "string"
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Start / Stop"
+            },
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "pause_resume",
+              "label": "Pause / Resume"
+            },
+            {
+              "id": "reset",
+              "label": "Reset"
+            }
+          ]
+        }
+      ],
+      "availability": "'All recorders' and Pause / Resume need REST API v2.0 (firmware 4.24.1 or newer); the callback logs a warning and sends nothing otherwise.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 208
+      }
+    },
+    {
+      "id": "stream",
+      "name": "Stream",
+      "description": "Start, stop or toggle a channel's stream (publisher). \"All publishers\" starts or stops every stream configured on the channel.",
+      "options": [
+        {
+          "id": "channelId",
+          "type": "dropdown",
+          "label": "Channel",
+          "choicesNote": "Runtime list from the polled device state: one entry per channel, id = channel id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "publisherId",
+          "type": "dropdown",
+          "label": "Publisher",
+          "choicesNote": "Runtime list: per channel that has publishers, first `${channelId}-all` (label `Channel – All publishers`), then `${channelId}-${publisherId}` per publisher. Ids are strings; the module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "availability": "The composite id of 'Publisher' carries its own channel; 'Channel' is only used when the composite cannot be parsed.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 284
+      }
+    },
+    {
+      "id": "layout",
+      "name": "Layout",
+      "description": "Switch a channel to a layout. The key lights up while that layout is active.",
+      "options": [
+        {
+          "id": "channelId",
+          "type": "dropdown",
+          "label": "Channel",
+          "choicesNote": "Runtime list from the polled device state: one entry per channel, id = channel id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "layoutId",
+          "type": "dropdown",
+          "label": "Layout",
+          "choicesNote": "Runtime list: one entry per channel and layout, id `${channelId}-${layoutId}` (string, label `Channel – Layout`). The module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        }
+      ],
+      "availability": "The composite id of 'Layout' carries its own channel; 'Channel' is not read by the callback.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 355
+      }
+    },
+    {
+      "id": "singletouch",
+      "name": "Single Touch",
+      "description": "Trigger a single-touch control of the encoder (start/stop recording and streaming together). Most devices have only control 0.",
+      "options": [
+        {
+          "id": "stcId",
+          "type": "dropdown",
+          "label": "Single touch control",
+          "choicesNote": "Runtime list from the polled device state: one entry per single touch control, id = control id as string. Default: '0' when present, otherwise the first entry (preferredId).",
+          "valueType": "string"
+        }
+      ],
+      "availability": "Needs REST API v2.0 (firmware 4.24.1 or newer).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 410
+      }
+    },
+    {
+      "id": "bookmark",
+      "name": "Bookmark",
+      "description": "Add a bookmark (marker) to a channel's recording. Bookmarks are only stored while the channel is recording.",
+      "options": [
+        {
+          "id": "channelId",
+          "type": "dropdown",
+          "label": "Channel",
+          "choicesNote": "Runtime list from the polled device state: one entry per channel, id = channel id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Text",
+          "default": "Marker",
+          "useVariables": true,
+          "description": "Shown in the recording’s bookmark list. Keep it short."
+        },
+        {
+          "id": "appendTime",
+          "type": "checkbox",
+          "label": "Append the current time (HH:MM:SS)",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 444
+      }
+    },
+    {
+      "id": "getLayoutData",
+      "name": "Get layout data",
+      "description": "Read a layout's settings as JSON. Choose where to store the result in the action's 'Store result' setting.",
+      "options": [
+        {
+          "id": "channelIdlayoutId",
+          "type": "dropdown",
+          "label": "Layout to get",
+          "choicesNote": "Runtime list: one entry per channel and layout, id `${channelId}-${layoutId}` (string, label `Channel – Layout`). The module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        }
+      ],
+      "availability": "Always uses the legacy v1 API. The action has hasResult: true and returns the layout settings as a JSON string.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 518
+      }
+    },
+    {
+      "id": "setLayoutData",
+      "name": "Set layout data",
+      "description": "Write a layout's settings from a JSON text, e.g. one read with 'Get layout data'.",
+      "options": [
+        {
+          "id": "channelIdlayoutId",
+          "type": "dropdown",
+          "label": "Layout to set",
+          "choicesNote": "Runtime list: one entry per channel and layout, id `${channelId}-${layoutId}` (string, label `Channel – Layout`). The module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        },
+        {
+          "id": "source",
+          "type": "textinput",
+          "label": "Layout Data",
+          "default": "{}",
+          "useVariables": true,
+          "description": "JSON text describing an encoder layout. A valid text can be retrieved with the Get layout data action. Variables are allowed in this option."
+        }
+      ],
+      "availability": "Always uses the legacy v1 API.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 556
+      }
+    },
+    {
+      "id": "getContentMetadata",
+      "name": "Get Content Metadata",
+      "description": "Read a channel's title, author, copyright, comment, description and filename prefix into its metadata variables. The result (all fields as JSON) can be stored with the action's 'Store result' setting.",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "choicesNote": "Runtime list from the polled device state: one entry per channel, id = channel id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        }
+      ],
+      "availability": "The action has hasResult: true.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 596
+      }
+    },
+    {
+      "id": "setContentMetadata",
+      "name": "Set Content Metadata",
+      "description": "Set a channel's title, author, copyright, comment, description and filename prefix. Empty fields are not sent unless 'Also send empty fields' is checked.",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "choicesNote": "Runtime list from the polled device state: one entry per channel, id = channel id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "title",
+          "type": "textinput",
+          "label": "Title",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "author",
+          "type": "textinput",
+          "label": "Author",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "copyright",
+          "type": "textinput",
+          "label": "Copyright",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "comment",
+          "type": "textinput",
+          "label": "Comment",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "description",
+          "type": "textinput",
+          "label": "Description",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "prefix",
+          "type": "textinput",
+          "label": "Filename Prefix",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "sendEmpty",
+          "type": "checkbox",
+          "label": "Also send empty fields (clears them on the encoder)",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 622
+      }
+    },
+    {
+      "id": "output",
+      "name": "Output Source",
+      "description": "Switch the source shown on an HDMI/SDI output of the encoder.",
+      "options": [
+        {
+          "id": "outputId",
+          "type": "dropdown",
+          "label": "Output",
+          "choicesNote": "Runtime list from the polled device state: one entry per output, id = output id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Runtime list: static ids 'multiview', 'deviceinfo', 'console' (labels 'Built-in: Multiview' / 'Built-in: Device info' / 'Built-in: Console'), then one entry per channel (id = channel id, label 'Channel: <name>'), then one entry per video-capable input (id = input id, label 'Input: <name>'). Ids are strings. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        }
+      ],
+      "availability": "Needs REST API v2.0 (firmware 4.24.1 or newer).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 678
+      }
+    },
+    {
+      "id": "preset",
+      "name": "Apply Preset",
+      "description": "Apply a configuration preset stored on the encoder. This can interrupt recordings and streams and the device may reboot.",
+      "options": [
+        {
+          "id": "presetName",
+          "type": "dropdown",
+          "label": "Preset",
+          "choicesNote": "Runtime list: configuration presets stored on the device, id = preset name, label 'name (description)' when the preset has a description. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "sections",
+          "type": "multidropdown",
+          "label": "Sections",
+          "default": [],
+          "choices": [
+            {
+              "id": "system",
+              "label": "System"
+            },
+            {
+              "id": "network",
+              "label": "Network"
+            },
+            {
+              "id": "sources",
+              "label": "Sources"
+            },
+            {
+              "id": "edid",
+              "label": "EDID"
+            },
+            {
+              "id": "channels",
+              "label": "Channels"
+            },
+            {
+              "id": "afu",
+              "label": "AFU"
+            },
+            {
+              "id": "cms",
+              "label": "CMS"
+            },
+            {
+              "id": "avstudio",
+              "label": "AV Studio"
+            },
+            {
+              "id": "frontscreen",
+              "label": "Front screen"
+            },
+            {
+              "id": "displays",
+              "label": "Displays"
+            }
+          ],
+          "description": "Leave empty to apply the whole preset."
+        },
+        {
+          "id": "confirm",
+          "type": "checkbox",
+          "label": "Confirm with a second press",
+          "default": true,
+          "description": "The first press only arms the button and sets $(<connection label>:confirm_hint); press the same button again within 3 seconds to send the command. Untick to send it immediately."
+        }
+      ],
+      "availability": "Needs REST API v2.0 (firmware 4.24.1 or newer). The callback drops section ids that are not in the closed list.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 728
+      }
+    },
+    {
+      "id": "event",
+      "name": "Event",
+      "description": "Pause / resume, stop or extend the ongoing CMS event, start the upcoming one, or control a specific event. A command that does not apply to the event's state is not sent.",
+      "options": [
+        {
+          "id": "eventRef",
+          "type": "dropdown",
+          "label": "Event",
+          "default": "ongoing",
+          "choicesNote": "Runtime list: the five aliases 'upcoming', 'ongoing', 'running', 'paused', 'completed', then one entry per polled schedule event (id = event id as string, label 'title (status)'). Custom values are allowed. Default 'ongoing'.",
+          "valueType": "string",
+          "allowCustom": true,
+          "disableAutoExpression": true,
+          "description": "\"Ongoing\" always targets the event that is currently running or paused, \"Upcoming\" the next scheduled one. Picking a specific event ties the button to it."
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Pause / Resume"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "extend",
+              "label": "Extend"
+            }
+          ],
+          "disableAutoExpression": true,
+          "description": "Pause / Resume pauses a running event and resumes a paused one. An ongoing event is already started; the upcoming event is started from an \"Upcoming\" button.",
+          "visibleWhen": "$(options:eventRef) == 'ongoing' || $(options:eventRef) == 'running' || $(options:eventRef) == 'paused'"
+        },
+        {
+          "id": "op_upcoming",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Action",
+          "description": "Start, the only command that applies to the upcoming event.",
+          "visibleWhen": "$(options:eventRef) == 'upcoming'"
+        },
+        {
+          "id": "op_event",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "toggle",
+              "label": "Pause / Resume"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "extend",
+              "label": "Extend"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "!($(options:eventRef) == 'ongoing' || $(options:eventRef) == 'running' || $(options:eventRef) == 'paused' || $(options:eventRef) == 'upcoming')"
+        },
+        {
+          "id": "extendSeconds",
+          "type": "number",
+          "label": "Extend by",
+          "default": 300,
+          "min": 30,
+          "max": 21600,
+          "step": 30,
+          "description": "Seconds added to the finish time of the event.",
+          "visibleWhen": "(($(options:eventRef) == 'ongoing' || $(options:eventRef) == 'running' || $(options:eventRef) == 'paused') && $(options:op) == 'extend') || (!($(options:eventRef) == 'ongoing' || $(options:eventRef) == 'running' || $(options:eventRef) == 'paused' || $(options:eventRef) == 'upcoming') && $(options:op_event) == 'extend')"
+        }
+      ],
+      "availability": "Needs REST API v2.0 (firmware 4.24.1 or newer). The command actually sent depends on the option that is visible: 'op' for ongoing/running/paused, a fixed Start for 'upcoming', 'op_event' for any other event; the three 'Action' options share the label 'Action'.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 791
+      }
+    },
+    {
+      "id": "power",
+      "name": "Reboot / Shutdown",
+      "description": "Reboot or shut down the encoder. Shut down powers the device off completely; it must be switched back on at the device.",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "reboot",
+          "choices": [
+            {
+              "id": "reboot",
+              "label": "Reboot"
+            },
+            {
+              "id": "shutdown",
+              "label": "Shut down"
+            }
+          ]
+        },
+        {
+          "id": "confirm",
+          "type": "checkbox",
+          "label": "Confirm with a second press",
+          "default": true,
+          "description": "The first press only arms the button and sets $(<connection label>:confirm_hint); press the same button again within 3 seconds to send the command. Untick to send it immediately."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 909
+      }
+    },
+    {
+      "id": "audio",
+      "name": "Audio",
+      "description": "Nudge the capture gain (dB) of an analog input (XLR, TRS, 3.5 mm, RCA) or the audio delay (ms) of any audio input. Rotary ticks arriving within 150 ms are combined into one step.",
+      "options": [
+        {
+          "id": "inputId",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Runtime list: inputs that carry audio (audio === true), id = input id as string, label 'name (type)'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "disableAutoExpression": true
+        },
+        {
+          "id": "control",
+          "type": "dropdown",
+          "label": "Adjusts",
+          "default": "gain",
+          "choices": [
+            {
+              "id": "gain",
+              "label": "Gain"
+            },
+            {
+              "id": "delay",
+              "label": "Delay"
+            }
+          ],
+          "visibleWhen": "optionIs('inputId', this.analogInputIds()), i.e. $(options:inputId) == '<id>' for every analog input id of the device, '1 == 0' when there is none (runtime list; analog = input id or device matches /analog|xlr|trs|rca|3[.,]5\\s?mm|line[ -]?in|\\bmic/i in src/utils.js)"
+        },
+        {
+          "id": "control_note",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Adjusts",
+          "description": "Delay. Gain can only be adjusted on analog inputs (XLR, TRS, 3.5 mm, RCA).",
+          "visibleWhen": "!(optionIs('inputId', this.analogInputIds())), i.e. visible for every input that is not analog"
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "up",
+          "choices": [
+            {
+              "id": "up",
+              "label": "Up"
+            },
+            {
+              "id": "down",
+              "label": "Down"
+            }
+          ]
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "description": "Gain steps are in dB (0–100), delay steps in milliseconds (−300..300)."
+        }
+      ],
+      "availability": "Needs REST API v2.0 (firmware 4.24.1 or newer). For an input that is not analog the callback always adjusts the delay, whatever 'Adjusts' holds. Ticks within the rotary window are summed into one settings PATCH.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 952
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "recorder_state",
+      "name": "Recorder state",
+      "feedbackType": "boolean",
+      "description": "True while the selected recorder (or, for \"All recorders\", the aggregate of every recorder) is in the selected state.",
+      "options": [
+        {
+          "id": "recorderId",
+          "type": "dropdown",
+          "label": "Recorder",
+          "default": "all",
+          "choicesNote": "Runtime list (state polled from the device): the entry \"all\" (label \"All recorders\") first, then one entry per recorder, id = recorder id as string (src/choices.js choicesRecordersWithAll). Default 'all'.",
+          "valueType": "string"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "started",
+          "choices": [
+            {
+              "id": "started",
+              "label": "Started"
+            },
+            {
+              "id": "starting",
+              "label": "Starting"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            },
+            {
+              "id": "error",
+              "label": "Error"
+            },
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            },
+            {
+              "id": "disabled",
+              "label": "Disabled"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 277
+      }
+    },
+    {
+      "id": "recorder_blink",
+      "name": "Recorder paused (blink)",
+      "feedbackType": "boolean",
+      "description": "True during the \"on\" half of a 500 ms blink while the selected recorder (or, for \"All recorders\", any recorder) is paused, false the rest of the time. Place it after a Paused style on a button to make that style flash; the Recording presets do this on their Pause / Resume keys.",
+      "options": [
+        {
+          "id": "recorderId",
+          "type": "dropdown",
+          "label": "Recorder",
+          "default": "all",
+          "choicesNote": "Runtime list (state polled from the device): the entry \"all\" (label \"All recorders\") first, then one entry per recorder, id = recorder id as string (src/choices.js choicesRecordersWithAll). Default 'all'.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 316
+      }
+    },
+    {
+      "id": "stream_state",
+      "name": "Stream state",
+      "feedbackType": "boolean",
+      "description": "True while the selected publisher (or, for \"All publishers\", the aggregate of the channel's publishers) is in the selected state.",
+      "options": [
+        {
+          "id": "publisherId",
+          "type": "dropdown",
+          "label": "Publisher",
+          "choicesNote": "Runtime list: per channel that has publishers, first `${channelId}-all` (label `Channel – All publishers`), then `${channelId}-${publisherId}` per publisher. Ids are strings; the module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "started",
+          "choices": [
+            {
+              "id": "started",
+              "label": "Started"
+            },
+            {
+              "id": "starting",
+              "label": "Starting"
+            },
+            {
+              "id": "listening",
+              "label": "Listening"
+            },
+            {
+              "id": "error",
+              "label": "Error"
+            },
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 343
+      }
+    },
+    {
+      "id": "layout_active",
+      "name": "Layout active",
+      "feedbackType": "boolean",
+      "description": "True while the selected layout is the active layout of its channel.",
+      "options": [
+        {
+          "id": "layoutId",
+          "type": "dropdown",
+          "label": "Layout",
+          "choicesNote": "Runtime list: one entry per channel and layout, id `${channelId}-${layoutId}` (string, label `Channel – Layout`). The module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 389
+      }
+    },
+    {
+      "id": "layout_preview",
+      "name": "Layout preview",
+      "feedbackType": "advanced",
+      "description": "Show a live preview image of this specific layout on its switch button, whether or not it is currently active. Uses an undocumented endpoint (not in Epiphan's published REST API v2.0 specification, confirmed working by Epiphan) that renders a given layout directly. Requires preview interval > 0 in the connection settings.",
+      "options": [
+        {
+          "id": "layoutId",
+          "type": "dropdown",
+          "label": "Layout",
+          "choicesNote": "Runtime list: one entry per channel and layout, id `${channelId}-${layoutId}` (string, label `Channel – Layout`). The module splits at the first '-'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string",
+          "valuePattern": "^[^-]+-.+$"
+        }
+      ],
+      "availability": "Needs the connection setting 'preview_interval' > 0; the feedback returns the PNG in the png64 property (affectedProperties: ['png64']).",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 416
+      }
+    },
+    {
+      "id": "singletouch_active",
+      "name": "Single touch state",
+      "feedbackType": "boolean",
+      "description": "\"On\" is true while pressed; \"Error\" is true while the control reports a failed start.",
+      "options": [
+        {
+          "id": "stcId",
+          "type": "dropdown",
+          "label": "Single touch control",
+          "choicesNote": "Runtime list from the polled device state: one entry per single touch control, id = control id as string. Default: '0' when present, otherwise the first entry (preferredId).",
+          "valueType": "string"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On (pressed)"
+            },
+            {
+              "id": "error",
+              "label": "Error"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 459
+      }
+    },
+    {
+      "id": "preview",
+      "name": "Preview",
+      "feedbackType": "advanced",
+      "description": "Show a live preview image of a channel, video input or output on the button (requires preview interval > 0 in the connection settings). \"Source\" lists channels, inputs and outputs together; pick the one matching \"Source type\".",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source type",
+          "default": "channel",
+          "choices": [
+            {
+              "id": "channel",
+              "label": "Channel"
+            },
+            {
+              "id": "input",
+              "label": "Input"
+            },
+            {
+              "id": "output",
+              "label": "Output"
+            }
+          ]
+        },
+        {
+          "id": "sourceId",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Runtime list: all channels (label 'Channel: <name>'), then video-capable inputs ('Input: <name>'), then outputs ('Output: <name>'), ids as strings. The id is looked up in the domain chosen in 'Source type'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        }
+      ],
+      "availability": "Needs the connection setting 'preview_interval' > 0; the feedback returns the PNG in the png64 property (affectedProperties: ['png64']).",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 496
+      }
+    },
+    {
+      "id": "output_set",
+      "name": "Output source recently set",
+      "feedbackType": "boolean",
+      "description": "True while this connection set the selected source on the selected output within the last 5 seconds. The API has no way to read the output source back, so this only reflects what this connection itself last sent, not a value confirmed by the device.",
+      "options": [
+        {
+          "id": "outputId",
+          "type": "dropdown",
+          "label": "Output",
+          "choicesNote": "Runtime list from the polled device state: one entry per output, id = output id as string. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Runtime list: static ids 'multiview', 'deviceinfo', 'console' (labels 'Built-in: Multiview' / 'Built-in: Device info' / 'Built-in: Console'), then one entry per channel (id = channel id, label 'Channel: <name>'), then one entry per video-capable input (id = input id, label 'Input: <name>'). Ids are strings. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 543
+      }
+    },
+    {
+      "id": "event_state",
+      "name": "Event state",
+      "feedbackType": "boolean",
+      "description": "True while the resolved event (alias or specific id) is in the selected state.",
+      "options": [
+        {
+          "id": "eventRef",
+          "type": "dropdown",
+          "label": "Event",
+          "default": "ongoing",
+          "choicesNote": "Runtime list: the five aliases 'upcoming', 'ongoing', 'running', 'paused', 'completed', then one entry per polled schedule event (id = event id as string, label 'title (status)'). Custom values are allowed. Default 'ongoing'.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "running",
+          "choices": [
+            {
+              "id": "running",
+              "label": "Running"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            },
+            {
+              "id": "ongoing",
+              "label": "Ongoing (running or paused)"
+            },
+            {
+              "id": "scheduled",
+              "label": "Scheduled"
+            },
+            {
+              "id": "finished",
+              "label": "Finished"
+            },
+            {
+              "id": "none",
+              "label": "None"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 587
+      }
+    },
+    {
+      "id": "event_applies",
+      "name": "Event command applies",
+      "feedbackType": "boolean",
+      "description": "True while the selected command would be sent for the resolved event's current status (the same rule the \"Event\" action itself uses to decide whether a fixed command applies).",
+      "options": [
+        {
+          "id": "eventRef",
+          "type": "dropdown",
+          "label": "Event",
+          "default": "ongoing",
+          "choicesNote": "Runtime list: the five aliases 'upcoming', 'ongoing', 'running', 'paused', 'completed', then one entry per polled schedule event (id = event id as string, label 'title (status)'). Custom values are allowed. Default 'ongoing'.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "resume",
+              "label": "Resume"
+            },
+            {
+              "id": "extend",
+              "label": "Extend"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 624
+      }
+    },
+    {
+      "id": "system",
+      "name": "System condition",
+      "feedbackType": "boolean",
+      "description": "True while the selected system or AFU condition holds.",
+      "options": [
+        {
+          "id": "condition",
+          "type": "dropdown",
+          "label": "Condition",
+          "default": "cpu_high",
+          "choices": [
+            {
+              "id": "cpu_high",
+              "label": "CPU load high"
+            },
+            {
+              "id": "cpu_hot",
+              "label": "CPU temperature high"
+            },
+            {
+              "id": "afu_uploading",
+              "label": "AFU uploading"
+            },
+            {
+              "id": "afu_paused",
+              "label": "AFU paused"
+            },
+            {
+              "id": "afu_error",
+              "label": "AFU error"
+            },
+            {
+              "id": "afu_idle",
+              "label": "AFU idle"
+            },
+            {
+              "id": "afu_off",
+              "label": "AFU off (disabled or none)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 665
+      }
+    },
+    {
+      "id": "storage_level",
+      "name": "Storage level",
+      "feedbackType": "boolean",
+      "description": "True while the selected storage is in the selected condition.",
+      "options": [
+        {
+          "id": "storageId",
+          "type": "dropdown",
+          "label": "Storage",
+          "choicesNote": "Runtime list from the polled device state: one entry per storage, id = storage id as string. Default: 'main' when present, otherwise the first entry (preferredId).",
+          "valueType": "string"
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "low",
+          "choices": [
+            {
+              "id": "low",
+              "label": "Low (90% or more used)"
+            },
+            {
+              "id": "full",
+              "label": "Full (97% or more used)"
+            },
+            {
+              "id": "ro",
+              "label": "Read-only"
+            },
+            {
+              "id": "nomedia",
+              "label": "No media"
+            },
+            {
+              "id": "notready",
+              "label": "Not ready"
+            },
+            {
+              "id": "formatting",
+              "label": "Formatting"
+            },
+            {
+              "id": "ok",
+              "label": "OK"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 703
+      }
+    },
+    {
+      "id": "audio",
+      "name": "Audio meter",
+      "feedbackType": "advanced",
+      "description": "Stereo level meter for an audio input: two bars with peak ticks on the right edge of the button, green to 62%, amber to 82%, red above, over -60..0 dBFS. Placing it starts a 500 ms level poll; the button keeps its own text.",
+      "options": [
+        {
+          "id": "inputId",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Runtime list: inputs that carry audio (audio === true), id = input id as string, label 'name (type)'. Default: the first entry of the list (empty string while the list is empty).",
+          "valueType": "string"
+        }
+      ],
+      "availability": "Returns an RGBA image buffer (affectedProperties: ['imageBuffer'])",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 759
+      }
+    },
+    {
+      "id": "action_failed",
+      "name": "Action failed (recent)",
+      "feedbackType": "boolean",
+      "description": "True for three seconds on the button whose last device command failed (rejected, timed out or unreachable), so the key itself shows the failure; the message is in the last_error variable.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 802
+      }
+    },
+    {
+      "id": "confirm_pending",
+      "name": "Confirm pending",
+      "feedbackType": "boolean",
+      "description": "True while a confirm-gated action on this button is armed, waiting for a second press. Puts the hint on the key in place of the label.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 820
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 14 actions (src/actions.js, getActions) and 15 feedbacks (src/feedbacks.js, getFeedbacks), all registered by key in one object each; nothing is generated per channel or model. Actions and feedbacks are re-registered by updateSystem() (src/instance.js) when the polled device state changes, so every dropdown list that comes from the device (channels, layouts, publishers, recorders, inputs, outputs, storages, presets, events, single touch controls) is runtime data and recorded as choicesNote.",
+    "Protocol: HTTP(S) REST to the encoder (connection settings host, port default 80, username default 'admin', HTTPS and self-signed options in src/config.js). REST API v2.0 (firmware 4.24.1 or newer) is preferred; the legacy v1 API is used for layout data, recorder reset fallback and older firmware. Actions marked 'needs REST API v2.0' log a warning and send nothing on v1 devices.",
+    "Built on @companion-module/base 2.2.2: options support expressions. Fields that other fields refer to in their visibility expression set disableAutoExpression (eventRef, op, op_event, inputId). Text options are already variable-resolved by Companion (useVariables), the module does not parse them again.",
+    "Option defaults written as firstId(...) or preferredId(...) depend on the device list at registration time; they are described in choicesNote, not stored as default. Option tooltips are recorded as description; the \"static-text\" options of the event and audio actions carry no value and are recorded as type other (rawType static-text) with their text in description.",
+    "Composite ids: layout, publisher and getLayoutData/setLayoutData ids have the form `${channelId}-${itemId}` and are split at the first '-' (splitPair in src/utils.js; valuePattern ^[^-]+-.+$ mirrors that rule). The 'Channel' option of the layout action is not read by the callback; the stream action only uses its 'Channel' option when the publisher id cannot be split.",
+    "The 'power' and 'preset' actions carry a confirm checkbox (default true): the first press only arms the button, the second press within 3 seconds sends the command (src/confirm.js). Reboot / Shutdown, Apply Preset (may interrupt recordings and reboot the device) and the layout/metadata writes change the device; treat them as write operations.",
+    "Variables, presets (src/presets.js) and config fields are not catalogued. Feedback defaultStyle values are not catalogued.",
+    "Checked by hand against the source while writing: all 14 actions and 15 feedbacks (ids, names, descriptions, option ids, labels, defaults, closed choice lists, bounds, visibility expressions). Module was not run; the Event visibility strings are the expansion of the optionIs() helper (src/actions.js) written out by hand."
+  ]
+}

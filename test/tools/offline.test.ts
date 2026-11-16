@@ -101,15 +101,6 @@ describe('catalog tools', () => {
     expect(full.body).toMatchObject({ ok: true, kind: 'full', moduleId: 'bmd-atem' });
     expect((full.body['actions'] as Array<{ id: string }>).map((a) => a.id)).toContain('program');
 
-    const index = (await h.call('catalog_search', { query: '' })).body['modules'] as Array<{
-      moduleId: string;
-      kind: string;
-    }>;
-    const indexOnly = index.find((m) => m.kind === 'index-only');
-    expect(indexOnly).toBeDefined();
-    const entry = await h.call('catalog_module', { moduleId: indexOnly?.moduleId });
-    expect(entry.body).toMatchObject({ ok: true, kind: 'index-only' });
-
     const missing = await h.call('catalog_module', { moduleId: 'atem' });
     expect(missing.isError).toBe(true);
     expect(missing.body).toMatchObject({ ok: false, code: 'MODULE_NOT_FOUND' });

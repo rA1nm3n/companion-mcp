@@ -1,0 +1,3001 @@
+{
+  "moduleId": "obs-studio",
+  "name": "OBS Studio",
+  "repo": "bitfocus/companion-module-obs-studio",
+  "version": "4.0.0",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-11-12",
+  "lastCommitSha": "43d6f37",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "mute",
+      "name": "Audio - Mute",
+      "description": "Mutes, unmutes, or toggles the mute state of a specific audio source",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Mute"
+            },
+            {
+              "id": "false",
+              "label": "Unmute"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 37
+      }
+    },
+    {
+      "id": "volume",
+      "name": "Audio - Source Volume",
+      "description": "Sets, fades, or adjusts the volume of a specific audio source",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set"
+            },
+            {
+              "id": "adjust",
+              "label": "Adjust"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "unit",
+          "type": "dropdown",
+          "label": "Unit",
+          "default": "db",
+          "choices": [
+            {
+              "id": "db",
+              "label": "Decibels"
+            },
+            {
+              "id": "percent",
+              "label": "Percentage"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Target Volume",
+          "default": 0,
+          "min": -100,
+          "max": 100,
+          "visibleWhen": "$(options:mode) === 'set'"
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Fade Duration (in ms, 0 for instant)",
+          "default": 0,
+          "min": 0,
+          "max": 5000,
+          "visibleWhen": "$(options:mode) === 'set'"
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Adjustment Amount",
+          "default": 1,
+          "min": -100,
+          "max": 100,
+          "visibleWhen": "$(options:mode) === 'adjust'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 75
+      }
+    },
+    {
+      "id": "audio_offset",
+      "name": "Audio - Source Audio Offset",
+      "description": "Sets or adjusts the audio sync offset for a specific source in milliseconds",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set"
+            },
+            {
+              "id": "adjust",
+              "label": "Adjust"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Offset in ms",
+          "default": 0,
+          "min": -950,
+          "max": 20000,
+          "visibleWhen": "$(options:mode) === 'set'"
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Amount in ms",
+          "default": 50,
+          "min": -950,
+          "max": 20000,
+          "visibleWhen": "$(options:mode) === 'adjust'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 136
+      }
+    },
+    {
+      "id": "audio_balance",
+      "name": "Audio - Source Audio Balance",
+      "description": "Sets or adjusts the audio balance for a specific source (0.0 for Left, 0.5 for Center, 1.0 for Right)",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set"
+            },
+            {
+              "id": "adjust",
+              "label": "Adjust"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Balance (0.0 to 1.0)",
+          "default": 0.5,
+          "min": 0,
+          "max": 1,
+          "visibleWhen": "$(options:mode) === 'set'"
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Amount (percentage of range)",
+          "default": 0.1,
+          "min": -1,
+          "max": 1,
+          "visibleWhen": "$(options:mode) === 'adjust'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 176
+      }
+    },
+    {
+      "id": "set_audio_monitor",
+      "name": "Audio - Set Audio Monitoring",
+      "description": "Enables, disables, or toggles audio monitoring for a specific source",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "monitor",
+          "type": "dropdown",
+          "label": "Monitoring",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Enabled"
+            },
+            {
+              "id": "false",
+              "label": "Disabled"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 218
+      }
+    },
+    {
+      "id": "set_audio_tracks",
+      "name": "Audio - Set Audio Tracks",
+      "description": "Sets or toggles the mixer output tracks of a specific audio source",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "tracks",
+          "type": "multidropdown",
+          "label": "Tracks",
+          "description": "Leave empty to affect all tracks",
+          "default": [],
+          "choices": [
+            {
+              "id": "1",
+              "label": "Track 1"
+            },
+            {
+              "id": "2",
+              "label": "Track 2"
+            },
+            {
+              "id": "3",
+              "label": "Track 3"
+            },
+            {
+              "id": "4",
+              "label": "Track 4"
+            },
+            {
+              "id": "5",
+              "label": "Track 5"
+            },
+            {
+              "id": "6",
+              "label": "Track 6"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Enabled",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 257
+      }
+    },
+    {
+      "id": "media_control",
+      "name": "Media - Playback Controls",
+      "description": "Controls the playback of a media source",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "source",
+          "choices": [
+            {
+              "id": "source",
+              "label": "Specific Source"
+            },
+            {
+              "id": "newest",
+              "label": "Newest Playing Clip"
+            },
+            {
+              "id": "all",
+              "label": "All Playing Clips"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Media Source",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'source'"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle Play/Pause"
+            },
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "restart",
+              "label": "Restart"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "next",
+              "label": "Next"
+            },
+            {
+              "id": "previous",
+              "label": "Previous"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/media.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "media_time",
+      "name": "Media - Set / Scrub Playback Time",
+      "description": "Sets the playback cursor of a media source to a specific time, or moves it by an offset",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "source",
+          "choices": [
+            {
+              "id": "source",
+              "label": "Specific Source"
+            },
+            {
+              "id": "newest",
+              "label": "Newest Playing Clip"
+            },
+            {
+              "id": "all",
+              "label": "All Playing Clips"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Media Source",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'source'"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Time"
+            },
+            {
+              "id": "adjust",
+              "label": "Scrub"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Time (in ms)",
+          "default": 0,
+          "min": 0,
+          "max": 360000000,
+          "visibleWhen": "$(options:mode) === 'set'"
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Scrub Amount (in seconds, can be negative)",
+          "default": 1,
+          "min": -3600,
+          "max": 3600,
+          "visibleWhen": "$(options:mode) === 'adjust'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/media.ts",
+        "line": 145
+      }
+    },
+    {
+      "id": "updateMediaLocalFile",
+      "name": "Media - Set Source File",
+      "description": "Changes the file associated with a media source",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "source",
+          "choices": [
+            {
+              "id": "source",
+              "label": "Specific Source"
+            },
+            {
+              "id": "newest",
+              "label": "Newest Playing Clip"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Media Source",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'source'"
+        },
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "File Path",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/media.ts",
+        "line": 189
+      }
+    },
+    {
+      "id": "recording",
+      "name": "Recording - Controls",
+      "description": "Controls the recording output",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "resume",
+              "label": "Resume"
+            },
+            {
+              "id": "toggle_pause",
+              "label": "Toggle Pause"
+            },
+            {
+              "id": "split",
+              "label": "Split File"
+            },
+            {
+              "id": "chapter",
+              "label": "Create Chapter"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "chapterName",
+          "type": "textinput",
+          "label": "Chapter Name (Optional)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:action) === 'chapter'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputs.ts",
+        "line": 116
+      }
+    },
+    {
+      "id": "streaming",
+      "name": "Streaming - Controls",
+      "description": "Controls the streaming output",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputs.ts",
+        "line": 155
+      }
+    },
+    {
+      "id": "SendStreamCaption",
+      "name": "Streaming - Send Caption",
+      "options": [
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Caption Text",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputs.ts",
+        "line": 162
+      }
+    },
+    {
+      "id": "set_stream_settings",
+      "name": "Streaming - Set Stream Settings",
+      "options": [
+        {
+          "id": "streamType",
+          "type": "dropdown",
+          "label": "Stream Type",
+          "default": "rtmp_custom",
+          "choices": [
+            {
+              "id": "rtmp_custom",
+              "label": "Custom RTMP"
+            },
+            {
+              "id": "rtmp_common",
+              "label": "Preset Service"
+            },
+            {
+              "id": "whip_custom",
+              "label": "Custom WHIP"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "service",
+          "type": "textinput",
+          "label": "Service",
+          "description": "The name as listed in OBS Settings → Stream. Leave empty to keep the current service.",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) === 'rtmp_common'"
+        },
+        {
+          "id": "server",
+          "type": "textinput",
+          "label": "Server",
+          "description": "The ingest URL, or \"auto\" where the service supports it. After selecting a service in OBS, and clicking \"OK\", you can use Learn to copy both from OBS.",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) === 'rtmp_common'"
+        },
+        {
+          "id": "streamURL",
+          "type": "textinput",
+          "label": "Stream URL",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) !== 'rtmp_common'"
+        },
+        {
+          "id": "streamKey",
+          "type": "textinput",
+          "label": "Stream Key",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) !== 'whip_custom'"
+        },
+        {
+          "id": "useAuth",
+          "type": "checkbox",
+          "label": "Use Authentication",
+          "default": false,
+          "disableAutoExpression": true,
+          "visibleWhen": "$(options:streamType) === 'rtmp_custom'"
+        },
+        {
+          "id": "username",
+          "type": "textinput",
+          "label": "Username",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) === 'rtmp_custom' && $(options:useAuth) === true"
+        },
+        {
+          "id": "password",
+          "type": "textinput",
+          "label": "Password",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) === 'rtmp_custom' && $(options:useAuth) === true"
+        },
+        {
+          "id": "bearerToken",
+          "type": "textinput",
+          "label": "Bearer Token",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:streamType) === 'whip_custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputs.ts",
+        "line": 179
+      }
+    },
+    {
+      "id": "replay_buffer",
+      "name": "Replay Buffer - Controls",
+      "description": "Controls the replay buffer output",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "save",
+              "label": "Save"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputs.ts",
+        "line": 329
+      }
+    },
+    {
+      "id": "output",
+      "name": "Output - Controls",
+      "description": "Controls a specific output (e.g., Virtual Cam, Decklink)",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "virtualcam_output",
+          "choicesNote": "OBS output names (sorted by label); outputs containing 'file_output' or 'ffmpeg_output' and 'simple_stream' are left out; 'virtualcam_output' is labelled 'Virtual Cam'. Filled at runtime.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/outputs.ts",
+        "line": 339
+      }
+    },
+    {
+      "id": "set_scene",
+      "name": "Scene - Set Program Scene",
+      "description": "Switches the current program output to the specified scene",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/scenes.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "preview_scene",
+      "name": "Scene - Set Preview Scene",
+      "description": "Sets the current preview scene, either directly or by moving through the scene list (Studio Mode only)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Scene"
+            },
+            {
+              "id": "next",
+              "label": "Next Scene"
+            },
+            {
+              "id": "previous",
+              "label": "Previous Scene"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:mode) === 'set'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/scenes.ts",
+        "line": 28
+      }
+    },
+    {
+      "id": "smart_switcher",
+      "name": "Scene - Smart Scene Switcher",
+      "description": "Preview a scene, or transition it if it is already in preview",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/scenes.ts",
+        "line": 63
+      }
+    },
+    {
+      "id": "setText",
+      "name": "Source - Set Source Text",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources whose input kind starts with 'text_' (sorted by label). Filled at runtime. Default: first entry of the list, 'None' when the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Text",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 94
+      }
+    },
+    {
+      "id": "setTextProperties",
+      "name": "Source - Set Text Properties",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources whose input kind starts with 'text_' (sorted by label). Filled at runtime. Default: first entry of the list, 'None' when the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "props",
+          "type": "multidropdown",
+          "label": "Properties",
+          "default": [],
+          "choices": [
+            {
+              "id": "fontSize",
+              "label": "Font Size"
+            },
+            {
+              "id": "fontFace",
+              "label": "Font Face"
+            },
+            {
+              "id": "fontStyle",
+              "label": "Font Style"
+            },
+            {
+              "id": "text",
+              "label": "Text"
+            },
+            {
+              "id": "textTransform",
+              "label": "Text Transform"
+            },
+            {
+              "id": "color1",
+              "label": "Color 1"
+            },
+            {
+              "id": "color2",
+              "label": "Color 2 / Gradient Color"
+            },
+            {
+              "id": "gradient",
+              "label": "Gradient"
+            },
+            {
+              "id": "backgroundColor",
+              "label": "Background Color"
+            },
+            {
+              "id": "backgroundOpacity",
+              "label": "Background Opacity"
+            },
+            {
+              "id": "outline",
+              "label": "Outline"
+            },
+            {
+              "id": "outlineSize",
+              "label": "Outline Size"
+            },
+            {
+              "id": "outlineColor",
+              "label": "Outline Color"
+            },
+            {
+              "id": "dropShadow",
+              "label": "Drop Shadow"
+            },
+            {
+              "id": "alignment",
+              "label": "Alignment"
+            },
+            {
+              "id": "verticalAlignment",
+              "label": "Vertical Alignment"
+            },
+            {
+              "id": "extents",
+              "label": "Use Custom Text Extents"
+            },
+            {
+              "id": "extentsWidth",
+              "label": "Text Extents Width"
+            },
+            {
+              "id": "extentsHeight",
+              "label": "Text Extents Height"
+            },
+            {
+              "id": "wrap",
+              "label": "Wrap"
+            },
+            {
+              "id": "vertical",
+              "label": "Vertical"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Text",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'text')"
+        },
+        {
+          "id": "textTransform",
+          "type": "dropdown",
+          "label": "Text Transform",
+          "description": "GDI+ Text Sources Only",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "None"
+            },
+            {
+              "id": 1,
+              "label": "Uppercase"
+            },
+            {
+              "id": 2,
+              "label": "Lowercase"
+            },
+            {
+              "id": 3,
+              "label": "Start Case"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'textTransform')"
+        },
+        {
+          "id": "fontSize",
+          "type": "textinput",
+          "label": "Font Size",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'fontSize')"
+        },
+        {
+          "id": "fontFace",
+          "type": "textinput",
+          "label": "Font Face",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'fontFace')"
+        },
+        {
+          "id": "fontStyle",
+          "type": "textinput",
+          "label": "Font Style",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'fontStyle')"
+        },
+        {
+          "id": "color1",
+          "type": "colorpicker",
+          "label": "Color 1",
+          "default": "#000000",
+          "visibleWhen": "arrayIncludes($(options:props), 'color1')"
+        },
+        {
+          "id": "color2",
+          "type": "colorpicker",
+          "label": "Color 2 / Gradient Color",
+          "default": "#000000",
+          "visibleWhen": "arrayIncludes($(options:props), 'color2')"
+        },
+        {
+          "id": "gradient",
+          "type": "checkbox",
+          "label": "Gradient",
+          "default": false,
+          "visibleWhen": "arrayIncludes($(options:props), 'gradient')"
+        },
+        {
+          "id": "outline",
+          "type": "checkbox",
+          "label": "Outline",
+          "default": false,
+          "visibleWhen": "arrayIncludes($(options:props), 'outline')"
+        },
+        {
+          "id": "outlineSize",
+          "type": "textinput",
+          "label": "Outline Size",
+          "description": "GDI+ Text Sources Only",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'outlineSize')"
+        },
+        {
+          "id": "outlineColor",
+          "type": "colorpicker",
+          "label": "Outline Color",
+          "description": "GDI+ Text Sources Only",
+          "default": "#000000",
+          "visibleWhen": "arrayIncludes($(options:props), 'outlineColor')"
+        },
+        {
+          "id": "backgroundColor",
+          "type": "colorpicker",
+          "label": "Background Color",
+          "description": "GDI+ Text Sources Only",
+          "default": "#000000",
+          "visibleWhen": "arrayIncludes($(options:props), 'backgroundColor')"
+        },
+        {
+          "id": "backgroundOpacity",
+          "type": "textinput",
+          "label": "Background Opacity",
+          "description": "GDI+ Text Sources Only",
+          "default": "100",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'backgroundOpacity')"
+        },
+        {
+          "id": "dropShadow",
+          "type": "checkbox",
+          "label": "Drop Shadow",
+          "description": "FreeType Text Sources Only",
+          "default": false,
+          "visibleWhen": "arrayIncludes($(options:props), 'dropShadow')"
+        },
+        {
+          "id": "wrap",
+          "type": "checkbox",
+          "label": "Wrap",
+          "default": false,
+          "visibleWhen": "arrayIncludes($(options:props), 'wrap')"
+        },
+        {
+          "id": "alignment",
+          "type": "dropdown",
+          "label": "Alignment",
+          "description": "GDI+ Text Sources Only",
+          "default": "left",
+          "choices": [
+            {
+              "id": "left",
+              "label": "Left"
+            },
+            {
+              "id": "center",
+              "label": "Center"
+            },
+            {
+              "id": "right",
+              "label": "Right"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'alignment')"
+        },
+        {
+          "id": "verticalAlignment",
+          "type": "dropdown",
+          "label": "Vertical Alignment",
+          "description": "GDI+ Text Sources Only",
+          "default": "top",
+          "choices": [
+            {
+              "id": "top",
+              "label": "Top"
+            },
+            {
+              "id": "center",
+              "label": "Center"
+            },
+            {
+              "id": "bottom",
+              "label": "Bottom"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'verticalAlignment')"
+        },
+        {
+          "id": "vertical",
+          "type": "checkbox",
+          "label": "Vertical",
+          "description": "GDI+ Text Sources Only",
+          "default": false,
+          "visibleWhen": "arrayIncludes($(options:props), 'vertical')"
+        },
+        {
+          "id": "extents",
+          "type": "checkbox",
+          "label": "Use Custom Text Extents",
+          "description": "GDI+ Text Sources Only",
+          "default": false,
+          "visibleWhen": "arrayIncludes($(options:props), 'extents')"
+        },
+        {
+          "id": "extentsWidth",
+          "type": "textinput",
+          "label": "Text Extents Width",
+          "description": "GDI+ Text Sources Only",
+          "default": "100",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'extentsWidth')"
+        },
+        {
+          "id": "extentsHeight",
+          "type": "textinput",
+          "label": "Text Extents Height",
+          "description": "GDI+ Text Sources Only",
+          "default": "100",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'extentsHeight')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 121
+      }
+    },
+    {
+      "id": "resetCaptureDevice",
+      "name": "Source - Reset Video Capture Device",
+      "description": "Deactivates and Reactivates a Video Capture Source to reset it",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 543
+      }
+    },
+    {
+      "id": "toggle_filter",
+      "name": "Filters - Set Visibility",
+      "description": "Shows, hides, or toggles the enabled state of a filter on a source. With All Filters checked, every filter on the chosen source(s) is set, each toggling from its own state.",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "source",
+          "choices": [
+            {
+              "id": "source",
+              "label": "Specific Source"
+            },
+            {
+              "id": "allSources",
+              "label": "All Sources"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names followed by scene names (sources sorted by label, then scenes). Filled at runtime. Default: first source of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'source'"
+        },
+        {
+          "id": "allFilters",
+          "type": "checkbox",
+          "label": "All Filters",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "filter",
+          "type": "dropdown",
+          "label": "Filter",
+          "choicesNote": "Filter names found on any source (deduplicated, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "!$(options:allFilters)"
+        },
+        {
+          "id": "visible",
+          "type": "dropdown",
+          "label": "Visibility",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Show"
+            },
+            {
+              "id": "false",
+              "label": "Hide"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 560
+      }
+    },
+    {
+      "id": "setFilterSettings",
+      "name": "Filters - Set Settings",
+      "description": "Sets the settings for a filter using a JSON object",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names followed by scene names (sources sorted by label, then scenes). Filled at runtime. Default: first source of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "filter",
+          "type": "dropdown",
+          "label": "Filter",
+          "choicesNote": "Filter names found on any source (deduplicated, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "settings",
+          "type": "textinput",
+          "label": "Settings (JSON)",
+          "default": "{}",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 619
+      }
+    },
+    {
+      "id": "refresh_browser_source",
+      "name": "Source - Refresh Browser Source",
+      "description": "Refreshes the cache of a specific browser source",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 658
+      }
+    },
+    {
+      "id": "take_screenshot",
+      "name": "Source - Take Screenshot",
+      "description": "Saves a screenshot of a specific source or scene to disk",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "source",
+          "choices": [
+            {
+              "id": "source",
+              "label": "Specific Source"
+            },
+            {
+              "id": "programScene",
+              "label": "Current Program Scene"
+            },
+            {
+              "id": "previewScene",
+              "label": "Current Preview Scene"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'source'"
+        },
+        {
+          "id": "format",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "png",
+          "choicesNote": "Image formats from OBS (version.supportedImageFormats), ids equal labels. Filled at runtime.",
+          "valueType": "string",
+          "disableAutoExpression": true
+        },
+        {
+          "id": "compression",
+          "type": "number",
+          "label": "Compression Quality (Default: -1/0)",
+          "description": "PNG: 0-9. JPG: 0-100. -1 or 0 for default.",
+          "default": 0,
+          "min": -1,
+          "max": 100
+        },
+        {
+          "id": "customName",
+          "type": "checkbox",
+          "label": "Custom Path",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "Path (including filename)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:customName)"
+        },
+        {
+          "id": "prefix",
+          "type": "textinput",
+          "label": "Prefix (for default path)",
+          "default": "Screenshot ",
+          "useVariables": true,
+          "visibleWhen": "!$(options:customName)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 673
+      }
+    },
+    {
+      "id": "source_properties",
+      "name": "Source - Set Transform Properties",
+      "description": "Sets the transform properties (position, scale, rotation) of a source",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "programScene",
+          "choices": [
+            {
+              "id": "programScene",
+              "label": "Current Program Scene"
+            },
+            {
+              "id": "scene",
+              "label": "Specific Scene"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'scene'"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "props",
+          "type": "multidropdown",
+          "label": "Properties",
+          "default": [],
+          "choices": [
+            {
+              "id": "positionX",
+              "label": "Position X"
+            },
+            {
+              "id": "positionY",
+              "label": "Position Y"
+            },
+            {
+              "id": "scaleX",
+              "label": "Scale X"
+            },
+            {
+              "id": "scaleY",
+              "label": "Scale Y"
+            },
+            {
+              "id": "rotation",
+              "label": "Rotation"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "positionX",
+          "type": "textinput",
+          "label": "Position X",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'positionX')"
+        },
+        {
+          "id": "positionY",
+          "type": "textinput",
+          "label": "Position Y",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'positionY')"
+        },
+        {
+          "id": "scaleX",
+          "type": "textinput",
+          "label": "Scale X",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'scaleX')"
+        },
+        {
+          "id": "scaleY",
+          "type": "textinput",
+          "label": "Scale Y",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'scaleY')"
+        },
+        {
+          "id": "rotation",
+          "type": "textinput",
+          "label": "Rotation",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "arrayIncludes($(options:props), 'rotation')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 763
+      }
+    },
+    {
+      "id": "toggle_scene_item",
+      "name": "Source - Set Visibility",
+      "description": "Shows, hides, or toggles the visibility of sources in the specified scene(s). With All Sources checked, every source in the chosen scene or group is set, and the excepted sources are set to the opposite visibility (ignored when Visibility is Toggle).",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "allScenes",
+          "choices": [
+            {
+              "id": "allScenes",
+              "label": "All Scenes"
+            },
+            {
+              "id": "currentScene",
+              "label": "Current Scene"
+            },
+            {
+              "id": "scene",
+              "label": "Specific Scene"
+            },
+            {
+              "id": "group",
+              "label": "Group Items"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'scene'"
+        },
+        {
+          "id": "group",
+          "type": "dropdown",
+          "label": "Group",
+          "choicesNote": "Group names: a fixed entry with id '' (label None) followed by the sources that are groups (sorted by label). Filled at runtime. Default: '' (None).",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'group'"
+        },
+        {
+          "id": "allSources",
+          "type": "checkbox",
+          "label": "All Sources",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "multidropdown",
+          "label": "Sources",
+          "default": [],
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "!$(options:allSources)"
+        },
+        {
+          "id": "except",
+          "type": "multidropdown",
+          "label": "Except",
+          "default": [],
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:allSources)"
+        },
+        {
+          "id": "includeGroupChildren",
+          "type": "dropdown",
+          "label": "Groups",
+          "default": "groupsAndSources",
+          "choices": [
+            {
+              "id": "groups",
+              "label": "Include groups"
+            },
+            {
+              "id": "groupsAndSources",
+              "label": "Include groups and sources within groups"
+            },
+            {
+              "id": "sources",
+              "label": "Include only sources within groups"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "$(options:allSources) && $(options:target) != 'group'"
+        },
+        {
+          "id": "visible",
+          "type": "dropdown",
+          "label": "Visibility",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Show"
+            },
+            {
+              "id": "false",
+              "label": "Hide"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/sources.ts",
+        "line": 913
+      }
+    },
+    {
+      "id": "do_transition",
+      "name": "Transitions - Perform Transition",
+      "description": "Transitions the current preview scene to program using the current transition",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/transitions.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "quick_transition",
+      "name": "Transitions - Quick Transition",
+      "description": "Performs a quick transition using a specific transition type and optional custom duration",
+      "options": [
+        {
+          "id": "transition",
+          "type": "dropdown",
+          "label": "Transition",
+          "choicesNote": "Transition names from OBS (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string"
+        },
+        {
+          "id": "customDuration",
+          "type": "checkbox",
+          "label": "Custom Duration",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "transition_time",
+          "type": "number",
+          "label": "Transition time (in ms)",
+          "default": 500,
+          "min": 0,
+          "max": 60000,
+          "visibleWhen": "$(options:customDuration)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitions.ts",
+        "line": 31
+      }
+    },
+    {
+      "id": "transition_type",
+      "name": "Transitions - Set Type",
+      "description": "Sets the current transition type used for Studio Mode transitions, or cycles through the list",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Type"
+            },
+            {
+              "id": "next",
+              "label": "Next Type"
+            },
+            {
+              "id": "previous",
+              "label": "Previous Type"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "transitions",
+          "type": "dropdown",
+          "label": "Transitions",
+          "choicesNote": "Transition names from OBS (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "visibleWhen": "$(options:mode) === 'set'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitions.ts",
+        "line": 73
+      }
+    },
+    {
+      "id": "transition_duration",
+      "name": "Transitions - Set Duration",
+      "description": "Sets or adjusts the duration for current transitions in milliseconds",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set"
+            },
+            {
+              "id": "adjust",
+              "label": "Adjust"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Transition time (in ms)",
+          "default": 500,
+          "min": 0,
+          "max": 60000,
+          "visibleWhen": "$(options:mode) === 'set'"
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Amount (in ms)",
+          "default": 50,
+          "min": -60000,
+          "max": 60000,
+          "visibleWhen": "$(options:mode) === 'adjust'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/transitions.ts",
+        "line": 113
+      }
+    },
+    {
+      "id": "studio_mode",
+      "name": "Studio Mode",
+      "description": "Enables or disables Studio Mode, which allows for previewing changes before they go live",
+      "options": [
+        {
+          "id": "enabled",
+          "type": "dropdown",
+          "label": "Studio Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Enabled"
+            },
+            {
+              "id": "false",
+              "label": "Disabled"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 64
+      }
+    },
+    {
+      "id": "set_profile",
+      "name": "Set Profile",
+      "description": "Switches the current OBS profile",
+      "options": [
+        {
+          "id": "profile",
+          "type": "dropdown",
+          "label": "Profile",
+          "choicesNote": "OBS profile names (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 91
+      }
+    },
+    {
+      "id": "set_scene_collection",
+      "name": "Set Scene Collection",
+      "description": "Switches the current OBS scene collection",
+      "options": [
+        {
+          "id": "scene_collection",
+          "type": "dropdown",
+          "label": "Scene Collection",
+          "choicesNote": "OBS scene collection names (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 99
+      }
+    },
+    {
+      "id": "trigger-hotkey",
+      "name": "Hotkey - Trigger by ID",
+      "description": "Triggers a hotkey by its internal name in OBS",
+      "options": [
+        {
+          "id": "id",
+          "type": "dropdown",
+          "label": "Hotkey ID",
+          "choicesNote": "Hotkey names returned by OBS (GetHotkeyList). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 111
+      }
+    },
+    {
+      "id": "trigger-hotkey-sequence",
+      "name": "Hotkey - Trigger by Key Sequence",
+      "description": "Triggers a hotkey by specifying the key and optional modifiers",
+      "options": [
+        {
+          "id": "keyId",
+          "type": "textinput",
+          "label": "Key ID (e.g. OBS_KEY_A)",
+          "default": "OBS_KEY_NONE",
+          "useVariables": true
+        },
+        {
+          "id": "keyShift",
+          "type": "checkbox",
+          "label": "Shift",
+          "default": false
+        },
+        {
+          "id": "keyAlt",
+          "type": "checkbox",
+          "label": "Alt",
+          "default": false
+        },
+        {
+          "id": "keyControl",
+          "type": "checkbox",
+          "label": "Control",
+          "default": false
+        },
+        {
+          "id": "keyCommand",
+          "type": "checkbox",
+          "label": "Command",
+          "description": "(macOS only)",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 120
+      }
+    },
+    {
+      "id": "custom_command",
+      "name": "Custom - Send Command",
+      "description": "Sends a custom raw request to OBS WebSocket",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Request Type",
+          "default": "SetCurrentProgramScene",
+          "useVariables": true
+        },
+        {
+          "id": "arg",
+          "type": "textinput",
+          "label": "Request Data (optional, JSON formatted)",
+          "default": "{\"sceneName\": \"Scene 1\"}",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 173
+      }
+    },
+    {
+      "id": "vendorRequest",
+      "name": "Custom - Send Vendor Request",
+      "description": "Sends a request to a specific OBS vendor plugin",
+      "options": [
+        {
+          "id": "vendorName",
+          "type": "textinput",
+          "label": "vendorName",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "requestType",
+          "type": "textinput",
+          "label": "requestType",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "requestData",
+          "type": "textinput",
+          "label": "requestData",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 209
+      }
+    },
+    {
+      "id": "openInputPropertiesDialog",
+      "name": "UI - Open Source Properties Window",
+      "description": "Opens the properties dialog for a source within the OBS UI",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 253
+      }
+    },
+    {
+      "id": "openInputFiltersDialog",
+      "name": "UI - Open Source Filter Window",
+      "description": "Opens the filters dialog for a source within the OBS UI",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 261
+      }
+    },
+    {
+      "id": "openInputInteractDialog",
+      "name": "UI - Open Source Interaction Window",
+      "description": "Opens the interact dialog for a source (e.g., browser source) within the OBS UI",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 269
+      }
+    },
+    {
+      "id": "open_projector",
+      "name": "UI - Open Projector",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Projector Type",
+          "default": "Multiview",
+          "choices": [
+            {
+              "id": "Multiview",
+              "label": "Multiview"
+            },
+            {
+              "id": "Preview",
+              "label": "Preview"
+            },
+            {
+              "id": "StudioProgram",
+              "label": "Program"
+            },
+            {
+              "id": "Source",
+              "label": "Source"
+            },
+            {
+              "id": "Scene",
+              "label": "Scene"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "window",
+          "type": "dropdown",
+          "label": "Window Type",
+          "default": "window",
+          "choices": [
+            {
+              "id": "window",
+              "label": "Window"
+            },
+            {
+              "id": "fullscreen",
+              "label": "Fullscreen"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "display",
+          "type": "dropdown",
+          "label": "Display",
+          "default": 0,
+          "choicesNote": "Displays from GetMonitorList; ids are the numeric monitorIndex, labels 'name (WxH)'. Filled at runtime. The action also accepts a numeric string.",
+          "valueType": "numeric",
+          "allowCustom": true,
+          "visibleWhen": "$(options:window) === 'fullscreen'"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:type) === 'Source'"
+        },
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:type) === 'Scene'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ui-config-custom.ts",
+        "line": 278
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "audio_muted",
+      "name": "Audio - Muted",
+      "description": "If an audio source is muted, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 21
+      }
+    },
+    {
+      "id": "audio_monitor_type",
+      "name": "Audio - Monitoring",
+      "description": "If audio monitoring is enabled for a source, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 33
+      }
+    },
+    {
+      "id": "audio_track",
+      "name": "Audio - Track Enabled",
+      "description": "If a mixer output track of an audio source is enabled, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Track 1"
+            },
+            {
+              "id": "2",
+              "label": "Track 2"
+            },
+            {
+              "id": "3",
+              "label": "Track 3"
+            },
+            {
+              "id": "4",
+              "label": "Track 4"
+            },
+            {
+              "id": "5",
+              "label": "Track 5"
+            },
+            {
+              "id": "6",
+              "label": "Track 6"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 45
+      }
+    },
+    {
+      "id": "volume",
+      "name": "Audio - Volume",
+      "description": "If an audio source volume is matched, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "volume",
+          "type": "number",
+          "label": "Volume in dB (-100 to 26) ",
+          "default": 0,
+          "min": -100,
+          "max": 26
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 67
+      }
+    },
+    {
+      "id": "audioPeaking",
+      "name": "Audio - Peaking",
+      "description": "If audio is above a certain dB value, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "threshold",
+          "type": "number",
+          "label": "Threshold (dB)",
+          "default": -20,
+          "min": -100,
+          "max": 26
+        },
+        {
+          "id": "peakHold",
+          "type": "number",
+          "label": "Peak hold (ms)",
+          "description": "How long the feedback stays active after a peak. 0 releases as soon as the level drops.",
+          "default": 0,
+          "min": 0,
+          "max": 10000
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 90
+      }
+    },
+    {
+      "id": "audioPeakLevel",
+      "name": "Audio - Peak Level (dB)",
+      "description": "The current peak level of an audio source, in dB, for use with a gauge or local variable",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 129
+      }
+    },
+    {
+      "id": "sourceVolume",
+      "name": "Audio - Volume (dB)",
+      "description": "The current volume of an audio source, in dB, for use with a gauge or local variable",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 142
+      }
+    },
+    {
+      "id": "sourceBalance",
+      "name": "Audio - Balance (%)",
+      "description": "The current audio balance of a source, from 0 (full left) to 100 (full right), for use with a gauge",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 153
+      }
+    },
+    {
+      "id": "sourceSyncOffset",
+      "name": "Audio - Sync Offset (ms)",
+      "description": "The current audio sync offset of a source, in milliseconds",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources that report mute state or volume (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 165
+      }
+    },
+    {
+      "id": "media_playing",
+      "name": "Media - Playing",
+      "description": "If a specific media source is currently playing, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Media Source",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/media.ts",
+        "line": 25
+      }
+    },
+    {
+      "id": "media_source_time_remaining",
+      "name": "Media - Remaining Time",
+      "description": "If remaining time of a media source is below a threshold, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "rtThreshold",
+          "type": "number",
+          "label": "Remaining time threshold (in seconds)",
+          "default": 20,
+          "min": 0,
+          "max": 3600
+        },
+        {
+          "id": "onlyIfSourceIsOnProgram",
+          "type": "checkbox",
+          "label": "Feedback only if source is on program",
+          "default": false
+        },
+        {
+          "id": "onlyIfSourceIsPlaying",
+          "type": "checkbox",
+          "label": "Feedback only if source is playing",
+          "default": false
+        },
+        {
+          "id": "blinkingEnabled",
+          "type": "checkbox",
+          "label": "Blinking",
+          "default": false
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/media.ts",
+        "line": 37
+      }
+    },
+    {
+      "id": "mediaProgress",
+      "name": "Media - Playback Progress (%)",
+      "description": "How far through a media source playback is, as a percentage, for use with a gauge",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Media Source",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/media.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "mediaTimeRemaining",
+      "name": "Media - Remaining Time (seconds)",
+      "description": "The remaining playback time of a media source, in seconds",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Media Source",
+          "choicesNote": "Sources of kind ffmpeg_source or vlc_source (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/media.ts",
+        "line": 117
+      }
+    },
+    {
+      "id": "streaming",
+      "name": "Streaming - Active",
+      "description": "If streaming is active, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 21
+      }
+    },
+    {
+      "id": "streamReconnecting",
+      "name": "Streaming - Reconnecting",
+      "description": "If the stream is currently reconnecting, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 32
+      }
+    },
+    {
+      "id": "recording",
+      "name": "Recording - Active",
+      "description": "If recording is active, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 43
+      }
+    },
+    {
+      "id": "recordingPaused",
+      "name": "Recording - Paused",
+      "description": "If recording is paused, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 54
+      }
+    },
+    {
+      "id": "output_active",
+      "name": "Output - Active",
+      "description": "If an output is currently active, change the style of the button",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output name",
+          "default": "virtualcam_output",
+          "choicesNote": "OBS output names (sorted by label); outputs containing 'file_output' or 'ffmpeg_output' and 'simple_stream' are left out; 'virtualcam_output' is labelled 'Virtual Cam'. Filled at runtime.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 65
+      }
+    },
+    {
+      "id": "replayBufferActive",
+      "name": "Replay Buffer - Active",
+      "description": "If the replay buffer is currently active, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 79
+      }
+    },
+    {
+      "id": "streamCongestionAbove",
+      "name": "Streaming - Stream Congestion Above",
+      "description": "If stream congestion is above a threshold, change the style of the button. OBS treats 0 as excellent, up to 33 as good, up to 67 as mediocre, and above that as bad",
+      "options": [
+        {
+          "id": "threshold",
+          "type": "number",
+          "label": "Congestion threshold (0-100)",
+          "default": 67,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 90
+      }
+    },
+    {
+      "id": "streamCongestionLevel",
+      "name": "Streaming - Stream Congestion Level",
+      "description": "The current stream congestion, from 0 to 100, for use with a gauge or bar meter. OBS treats 0 as excellent, up to 33 as good, up to 67 as mediocre, and above that as bad. Reads 0 when not streaming",
+      "options": [],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/outputs.ts",
+        "line": 113
+      }
+    },
+    {
+      "id": "sceneProgram",
+      "name": "Scene - Program",
+      "description": "If a scene is in the program output, change the style of the button",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/scenes.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "scenePreview",
+      "name": "Scene - Preview",
+      "description": "If a scene is in the preview monitor (Studio Mode only), change the style of the button",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/scenes.ts",
+        "line": 26
+      }
+    },
+    {
+      "id": "scenePrevious",
+      "name": "Scene - Previous",
+      "description": "If a scene was the last scene previously active, change the style of the button",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/scenes.ts",
+        "line": 38
+      }
+    },
+    {
+      "id": "scene_item_active",
+      "name": "Source - Visible in Program",
+      "description": "If a source is currently visible in the program output (either directly or via a scene), change the style of the button",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "allScenes",
+          "choices": [
+            {
+              "id": "allScenes",
+              "label": "All Scenes"
+            },
+            {
+              "id": "scene",
+              "label": "Specific Scene"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:target) == 'scene'"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/sources.ts",
+        "line": 18
+      }
+    },
+    {
+      "id": "scene_item_previewed",
+      "name": "Source - Active in Preview",
+      "description": "If a source is enabled in the Studio Mode preview, including through enabled scenes and groups, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source name",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/sources.ts",
+        "line": 43
+      }
+    },
+    {
+      "id": "scene_item_active_in_scene",
+      "name": "Source - Enabled in Scene",
+      "description": "If a specific source is enabled in a specific scene, change the style of the button",
+      "options": [
+        {
+          "id": "scene",
+          "type": "dropdown",
+          "label": "Scene",
+          "choicesNote": "Scene names from OBS (list order reversed). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "any",
+          "type": "checkbox",
+          "label": "Any Source",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names known to the module (all sources from OBS state, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "!$(options:any)"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/sources.ts",
+        "line": 57
+      }
+    },
+    {
+      "id": "filter_enabled",
+      "name": "Filter - Enabled",
+      "description": "If a specific filter is enabled on a source, change the style of the button",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Source names followed by scene names (sources sorted by label, then scenes). Filled at runtime. Default: first source of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "filter",
+          "type": "dropdown",
+          "label": "Filter",
+          "choicesNote": "Filter names found on any source (deduplicated, sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/sources.ts",
+        "line": 95
+      }
+    },
+    {
+      "id": "transition_active",
+      "name": "Transitions - In Progress",
+      "description": "If an OBS transition is currently in progress, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/transitions.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "current_transition",
+      "name": "Transitions - Type",
+      "description": "If a specific transition type is currently selected as the active transition, change the style of the button",
+      "options": [
+        {
+          "id": "transition",
+          "type": "dropdown",
+          "label": "Transition",
+          "choicesNote": "Transition names from OBS (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/transitions.ts",
+        "line": 25
+      }
+    },
+    {
+      "id": "transition_duration",
+      "name": "Transition - Duration",
+      "description": "If the current transition duration matches a specific time, change the style of the button",
+      "options": [
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Transition time (in ms)",
+          "default": 500,
+          "min": 0,
+          "max": 60000
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/transitions.ts",
+        "line": 40
+      }
+    },
+    {
+      "id": "profile_active",
+      "name": "Profile Active",
+      "description": "If a specific OBS profile is currently active, change the style of the button",
+      "options": [
+        {
+          "id": "profile",
+          "type": "dropdown",
+          "label": "Profile",
+          "choicesNote": "OBS profile names (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/ui-config-custom.ts",
+        "line": 21
+      }
+    },
+    {
+      "id": "scene_collection_active",
+      "name": "Scene Collection Active",
+      "description": "If a specific scene collection is currently active, change the style of the button",
+      "options": [
+        {
+          "id": "scene_collection",
+          "type": "dropdown",
+          "label": "Scene Collection",
+          "choicesNote": "OBS scene collection names (sorted by label). Filled at runtime. Default: first entry of the list.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/ui-config-custom.ts",
+        "line": 32
+      }
+    },
+    {
+      "id": "studioMode",
+      "name": "Studio Mode Active",
+      "description": "If Studio Mode is currently enabled, change the style of the button",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/ui-config-custom.ts",
+        "line": 43
+      }
+    },
+    {
+      "id": "freeDiskSpaceRemaining",
+      "name": "Disk Space Remaining",
+      "description": "If the remaining disk space on the drive OBS is recording to is below a certain threshold, change the style of the button",
+      "options": [
+        {
+          "id": "diskSpace",
+          "type": "number",
+          "label": "Remaining Space (MB)",
+          "default": 10000,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/ui-config-custom.ts",
+        "line": 54
+      }
+    },
+    {
+      "id": "vendorEvent",
+      "name": "Custom - Vendor Event",
+      "description": "Change the style of the button based on third party vendor events",
+      "options": [
+        {
+          "id": "vendorName",
+          "type": "textinput",
+          "label": "vendorName",
+          "default": "downstream-keyer"
+        },
+        {
+          "id": "eventType",
+          "type": "textinput",
+          "label": "eventType",
+          "default": "dsk_scene_changed"
+        },
+        {
+          "id": "eventDataKey",
+          "type": "textinput",
+          "label": "eventData Key",
+          "default": "new_scene"
+        },
+        {
+          "id": "eventDataValue",
+          "type": "textinput",
+          "label": "eventData Value",
+          "default": "Scene 1"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/ui-config-custom.ts",
+        "line": 76
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 42 actions (src/actions/*.ts: audio, media, outputs, scenes, sources, transitions, ui-config-custom) and 36 feedbacks (src/feedbacks/*.ts), merged by spreading the get*Actions/get*Feedbacks functions in src/actions.ts and src/feedbacks.ts. Nothing is registered anywhere else (main.ts calls setActionDefinitions/setFeedbackDefinitions with exactly these results). Extracted statically with the TypeScript compiler API, which resolved the shared helpers (choiceDropdown, choiceMultiDropdown, targetDropdown, modeDropdown, modeNumber, outputControlAction, AUDIO_TRACK_CHOICES, constants). Variables and presets are not catalogued.",
+    "Protocol: obs-websocket v5 through obs-websocket-js 5.0.8. Connection settings (src/config.ts): host, port (default \"4455\"), password, and scheme (\"ws\" default, or \"wss\").",
+    "Built on @companion-module/base ~2.1.3: option values may be expressions, except where the module sets disableAutoExpression (recorded per option). visibleWhen holds the source isVisibleExpression text, informational only.",
+    "Dynamic dropdowns (scene, source, filter, transition, profile, scene collection, output, hotkey, display, image format) are built from OBS state by choiceDropdown in src/actions/options.ts and carry choicesNote plus valueType. The helper sets allowCustom: true unless the call passes allowCustom: false (the transition lists in quick_transition, transition_type and the take_screenshot format list); the catalog records allowCustom only where it is true. The default of such a dropdown is the first entry of the list at runtime (described in choicesNote, not stored as default); only output (virtualcam_output), display (0) and format (png) have fixed defaults from src/actions/options.ts. Lists are empty until OBS has connected.",
+    "Several actions have fields that are only used in some modes; they are all listed with visibleWhen (for example volume value/duration are shown for mode set and amount for mode adjust). Number fields built with modeNumber and most other number fields set clampValues: true in the source; the schema has no field for it, min and max are recorded.",
+    "Not represented because the schema has no field: clampValues, sortSelection (multidropdown), enableAlpha and returnType (colorpicker fields use enableAlpha: true and returnType: string, so values are CSS colour strings), feedback defaultStyle, learn callbacks (many actions can learn from OBS state) and hasResult (mute, recording, streaming, replay_buffer, output, studio_mode, take_screenshot, custom_command and vendorRequest return a result). A field tooltip is recorded in description (set_audio_tracks tracks, audioPeaking peakHold).",
+    "Several numeric-looking options are text inputs with useVariables and are parsed by the callback (setTextProperties fontSize, outlineSize, backgroundOpacity, extentsWidth, extentsHeight; source_properties positionX/positionY/scaleX/scaleY/rotation); an empty value is skipped. The setTextProperties props list selects which of the other fields are applied; fields for properties outside the chosen list are ignored. Some properties only apply to GDI+ text sources (descriptions say so), dropShadow only to FreeType sources.",
+    "Dropdown ids keep their source types: setTextProperties textTransform uses numeric ids 0 to 3, the display dropdown uses numeric monitor indexes, everything else uses strings (including the \"true\"/\"false\"/\"toggle\" ids of mute, visibility, monitoring and studio mode, and the track ids \"1\" to \"6\").",
+    "custom_command and vendorRequest send arbitrary obs-websocket requests (JSON in a text field) and can trigger anything OBS or a vendor plugin accepts; set_stream_settings changes stream service settings and key (ignored while streaming).",
+    "Defaults copied as written: vendorEvent uses example values (downstream-keyer, dsk_scene_changed, new_scene, Scene 1); custom_command default request is SetCurrentProgramScene with {\"sceneName\": \"Scene 1\"}; trigger-hotkey-sequence keyId default is OBS_KEY_NONE. streamCongestionAbove default is Math.round(CONGESTION_MEDIOCRE * 100) = 67 (src/constants.ts, 2/3). preview_scene mode next looks up sceneIndex - 1 and previous sceneIndex + 1 (src/actions/scenes.ts:47-49), as written in the source.",
+    "Not tested against a running OBS or Companion instance. 12 entries (actions media_control, volume, recording, set_audio_tracks, take_screenshot, open_projector, setTextProperties; feedbacks streamCongestionAbove, audioPeaking, vendorEvent, scene_item_active_in_scene, freeDiskSpaceRemaining) were compared with the source by hand, including provenance lines."
+  ]
+}

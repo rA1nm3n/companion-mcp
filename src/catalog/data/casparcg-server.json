@@ -1,0 +1,771 @@
+{
+  "moduleId": "casparcg-server",
+  "name": "CasparCG Server",
+  "repo": "bitfocus/companion-module-casparcg-server",
+  "version": "2.1.2",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "3ac7583",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "LOADBG",
+      "name": "LOADBG",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "clip_dd",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "",
+          "choicesNote": "Media files read from the server with CLS on connect (index.js handleCLS: file name from the quoted first column, backslashes doubled); empty until the server answers. The list is rebuilt and the actions re-registered after each CLS answer.",
+          "valueType": "string"
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Or clip name",
+          "default": ""
+        },
+        {
+          "id": "loop",
+          "type": "dropdown",
+          "label": "Loop clip",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "auto",
+          "type": "dropdown",
+          "label": "Autostart after FG clip",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "transition",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "CUT",
+          "choices": [
+            {
+              "id": "CUT",
+              "label": "CUT"
+            },
+            {
+              "id": "MIX",
+              "label": "MIX"
+            },
+            {
+              "id": "PUSH",
+              "label": "PUSH"
+            },
+            {
+              "id": "CUT",
+              "label": "WIPE"
+            },
+            {
+              "id": "SLIDE",
+              "label": "SLIDE"
+            }
+          ]
+        },
+        {
+          "id": "transition_duration",
+          "type": "textinput",
+          "label": "Transition duration",
+          "default": "",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "transition_tween",
+          "type": "textinput",
+          "label": "Transition tween",
+          "default": "linear"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 187
+      }
+    },
+    {
+      "id": "LOAD",
+      "name": "LOAD",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "clip_dd",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "",
+          "choicesNote": "Media files read from the server with CLS on connect (index.js handleCLS: file name from the quoted first column, backslashes doubled); empty until the server answers. The list is rebuilt and the actions re-registered after each CLS answer.",
+          "valueType": "string"
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Or clip name",
+          "default": ""
+        },
+        {
+          "id": "loop",
+          "type": "dropdown",
+          "label": "Loop clip",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "auto",
+          "type": "dropdown",
+          "label": "Autostart after FG clip",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "transition",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "CUT",
+          "choices": [
+            {
+              "id": "CUT",
+              "label": "CUT"
+            },
+            {
+              "id": "MIX",
+              "label": "MIX"
+            },
+            {
+              "id": "PUSH",
+              "label": "PUSH"
+            },
+            {
+              "id": "CUT",
+              "label": "WIPE"
+            },
+            {
+              "id": "SLIDE",
+              "label": "SLIDE"
+            }
+          ]
+        },
+        {
+          "id": "transition_duration",
+          "type": "textinput",
+          "label": "Transition duration",
+          "default": "",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "transition_tween",
+          "type": "textinput",
+          "label": "Transition tween",
+          "default": "linear"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 194
+      }
+    },
+    {
+      "id": "PLAY",
+      "name": "PLAY",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "clip_dd",
+          "type": "dropdown",
+          "label": "Clip",
+          "default": "",
+          "choicesNote": "Media files read from the server with CLS on connect (index.js handleCLS: file name from the quoted first column, backslashes doubled); empty until the server answers. The list is rebuilt and the actions re-registered after each CLS answer.",
+          "valueType": "string"
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Or clip name",
+          "default": ""
+        },
+        {
+          "id": "loop",
+          "type": "dropdown",
+          "label": "Loop clip",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "auto",
+          "type": "dropdown",
+          "label": "Autostart after FG clip",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "transition",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "CUT",
+          "choices": [
+            {
+              "id": "CUT",
+              "label": "CUT"
+            },
+            {
+              "id": "MIX",
+              "label": "MIX"
+            },
+            {
+              "id": "PUSH",
+              "label": "PUSH"
+            },
+            {
+              "id": "CUT",
+              "label": "WIPE"
+            },
+            {
+              "id": "SLIDE",
+              "label": "SLIDE"
+            }
+          ]
+        },
+        {
+          "id": "transition_duration",
+          "type": "textinput",
+          "label": "Transition duration",
+          "default": "",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "transition_tween",
+          "type": "textinput",
+          "label": "Transition tween",
+          "default": "linear"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 201
+      }
+    },
+    {
+      "id": "PAUSE",
+      "name": "PAUSE",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 208
+      }
+    },
+    {
+      "id": "RESUME",
+      "name": "RESUME",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 215
+      }
+    },
+    {
+      "id": "STOP",
+      "name": "STOP",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 222
+      }
+    },
+    {
+      "id": "CLEAR",
+      "name": "CLEAR",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 229
+      }
+    },
+    {
+      "id": "CALL",
+      "name": "CALL",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "method",
+          "type": "textinput",
+          "label": "Method",
+          "regex": "/^.+$/"
+        }
+      ],
+      "description": "The method text is appended to the AMCP CALL command unchanged (not quoted or escaped, per the source comment).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 236
+      }
+    },
+    {
+      "id": "SWAP",
+      "name": "SWAP",
+      "options": [
+        {
+          "id": "channel1",
+          "type": "textinput",
+          "label": "Channel 1",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer1",
+          "type": "textinput",
+          "label": "Layer 1",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "channel2",
+          "type": "textinput",
+          "label": "Channel 2",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer2",
+          "type": "textinput",
+          "label": "Layer 2",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "transforms",
+          "type": "dropdown",
+          "label": "Swap transforms",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "description": "Source bug: the callback builds the command with `+'SWAP ' + parseInt(...)` (unary plus on a string), which evaluates to NaN, so the sent text starts with \"NaN\"; it also tests options.layer, an option that does not exist, instead of layer1/layer2 (actions.js:313-323).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 273
+      }
+    },
+    {
+      "id": "CG ADD",
+      "name": "CG ADD",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "template_dd",
+          "type": "dropdown",
+          "label": "Template",
+          "default": "",
+          "choicesNote": "Templates read from the server with TLS on connect (index.js handleTLS, backslashes doubled); empty until the server answers.",
+          "valueType": "string"
+        },
+        {
+          "id": "template",
+          "type": "textinput",
+          "label": "Or template name",
+          "default": ""
+        },
+        {
+          "id": "playonload",
+          "type": "dropdown",
+          "label": "Play on load",
+          "default": "false",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        },
+        {
+          "id": "templatelayer",
+          "type": "textinput",
+          "label": "Template host layer",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "json",
+          "type": "checkbox",
+          "label": "Send as JSON",
+          "default": false
+        },
+        {
+          "id": "variables",
+          "type": "textinput",
+          "label": "Template variables",
+          "default": "f0=\"John Doe\"",
+          "regex": "/(^([^=]+=\"[^\"]+\"[ ,]*)+$|^$)/",
+          "description": "Tooltip: Example: f0=\"John Doe\" f1=\"Foobar janitor\""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 332
+      }
+    },
+    {
+      "id": "CG UPDATE",
+      "name": "CG UPDATE",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "templatelayer",
+          "type": "textinput",
+          "label": "Template host layer",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "json",
+          "type": "checkbox",
+          "label": "Send as JSON",
+          "default": false
+        },
+        {
+          "id": "variables",
+          "type": "textinput",
+          "label": "Template variables",
+          "default": "",
+          "regex": "/(^([^=]+=\"[^\"]+\"[ ,]*)+$|^$)/",
+          "description": "Tooltip: Example: f0=\"John Doe\" f1=\"Foobar janitor\""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 422
+      }
+    },
+    {
+      "id": "CG PLAY",
+      "name": "CG PLAY",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "templatelayer",
+          "type": "textinput",
+          "label": "Template host layer",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 480
+      }
+    },
+    {
+      "id": "CG STOP",
+      "name": "CG STOP",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "templatelayer",
+          "type": "textinput",
+          "label": "Template host layer",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 519
+      }
+    },
+    {
+      "id": "COMMAND",
+      "name": "Manually specify AMCP command",
+      "options": [
+        {
+          "id": "cmd",
+          "type": "textinput",
+          "label": "Command",
+          "default": "CLEAR 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 558
+      }
+    },
+    {
+      "id": "GOTO",
+      "name": "Goto to file position (in seconds)",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "offset",
+          "type": "textinput",
+          "label": "Seconds (from end: prefix \"-\")",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "description": "Sends INFO for the channel/layer, computes the frame from the reported framerate (offset in seconds, negative counts from the end) and sends CALL <channel>[-<layer>] SEEK <frame>. Does nothing when the INFO answer cannot be parsed (index.js executeGOTO).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 573
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 15 actions (actions.js, returned by compileActionDefinitions) and no feedbacks (index.js never calls setFeedbackDefinitions). Variables and presets do not exist in the source either (the module is a single index.js plus actions.js).",
+    "Protocol: AMCP over TCP (TCPHelper) to the configured host and port (config: host with Regex.IP, port default 5250 with Regex.PORT; index.js getConfigFields). Commands are sent with a trailing CRLF. On connect the module sends CLS and TLS to fill the clip and template dropdowns.",
+    "Almost every field is a text input, so channel and layer values are strings; the source default for channel is the number 1 (recorded as written). Layer may be empty (the command then addresses the whole channel). The regex values are the resolved constants: Regex.NUMBER is /^\\d+$/ in @companion-module/base 1.4.3 (dist/module-api/enums.js).",
+    "LOADBG/LOAD/PLAY share one option list: clip_dd (dropdown from CLS) and the free-text \"clip\" are alternatives, the text field wins when both are set. A transition other than CUT appends the transition, parseFloat(duration) and the tween (an empty duration yields NaN).",
+    "Source quirk, kept as written: the transition dropdown lists WIPE with id \"CUT\" (actions.js:99), so choosing WIPE sends no transition. The catalog therefore contains the id \"CUT\" twice (labels CUT and WIPE); the first entry is the default.",
+    "Source quirk: SWAP builds a command starting with NaN (see the action description), so it does not send a valid AMCP SWAP command.",
+    "Source quirk: CG ADD sends the template-data argument only when \"variables\" is not empty (as \"<flag> \\\"<xml or json>\\\"\"); build_templatedata_string returns null when no key=\"value\" pair parses, and the callback then throws on templ.replace.",
+    "Variable expansion: only COMMAND (cmd) and GOTO (offset) declare useVariables, but sendCommand runs parseVariablesInString over the complete command text, so a $(...) in any text field is expanded by the module (actions.js:140).",
+    "Built on @companion-module/base ~1.4.3: option values cannot be expressions."
+  ]
+}

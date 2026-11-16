@@ -1,0 +1,2496 @@
+{
+  "moduleId": "avstumpfl-pixera",
+  "name": "AV Stumpfl Pixera",
+  "repo": "bitfocus/companion-module-avstumpfl-pixera",
+  "version": "3.2.3",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "e0f4d7d",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "timeline_transport",
+      "name": "Timeline Transport",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Transport",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Play"
+            },
+            {
+              "id": 2,
+              "label": "Pause"
+            },
+            {
+              "id": 3,
+              "label": "Stop"
+            },
+            {
+              "id": 4,
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "timelinename_state",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 8
+      }
+    },
+    {
+      "id": "timeline_transport_extended",
+      "name": "Timeline Transport Extended",
+      "options": [
+        {
+          "id": "timeline_transport_mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Play"
+            },
+            {
+              "id": 2,
+              "label": "Pause"
+            },
+            {
+              "id": 3,
+              "label": "Stop"
+            },
+            {
+              "id": 4,
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "timeline_transport_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 2,
+          "choices": [
+            {
+              "id": 2,
+              "label": "Multiple"
+            },
+            {
+              "id": 3,
+              "label": "All"
+            }
+          ]
+        },
+        {
+          "id": "timeline_transport_timelines",
+          "type": "textinput",
+          "label": "Timeline Names",
+          "default": "Timeline 1,Timeline 2,Timeline 3",
+          "visibleWhen": "(options) => options.timeline_transport_type == 2"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 72
+      }
+    },
+    {
+      "id": "timeline_next_cue",
+      "name": "Next Cue",
+      "options": [
+        {
+          "id": "timelinename_next",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timelinename_next_ignore",
+          "type": "checkbox",
+          "label": "Ignore Properties",
+          "default": false,
+          "visibleWhen": "(options) => options.timelinename_next_blend == false"
+        },
+        {
+          "id": "timelinename_next_blend",
+          "type": "checkbox",
+          "label": "Blend To",
+          "default": false,
+          "visibleWhen": "(options) => options.timelinename_next_ignore == false"
+        },
+        {
+          "id": "blend_name_frames",
+          "type": "textinput",
+          "label": "Blendtime in Frames",
+          "default": 60,
+          "visibleWhen": "(options) => options.timelinename_next_blend == true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 172
+      }
+    },
+    {
+      "id": "timeline_prev_cue",
+      "name": "Previous Cue",
+      "options": [
+        {
+          "id": "timelinename_prev",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timelinename_prev_ignore",
+          "type": "checkbox",
+          "label": "Ignore Properties",
+          "default": false,
+          "visibleWhen": "(options) => options.timelinename_prev_blend == false"
+        },
+        {
+          "id": "timelinename_prev_blend",
+          "type": "checkbox",
+          "label": "Blend To",
+          "default": false,
+          "visibleWhen": "(options) => options.timelinename_prev_ignore == false"
+        },
+        {
+          "id": "blend_name_frames",
+          "type": "textinput",
+          "label": "Blendtime in Frames",
+          "default": 60,
+          "visibleWhen": "(options) => options.timelinename_prev_blend == true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 232
+      }
+    },
+    {
+      "id": "timeline_ignore_next_cue",
+      "name": "Ignore Next Cue",
+      "options": [
+        {
+          "id": "timelinename_ignore",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 294
+      }
+    },
+    {
+      "id": "timeline_store",
+      "name": "Timeline Store",
+      "options": [
+        {
+          "id": "timelinename_store",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 326
+      }
+    },
+    {
+      "id": "session_project",
+      "name": "Session Project",
+      "options": [
+        {
+          "id": "session_project_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Save"
+            },
+            {
+              "id": 2,
+              "label": "Save As"
+            },
+            {
+              "id": 3,
+              "label": "Load"
+            },
+            {
+              "id": 4,
+              "label": "Close"
+            }
+          ]
+        },
+        {
+          "id": "session_project_projectpath",
+          "type": "textinput",
+          "label": "Project Path",
+          "default": "C:\\Dump",
+          "visibleWhen": "(options) => options.session_project_action == 2 || options.session_project_action == 3"
+        },
+        {
+          "id": "session_project_saveproject",
+          "type": "checkbox",
+          "label": "Save Project",
+          "default": true,
+          "visibleWhen": "(options) => options.session_project_action == 4"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 355
+      }
+    },
+    {
+      "id": "session_livesystem",
+      "name": "Session Livesystem",
+      "options": [
+        {
+          "id": "session_livesystem_all",
+          "type": "checkbox",
+          "label": "All Live Systems",
+          "default": false
+        },
+        {
+          "id": "session_livesystem_ip",
+          "type": "textinput",
+          "label": "IP",
+          "default": "127.0.0.1",
+          "visibleWhen": "(options) => options.session_livesystem_all == 0"
+        },
+        {
+          "id": "session_livesystem_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 0,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Start"
+            },
+            {
+              "id": 2,
+              "label": "Stop"
+            },
+            {
+              "id": 3,
+              "label": "Restart"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 416
+      }
+    },
+    {
+      "id": "session_setvideostreamactivestate",
+      "name": "Session Set Video Stream Active State",
+      "options": [
+        {
+          "id": "session_setvideostreamactivestate_ip",
+          "type": "textinput",
+          "label": "IP",
+          "default": "127.0.0.1"
+        },
+        {
+          "id": "session_setvideostreamactivestate_device",
+          "type": "textinput",
+          "label": "Device",
+          "default": ""
+        },
+        {
+          "id": "session_setvideostreamactivestate_isactive",
+          "type": "checkbox",
+          "label": "Is Active",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 486
+      }
+    },
+    {
+      "id": "livesystem_engine",
+      "name": "Live Systems Engine",
+      "options": [
+        {
+          "id": "livesystem_engine_all",
+          "type": "checkbox",
+          "label": "All Live Systems",
+          "default": false
+        },
+        {
+          "id": "livesystem_engine_livesystem",
+          "type": "dropdown",
+          "label": "Live System",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric",
+          "visibleWhen": "(options) => options.livesystem_engine_all == 0"
+        },
+        {
+          "id": "livesystem_engine_local",
+          "type": "checkbox",
+          "label": "Exclude Local",
+          "default": true,
+          "visibleWhen": "(options) => options.livesystem_engine_all == 1"
+        },
+        {
+          "id": "livesystem_engine_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Start"
+            },
+            {
+              "id": 2,
+              "label": "Close"
+            },
+            {
+              "id": 3,
+              "label": "Restart"
+            },
+            {
+              "id": 4,
+              "label": "Reset"
+            },
+            {
+              "id": 5,
+              "label": "Wake Up"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 520
+      }
+    },
+    {
+      "id": "livesystem_exportMappings",
+      "name": "Live Systems Export Mappings",
+      "options": [
+        {
+          "id": "livesystem_exportMappings_livesystem",
+          "type": "dropdown",
+          "label": "Live System",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "livesystem_exportMappings_exportpath",
+          "type": "textinput",
+          "label": "Export Path",
+          "default": "C:\\Dump"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 692
+      }
+    },
+    {
+      "id": "livesystem_setaudiomaster_volume",
+      "name": "Live Systems Set Audio Master Volume",
+      "options": [
+        {
+          "id": "livesystem_setaudiomaster_volume_livesystem",
+          "type": "dropdown",
+          "label": "Live System",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "livesystem_setaudiomaster_volume_channels",
+          "type": "textinput",
+          "label": "Channels",
+          "default": "1,2"
+        },
+        {
+          "id": "livesystem_setaudiomaster_volume_value",
+          "type": "textinput",
+          "label": "Volume",
+          "default": "1.0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 724
+      }
+    },
+    {
+      "id": "livesystem_setaudiomaster_mute",
+      "name": "Live Systems Set Audio Master Mute",
+      "options": [
+        {
+          "id": "livesystem_setaudiomaster_mute_livesystem",
+          "type": "dropdown",
+          "label": "Live System",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "livesystem_setaudiomaster_mute_channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": "1"
+        },
+        {
+          "id": "livesystem_setaudiomaster_mute_toggle",
+          "type": "checkbox",
+          "label": "Make Toggle",
+          "default": false
+        },
+        {
+          "id": "livesystem_setaudiomaster_mute_state",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": false,
+          "visibleWhen": "(options) => options.livesystem_setaudiomaster_mute_toggle == 0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 767
+      }
+    },
+    {
+      "id": "livesystem_setaudiotimecodeinput",
+      "name": "Live Systems Set Audio Timecode Input",
+      "options": [
+        {
+          "id": "livesystem_setaudiotimecodeinput_livesystem",
+          "type": "dropdown",
+          "label": "Live System",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "livesystem_setaudiotimecodeinput_channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": "1"
+        },
+        {
+          "id": "livesystem_setaudiotimecodeinput_state",
+          "type": "checkbox",
+          "label": "State",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 832
+      }
+    },
+    {
+      "id": "output_status",
+      "name": "Output Status",
+      "options": [
+        {
+          "id": "output_status_output",
+          "type": "dropdown",
+          "label": "Output Name",
+          "default": 0,
+          "choicesNote": "Outputs of the live systems: id is the numeric output handle, label the output name (src/Pixera.js:608-620). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "output_status_active_toggle",
+          "type": "checkbox",
+          "label": "Active: Make Toggle",
+          "default": true
+        },
+        {
+          "id": "output_status_active",
+          "type": "checkbox",
+          "label": "Active",
+          "default": false,
+          "visibleWhen": "(options) => options.output_status_active_toggle == 0"
+        },
+        {
+          "id": "output_status_identify_toggle",
+          "type": "checkbox",
+          "label": "Identify: Make Toggle",
+          "default": true
+        },
+        {
+          "id": "output_status_identify",
+          "type": "checkbox",
+          "label": "Identify",
+          "default": false,
+          "visibleWhen": "(options) => options.output_status_identify_toggle == 0"
+        },
+        {
+          "id": "output_status_isoutputaggregate_toggle",
+          "type": "checkbox",
+          "label": "Is Output Aggregate: Make Toggle",
+          "default": true
+        },
+        {
+          "id": "output_status_isoutputaggregate",
+          "type": "checkbox",
+          "label": "Is Output Aggregate",
+          "default": false,
+          "visibleWhen": "(options) => options.output_status_isoutputaggregate_toggle == 0"
+        },
+        {
+          "id": "output_status_aggregateddimensions",
+          "type": "checkbox",
+          "label": "Set Aggregate Dimensions",
+          "default": false,
+          "visibleWhen": "(options) => options.output_status_isoutputaggregate_toggle == 1 || options.output_status_isoutputaggregate == 1"
+        },
+        {
+          "id": "output_status_aggregatedimensions_horizontalcount",
+          "type": "textinput",
+          "label": "Horizontal Count",
+          "default": "1",
+          "visibleWhen": "(options) => options.output_status_aggregatedimensions == 1"
+        },
+        {
+          "id": "output_status_aggregatedimensions_verticalcount",
+          "type": "textinput",
+          "label": "Vertical Count",
+          "default": "1",
+          "visibleWhen": "(options) => options.output_status_aggregatedimensions == 1"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 871
+      }
+    },
+    {
+      "id": "output_assignment",
+      "name": "Output Assignment",
+      "options": [
+        {
+          "id": "output_assignment_projector",
+          "type": "dropdown",
+          "label": "Projector",
+          "default": 0,
+          "choicesNote": "Projectors of the Pixera project: id is the numeric projector handle, label the projector name (src/Pixera.js:565-580). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "output_assignment_output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 0,
+          "choicesNote": "Outputs of the live systems: id is the numeric output handle, label the output name (src/Pixera.js:608-620). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1011
+      }
+    },
+    {
+      "id": "resource_system",
+      "name": "Resource System",
+      "options": [
+        {
+          "id": "resource_system_resource",
+          "type": "textinput",
+          "label": "Resource Path",
+          "default": "Media/Standard Content/Filename.mov"
+        },
+        {
+          "id": "resource_system_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 6,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Remove This"
+            },
+            {
+              "id": 2,
+              "label": "Remove This Including Assets"
+            },
+            {
+              "id": 3,
+              "label": "Delete Files on Systems"
+            },
+            {
+              "id": 4,
+              "label": "Delete Asset From Live System"
+            },
+            {
+              "id": 5,
+              "label": "Replace"
+            },
+            {
+              "id": 6,
+              "label": "Refresh"
+            },
+            {
+              "id": 8,
+              "label": "Reset Distribution Targets"
+            },
+            {
+              "id": 9,
+              "label": "Change Distribution Targets"
+            },
+            {
+              "id": 10,
+              "label": "Distribute"
+            }
+          ]
+        },
+        {
+          "id": "resource_system_livesystem",
+          "type": "dropdown",
+          "label": "Livesystem",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric",
+          "visibleWhen": "(options) => options.resource_system_action == 4 || options.resource_system_action == 9"
+        },
+        {
+          "id": "resource_system_shoulddistribute",
+          "type": "checkbox",
+          "label": "Should Distribute",
+          "default": false,
+          "visibleWhen": "(options) => options.resource_system_action == 9"
+        },
+        {
+          "id": "resource_system_filepath",
+          "type": "textinput",
+          "label": "File Path",
+          "default": "C:\\Dump",
+          "visibleWhen": "(options) => options.resource_system_action == 5"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1070
+      }
+    },
+    {
+      "id": "resource_settings_general",
+      "name": "Resource Settings General",
+      "options": [
+        {
+          "id": "resource_settings_general_resource",
+          "type": "textinput",
+          "label": "Resource Path or Handle",
+          "default": "Media/Standard Content/tunnel_HD_h264.mp4"
+        },
+        {
+          "id": "resource_settings_general_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Set Name"
+            },
+            {
+              "id": 2,
+              "label": "Set Current Version"
+            },
+            {
+              "id": 3,
+              "label": "Set DMX Id"
+            }
+          ]
+        },
+        {
+          "id": "resource_settings_general_name",
+          "type": "textinput",
+          "label": "Name",
+          "default": "Resource 1",
+          "visibleWhen": "(options) => options.resource_settings_general_action == 1"
+        },
+        {
+          "id": "resource_settings_general_version",
+          "type": "textinput",
+          "label": "Version",
+          "default": "1",
+          "visibleWhen": "(options) => options.resource_settings_general_action == 2"
+        },
+        {
+          "id": "resource_settings_general_dmxid",
+          "type": "textinput",
+          "label": "Dmx Id",
+          "default": "1",
+          "visibleWhen": "(options) => options.resource_settings_general_action == 3"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1169
+      }
+    },
+    {
+      "id": "resource_settings_textweb",
+      "name": "Resource Settings Text And Web",
+      "options": [
+        {
+          "id": "resource_settings_textweb_resource",
+          "type": "textinput",
+          "label": "Resource Path or Handle",
+          "default": "Media/Unnamed Text"
+        },
+        {
+          "id": "resource_settings_textweb_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Set Text"
+            },
+            {
+              "id": 2,
+              "label": "Set Font with Name"
+            },
+            {
+              "id": 3,
+              "label": "Set Horizontal Alignment"
+            },
+            {
+              "id": 4,
+              "label": "Set Vertical Alignment"
+            },
+            {
+              "id": 5,
+              "label": "Set Line Height"
+            },
+            {
+              "id": 6,
+              "label": "WEB: Set Url"
+            }
+          ]
+        },
+        {
+          "id": "resource_settings_textweb_text",
+          "type": "textinput",
+          "label": "Text",
+          "default": "This is a Text Resource",
+          "visibleWhen": "(options) => options.resource_settings_textweb_action == 1"
+        },
+        {
+          "id": "resource_settings_textweb_fontname",
+          "type": "textinput",
+          "label": "Font Name",
+          "default": "Arial",
+          "visibleWhen": "(options) => options.resource_settings_textweb_action == 2"
+        },
+        {
+          "id": "resource_settings_textweb_horizontaltextalignment",
+          "type": "dropdown",
+          "label": "Horizontal Text Alignment",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Align Left"
+            },
+            {
+              "id": 1,
+              "label": "Align Center"
+            },
+            {
+              "id": 2,
+              "label": "Align Right"
+            }
+          ],
+          "visibleWhen": "(options) => options.resource_settings_textweb_action == 3"
+        },
+        {
+          "id": "resource_settings_textweb_verticaltextalignment",
+          "type": "dropdown",
+          "label": "Vertical Text Alignment",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Align Top"
+            },
+            {
+              "id": 1,
+              "label": "Align Center"
+            },
+            {
+              "id": 2,
+              "label": "Align Bottom"
+            }
+          ],
+          "visibleWhen": "(options) => options.resource_settings_textweb_action == 4"
+        },
+        {
+          "id": "resource_settings_textweb_lineheight",
+          "type": "textinput",
+          "label": "Line Height",
+          "default": "550.0",
+          "visibleWhen": "(options) => options.resource_settings_textweb_action == 5"
+        },
+        {
+          "id": "resource_settings_textweb_url",
+          "type": "textinput",
+          "label": "URL",
+          "default": "www.pixera.one",
+          "visibleWhen": "(options) => options.resource_settings_textweb_action == 6"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1245
+      }
+    },
+    {
+      "id": "resource_folder_settings",
+      "name": "Resource Folder Settings",
+      "options": [
+        {
+          "id": "resource_folder_settings_resourcefolder",
+          "type": "dropdown",
+          "label": "Resource Folder",
+          "default": 0,
+          "choicesNote": "Resource folders: id is the numeric resource folder handle, label the folder name (src/Pixera.js:920-935). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "resource_folder_settings_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Set Name"
+            },
+            {
+              "id": 2,
+              "label": "Set DMX Id"
+            },
+            {
+              "id": 3,
+              "label": "Change Distribution Target"
+            },
+            {
+              "id": 4,
+              "label": "Reset Distribution Targets"
+            }
+          ]
+        },
+        {
+          "id": "resource_folder_settings_name",
+          "type": "textinput",
+          "label": "Name",
+          "default": "Resource 1",
+          "visibleWhen": "(options) => options.resource_folder_settings_action == 1"
+        },
+        {
+          "id": "resource_folder_settings_dmxid",
+          "type": "textinput",
+          "label": "Dmx Id",
+          "default": "1",
+          "visibleWhen": "(options) => options.resource_folder_settings_action == 2"
+        },
+        {
+          "id": "resource_folder_settings_livesystem",
+          "type": "dropdown",
+          "label": "Livesystem",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric",
+          "visibleWhen": "(options) => options.resource_folder_settings_action == 3"
+        },
+        {
+          "id": "resource_folder_settings_distribute",
+          "type": "checkbox",
+          "label": "Should Distribute",
+          "default": false,
+          "visibleWhen": "(options) => options.resource_folder_settings_action == 3"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1687
+      }
+    },
+    {
+      "id": "resource_folder_content",
+      "name": "Resource Folder Content",
+      "options": [
+        {
+          "id": "resource_folder_content_resourcefolder",
+          "type": "dropdown",
+          "label": "Resource Folder",
+          "default": 0,
+          "choicesNote": "Resource folders: id is the numeric resource folder handle, label the folder name (src/Pixera.js:920-935). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "resource_folder_content_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Create Folders From Path"
+            },
+            {
+              "id": 2,
+              "label": "Remove This"
+            },
+            {
+              "id": 3,
+              "label": "Remove This Including Assets"
+            },
+            {
+              "id": 5,
+              "label": "Refresh Resources"
+            },
+            {
+              "id": 6,
+              "label": "Remove All Contents"
+            },
+            {
+              "id": 7,
+              "label": "Remove All Contents Including Assets"
+            },
+            {
+              "id": 8,
+              "label": "Delete All Contents Assets From LiveSystem"
+            }
+          ]
+        },
+        {
+          "id": "resource_folder_content_path",
+          "type": "textinput",
+          "label": "Folder Path",
+          "default": "Other\\Videos",
+          "visibleWhen": "(options) => options.resource_folder_content_action == 1"
+        },
+        {
+          "id": "resource_folder_content_livesystem",
+          "type": "dropdown",
+          "label": "Livesystem",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric",
+          "visibleWhen": "(options) => options.resource_folder_content_action == 8"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1791
+      }
+    },
+    {
+      "id": "screen_transform",
+      "name": "Screen Transform",
+      "options": [
+        {
+          "id": "screen_transform_screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": 0,
+          "choicesNote": "Screens of the Pixera project: id is the numeric screen handle, label the screen name (Pixera.Screens.getScreens/getScreenNames, src/Pixera.js:470-490). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "screen_transform_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 5,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Position"
+            },
+            {
+              "id": 2,
+              "label": "Rotation"
+            },
+            {
+              "id": 3,
+              "label": "Scale"
+            },
+            {
+              "id": 4,
+              "label": "Position and Rotation"
+            },
+            {
+              "id": 5,
+              "label": "Position and Rotation and Scale"
+            }
+          ]
+        },
+        {
+          "id": "screen_transform_position_x",
+          "type": "textinput",
+          "label": "Position X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 1 || options.screen_transform_type == 4 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_position_y",
+          "type": "textinput",
+          "label": "Position Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 1 || options.screen_transform_type == 4 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_position_z",
+          "type": "textinput",
+          "label": "Position Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 1 || options.screen_transform_type == 4 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_rotation_x",
+          "type": "textinput",
+          "label": "Rotation X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 2 || options.screen_transform_type == 4 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_rotation_y",
+          "type": "textinput",
+          "label": "Rotation Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 2 || options.screen_transform_type == 4 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_rotation_z",
+          "type": "textinput",
+          "label": "Rotation Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 2 || options.screen_transform_type == 4 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_scale_x",
+          "type": "textinput",
+          "label": "Scale X",
+          "default": "1.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 3 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_scale_y",
+          "type": "textinput",
+          "label": "Scale Y",
+          "default": "1.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 3 || options.screen_transform_type == 5"
+        },
+        {
+          "id": "screen_transform_scale_z",
+          "type": "textinput",
+          "label": "Scale Z",
+          "default": "1.0",
+          "visibleWhen": "(options) => options.screen_transform_type == 3 || options.screen_transform_type == 5"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 1997
+      }
+    },
+    {
+      "id": "screen_perspective_transform",
+      "name": "Screen Perspective Transform",
+      "options": [
+        {
+          "id": "screen_perspective_transform_screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": 0,
+          "choicesNote": "Screens of the Pixera project: id is the numeric screen handle, label the screen name (Pixera.Screens.getScreens/getScreenNames, src/Pixera.js:470-490). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "screen_perspective_transform_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Position"
+            },
+            {
+              "id": 2,
+              "label": "Position with Look at"
+            },
+            {
+              "id": 3,
+              "label": "Rotation"
+            },
+            {
+              "id": 4,
+              "label": "Snap Corners to Screen"
+            }
+          ]
+        },
+        {
+          "id": "screen_perspective_transform_position_x",
+          "type": "textinput",
+          "label": "Position X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 1"
+        },
+        {
+          "id": "screen_perspective_transform_position_y",
+          "type": "textinput",
+          "label": "Position Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 1"
+        },
+        {
+          "id": "screen_perspective_transform_position_z",
+          "type": "textinput",
+          "label": "Position Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 1"
+        },
+        {
+          "id": "screen_perspective_transform_positionlookat_x",
+          "type": "textinput",
+          "label": "Position Look at X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 2"
+        },
+        {
+          "id": "screen_perspective_transform_positionlookat_y",
+          "type": "textinput",
+          "label": "Position Look at Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 2"
+        },
+        {
+          "id": "screen_perspective_transform_positionlookat_z",
+          "type": "textinput",
+          "label": "Position Look at Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 2"
+        },
+        {
+          "id": "screen_perspective_transform_rotation_x",
+          "type": "textinput",
+          "label": "Rotation X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 3"
+        },
+        {
+          "id": "screen_perspective_transform_rotation_y",
+          "type": "textinput",
+          "label": "Rotation Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 3"
+        },
+        {
+          "id": "screen_perspective_transform_rotation_z",
+          "type": "textinput",
+          "label": "Rotation Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 3"
+        },
+        {
+          "id": "screen_perspective_transform_mode",
+          "type": "textinput",
+          "label": "Mode",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_perspective_transform_type == 4"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2168
+      }
+    },
+    {
+      "id": "screen_camera_transform",
+      "name": "Screen Camera Transform",
+      "options": [
+        {
+          "id": "screen_camera_transform_screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": 0,
+          "choicesNote": "Screens of the Pixera project: id is the numeric screen handle, label the screen name (Pixera.Screens.getScreens/getScreenNames, src/Pixera.js:470-490). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "screen_camera_transform_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Position"
+            },
+            {
+              "id": 2,
+              "label": "Position with Look at"
+            },
+            {
+              "id": 3,
+              "label": "Rotation"
+            }
+          ]
+        },
+        {
+          "id": "screen_camera_transform_position_x",
+          "type": "textinput",
+          "label": "Position X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 1"
+        },
+        {
+          "id": "screen_camera_transform_position_y",
+          "type": "textinput",
+          "label": "Position Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 1"
+        },
+        {
+          "id": "screen_camera_transform_position_z",
+          "type": "textinput",
+          "label": "Position Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 1"
+        },
+        {
+          "id": "screen_camera_transform_positionlookat_x",
+          "type": "textinput",
+          "label": "Position Look at X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 2"
+        },
+        {
+          "id": "screen_camera_transform_positionlookat_y",
+          "type": "textinput",
+          "label": "Position Look at Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 2"
+        },
+        {
+          "id": "screen_camera_transform_positionlookat_z",
+          "type": "textinput",
+          "label": "Position Look at Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 2"
+        },
+        {
+          "id": "screen_camera_transform_rotation_x",
+          "type": "textinput",
+          "label": "Rotation X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 3"
+        },
+        {
+          "id": "screen_camera_transform_rotation_y",
+          "type": "textinput",
+          "label": "Rotation Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 3"
+        },
+        {
+          "id": "screen_camera_transform_rotation_z",
+          "type": "textinput",
+          "label": "Rotation Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_camera_transform_type == 3"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2334
+      }
+    },
+    {
+      "id": "screen_studiocamera_transform",
+      "name": "Screen Studio Camera Transform",
+      "options": [
+        {
+          "id": "screen_studiocamera_transform_studiocamera",
+          "type": "dropdown",
+          "label": "Studio Camera",
+          "default": 0,
+          "choicesNote": "Studio cameras: id is the numeric studio camera handle, label the camera name (src/Pixera.js:540-555). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "screen_studiocamera_transform_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Position"
+            },
+            {
+              "id": 2,
+              "label": "Rotation"
+            },
+            {
+              "id": 3,
+              "label": "Transformation"
+            }
+          ]
+        },
+        {
+          "id": "screen_studiocamera_transform_position_x",
+          "type": "textinput",
+          "label": "Position X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 1 || options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_position_y",
+          "type": "textinput",
+          "label": "Position Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 1 || options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_position_z",
+          "type": "textinput",
+          "label": "Position Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 1 || options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_rotation_x",
+          "type": "textinput",
+          "label": "Rotation X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 2 || options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_rotation_y",
+          "type": "textinput",
+          "label": "Rotation Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 2 || options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_rotation_z",
+          "type": "textinput",
+          "label": "Rotation Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 2 || options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_fov",
+          "type": "textinput",
+          "label": "FOV",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        },
+        {
+          "id": "screen_studiocamera_transform_aspectratio",
+          "type": "textinput",
+          "label": "Aspect Ratio",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.screen_studiocamera_transform_type == 3 || options.screen_studiocamera_transform_type == 4 || options.screen_studiocamera_transform_type == 5"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2466
+      }
+    },
+    {
+      "id": "screen_studiocamera_tracking",
+      "name": "Screen Studio Camera Tracking",
+      "options": [
+        {
+          "id": "screen_studiocamera_tracking_studiocamera",
+          "type": "dropdown",
+          "label": "Studio Camera",
+          "default": 0,
+          "choicesNote": "Studio cameras: id is the numeric studio camera handle, label the camera name (src/Pixera.js:540-555). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "screen_studiocamera_tracking_trackinginputpause_toggle",
+          "type": "checkbox",
+          "label": "Pause Tracking Input: Make Toggle",
+          "default": true
+        },
+        {
+          "id": "screen_studiocamera_tracking_trackinginputpause",
+          "type": "checkbox",
+          "label": "Pause Tracking Input",
+          "default": false,
+          "visibleWhen": "(options) => options.screen_studiocamera_tracking_trackinginputpause_toggle == 0"
+        },
+        {
+          "id": "screen_studiocamera_tracking_positionfromtracking_toggle",
+          "type": "checkbox",
+          "label": "Use Position Properties From Tracking: Make Toggle",
+          "default": true
+        },
+        {
+          "id": "screen_studiocamera_tracking_positionfromtracking",
+          "type": "checkbox",
+          "label": "Use Position Properties From Tracking",
+          "default": false,
+          "visibleWhen": "(options) => options.screen_studiocamera_tracking_positionfromtracking_toggle == 0"
+        },
+        {
+          "id": "screen_studiocamera_tracking_rotationfromtracking_toggle",
+          "type": "checkbox",
+          "label": "Use Rotation Properties From Tracking: Make Toggle",
+          "default": true
+        },
+        {
+          "id": "screen_studiocamera_tracking_rotationfromtracking",
+          "type": "checkbox",
+          "label": "Use Rotation Properties From Tracking",
+          "default": false,
+          "visibleWhen": "(options) => options.screen_studiocamera_tracking_rotationfromtracking_toggle == 0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2811
+      }
+    },
+    {
+      "id": "screen_visible",
+      "name": "Visible Screen",
+      "options": [
+        {
+          "id": "visible_screen_name",
+          "type": "dropdown",
+          "label": "Screen Name",
+          "default": 0,
+          "choicesNote": "Screens of the Pixera project: id is the numeric screen handle, label the screen name (Pixera.Screens.getScreens/getScreenNames, src/Pixera.js:470-490). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "visible_screen_state",
+          "type": "checkbox",
+          "label": "Screen Visible",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2928
+      }
+    },
+    {
+      "id": "screen_refresh_mapping",
+      "name": "Screen Refresh Mapping",
+      "options": [
+        {
+          "id": "refresh_screen_name",
+          "type": "dropdown",
+          "label": "Screen Name",
+          "default": 0,
+          "choicesNote": "Screens of the Pixera project: id is the numeric screen handle, label the screen name (Pixera.Screens.getScreens/getScreenNames, src/Pixera.js:470-490). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2953
+      }
+    },
+    {
+      "id": "screen_projectable",
+      "name": "Screen is Projectable",
+      "options": [
+        {
+          "id": "visible_projectable_name",
+          "type": "dropdown",
+          "label": "Screen Name",
+          "default": 0,
+          "choicesNote": "Screens of the Pixera project: id is the numeric screen handle, label the screen name (Pixera.Screens.getScreens/getScreenNames, src/Pixera.js:470-490). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "visible_projectable_state",
+          "type": "checkbox",
+          "label": "Screen Is Projectable",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 2974
+      }
+    },
+    {
+      "id": "projector_transform",
+      "name": "Projector Transform",
+      "options": [
+        {
+          "id": "projector_transform_projector",
+          "type": "dropdown",
+          "label": "Projector",
+          "default": 0,
+          "choicesNote": "Projectors of the Pixera project: id is the numeric projector handle, label the projector name (src/Pixera.js:565-580). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "projector_transform_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": 3,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Position"
+            },
+            {
+              "id": 2,
+              "label": "Rotation"
+            },
+            {
+              "id": 3,
+              "label": "Position and Rotation"
+            }
+          ]
+        },
+        {
+          "id": "projector_transform_position_x",
+          "type": "textinput",
+          "label": "Position X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.projector_transform_type == 1 || options.projector_transform_type == 3"
+        },
+        {
+          "id": "projector_transform_position_y",
+          "type": "textinput",
+          "label": "Position Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.projector_transform_type == 1 || options.projector_transform_type == 3"
+        },
+        {
+          "id": "projector_transform_position_z",
+          "type": "textinput",
+          "label": "Position Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.projector_transform_type == 1 || options.projector_transform_type == 3"
+        },
+        {
+          "id": "projector_transform_rotation_x",
+          "type": "textinput",
+          "label": "Rotation X",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.projector_transform_type == 2 || options.projector_transform_type == 3"
+        },
+        {
+          "id": "projector_transform_rotation_y",
+          "type": "textinput",
+          "label": "Rotation Y",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.projector_transform_type == 2 || options.projector_transform_type == 3"
+        },
+        {
+          "id": "projector_transform_rotation_z",
+          "type": "textinput",
+          "label": "Rotation Z",
+          "default": "0.0",
+          "visibleWhen": "(options) => options.projector_transform_type == 2 || options.projector_transform_type == 3"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3001
+      }
+    },
+    {
+      "id": "projector_blackout",
+      "name": "Projector Blackout Toggle",
+      "options": [
+        {
+          "id": "projector_blackout_projector",
+          "type": "dropdown",
+          "label": "Projector",
+          "default": 0,
+          "choicesNote": "Projectors of the Pixera project: id is the numeric projector handle, label the projector name (src/Pixera.js:565-580). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3134
+      }
+    },
+    {
+      "id": "goto_time",
+      "name": "Goto Timecode",
+      "options": [
+        {
+          "id": "goto_time_timelinename",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "goto_time_h",
+          "type": "textinput",
+          "label": "Hour",
+          "default": "0"
+        },
+        {
+          "id": "goto_time_m",
+          "type": "textinput",
+          "label": "Minute",
+          "default": "0"
+        },
+        {
+          "id": "goto_time_s",
+          "type": "textinput",
+          "label": "Second",
+          "default": "0"
+        },
+        {
+          "id": "goto_time_f",
+          "type": "textinput",
+          "label": "Frame",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3155
+      }
+    },
+    {
+      "id": "goto_cue_name",
+      "name": "Goto Cue",
+      "options": [
+        {
+          "id": "timelinename_cuename",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "cue_name",
+          "type": "textinput",
+          "label": "Cue Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3240
+      }
+    },
+    {
+      "id": "goto_cue_index",
+      "name": "Goto Cue Index",
+      "options": [
+        {
+          "id": "timelinecue_index",
+          "type": "textinput",
+          "label": "Timeline Index",
+          "description": "index starts at 0",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "cue_index",
+          "type": "textinput",
+          "label": "Cue Index",
+          "description": "index starts at 0",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3276
+      }
+    },
+    {
+      "id": "blend_to_time",
+      "name": "Blend To Timecode",
+      "options": [
+        {
+          "id": "blend_time_timelinename",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "blend_time_h",
+          "type": "textinput",
+          "label": "Hour",
+          "default": "0"
+        },
+        {
+          "id": "blend_time_m",
+          "type": "textinput",
+          "label": "Minute",
+          "default": "0"
+        },
+        {
+          "id": "blend_time_s",
+          "type": "textinput",
+          "label": "Second",
+          "default": "0"
+        },
+        {
+          "id": "blend_time_f",
+          "type": "textinput",
+          "label": "Frame",
+          "default": "0"
+        },
+        {
+          "id": "blend_time_frames",
+          "type": "textinput",
+          "label": "Blendtime in Frames",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3314
+      }
+    },
+    {
+      "id": "blend_cue_name",
+      "name": "Blend to Cue",
+      "options": [
+        {
+          "id": "timelinename_blendcuename",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "blend_cue_name",
+          "type": "textinput",
+          "label": "Cue Name",
+          "default": ""
+        },
+        {
+          "id": "blend_name_frames",
+          "type": "textinput",
+          "label": "Blendtime in Frames",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3403
+      }
+    },
+    {
+      "id": "timeline_opacity",
+      "name": "Timeline Opacity",
+      "options": [
+        {
+          "id": "timelinename_timelineopacity",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_opacity",
+          "type": "textinput",
+          "label": "Opacity",
+          "default": "1.0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3460
+      }
+    },
+    {
+      "id": "timeline_scrubcurrenttime",
+      "name": "Timeline Scrub Current Time",
+      "options": [
+        {
+          "id": "timeline_scrubcurrenttime_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_scrubcurrenttime_frames",
+          "type": "textinput",
+          "label": "Frames",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3499
+      }
+    },
+    {
+      "id": "timeline_zoomfactor",
+      "name": "Timeline Zoom Factor",
+      "options": [
+        {
+          "id": "timeline_zoomfactor_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_zoomfactor_factor",
+          "type": "textinput",
+          "label": "Zoom Factor",
+          "default": "1.0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3545
+      }
+    },
+    {
+      "id": "timeline_select",
+      "name": "Timeline Select",
+      "options": [
+        {
+          "id": "timeline_select_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3588
+      }
+    },
+    {
+      "id": "timeline_moverenderorder",
+      "name": "Timeline Move Render Order",
+      "options": [
+        {
+          "id": "timeline_moverenderorder_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_moverenderorder_state",
+          "type": "checkbox",
+          "label": "Move (On = Down, Off = Up)",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3608
+      }
+    },
+    {
+      "id": "timeline_create_layer",
+      "name": "Timeline Create Layer",
+      "options": [
+        {
+          "id": "timeline_create_layer_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_create_layer_name",
+          "type": "textinput",
+          "label": "Name",
+          "default": "Layer 1"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3648
+      }
+    },
+    {
+      "id": "timeline_create_cue",
+      "name": "Timeline Create Cue",
+      "options": [
+        {
+          "id": "timeline_create_cue_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_create_cue_name",
+          "type": "textinput",
+          "label": "Name",
+          "default": "Cue 1"
+        },
+        {
+          "id": "timeline_create_cue_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Play"
+            },
+            {
+              "id": 2,
+              "label": "Pause"
+            },
+            {
+              "id": 3,
+              "label": "Stop"
+            },
+            {
+              "id": 4,
+              "label": "Jump"
+            }
+          ]
+        },
+        {
+          "id": "timeline_create_cue_atcurrenttime",
+          "type": "checkbox",
+          "label": "At Current Time",
+          "default": true
+        },
+        {
+          "id": "timeline_create_cue_h",
+          "type": "textinput",
+          "label": "Hour",
+          "default": "0",
+          "visibleWhen": "(options) => options.timeline_create_cue_atcurrenttime == 0"
+        },
+        {
+          "id": "timeline_create_cue_m",
+          "type": "textinput",
+          "label": "Minute",
+          "default": "0",
+          "visibleWhen": "(options) => options.timeline_create_cue_atcurrenttime == 0"
+        },
+        {
+          "id": "timeline_create_cue_s",
+          "type": "textinput",
+          "label": "Second",
+          "default": "0",
+          "visibleWhen": "(options) => options.timeline_create_cue_atcurrenttime == 0"
+        },
+        {
+          "id": "timeline_create_cue_f",
+          "type": "textinput",
+          "label": "Frame",
+          "default": "0",
+          "visibleWhen": "(options) => options.timeline_create_cue_atcurrenttime == 0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3685
+      }
+    },
+    {
+      "id": "timeline_removecues",
+      "name": "Timeline Remove Cues",
+      "options": [
+        {
+          "id": "timeline_removecues_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3839
+      }
+    },
+    {
+      "id": "timeline_reset",
+      "name": "Timeline Reset",
+      "options": [
+        {
+          "id": "timeline_reset_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3872
+      }
+    },
+    {
+      "id": "timeline_speedfactor",
+      "name": "Timeline Speed Factor",
+      "options": [
+        {
+          "id": "timeline_speedfactor_timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_speedfactor_factor",
+          "type": "textinput",
+          "label": "Speed Factor",
+          "default": "1.0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3901
+      }
+    },
+    {
+      "id": "timeline_setsmpte",
+      "name": "Timeline Set SMPTE",
+      "options": [
+        {
+          "id": "timelinename_timelinesmpte",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_smpte_state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "none"
+            },
+            {
+              "id": 1,
+              "label": "receive"
+            },
+            {
+              "id": 2,
+              "label": "send"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3947
+      }
+    },
+    {
+      "id": "timeline_fadeopacity",
+      "name": "Timeline Fade Opacity",
+      "options": [
+        {
+          "id": "timelinename_timelineopacity",
+          "type": "dropdown",
+          "label": "Timeline Name",
+          "default": 0,
+          "choicesNote": "Timelines of the connected Pixera system: id is the numeric timeline handle, label the timeline name (filled from Pixera.Timelines.getTimelines and Timeline.getAttributes, src/Pixera.js:419-460). Starts with the placeholder {id 0, label \"\"}. Actions treat id -1 as \"the timelines currently selected in Pixera\"; the source adds a \"Selected Timeline\" entry with id -1 only if an attributes reply arrives for handle -1 (src/Pixera.js:447-452), which the module never requests itself.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "timeline_fadeIn",
+          "type": "checkbox",
+          "label": "FadeIn",
+          "default": true
+        },
+        {
+          "id": "timeline_fadeopacity_time",
+          "type": "textinput",
+          "label": "Time in Frames",
+          "default": "60"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 3993
+      }
+    },
+    {
+      "id": "layerReset",
+      "name": "Layer Reset",
+      "options": [
+        {
+          "id": "layerPath",
+          "type": "textinput",
+          "label": "Layer Path",
+          "default": "Timeline 1.Layer 1"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4047
+      }
+    },
+    {
+      "id": "layerMute",
+      "name": "Layer Mute",
+      "options": [
+        {
+          "id": "layerPath",
+          "type": "textinput",
+          "label": "Layer Path",
+          "default": "Timeline 1.Layer 1"
+        },
+        {
+          "id": "layerParameterMute",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "muteLayer",
+          "choices": [
+            {
+              "id": "muteLayer",
+              "label": "Mute Layer"
+            },
+            {
+              "id": "muteVolume",
+              "label": "Mute Volume"
+            }
+          ]
+        },
+        {
+          "id": "layer_mute_toggle",
+          "type": "checkbox",
+          "label": "Toggle",
+          "default": false
+        },
+        {
+          "id": "layerState",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true,
+          "visibleWhen": "(options) => options.layer_mute_toggle == false"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4065
+      }
+    },
+    {
+      "id": "layerParameter",
+      "name": "Layer Parameter",
+      "options": [
+        {
+          "id": "layerPath",
+          "type": "textinput",
+          "label": "Parameter Path",
+          "default": "Timeline 1.Layer 1.Opacity"
+        },
+        {
+          "id": "layerValue",
+          "type": "textinput",
+          "label": "Value",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4136
+      }
+    },
+    {
+      "id": "controlAction",
+      "name": "Control Call Action",
+      "options": [
+        {
+          "id": "controlPath",
+          "type": "textinput",
+          "label": "Control Path",
+          "default": "Logger.info"
+        },
+        {
+          "id": "controlArguments",
+          "type": "textinput",
+          "label": "arguments",
+          "default": "\"Hello World\" 1 12.7 false"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4162
+      }
+    },
+    {
+      "id": "api",
+      "name": "API",
+      "options": [
+        {
+          "id": "api_methode",
+          "type": "textinput",
+          "label": "API",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4218
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "timeline_state",
+      "name": "Change color from Timeline State",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "timelinename_feedback",
+          "type": "textinput",
+          "label": "Timeline Name",
+          "default": 0
+        },
+        {
+          "id": "run_fg",
+          "type": "colorpicker",
+          "label": "Play: Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "run_bg",
+          "type": "colorpicker",
+          "label": "Play: Background color",
+          "default": 65280
+        },
+        {
+          "id": "pause_fg",
+          "type": "colorpicker",
+          "label": "Pause: Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "pause_bg",
+          "type": "colorpicker",
+          "label": "Pause: Background color",
+          "default": 16776960
+        },
+        {
+          "id": "stop_fg",
+          "type": "colorpicker",
+          "label": "Stop: Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "stop_bg",
+          "type": "colorpicker",
+          "label": "Stop: Background color",
+          "default": 16711680
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 9
+      }
+    },
+    {
+      "id": "timeline_positions",
+      "name": "Change Text from Timeline Timecode",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "timelinename_feedback",
+          "type": "textinput",
+          "label": "Timeline Name",
+          "default": 0
+        },
+        {
+          "id": "show_label",
+          "type": "dropdown",
+          "label": "Show Label",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Hour"
+            },
+            {
+              "id": "2",
+              "label": "Minute"
+            },
+            {
+              "id": "3",
+              "label": "Second"
+            },
+            {
+              "id": "4",
+              "label": "Frame"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 82
+      }
+    },
+    {
+      "id": "timeline_countdowns",
+      "name": "Change Text from Timeline Countdown",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "timelinename_feedback",
+          "type": "textinput",
+          "label": "Timeline Name",
+          "default": 0
+        },
+        {
+          "id": "show_label",
+          "type": "dropdown",
+          "label": "Show Label",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Hour"
+            },
+            {
+              "id": "2",
+              "label": "Minute"
+            },
+            {
+              "id": "3",
+              "label": "Second"
+            },
+            {
+              "id": "4",
+              "label": "Frame"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 139
+      }
+    },
+    {
+      "id": "livesystem_state",
+      "name": "Change color from Live System State",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "livesystem_state_name",
+          "type": "dropdown",
+          "label": "Live System",
+          "default": 0,
+          "choicesNote": "Live systems known to the Pixera system: id is the numeric live system handle, label its name (src/Pixera.js:510-525). Starts with the placeholder {id 0, label \"\"}.",
+          "valueType": "numeric"
+        },
+        {
+          "id": "connected_fg",
+          "type": "colorpicker",
+          "label": "Connected: Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "connected_bg",
+          "type": "colorpicker",
+          "label": "Connected: Background color",
+          "default": 51200
+        },
+        {
+          "id": "disconnected_fg",
+          "type": "colorpicker",
+          "label": "Not Connected: Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "disconnected_bg",
+          "type": "colorpicker",
+          "label": "Not Connected: Background color",
+          "default": 13107200
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 199
+      }
+    }
+  ],
+  "notes": [
+    "Complete list of what is registered: 53 actions (src/actions.js, assigned as actions.<id> and registered with one setActionDefinitions call in updateActions) and 4 advanced feedbacks (src/feedbacks.js). Three further actions (resource_settings_color, resource_folder_transcode, resource_multiresource) exist only inside comment blocks and are not catalogued; some option entries and choices inside active actions are commented out as well and are ignored.",
+    "Protocol: Pixera JSON/TCP API over a TCP connection (TCPHelper), default port 1400 (src/config.js). Each JSON-RPC style message is prefixed with the bytes of \"pxr1\" and a length field (src/Pixera.js:276-288). companion/HELP.md names API revision 367; the module asks for the API revision at connect. The config has an \"Enable Polling feedbacks?\" checkbox with a polling rate of 50, 100, 200, 500 or 1000 ms, and the config text says to use the API function at your own risk.",
+    "The definitions are rebuilt by updateActions() every time a list reply arrives (timelines, screens, live systems, projectors, outputs, resources, studio cameras), so the dropdown choices of a running connection differ from the placeholder lists; those dropdowns carry choicesNote and valueType numeric (the ids are numeric handles that the module reads with parseInt).",
+    "Several text inputs use regex: self.REGEX_FLOAT, self.REGEX_NUMBER or self.REGEX_INT. Nothing in this module defines these properties, so they are undefined and the fields have no effective pattern; no regex is recorded. Fields documented as numbers (positions, scale, volume, frames, time parts) are plain text inputs parsed with parseFloat or parseInt at run time, and their defaults are strings such as \"0.0\".",
+    "Source default/choice mismatches, recorded exactly as written: timeline_transport option mode has the string default \"1\" while the choice ids are numbers (1 to 4); session_livesystem option session_livesystem_action has default 0, which is not among its choices (1, 2, 3).",
+    "Some actions send raw API calls: api (api_methode) sends the text as a JSON-RPC message, controlAction calls a Pixera control path with arguments, layerParameter writes a layer parameter by path. These can trigger anything the Pixera API accepts.",
+    "Feedbacks: timeline_state, timeline_positions and timeline_countdowns match the timeline by name (text input, default 0 as in the source) against the timeline state that the module keeps (CHOICES_TIMELINEFEEDBACK); the state is refreshed by a polling timer that the config checkbox enables (src/Pixera.js:158-165). companion/HELP.md states that the live system state feedback requires polling.",
+    "Built on @companion-module/base ~1.4.3: options do not support expressions."
+  ]
+}

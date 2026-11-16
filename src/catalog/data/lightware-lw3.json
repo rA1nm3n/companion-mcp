@@ -1,0 +1,266 @@
+{
+  "moduleId": "lightware-lw3",
+  "name": "Lightware LW3",
+  "repo": "bitfocus/companion-module-lightware-lw3",
+  "version": "2.0.6",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "1d05822",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "xpt",
+      "name": "XP:Switch - Select video input for output",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Runtime list built from the device port names: ids are port strings such as \"I1\" (read from /MEDIA/VIDEO/*.Text on GENERAL devices or /MEDIA/NAMES/VIDEO.* on MX2 devices), label = port name. Default in the source: id of the first port, or an empty string while the list is empty.",
+          "valueType": "string"
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "choicesNote": "Runtime list built from the device port names: ids are port strings such as \"O1\" (see Input), label = port name. Default in the source: id of the first port, or an empty string while the list is empty.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 77
+      }
+    },
+    {
+      "id": "preset",
+      "name": "Recall Preset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "choicesNote": "Runtime list read from the device: GENERAL devices and MX2 devices with /PRESETS/AVC use the preset id and name from \"/PRESETS/AVC/<id>.Name=<name>\"; MX2 devices without it fall back to the ids found under /MEDIA/PRESET (label = id). Default in the source: id of the first preset, or an empty string.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 100
+      }
+    },
+    {
+      "id": "selectSource",
+      "name": "Select source for take",
+      "options": [
+        {
+          "id": "port",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Runtime list built from the device port names: ids are port strings such as \"I1\" (read from /MEDIA/VIDEO/*.Text on GENERAL devices or /MEDIA/NAMES/VIDEO.* on MX2 devices), label = port name. Default in the source: id of the first port, or an empty string while the list is empty.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 124
+      }
+    },
+    {
+      "id": "selectDestination",
+      "name": "Select destination for take",
+      "options": [
+        {
+          "id": "port",
+          "type": "dropdown",
+          "label": "Destination",
+          "choicesNote": "Runtime list built from the device port names: ids are port strings such as \"O1\" (see Input), label = port name. Default in the source: id of the first port, or an empty string while the list is empty.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 140
+      }
+    },
+    {
+      "id": "takeSalvo",
+      "name": "Route selected ports",
+      "description": "Routes the source and destination chosen with selectSource / selectDestination; does nothing unless they match /^I\\d+$/ and /^O\\d+$/.",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 156
+      }
+    },
+    {
+      "id": "softreset",
+      "name": "Soft Reset Device",
+      "description": "Sends CALL /SYS:softReset().",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 165
+      }
+    },
+    {
+      "id": "outputLock",
+      "name": "Output Lock",
+      "options": [
+        {
+          "id": "output",
+          "type": "number",
+          "label": "Output",
+          "default": 1,
+          "min": 1,
+          "description": "max is the device value XP.DestinationPortCount, read at runtime."
+        },
+        {
+          "id": "cmd",
+          "type": "dropdown",
+          "label": "Lock",
+          "default": "unlockDestination",
+          "choices": [
+            {
+              "id": "lockDestination",
+              "label": "Lock Output"
+            },
+            {
+              "id": "unlockDestination",
+              "label": "Unlock Output"
+            }
+          ]
+        }
+      ],
+      "availability": "Added only when the device answers the probe for /MEDIA/VIDEO/XP.* containing XP:lockDestination; the action becomes visible after the next definition rebuild (initActions).",
+      "provenance": {
+        "file": "index.js",
+        "line": 465
+      }
+    },
+    {
+      "id": "switchUSB",
+      "name": "Switch USB Host",
+      "options": [
+        {
+          "id": "host",
+          "type": "dropdown",
+          "label": "Host",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ],
+          "choicesNote": "Choice \"0\" (Off) is fixed; further string ids are the host numbers found in the device properties /MEDIA/USB/USBSWITCH.Enable<n>, with label \"PC <n>\".",
+          "valueType": "string"
+        }
+      ],
+      "availability": "Added only when the device answers the probe for /MEDIA/USB/USBSWITCH.* containing Enable<n>=; the action becomes visible after the next definition rebuild (initActions).",
+      "provenance": {
+        "file": "index.js",
+        "line": 499
+      }
+    },
+    {
+      "id": "runMacro",
+      "name": "Run Macro",
+      "options": [
+        {
+          "id": "macro",
+          "type": "dropdown",
+          "label": "Macro",
+          "choicesNote": "Runtime list: macro names (last field of /CTRL/MACROS.<n>=<..>;<..>;<name>); when none are found the single entry \"No macros available\" (id and label) is listed, which the callback ignores. Default is the first entry.",
+          "valueType": "string"
+        }
+      ],
+      "availability": "Added only when the device answers the probe for /CTRL/MACROS.* containing MACROS.<n>=; the action becomes visible after the next definition rebuild (initActions).",
+      "provenance": {
+        "file": "index.js",
+        "line": 533
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "route",
+      "name": "Route",
+      "description": "Shows if an input is routed to an output",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 0,
+          "max": 512,
+          "description": "Tooltip in the source: 0 = selected (the input chosen with selectSource)."
+        },
+        {
+          "id": "output",
+          "type": "number",
+          "label": "Output",
+          "default": 1,
+          "min": 0,
+          "max": 512,
+          "description": "Tooltip in the source: 0 = selected (the destination chosen with selectDestination)."
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 181
+      }
+    },
+    {
+      "id": "sourceSelected",
+      "name": "source selected",
+      "description": "Shows if an input is selected for routing",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "port",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 512
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 227
+      }
+    },
+    {
+      "id": "destinationSelected",
+      "name": "destination selected",
+      "description": "Shows if an output is selected for routing",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "port",
+          "type": "number",
+          "label": "Output",
+          "default": 1,
+          "min": 1,
+          "max": 512
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 258
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 9 actions (6 always registered in initActions, 3 conditional ones added in initDevice: outputLock, switchUSB, runMacro) and 3 boolean feedbacks (initFeedbacks). All in index.js.",
+    "Protocol: Lightware LW3 over a TCP socket on fixed port 6107 (TCPHelper, host from config \"Device IP\"). Two device families are handled: GENERAL (OPTC-TX/RX, MMX NxN, UMX-TPS, MEX, HDMI-TPS-TX/RX200, HDMI-3D-OPT, SW4-OPT, MODEX) and MX2 (product name starting with \"MX2\"); unknown products are treated as GENERAL but initialised like MX2. Crosspoints use \"CALL /MEDIA/VIDEO/XP:switch(<in>:<out>)\" (GENERAL) or \"CALL /MEDIA/XP/VIDEO:switch(<in>:<out>)\" (MX2).",
+    "Port dropdown ids are strings such as \"I1\" / \"O1\" taken from the device (the actions) while the feedbacks use plain port numbers (1..512, the module prefixes \"I\"/\"O\" itself). Preset and USB-host ids are strings too.",
+    "The conditional actions are stored in this.actions during initDevice and only reach Companion at the next initActions() call (names / presets arriving); the catalog records them with an availability note.",
+    "Presets (selection and take buttons per port, \"Take selected\") and variables (name_<port>, source_<port>, sourcename_<port>) are not catalogued.",
+    "Built on @companion-module/base ~1.4.1: options do not support expressions."
+  ]
+}

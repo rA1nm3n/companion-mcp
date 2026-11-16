@@ -1,0 +1,186 @@
+{
+  "moduleId": "teradek-vidiux",
+  "name": "Teradek VidiU X",
+  "repo": "bitfocus/companion-module-teradek-vidiux",
+  "version": "2.0.0",
+  "baseVersion": "^1.12.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "a66e9f3",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "recordingControl",
+      "name": "Recording Control",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 6
+      }
+    },
+    {
+      "id": "streamingControl",
+      "name": "Streaming Control",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "publish",
+          "choices": [
+            {
+              "id": "publish",
+              "label": "Publish"
+            },
+            {
+              "id": "unpublish",
+              "label": "Unpublish"
+            },
+            {
+              "id": "Sharelink/publish",
+              "label": "Sharelink Publish"
+            },
+            {
+              "id": "Sharelink/unpublish",
+              "label": "Sharelink Unpublish"
+            },
+            {
+              "id": "broadcast",
+              "label": "Broadcast"
+            },
+            {
+              "id": "halt",
+              "label": "Halt"
+            },
+            {
+              "id": "cancel",
+              "label": "Cancel"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "endpreview",
+              "label": "End Preview"
+            },
+            {
+              "id": "complete",
+              "label": "Complete"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 25
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "recordingState",
+      "name": "Recording",
+      "description": "Indicate Device Recording State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "recording",
+          "choices": [
+            {
+              "id": "Recording",
+              "label": "Recording"
+            },
+            {
+              "id": "Ready",
+              "label": "Ready"
+            },
+            {
+              "id": "Invalid",
+              "label": "Invalid"
+            },
+            {
+              "id": "Not Ready",
+              "label": "Not Ready"
+            },
+            {
+              "id": "Preparing",
+              "label": "Preparing"
+            },
+            {
+              "id": "Offline",
+              "label": "Offline"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 11
+      }
+    },
+    {
+      "id": "streamingState",
+      "name": "Streaming",
+      "description": "Indicate Device Streaming State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Indicate in X State",
+          "default": "broadcasting",
+          "choices": [
+            {
+              "id": "Live",
+              "label": "Live"
+            },
+            {
+              "id": "Ready",
+              "label": "Ready"
+            },
+            {
+              "id": "Playing",
+              "label": "Playing"
+            },
+            {
+              "id": "Invalid",
+              "label": "Invalid"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 46
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 2 actions (src/actions.js) and 2 boolean feedbacks (src/feedbacks.js), plain assignments in initActions/initFeedbacks. Variables and presets are not catalogued.",
+    "Protocol: MQTT over WebSocket to ws://<host>/mqtt with the configured username and password (src/api.js initMqtt). Each command publishes an empty JSON object {} to <prefix>/<command>/<timestamp>, with the prefixes Session/0/Record (recording) and Session/0/Stream/0 (streaming) (index.js). Unlike teradek-prism there is no Low-Latency prefix.",
+    "Quirk kept as written: the feedback option defaults are 'recording' (recordingState) and 'broadcasting' (streamingState), lowercase values that are not among the choice ids (Recording, Ready, ...; Live, Ready, ...). A new feedback therefore starts with a default that matches no choice.",
+    "Action streamingControl ids 'Sharelink/publish' and 'Sharelink/unpublish' contain a slash and are appended to the topic as written.",
+    "Built on @companion-module/base ^1.12.1: options do not support expressions."
+  ]
+}

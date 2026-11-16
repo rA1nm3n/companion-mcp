@@ -1,0 +1,123 @@
+{
+  "moduleId": "generic-tcp-udp",
+  "name": "Generic TCP/UDP",
+  "repo": "bitfocus/companion-module-generic-tcp-udp",
+  "version": "2.3.0",
+  "baseVersion": "^1.14.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "fe6bb26",
+  "status": "read",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 2 actions (actions.js), no feedbacks (index.js registers only setActionDefinitions; no feedbacks file exists).",
+    "Config: host (regex is a local hostname/IP pattern), port (textinput, default 7000, Regex.PORT), prot (tcp or udp, default tcp), broadcast (UDP only), saveresponse and convertresponse (TCP only). Config fields are not part of the schema.",
+    "send: the id_send text is passed through JavaScript unescape() (so %hh inserts a byte), then id_end is appended and the result is sent as a latin1 buffer. An empty command sends nothing. The tooltip marks the action OBSOLETE in favour of send_hex.",
+    "send_hex: id_send_hex is decoded with Buffer.from(hex); an odd length gets a leading '0' and decoding stops at the first non-hex digit (tooltip). The id_end character is appended. Nothing is sent when the decoded buffer is empty.",
+    "The default of id_end differs: '\\n' (LF) for send, '' (None) for send_hex. Choice ids are the literal control characters, as written in the source.",
+    "Over TCP the data is only sent while the socket is connected; otherwise the module only logs at debug level.",
+    "Built on @companion-module/base ^1.14.1: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "send",
+      "name": "Send Command",
+      "options": [
+        {
+          "id": "id_send",
+          "type": "textinput",
+          "label": "Command:",
+          "description": "Use %hh to insert Hex codes\nOBSOLETE! Use the 'Send HEX command' instead",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "id_end",
+          "type": "dropdown",
+          "label": "Command End Character:",
+          "default": "\n",
+          "choices": [
+            {
+              "id": "",
+              "label": "None"
+            },
+            {
+              "id": "\n",
+              "label": "LF - \\n (Common UNIX/Mac)"
+            },
+            {
+              "id": "\r\n",
+              "label": "CRLF - \\r\\n (Common Windows)"
+            },
+            {
+              "id": "\r",
+              "label": "CR - \\r (1970's RS232 terminal)"
+            },
+            {
+              "id": "\u0000",
+              "label": "NULL - \\x00 (Can happen)"
+            },
+            {
+              "id": "\n\r",
+              "label": "LFCR - \\n\\r (Just stupid)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 12
+      }
+    },
+    {
+      "id": "send_hex",
+      "name": "Send HEX encoded Command",
+      "options": [
+        {
+          "id": "id_send_hex",
+          "type": "textinput",
+          "label": "Command:",
+          "description": "Decoding stops at first non-valid hex digit",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "id_end",
+          "type": "dropdown",
+          "label": "Command End Character:",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "None"
+            },
+            {
+              "id": "\n",
+              "label": "LF - \\n (Common UNIX/Mac)"
+            },
+            {
+              "id": "\r\n",
+              "label": "CRLF - \\r\\n (Common Windows)"
+            },
+            {
+              "id": "\r",
+              "label": "CR - \\r (1970's RS232 terminal)"
+            },
+            {
+              "id": "\u0000",
+              "label": "NULL - \\x00 (Can happen)"
+            },
+            {
+              "id": "\n\r",
+              "label": "LFCR - \\n\\r (Just stupid)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 63
+      }
+    }
+  ],
+  "feedbacks": []
+}

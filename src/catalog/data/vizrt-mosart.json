@@ -1,0 +1,2482 @@
+{
+  "moduleId": "vizrt-mosart",
+  "name": "Vizrt Mosart",
+  "repo": "bitfocus/companion-module-vizrt-mosart",
+  "version": "1.5.1",
+  "baseVersion": "^1.14.1",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "7c6ba8f",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "reload",
+      "name": "Reload rundown",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 54
+      }
+    },
+    {
+      "id": "start_continue",
+      "name": "Start/Continue the rundown",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Option",
+          "default": "Default",
+          "choices": [
+            {
+              "id": "Default",
+              "label": "Default"
+            },
+            {
+              "id": "Continue",
+              "label": "Continue"
+            },
+            {
+              "id": "Mix",
+              "label": "Mix"
+            },
+            {
+              "id": "Wipe",
+              "label": "Wipe"
+            },
+            {
+              "id": "Effect",
+              "label": "Effect"
+            }
+          ]
+        },
+        {
+          "id": "rate",
+          "type": "number",
+          "label": "Rate",
+          "description": "The transition rate for mix/wipe",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        },
+        {
+          "id": "effect",
+          "type": "number",
+          "label": "Effect",
+          "description": "The effect number",
+          "default": 0,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "delay",
+          "type": "number",
+          "label": "Delay",
+          "description": "The delay in milliseconds for continue",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 61
+      }
+    },
+    {
+      "id": "skip_next",
+      "name": "Skip to next story",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 109
+      }
+    },
+    {
+      "id": "unskip_next",
+      "name": "Unskip to next story",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 116
+      }
+    },
+    {
+      "id": "skip_next_subitem",
+      "name": "Skip to next subitem",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 123
+      }
+    },
+    {
+      "id": "unskip_next_subitem",
+      "name": "Unskip to next subitem",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 130
+      }
+    },
+    {
+      "id": "start_from_top",
+      "name": "Restart the rundown from the first story",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 137
+      }
+    },
+    {
+      "id": "set_as_next",
+      "name": "Set the current story as next",
+      "options": [
+        {
+          "id": "storyId",
+          "type": "textinput",
+          "label": "Story ID",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 144
+      }
+    },
+    {
+      "id": "rehearsal_mode",
+      "name": "Toggle Rehearsal Mode",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 161
+      }
+    },
+    {
+      "id": "template",
+      "name": "Take template",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "Camera",
+          "choices": [
+            {
+              "id": "Camera",
+              "label": "Camera"
+            },
+            {
+              "id": "Package",
+              "label": "Package"
+            },
+            {
+              "id": "VoiceOver",
+              "label": "VoiceOver"
+            },
+            {
+              "id": "Live",
+              "label": "Live"
+            },
+            {
+              "id": "Graphics",
+              "label": "Graphics"
+            },
+            {
+              "id": "DVE",
+              "label": "DVE"
+            },
+            {
+              "id": "Jingle",
+              "label": "Jingle"
+            },
+            {
+              "id": "Telephone",
+              "label": "Telephone"
+            },
+            {
+              "id": "AdlibPix",
+              "label": "AdlibPix"
+            },
+            {
+              "id": "Break",
+              "label": "Break"
+            },
+            {
+              "id": "VideoWall",
+              "label": "VideoWall"
+            },
+            {
+              "id": "Sound",
+              "label": "Sound"
+            },
+            {
+              "id": "Accessories",
+              "label": "Accessories"
+            }
+          ]
+        },
+        {
+          "id": "variant",
+          "type": "textinput",
+          "label": "Variant",
+          "default": ""
+        },
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "",
+          "choices": [
+            {
+              "id": "Program",
+              "label": "Program"
+            },
+            {
+              "id": "Preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "insert",
+          "type": "checkbox",
+          "label": "Insert",
+          "description": "Insert the template into preview. Only used when the bus is Preview",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 174
+      }
+    },
+    {
+      "id": "direct_take",
+      "name": "Executes a DirectTake template",
+      "options": [
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 10000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 218
+      }
+    },
+    {
+      "id": "control_command",
+      "name": "Control command",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Command",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 237
+      }
+    },
+    {
+      "id": "open_rundown",
+      "name": "Open rundown",
+      "options": [
+        {
+          "id": "id",
+          "type": "textinput",
+          "label": "ID",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 255
+      }
+    },
+    {
+      "id": "take_asset_template",
+      "name": "Take template by ID",
+      "options": [
+        {
+          "id": "mosartItemId",
+          "type": "textinput",
+          "label": "Mosart item ID",
+          "default": ""
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "Program",
+          "choices": [
+            {
+              "id": "Program",
+              "label": "Program"
+            },
+            {
+              "id": "Preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "insert",
+          "type": "checkbox",
+          "label": "Insert",
+          "description": "Insert the template into preview. Only used when the target is Preview",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 272
+      }
+    },
+    {
+      "id": "update_timeline_fields",
+      "name": "Update crosspoint on current item",
+      "description": "Changes the crosspoint assignment of a newsroom tag field on the item on Program or Preview",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "Program",
+          "choices": [
+            {
+              "id": "Program",
+              "label": "Program"
+            },
+            {
+              "id": "Preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "newsroomTag",
+          "type": "textinput",
+          "label": "Newsroom tag",
+          "description": "The field name to update, e.g. left or right",
+          "default": ""
+        },
+        {
+          "id": "crosspoint",
+          "type": "textinput",
+          "label": "Crosspoint",
+          "description": "The crosspoint to assign, e.g. INPUT 1",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 310
+      }
+    },
+    {
+      "id": "device_standby",
+      "name": "Set device type standby",
+      "description": "Sets standby for all devices of a type",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Device type",
+          "default": "switcher",
+          "choices": [
+            {
+              "id": "switcher",
+              "label": "Switcher"
+            },
+            {
+              "id": "video",
+              "label": "Video"
+            },
+            {
+              "id": "audio",
+              "label": "Audio"
+            },
+            {
+              "id": "audio-player",
+              "label": "Audio Player"
+            },
+            {
+              "id": "fullscreen-graphics",
+              "label": "Fullscreen Graphics"
+            },
+            {
+              "id": "graphics",
+              "label": "Graphics"
+            },
+            {
+              "id": "robotic-camera",
+              "label": "Robotic Camera"
+            },
+            {
+              "id": "gpi",
+              "label": "Gpi"
+            },
+            {
+              "id": "lights",
+              "label": "Lights"
+            },
+            {
+              "id": "router",
+              "label": "Router"
+            },
+            {
+              "id": "subtitling",
+              "label": "Subtitling"
+            },
+            {
+              "id": "video-wall",
+              "label": "Video Wall"
+            },
+            {
+              "id": "weather",
+              "label": "Weather"
+            },
+            {
+              "id": "virtual-set",
+              "label": "Virtual Set"
+            },
+            {
+              "id": "loudness",
+              "label": "Loudness"
+            },
+            {
+              "id": "generic-rest",
+              "label": "Generic Rest"
+            }
+          ]
+        },
+        {
+          "id": "standby",
+          "type": "dropdown",
+          "label": "Standby",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On (standby)"
+            },
+            {
+              "id": "false",
+              "label": "Off (active)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 346
+      }
+    },
+    {
+      "id": "device_standby_by_id",
+      "name": "Set device standby by ID",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Device type",
+          "default": "graphics",
+          "choices": [
+            {
+              "id": "graphics",
+              "label": "Graphics"
+            },
+            {
+              "id": "fullscreen-graphics",
+              "label": "Fullscreen Graphics"
+            },
+            {
+              "id": "robotic-camera",
+              "label": "Robotic Camera"
+            },
+            {
+              "id": "generic-rest",
+              "label": "Generic Rest"
+            }
+          ]
+        },
+        {
+          "id": "id",
+          "type": "textinput",
+          "label": "ID",
+          "description": "The device or controller ID. For graphics this can be the engine ID or destination name",
+          "default": ""
+        },
+        {
+          "id": "standby",
+          "type": "dropdown",
+          "label": "Standby",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On (standby)"
+            },
+            {
+              "id": "false",
+              "label": "Off (active)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 363
+      }
+    },
+    {
+      "id": "robotic_camera_standby",
+      "name": "Set robotic camera standby",
+      "options": [
+        {
+          "id": "controllerId",
+          "type": "number",
+          "label": "Controller ID",
+          "default": 1,
+          "min": 0,
+          "max": 10000
+        },
+        {
+          "id": "deviceId",
+          "type": "number",
+          "label": "Device ID",
+          "default": 1,
+          "min": 0,
+          "max": 10000
+        },
+        {
+          "id": "standby",
+          "type": "dropdown",
+          "label": "Standby",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On (standby)"
+            },
+            {
+              "id": "false",
+              "label": "Off (active)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 395
+      }
+    },
+    {
+      "id": "update_nrcs_settings",
+      "name": "Update NRCS settings",
+      "description": "Changes the Mosart server NRCS configuration immediately, with no confirmation",
+      "options": [
+        {
+          "id": "settings",
+          "type": "textinput",
+          "label": "Settings (JSON)",
+          "description": "The NRCS settings to update, e.g. {\"useBackServer\": true}",
+          "default": "{}"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 425
+      }
+    },
+    {
+      "id": "server_active",
+      "name": "Set server active",
+      "description": "Takes the Mosart server out of idle, like clicking the backend status indicator in the Mosart GUI",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 443
+      }
+    },
+    {
+      "id": "set_fader_level",
+      "name": "Set fader level",
+      "options": [
+        {
+          "id": "faderName",
+          "type": "textinput",
+          "label": "Fader name",
+          "description": "The fader/channel name, e.g. CHN0",
+          "default": ""
+        },
+        {
+          "id": "level",
+          "type": "number",
+          "label": "Level",
+          "description": "The normalized level to set, e.g. 0.75",
+          "default": 0.75,
+          "min": 0,
+          "max": 1,
+          "step": 0.01
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 451
+      }
+    },
+    {
+      "id": "update_media_server",
+      "name": "Update media server",
+      "description": "Changes a media server configuration on the Mosart server immediately, with no confirmation",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Server name",
+          "default": ""
+        },
+        {
+          "id": "settings",
+          "type": "textinput",
+          "label": "Settings (JSON)",
+          "description": "The properties to update, e.g. {\"enable\": true, \"server\": \"localhost\", \"port\": 3381}",
+          "default": "{\"enable\": true}"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 481
+      }
+    },
+    {
+      "id": "upsert_named_overlay",
+      "name": "Create/update named overlay",
+      "description": "Writes a named overlay on the Mosart server. Update replaces the whole item",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "create",
+          "choices": [
+            {
+              "id": "create",
+              "label": "Create"
+            },
+            {
+              "id": "update",
+              "label": "Update"
+            }
+          ]
+        },
+        {
+          "id": "slug",
+          "type": "textinput",
+          "label": "Slug",
+          "default": ""
+        },
+        {
+          "id": "item",
+          "type": "textinput",
+          "label": "Item (JSON)",
+          "description": "Named overlay properties, e.g. {\"templatetype\": \"...\", \"contentItems\": [{\"elementName\": \"title\", \"value\": \"...\"}]}",
+          "default": "{}"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 510
+      }
+    },
+    {
+      "id": "delete_named_overlay",
+      "name": "Delete named overlay",
+      "description": "Permanently deletes a named overlay from the Mosart server, with no confirmation",
+      "options": [
+        {
+          "id": "slug",
+          "type": "textinput",
+          "label": "Slug",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 554
+      }
+    },
+    {
+      "id": "autotake",
+      "name": "Auto Take (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "TOGGLE",
+          "choices": [
+            {
+              "id": "TOGGLE",
+              "label": "Toggle"
+            },
+            {
+              "id": "ACTIVATE",
+              "label": "Activate"
+            },
+            {
+              "id": "DEACTIVATE",
+              "label": "Deactivate"
+            },
+            {
+              "id": "TRUE",
+              "label": "True"
+            },
+            {
+              "id": "FALSE",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 575
+      }
+    },
+    {
+      "id": "play_story",
+      "name": "Play Story (Control Command)",
+      "options": [
+        {
+          "id": "Story_Name",
+          "type": "textinput",
+          "label": "Story Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 598
+      }
+    },
+    {
+      "id": "videowallmode",
+      "name": "Video Wall Mode (Control Command)",
+      "options": [
+        {
+          "id": "MicEffect",
+          "type": "textinput",
+          "label": "Mic Effect",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 614
+      }
+    },
+    {
+      "id": "release_background",
+      "name": "Release Background (Control Command)",
+      "options": [
+        {
+          "id": "CueOnly",
+          "type": "checkbox",
+          "label": "Cue Only",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 631
+      }
+    },
+    {
+      "id": "overlay_graphics",
+      "name": "Overlay Graphics (Control Command)",
+      "options": [
+        {
+          "id": "Render",
+          "type": "textinput",
+          "label": "Render",
+          "default": ""
+        },
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "CONTINUE",
+          "choices": [
+            {
+              "id": "CONTINUE",
+              "label": "Continue"
+            },
+            {
+              "id": "TAKE_MANUAL_OUT",
+              "label": "Take Manual Out"
+            },
+            {
+              "id": "TAKE_ALL_OUT",
+              "label": "Take All Out"
+            },
+            {
+              "id": "TAKE_LAST_OUT",
+              "label": "Take Last Out"
+            },
+            {
+              "id": "PRETAKE_NEXT",
+              "label": "Pretake Next"
+            },
+            {
+              "id": "CLEAR",
+              "label": "Clear"
+            },
+            {
+              "id": "MACRO",
+              "label": "Macro"
+            },
+            {
+              "id": "TAKE_NAMED_OVERLAY",
+              "label": "Take Named Overlay"
+            }
+          ]
+        },
+        {
+          "id": "Parameter",
+          "type": "textinput",
+          "label": "Parameter",
+          "default": ""
+        },
+        {
+          "id": "Value",
+          "type": "textinput",
+          "label": "Value",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 647
+      }
+    },
+    {
+      "id": "marked",
+      "name": "Marked (Control Command)",
+      "options": [
+        {
+          "id": "Description",
+          "type": "textinput",
+          "label": "Description",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 694
+      }
+    },
+    {
+      "id": "directtake_cmd",
+      "name": "Direct Take (Control Command)",
+      "options": [
+        {
+          "id": "Template",
+          "type": "number",
+          "label": "Template",
+          "default": 1,
+          "min": 1,
+          "max": 10000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 710
+      }
+    },
+    {
+      "id": "accessories_cmd",
+      "name": "Accessories (Control Command)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 728
+      }
+    },
+    {
+      "id": "ncs",
+      "name": "NCS (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "START_STATUS",
+          "choices": [
+            {
+              "id": "START_STATUS",
+              "label": "Start Status"
+            },
+            {
+              "id": "STOP_STATUS",
+              "label": "Stop Status"
+            }
+          ]
+        },
+        {
+          "id": "Parameter",
+          "type": "textinput",
+          "label": "Parameter",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 735
+      }
+    },
+    {
+      "id": "rundown_ncs_resync",
+      "name": "Rundown NCS Resync (Control Command)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 762
+      }
+    },
+    {
+      "id": "user_message",
+      "name": "User Message (Control Command)",
+      "options": [
+        {
+          "id": "Message",
+          "type": "textinput",
+          "label": "Message",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 769
+      }
+    },
+    {
+      "id": "overlay_to_manual",
+      "name": "Overlay to Manual (Control Command)",
+      "options": [
+        {
+          "id": "Target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "SELECTED",
+          "choices": [
+            {
+              "id": "SELECTED",
+              "label": "Selected"
+            },
+            {
+              "id": "ONAIR",
+              "label": "On Air"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "Handlers",
+          "type": "textinput",
+          "label": "Handlers",
+          "default": ""
+        },
+        {
+          "id": "TakeOutMethod",
+          "type": "dropdown",
+          "label": "Take Out Method",
+          "default": "AUTOMATIC",
+          "choices": [
+            {
+              "id": "AUTOMATIC",
+              "label": "Automatic"
+            },
+            {
+              "id": "MANUAL",
+              "label": "Manual"
+            }
+          ]
+        },
+        {
+          "id": "storyid",
+          "type": "textinput",
+          "label": "Story ID",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 785
+      }
+    },
+    {
+      "id": "gui",
+      "name": "GUI (Control Command)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 831
+      }
+    },
+    {
+      "id": "asrunlog_event",
+      "name": "As Run Log Event (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "RemotePanelFunctions",
+          "choices": [
+            {
+              "id": "RemotePanelFunctions",
+              "label": "Remote Panel Functions"
+            }
+          ]
+        },
+        {
+          "id": "Parameter",
+          "type": "textinput",
+          "label": "Parameter",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 838
+      }
+    },
+    {
+      "id": "switch_graphics_mirroring",
+      "name": "Switch Graphics Mirroring (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "TOGGLE",
+          "choices": [
+            {
+              "id": "TOGGLE",
+              "label": "Toggle"
+            },
+            {
+              "id": "ACTIVATE",
+              "label": "Activate"
+            },
+            {
+              "id": "DE-ACTIVATE",
+              "label": "Deactivate"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 862
+      }
+    },
+    {
+      "id": "enable_graphics_mirroring",
+      "name": "Enable Graphics Mirroring (Control Command)",
+      "options": [
+        {
+          "id": "Target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "NONE",
+          "choices": [
+            {
+              "id": "NONE",
+              "label": "None"
+            },
+            {
+              "id": "OVERLAY",
+              "label": "Overlay"
+            }
+          ]
+        },
+        {
+          "id": "Action",
+          "type": "checkbox",
+          "label": "Action",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 883
+      }
+    },
+    {
+      "id": "switch_genlock_mode",
+      "name": "Switch Genlock Mode (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "TOGGLE",
+          "choices": [
+            {
+              "id": "TOGGLE",
+              "label": "Toggle"
+            },
+            {
+              "id": "ACTIVATE",
+              "label": "Activate"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 910
+      }
+    },
+    {
+      "id": "engine_switcher",
+      "name": "Engine Switcher (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "INIT",
+          "choices": [
+            {
+              "id": "INIT",
+              "label": "Init"
+            },
+            {
+              "id": "PRESET_STYLE",
+              "label": "Preset Style"
+            },
+            {
+              "id": "GOTO_PREV_PRESET",
+              "label": "Goto Prev Preset"
+            }
+          ]
+        },
+        {
+          "id": "PresetName",
+          "type": "textinput",
+          "label": "Preset Name",
+          "default": ""
+        },
+        {
+          "id": "Transition",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "CUT",
+          "choices": [
+            {
+              "id": "CUT",
+              "label": "Cut"
+            },
+            {
+              "id": "TAKE",
+              "label": "Take"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 930
+      }
+    },
+    {
+      "id": "autotrans",
+      "name": "Auto Trans (Control Command)",
+      "options": [
+        {
+          "id": "MixEffect",
+          "type": "dropdown",
+          "label": "Mix Effect",
+          "default": "PP",
+          "choices": [
+            {
+              "id": "PP",
+              "label": "PP"
+            },
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "ME1",
+              "label": "ME1"
+            },
+            {
+              "id": "ME2",
+              "label": "ME2"
+            },
+            {
+              "id": "ME3",
+              "label": "ME3"
+            }
+          ]
+        },
+        {
+          "id": "Transitionrate",
+          "type": "textinput",
+          "label": "Transition Rate",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 969
+      }
+    },
+    {
+      "id": "video_server_goto",
+      "name": "Video Server Goto (Control Command)",
+      "options": [
+        {
+          "id": "ServerChannel",
+          "type": "dropdown",
+          "label": "Server Channel",
+          "default": "CURRENT",
+          "choices": [
+            {
+              "id": "CURRENT",
+              "label": "Current"
+            },
+            {
+              "id": "ONAIR",
+              "label": "On Air"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "frame",
+          "type": "number",
+          "label": "Frame",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 999
+      }
+    },
+    {
+      "id": "dve",
+      "name": "DVE (Control Command)",
+      "options": [
+        {
+          "id": "Direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "FORWARD",
+          "choices": [
+            {
+              "id": "FORWARD",
+              "label": "Forward"
+            },
+            {
+              "id": "FWD",
+              "label": "FWD"
+            },
+            {
+              "id": "REVERSE",
+              "label": "Reverse"
+            },
+            {
+              "id": "REV",
+              "label": "REV"
+            },
+            {
+              "id": "BACKWARD",
+              "label": "Backward"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1029
+      }
+    },
+    {
+      "id": "fullscreen_graphics",
+      "name": "Fullscreen Graphics (Control Command)",
+      "options": [
+        {
+          "id": "Engine",
+          "type": "textinput",
+          "label": "Engine",
+          "default": ""
+        },
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "CONTINUE",
+          "choices": [
+            {
+              "id": "CONTINUE",
+              "label": "Continue"
+            },
+            {
+              "id": "MACRO",
+              "label": "Macro"
+            }
+          ]
+        },
+        {
+          "id": "Parameter",
+          "type": "textinput",
+          "label": "Parameter",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1052
+      }
+    },
+    {
+      "id": "audio",
+      "name": "Audio (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "FADE_MANUAL",
+          "choices": [
+            {
+              "id": "FADE_MANUAL",
+              "label": "Fade Manual"
+            },
+            {
+              "id": "FADE_OUT_KEEPS",
+              "label": "Fade Out Keeps"
+            },
+            {
+              "id": "FREEZE_AUDIO",
+              "label": "Freeze Audio"
+            },
+            {
+              "id": "SET_LEVEL_2_PREVIEW",
+              "label": "Set Level 2 Preview"
+            },
+            {
+              "id": "SET_LEVEL_2_ONAIR",
+              "label": "Set Level 2 On Air"
+            },
+            {
+              "id": "FADE_DOWN_ALL_MAINS",
+              "label": "Fade Down All Mains"
+            },
+            {
+              "id": "FADE_DOWN_SECONDARY_AUDIO",
+              "label": "Fade Down Secondary Audio"
+            },
+            {
+              "id": "FADE_UP_LAST_MAINS",
+              "label": "Fade Up Last Mains"
+            },
+            {
+              "id": "FADE_UP_SECONDARY_AUDIO",
+              "label": "Fade Up Secondary Audio"
+            }
+          ]
+        },
+        {
+          "id": "Faderate",
+          "type": "number",
+          "label": "Fade Rate",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1086
+      }
+    },
+    {
+      "id": "light",
+      "name": "Light (Control Command)",
+      "options": [
+        {
+          "id": "Scene",
+          "type": "number",
+          "label": "Scene",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1122
+      }
+    },
+    {
+      "id": "sequence",
+      "name": "Sequence (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "START",
+          "choices": [
+            {
+              "id": "START",
+              "label": "Start"
+            },
+            {
+              "id": "STOP",
+              "label": "Stop"
+            },
+            {
+              "id": "LOOP",
+              "label": "Loop"
+            },
+            {
+              "id": "STOPLOOP",
+              "label": "Stop Loop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1140
+      }
+    },
+    {
+      "id": "take_server_to_program",
+      "name": "Take Server to Program (Control Command)",
+      "options": [
+        {
+          "id": "MixEffect",
+          "type": "dropdown",
+          "label": "Mix Effect",
+          "default": "PP",
+          "choices": [
+            {
+              "id": "PP",
+              "label": "PP"
+            },
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "ME1",
+              "label": "ME1"
+            },
+            {
+              "id": "ME2",
+              "label": "ME2"
+            },
+            {
+              "id": "ME3",
+              "label": "ME3"
+            }
+          ]
+        },
+        {
+          "id": "Transitionrate",
+          "type": "number",
+          "label": "Transition Rate",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1162
+      }
+    },
+    {
+      "id": "video_port",
+      "name": "Video Port (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "PLAY",
+          "choices": [
+            {
+              "id": "PLAY_PAUSE",
+              "label": "Play Pause"
+            },
+            {
+              "id": "PLAY",
+              "label": "Play"
+            },
+            {
+              "id": "PAUSE",
+              "label": "Pause"
+            },
+            {
+              "id": "PLAY_CONTINUE",
+              "label": "Play Continue"
+            },
+            {
+              "id": "STOP",
+              "label": "Stop"
+            },
+            {
+              "id": "CUE",
+              "label": "Cue"
+            },
+            {
+              "id": "RECUE",
+              "label": "Recue"
+            },
+            {
+              "id": "SET_LOOP",
+              "label": "Set Loop"
+            },
+            {
+              "id": "SET_LOOP_OFF",
+              "label": "Set Loop Off"
+            },
+            {
+              "id": "PLAY_TAIL",
+              "label": "Play Tail"
+            },
+            {
+              "id": "CUE_TAIL",
+              "label": "Cue Tail"
+            }
+          ]
+        },
+        {
+          "id": "VideoPort",
+          "type": "textinput",
+          "label": "Video Port",
+          "default": ""
+        },
+        {
+          "id": "Parameter",
+          "type": "textinput",
+          "label": "Parameter",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1194
+      }
+    },
+    {
+      "id": "get_player_status",
+      "name": "Get Player Status (Control Command)",
+      "options": [
+        {
+          "id": "VideoPort",
+          "type": "textinput",
+          "label": "Video Port",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1237
+      }
+    },
+    {
+      "id": "weather",
+      "name": "Weather (Control Command)",
+      "options": [
+        {
+          "id": "Action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "PLAY",
+          "choices": [
+            {
+              "id": "PLAY",
+              "label": "Play"
+            },
+            {
+              "id": "CONTINUE",
+              "label": "Continue"
+            },
+            {
+              "id": "GOTO_FIRST",
+              "label": "Goto First"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1253
+      }
+    },
+    {
+      "id": "graphicsprofile",
+      "name": "Graphics Profile (Control Command)",
+      "options": [
+        {
+          "id": "Name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1274
+      }
+    },
+    {
+      "id": "studiosetup",
+      "name": "Studio Setup (Control Command)",
+      "options": [
+        {
+          "id": "Name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1290
+      }
+    },
+    {
+      "id": "set_aux_crosspoint",
+      "name": "Set Aux Crosspoint (Control Command)",
+      "options": [
+        {
+          "id": "Bus",
+          "type": "textinput",
+          "label": "Bus",
+          "default": ""
+        },
+        {
+          "id": "CrossPoint",
+          "type": "textinput",
+          "label": "Cross Point",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1306
+      }
+    },
+    {
+      "id": "set_crosspoint",
+      "name": "Set Crosspoint (Control Command)",
+      "options": [
+        {
+          "id": "MixEffect",
+          "type": "dropdown",
+          "label": "Mix Effect",
+          "default": "PP",
+          "choices": [
+            {
+              "id": "PP",
+              "label": "PP"
+            },
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "ME1",
+              "label": "ME1"
+            },
+            {
+              "id": "ME2",
+              "label": "ME2"
+            },
+            {
+              "id": "ME3",
+              "label": "ME3"
+            }
+          ]
+        },
+        {
+          "id": "Bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "A",
+          "choices": [
+            {
+              "id": "A",
+              "label": "A"
+            },
+            {
+              "id": "B",
+              "label": "B"
+            },
+            {
+              "id": "C",
+              "label": "C"
+            },
+            {
+              "id": "D",
+              "label": "D"
+            },
+            {
+              "id": "KEY1",
+              "label": "KEY1"
+            },
+            {
+              "id": "KEY2",
+              "label": "KEY2"
+            },
+            {
+              "id": "KEY3",
+              "label": "KEY3"
+            },
+            {
+              "id": "KEY4",
+              "label": "KEY4"
+            }
+          ]
+        },
+        {
+          "id": "CrossPoint",
+          "type": "textinput",
+          "label": "Cross Point",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1329
+      }
+    },
+    {
+      "id": "transition_type",
+      "name": "Transition Type (Control Command)",
+      "options": [
+        {
+          "id": "TransitionType",
+          "type": "dropdown",
+          "label": "Transition Type",
+          "default": "MIX",
+          "choices": [
+            {
+              "id": "MIX",
+              "label": "Mix"
+            },
+            {
+              "id": "WIPE",
+              "label": "Wipe"
+            },
+            {
+              "id": "EFFECT",
+              "label": "Effect"
+            },
+            {
+              "id": "Default",
+              "label": "Default"
+            },
+            {
+              "id": "Toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "Cut",
+              "label": "Cut"
+            },
+            {
+              "id": "None",
+              "label": "None"
+            }
+          ]
+        },
+        {
+          "id": "Value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1376
+      }
+    },
+    {
+      "id": "record",
+      "name": "Record (Control Command)",
+      "options": [
+        {
+          "id": "Command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "PREPARE",
+          "choices": [
+            {
+              "id": "PREPARE",
+              "label": "Prepare"
+            },
+            {
+              "id": "START",
+              "label": "Start"
+            },
+            {
+              "id": "STOP",
+              "label": "Stop"
+            },
+            {
+              "id": "STOP_AND_DETACH",
+              "label": "Stop and Detach"
+            },
+            {
+              "id": "DELETE",
+              "label": "Delete"
+            },
+            {
+              "id": "GETSOM",
+              "label": "Get SOM"
+            }
+          ]
+        },
+        {
+          "id": "ClipName",
+          "type": "textinput",
+          "label": "Clip Name",
+          "default": ""
+        },
+        {
+          "id": "PortName",
+          "type": "textinput",
+          "label": "Port Name",
+          "default": ""
+        },
+        {
+          "id": "Group",
+          "type": "textinput",
+          "label": "Group",
+          "default": ""
+        },
+        {
+          "id": "Recorder",
+          "type": "textinput",
+          "label": "Recorder",
+          "default": ""
+        },
+        {
+          "id": "Duration",
+          "type": "number",
+          "label": "Duration",
+          "default": 0,
+          "min": 0,
+          "max": 1000000
+        },
+        {
+          "id": "IgnoreClipNamePattern",
+          "type": "checkbox",
+          "label": "Ignore Clip Name Pattern",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1410
+      }
+    },
+    {
+      "id": "device_properties",
+      "name": "Device Properties (Control Command)",
+      "options": [
+        {
+          "id": "Parameter1",
+          "type": "textinput",
+          "label": "Parameter 1",
+          "default": "AUDIO"
+        },
+        {
+          "id": "Parameter2",
+          "type": "textinput",
+          "label": "Parameter 2",
+          "description": "The key of the property you want to set",
+          "default": ""
+        },
+        {
+          "id": "Parameter3",
+          "type": "textinput",
+          "label": "Parameter 3",
+          "description": "The value of the property you want to set",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1479
+      }
+    },
+    {
+      "id": "set_videoserver_salvo",
+      "name": "Set Video Server Salvo (Control Command)",
+      "options": [
+        {
+          "id": "Salvo",
+          "type": "textinput",
+          "label": "Salvo",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1511
+      }
+    },
+    {
+      "id": "switch_videoserver_mirroring",
+      "name": "Switch Video Server Mirroring (Control Command)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1527
+      }
+    },
+    {
+      "id": "set_connection_string",
+      "name": "Set Connection String",
+      "options": [
+        {
+          "id": "connectionHost",
+          "type": "textinput",
+          "label": "Connection Host (host)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1534
+      }
+    },
+    {
+      "id": "refresh_overlay_list",
+      "name": "Refresh Overlay List",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1562
+      },
+      "availability": "Needs \"Enable Overlay List\" (enableOverlayList) in the connection config; otherwise the callback only logs a warning"
+    },
+    {
+      "id": "next_story",
+      "name": "Select Next Story",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1571
+      },
+      "availability": "Needs \"Enable Overlay List\" (enableOverlayList) in the connection config; otherwise the callback only logs a warning"
+    },
+    {
+      "id": "previous_story",
+      "name": "Select Previous Story",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1580
+      },
+      "availability": "Needs \"Enable Overlay List\" (enableOverlayList) in the connection config; otherwise the callback only logs a warning"
+    },
+    {
+      "id": "select_story",
+      "name": "Select Story by ID",
+      "options": [
+        {
+          "id": "storyId",
+          "type": "textinput",
+          "label": "Story ID",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1589
+      },
+      "availability": "Needs \"Enable Overlay List\" (enableOverlayList) in the connection config; otherwise the callback only logs a warning"
+    },
+    {
+      "id": "select_story_by_index",
+      "name": "Select Story by Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Story Index (1-based)",
+          "default": 1,
+          "min": 1,
+          "max": 1000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1606
+      },
+      "availability": "Needs \"Enable Overlay List\" (enableOverlayList) in the connection config; otherwise the callback only logs a warning"
+    },
+    {
+      "id": "trigger_current_overlay",
+      "name": "Trigger Overlay from Current Story",
+      "options": [
+        {
+          "id": "overlayIndex",
+          "type": "number",
+          "label": "Overlay Index",
+          "default": 0,
+          "min": 0,
+          "max": 19
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1628
+      },
+      "availability": "Needs \"Enable Overlay List\" (enableOverlayList) in the connection config; otherwise the callback only logs a warning"
+    },
+    {
+      "id": "take_overlay",
+      "name": "Take Overlay In",
+      "options": [
+        {
+          "id": "id",
+          "type": "textinput",
+          "label": "Overlay ID",
+          "description": "The id of the overlay graphic you want to take",
+          "default": ""
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Overlay Name (Slug)",
+          "description": "The name of the overlay graphic you want to take",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1658
+      }
+    },
+    {
+      "id": "take_out_overlay",
+      "name": "Take Overlay Out",
+      "options": [
+        {
+          "id": "id",
+          "type": "textinput",
+          "label": "Overlay ID",
+          "description": "The id of the overlay graphic you want to take out",
+          "default": ""
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Overlay Name (Slug)",
+          "description": "The name of the overlay graphic you want to take out",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1712
+      }
+    },
+    {
+      "id": "take_out_last_overlay",
+      "name": "Take Out Last Taken Overlay",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1756
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "MosartStatus",
+      "name": "Mosart Status",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 14
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "RehearsalStatus",
+      "name": "Rehearsal Status",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 26
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "TimelineStatus",
+      "name": "Timeline Status",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 38
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "TimelineState",
+      "name": "Timeline State",
+      "description": "Running, Paused or Stopped",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "Paused",
+          "choices": [
+            {
+              "id": "Running",
+              "label": "Running"
+            },
+            {
+              "id": "Paused",
+              "label": "Paused"
+            },
+            {
+              "id": "Stopped",
+              "label": "Stopped"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 51
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "ServerState",
+      "name": "Server State",
+      "description": "Whether the Mosart server is Active or Idle",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "Active",
+          "choices": [
+            {
+              "id": "Active",
+              "label": "Active"
+            },
+            {
+              "id": "Idle",
+              "label": "Idle"
+            },
+            {
+              "id": "Unknown",
+              "label": "Unknown"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 76
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "TimelineItemMatch",
+      "name": "Timeline Story/Item Match",
+      "description": "True when the current or next story/item has the given slug or id (case-insensitive)",
+      "options": [
+        {
+          "id": "position",
+          "type": "dropdown",
+          "label": "Position",
+          "default": "currentStory",
+          "choices": [
+            {
+              "id": "currentStory",
+              "label": "Current Story"
+            },
+            {
+              "id": "nextStory",
+              "label": "Next Story"
+            },
+            {
+              "id": "currentItem",
+              "label": "Current Item"
+            },
+            {
+              "id": "nextItem",
+              "label": "Next Item"
+            }
+          ]
+        },
+        {
+          "id": "field",
+          "type": "dropdown",
+          "label": "Match on",
+          "default": "slug",
+          "choices": [
+            {
+              "id": "slug",
+              "label": "Slug"
+            },
+            {
+              "id": "id",
+              "label": "ID"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 101
+      },
+      "feedbackType": "boolean",
+      "availability": "Needs the config option enableTimelineInfo (Poll timeline stories/items) to receive data"
+    },
+    {
+      "id": "FaderLevel",
+      "name": "Fader Level",
+      "description": "Compares a fader level (0-1) to a threshold. Requires \"Poll fader levels\" in the module config.",
+      "options": [
+        {
+          "id": "fader",
+          "type": "dropdown",
+          "label": "Fader",
+          "description": "Channels are listed once fader polling has fetched them; you can also type a name",
+          "allowCustom": true,
+          "choicesNote": "Channel names known from fader polling at registration time (getKnownFaderChannels); the list is empty until fader polling ran. Free text is accepted (allowCustom).",
+          "valueType": "string"
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "gt",
+          "choices": [
+            {
+              "id": "gt",
+              "label": ">"
+            },
+            {
+              "id": "gte",
+              "label": ">="
+            },
+            {
+              "id": "lt",
+              "label": "<"
+            },
+            {
+              "id": "lte",
+              "label": "<="
+            },
+            {
+              "id": "eq",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "threshold",
+          "type": "number",
+          "label": "Level (0-1)",
+          "default": 0,
+          "min": 0,
+          "max": 1,
+          "step": 0.01
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 142
+      },
+      "feedbackType": "boolean",
+      "availability": "Requires \"Poll fader levels\" (enableFaderLevels) in the connection config"
+    },
+    {
+      "id": "GraphicOnAir",
+      "name": "Graphic On Air",
+      "description": "True when an on-air overlay graphic matches (case-insensitive). Requires \"Poll on-air graphics\" in the module config.",
+      "options": [
+        {
+          "id": "field",
+          "type": "dropdown",
+          "label": "Match on",
+          "default": "slug",
+          "choices": [
+            {
+              "id": "slug",
+              "label": "Slug"
+            },
+            {
+              "id": "id",
+              "label": "Mosart item ID"
+            },
+            {
+              "id": "graphicsId",
+              "label": "Graphics ID"
+            },
+            {
+              "id": "any",
+              "label": "Any graphic on air"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options['field'] !== 'any'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 201
+      },
+      "feedbackType": "boolean",
+      "availability": "Needs the config option enableOnAirGraphics (Poll on-air graphics) to receive data"
+    },
+    {
+      "id": "AutoTakeStatus",
+      "name": "Auto Take",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 246
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "CrossoverClientStatus",
+      "name": "Crossover Client",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 258
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "AudioToggleStatus",
+      "name": "Audio Toggle State",
+      "options": [
+        {
+          "id": "toggle",
+          "type": "dropdown",
+          "label": "Audio Toggle",
+          "default": "holdAudioTransition",
+          "choices": [
+            {
+              "id": "holdAudioTransition",
+              "label": "HA"
+            },
+            {
+              "id": "holdVideoTransition",
+              "label": "HV"
+            },
+            {
+              "id": "keepSoundLevels",
+              "label": "K"
+            },
+            {
+              "id": "fadeManual",
+              "label": "FM"
+            },
+            {
+              "id": "useLevel2Preview",
+              "label": "L2P"
+            },
+            {
+              "id": "useLevel2OnAir",
+              "label": "L2O"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 270
+      },
+      "feedbackType": "boolean",
+      "availability": "Needs the config option enableAudioToggles (Poll audio toggles) to receive data"
+    },
+    {
+      "id": "ServerDescription",
+      "name": "Server Description",
+      "options": [
+        {
+          "id": "description",
+          "type": "textinput",
+          "label": "Server Description",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 290
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Complete list: 72 actions (src/actions.ts: 68 in the main object literal plus refresh_overlay_list, next_story, previous_story, select_story, select_story_by_index, trigger_current_overlay, take_overlay, take_out_overlay, take_out_last_overlay assigned afterwards) and 12 boolean feedbacks (src/feedbacks.ts). Count check: 72 callbacks in actions.ts. All entries are registered unconditionally, including the overlay list actions (they only log a warning when \"Enable Overlay List\" is off).",
+    "The module talks HTTP(S) to the Mosart server: Web API (default, \"Use Web API\" checked) at http(s)://<host>:<port>/mosart/api/<version> or, with Web API unchecked, the REST API at http(s)://<host>:<port>/api/<version>; default port 55142 (the REST HTTPS default port is stated as 55168 in the config label); optional API key and poll interval (src/config.ts, src/api.ts). Several feedbacks need optional polling switches in the config (timeline info, audio toggles, fader levels, on-air graphics).",
+    "Action options are static: no option list is built at runtime. The options of the actions come from literals plus three resolved helpers: deviceTypeChoices(deviceTypes) (ids are the device type strings, labels are the capitalised words), TEMPLATE_TYPES from src/presetGroups.ts for the template action and busChoices/standbyOption constants. The extractor resolved these constants statically.",
+    "Several defaults are unusual and recorded as written: template \"bus\" is a dropdown with the choices Program and Preview but default \"\" (empty); the \"Standby\" dropdown uses the strings \"true\"/\"false\" as ids.",
+    "update_nrcs_settings, update_media_server and upsert_named_overlay take JSON text inputs that are parsed with JSON.parse (parseJsonOption) and must be an object; the description of the action states they apply immediately with no confirmation.",
+    "FaderLevel feedback: the \"Fader\" dropdown lists the channel names known from fader polling at registration time (getKnownFaderChannels) and has allowCustom; no closed list and no default can be recorded (the source default is the first known fader or an empty string). The isVisible function of GraphicOnAir.value is recorded as visibleWhen.",
+    "Variables, presets and the preset group configuration (src/presets.ts, src/presetGroups.ts, src/statePresets.ts) are not catalogued. Built on @companion-module/base ^1.14.1: options do not support expressions."
+  ]
+}

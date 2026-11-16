@@ -12,11 +12,11 @@ An [MCP](https://modelcontextprotocol.io) (Model Context Protocol) server for [B
 ## Highlights
 
 - **Config creation, not just remote control.** Describe a show ("ATEM with 8 inputs, Videohub 20x20, vMix tally") and get a ready-to-import page.
-- **Knows the modules.** Typed action and feedback data for **38 modules** with every option (type, range, choices, defaults), each entry with file and line of the module source it was read from, plus a searchable index of **126 modules**.
+- **Knows the modules.** Typed action and feedback data for **124 Companion modules** with every option (type, range, choices, defaults), each entry with file and line of the module source it was read from: switchers, cameras, media servers, lighting and audio consoles, LED processors, matrices, show control and the generic protocol modules (OSC, Art-Net, sACN, HTTP, MIDI, PJLink, TCP/UDP).
 - **Validates before it touches anything.** Format 12 schemas and a validator that catches the measured import pitfalls, such as wrong export version, legacy `button` controls that Companion silently drops, or missing `updatePolicy`, and checks action options against the catalog.
 - **Safe by default.** Writes off, host allow-list, dry run, checksummed snapshot, read-back diff, rollback.
 - **Sees what the operator sees.** A virtual Satellite surface reads the rendered buttons (text, colour, bitmap). A button press is reported as successful only when the render actually changed.
-- **15 `companion_*` tools**, 775 automated tests, strict TypeScript, CI on Node 22 and 24.
+- **15 `companion_*` tools**, 1,300 automated tests, strict TypeScript, CI on Node 22 and 24.
 - **Claude Desktop extension.** One `.mcpb` file with an install dialog for URL, token and safety options.
 
 ## What you can ask for
@@ -64,18 +64,20 @@ All tools are prefixed `companion_`. Full reference: [docs/tools.md](docs/tools.
 
 ### Module catalog
 
-38 modules with full action and feedback data, 126 in the searchable index (`companion_catalog_search` finds the module id, repository and version for every one of them). See [docs/catalog.md](docs/catalog.md).
+124 modules with full action and feedback data (`companion_catalog_search` finds a module by manufacturer, product or keyword; every entry names the module id, repository and version). See [docs/catalog.md](docs/catalog.md).
 
-| Area                        | Full data                                                                                                                                                            |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Switchers, routing, vision  | Blackmagic ATEM, Videohub, HyperDeck, vMix, BirdDog PTZ, Panasonic PTZ                                                                                               |
-| Presentation and media      | Analog Way AWJ and LivePremier, Barco EventMaster, Dataton Watchout, Resolume Arena, TouchDesigner, MADRIX Aura, MadMapper 5/6                                       |
-| Lighting consoles           | MA Lighting grandMA2 and grandMA3, ChamSys MagicQ (OSC, UDP), Avolites Titan, ETC Eos, High End Hog 4, Obsidian ONYX (telnet, OSC)                                   |
-| Audio                       | Yamaha RCP, Behringer X32, Allen & Heath SQ, Avantis, dLive, dLive/iLive, CQ, AHM, DT168, Shure wireless                                                             |
-| Network and show control    | Luminex GigaCore, ShowPace, Companion internal actions                                                                                                               |
-| Index only (search, no I/O) | QLab, ProPresenter, OBS Studio, Disguise, Pixera, Hippotizer, Sony and PTZOptics cameras, TSL, Ross, Extron, Kramer, Crestron, Brompton, Novastar, Christie and more |
+| Area                               | Modules                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Switchers, routing, cameras        | Blackmagic ATEM, Videohub, HyperDeck, Multiview 4; vMix; BirdDog; Panasonic PTZ, Kairos and camera series; Sony VISCA and PTZ; PTZOptics; HDKatov VISCA; Ross (Carbonite, Crossover, NK router, RossTalk, Xpression); Epiphan Pearl; Teradek                                                                                                               |
+| Tally, graphics                    | Tally Arbiter, TSL UMD and USP3, Vizrt Mosart and Trio                                                                                                                                                                                                                                                                                                     |
+| Show control, media, software      | QLab (Go Button, qView), ProPresenter (API, PVP), Keynote, PowerPoint, OBS Studio, Ableton OSC, ShowPace, Disguise (OSC, LiveUpdate, MTC, SMC), Pixera, Hippotizer REST, Millumin, ArKaos, ModuloPlayer, SModeLive, DT Videolabs, Pandoras Box, CasparCG, Resolume (Arena, Arena OSC, WS), TouchDesigner, MADRIX Aura, MadMapper 5 and 6, Dataton Watchout |
+| Screen management, LED, projection | Analog Way (AWJ, LivePremier, CorePlay, LiveCore, Midra, Picturall, PLS300), Barco (EventMaster, XML, PDS, Pulse, DP, ClickShare), Christie (Projector, Spyder), NEC, Panasonic projector, Novastar (6 modules), PixelHue (2), Brompton                                                                                                                    |
+| Lighting consoles                  | MA Lighting grandMA2 and grandMA3, ChamSys MagicQ (OSC, UDP), Avolites Titan, ETC Eos, High End Hog 4, Obsidian ONYX (telnet, OSC)                                                                                                                                                                                                                         |
+| Audio                              | Yamaha RCP, Behringer X32, Allen & Heath SQ, Avantis, dLive, dLive/iLive, CQ, AHM, DT168, Shure wireless                                                                                                                                                                                                                                                   |
+| Matrices and network               | Extron (DXP, MMX, SMP351), Kramer, Lightware (LW2, LW3), Crestron, Luminex GigaCore                                                                                                                                                                                                                                                                        |
+| Generic and internal               | Art-Net, sACN, HTTP, OSC, MIDI, PJLink, TCP/UDP, Companion internal actions                                                                                                                                                                                                                                                                                |
 
-Gear without a Companion module (for example Chauvet Infinity Chimp, MADRIX software, Resolume Wire) is recorded as such, so the assistant says so instead of inventing an action.
+Legacy modules without a manifest (Datavideo VISCA, Green Hippo Hippotizer, Allen & Heath Qu and some templates) cannot be addressed in Companion 5 and are listed as unusable. Gear without a Companion module (for example Chauvet Infinity Chimp, MADRIX software, Resolume Wire) is recorded as such, so the assistant says so instead of inventing an action.
 
 ## Safety model
 
@@ -162,12 +164,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for workflow, commit style and review exp
 
 ## Roadmap
 
-| Milestone | Scope                                                                                                                          | Status   |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------ | -------- |
-| 1.0       | Format 12 generator and validator, catalog, safety, transport, satellite, MCP tools, Claude Desktop extension                  | released |
-| 1.1       | Triggers (`importTriggers`), full-config import, rollback of appended pages, page selection                                    | planned  |
-| 1.2       | More templates (lighting, audio, HyperDeck, PTZ), more modules with full data (QLab, ProPresenter, OBS, Disguise, Pixera, TSL) | planned  |
-| later     | Newer Companion releases once format and tRPC changes are measured                                                             | open     |
+| Milestone | Scope                                                                                                         | Status   |
+| --------- | ------------------------------------------------------------------------------------------------------------- | -------- |
+| 1.0       | Format 12 generator and validator, catalog, safety, transport, satellite, MCP tools, Claude Desktop extension | released |
+| 1.1       | Triggers (`importTriggers`), full-config import, rollback of appended pages, page selection                   | planned  |
+| 1.2       | More page templates (lighting, audio, media servers, PTZ) built on the full catalog                           | planned  |
+| later     | Newer Companion releases once format and tRPC changes are measured                                            | open     |
 
 ## Related projects
 

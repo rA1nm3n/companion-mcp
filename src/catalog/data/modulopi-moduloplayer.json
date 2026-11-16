@@ -1,0 +1,710 @@
+{
+  "moduleId": "modulopi-moduloplayer",
+  "name": "Modulo Pi Modulo Player",
+  "repo": "bitfocus/companion-module-modulopi-moduloplayer",
+  "version": "4.1.2",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "e668de1",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 23 actions (src/actions.ts, one setActionDefinitions call in UpdateActions) and 9 feedbacks (src/feedbacks.ts, UpdateFeedbacks). Both are re-registered whenever the playlist or task list changes (updateInstance), so the dropdown lists are fresh snapshots of the device state.",
+    "Protocol: WebSocket / JSON-RPC to Modulo Player (config mpPort, default 8080) and optionally to the Spydog monitoring daemon (sdPort default 8081, sdEnable default true); host has Regex.IP and no default; pollInterval default 1000 ms (min 0, max 60000; 0 = off) in src/configFields.ts. Variables and presets are not catalogued.",
+    "Options with visibleWhen \"false\" (source isVisibleExpression: 'false') are hidden in the UI but remain real options of the entity (launch_task task, cueUUID and plUUID of the playlist actions, the uuid/pl/cue/current_Cue/master options of the feedbacks). The presets address tasks through the dropdown tl and playlists through plUUID/pl (src/presets.ts); the upgrade script src/upgrades.ts copies the legacy task and uuid options into tl and cue.",
+    "Playlist selection: resolvePlaylistUuid (src/actions.ts:3) first looks up the option pl as a dropdown id, then as a legacy numeric index, then uses plUUID when not empty. For goto_cue and preload_cue the hidden cueUUID wins over the number index; when cueUUID is empty the index (1-based, min 1, max 10000) is sent as given.",
+    "The *_add and *_remove actions keep the fader state in the module (variable pl_<uuid>_grandMasterFader / _audioMaster), add or subtract value percent and clamp at 100 or 0 and send it with duration 0. The remove actions grand_master_fader_remove and audio_master_remove have different defaults (1 and 100) in the source; recorded as written.",
+    "The feedbacks status (dropdown with number ids 0, 1, 2) and master (number) compare with strict equality against the stored state, so number ids matter. current_Cue compares a string against a cue index found by uuid, or a numeric option against the playlist current index.",
+    "Spydog actions (spydog_*) only do something when the Spydog connection is enabled and reachable.",
+    "Boolean feedback default styles (defaultStyle in the source) are not part of the catalog schema and are not recorded.",
+    "Built on @companion-module/base ~1.12.1: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "launch_task",
+      "name": "Launch Task",
+      "options": [
+        {
+          "id": "task",
+          "type": "textinput",
+          "label": "Task UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "tl",
+          "type": "dropdown",
+          "label": "Select Task",
+          "default": "",
+          "choicesNote": "Filled at runtime from the tasks reported by Modulo Player (src/moduloplayer.ts:63-69): id = task uuid without braces, label = task name. Empty until the list arrives; the source default is the first task id or ''. If the id is not found the callback falls back to the hidden option task.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 26
+      }
+    },
+    {
+      "id": "goto_cue",
+      "name": "Launch Cue (ID) from Playlist",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Cue ID (used only if Cue UUID is empty)",
+          "default": 1,
+          "min": 1,
+          "max": 10000
+        },
+        {
+          "id": "cueUUID",
+          "type": "textinput",
+          "label": "Cue UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist uuid",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 58
+      }
+    },
+    {
+      "id": "preload_cue",
+      "name": "Preload Cue (ID) from Playlist",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Cue ID (used only if Cue UUID is empty)",
+          "default": 1,
+          "min": 1,
+          "max": 10000
+        },
+        {
+          "id": "cueUUID",
+          "type": "textinput",
+          "label": "Cue UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist uuid",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 108
+      }
+    },
+    {
+      "id": "play_pl",
+      "name": "Play Playlist",
+      "options": [
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 158
+      }
+    },
+    {
+      "id": "pause_pl",
+      "name": "Pause Playlist",
+      "options": [
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 184
+      }
+    },
+    {
+      "id": "next_cue",
+      "name": "Next Cue on Playlist",
+      "options": [
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 210
+      }
+    },
+    {
+      "id": "prev_cue",
+      "name": "Previous Cue on Playlist",
+      "options": [
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 236
+      }
+    },
+    {
+      "id": "pl_grand_master_fader",
+      "name": "Grand Master Fader on Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value in % (0 to 100)",
+          "default": 100,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration in ms (max 3600000 = 1 hour)",
+          "default": 2000,
+          "min": 0,
+          "max": 3600000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 262
+      }
+    },
+    {
+      "id": "grand_master_fader_add",
+      "name": "Add Grand Master Fader Rotate on Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value in % (0 to 100)",
+          "default": 1,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 307
+      }
+    },
+    {
+      "id": "grand_master_fader_remove",
+      "name": "Remove Grand Master Fader Rotate on Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value in % (0 to 100)",
+          "default": 1,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 346
+      }
+    },
+    {
+      "id": "audio_master",
+      "name": "Audio Master on Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value in % (0 to 100)",
+          "default": 100,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration in ms (max 3600000 = 1 hour)",
+          "default": 2000,
+          "min": 0,
+          "max": 3600000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 386
+      }
+    },
+    {
+      "id": "audio_master_add",
+      "name": "Add Audio Master Rotate on Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value in % (0 to 100)",
+          "default": 1,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 431
+      }
+    },
+    {
+      "id": "audio_master_remove",
+      "name": "Remove Audio Master Rotate on Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "dropdown",
+          "label": "Select Playlist",
+          "default": "0",
+          "choicesNote": "Filled at runtime from the playlists reported by Modulo Player (src/moduloplayer.ts:84-89, rebuilt through updateInstance): id = playlist uuid without braces ({ and } removed by cleanUUID, src/main.ts:193), label = playlist name. Before the first list arrives the list is empty. The default '0' is not a playlist id; the callback treats a string that is not a known id but parses as an integer as a legacy index into the playlist list (src/actions.ts:3-13), otherwise falls back to plUUID.",
+          "valueType": "string"
+        },
+        {
+          "id": "plUUID",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value in % (0 to 100)",
+          "default": 100,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 470
+      }
+    },
+    {
+      "id": "save",
+      "name": "Save Show",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 511
+      }
+    },
+    {
+      "id": "backup",
+      "name": "Backup Show",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 520
+      }
+    },
+    {
+      "id": "rescan_medias",
+      "name": "Rescan Medias",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 529
+      }
+    },
+    {
+      "id": "remove_missing_medias",
+      "name": "Remove Missing Medias",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 538
+      }
+    },
+    {
+      "id": "rescan_medias_force",
+      "name": "Rescan Medias Force",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 547
+      }
+    },
+    {
+      "id": "send_show_to_remote",
+      "name": "Send show to all remotes",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 556
+      }
+    },
+    {
+      "id": "spydog_start_mp",
+      "name": "Start Modulo Player",
+      "availability": "Sent to the Spydog monitoring daemon (second websocket, config sdPort/sdEnable), not to Modulo Player itself.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 565
+      }
+    },
+    {
+      "id": "spydog_stop_mp",
+      "name": "Stop Modulo Player",
+      "availability": "Sent to the Spydog monitoring daemon (second websocket, config sdPort/sdEnable), not to Modulo Player itself.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 573
+      }
+    },
+    {
+      "id": "spydog_reboot_mp",
+      "name": "Reboot Modulo Player",
+      "availability": "Sent to the Spydog monitoring daemon (second websocket, config sdPort/sdEnable), not to Modulo Player itself.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 581
+      }
+    },
+    {
+      "id": "spydog_power_off_mp",
+      "name": "Power Off Modulo Player",
+      "availability": "Sent to the Spydog monitoring daemon (second websocket, config sdPort/sdEnable), not to Modulo Player itself.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 589
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "color_task",
+      "name": "Color Task",
+      "description": "Sets the button background to the task color. Reads the variable tl_<uuid>_color, uuid is the option text as written (no brace stripping in the callback).",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "Task UUID",
+          "default": "",
+          "visibleWhen": "false"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "color_cue",
+      "name": "Color Cue",
+      "description": "Sets the button background to the cue color (variable cue_<id>_color). The callback uses the option cue when it is not empty, otherwise the legacy uuid; pl is not used by the callback.",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "uuid",
+          "type": "textinput",
+          "label": "Legacy Cue UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "textinput",
+          "label": "Playlist UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue UUID",
+          "default": "",
+          "visibleWhen": "false"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 27
+      }
+    },
+    {
+      "id": "current_Cue",
+      "name": "PlayList Current Cue",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "current_Cue",
+          "type": "textinput",
+          "label": "Cue UUID",
+          "default": "",
+          "visibleWhen": "false"
+        },
+        {
+          "id": "pl",
+          "type": "textinput",
+          "label": "Playlist UUID",
+          "default": "",
+          "visibleWhen": "false"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 62
+      }
+    },
+    {
+      "id": "status",
+      "name": "Modulo Player Status",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Modulo Player Status",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Offline"
+            },
+            {
+              "id": 1,
+              "label": "Launching"
+            },
+            {
+              "id": 2,
+              "label": "Online"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 100
+      }
+    },
+    {
+      "id": "master",
+      "name": "Modulo Player Master",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "master",
+          "type": "number",
+          "label": "Master",
+          "default": 1,
+          "min": 0,
+          "max": 1,
+          "visibleWhen": "false"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 127
+      }
+    },
+    {
+      "id": "color",
+      "name": "Color Player",
+      "feedbackType": "advanced",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 154
+      }
+    },
+    {
+      "id": "fps_ok",
+      "name": "FPS Player",
+      "description": "Green background when the variable fpsOk is truthy, red otherwise.",
+      "feedbackType": "advanced",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 168
+      }
+    },
+    {
+      "id": "memory_use",
+      "name": "Memory Use",
+      "description": "Background from the variable memoryUse: green below 50, orange from 50 to 90, red otherwise (also when not a number).",
+      "feedbackType": "advanced",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 185
+      }
+    },
+    {
+      "id": "cpu_use",
+      "name": "CPU Use",
+      "description": "Background from the variable cpuUse: green below 50, orange from 50 to 90, red otherwise (also when not a number).",
+      "feedbackType": "advanced",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 212
+      }
+    }
+  ]
+}

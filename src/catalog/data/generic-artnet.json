@@ -1,0 +1,187 @@
+{
+  "moduleId": "generic-artnet",
+  "name": "Generic Art-Net",
+  "repo": "bitfocus/companion-module-generic-artnet",
+  "version": "3.0.0",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "b3bd5fd",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 4 actions (src/actions.ts) and 1 value feedback (src/feedbacks.ts).",
+    "Sends ArtDmx (OpOutput 0x5000) packets over UDP to port 6454 for one universe and one receiver IP per connection (src/artnet.ts). The universe (0-32767), receiver IP (unicast or broadcast), slow update interval (default 1000 ms, min 10) and fade update interval (default 40 ms, min 5) are config fields (src/config.ts), not action options. Several universes need several connections.",
+    "Channels are 1-based (1-512). Values are 0-255; numeric DMX values are rounded and clamped to 0-255 when sent (toDmxValue). The number fields of the module use clampValues (not part of the schema): Companion clamps the value to min/max.",
+    "set_complex: text of groups 'channel,value;' where the channel may be a range such as '1-20' (regex /^(\\d+)(?:\\s*-\\s*(\\d+))?$/ in parseChannelSpec). Invalid groups are logged as an error and nothing is set. Values are not range-checked by the parser; transitions.run clamps them to 0-255 (src/transitions.ts:72).",
+    "set_consecutive: comma separated values, first value goes on the start channel. A value list that does not parse sets nothing. Channels beyond 512 are not checked in the action; transitions.run ignores a channel without a current value (src/transitions.ts:59-64).",
+    "offset: adds the value change (-255 to 255) to the current value of the channel and clamps the result to 0-255.",
+    "Built on @companion-module/base ~2.1.3: options support expressions. useVariables is set on the two text inputs; Companion resolves variables before the callback (comment in src/actions.ts)."
+  ],
+  "actions": [
+    {
+      "id": "set",
+      "name": "Set Value",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel (Range 1-512)",
+          "default": 1,
+          "min": 1,
+          "max": 512,
+          "step": 1,
+          "integer": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (Range 0-255)",
+          "default": 0,
+          "min": 0,
+          "max": 255,
+          "step": 1
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Fade time (ms)",
+          "default": 0,
+          "min": 0,
+          "max": 9007199254740991,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 108
+      }
+    },
+    {
+      "id": "set_complex",
+      "name": "Set Complex Value",
+      "options": [
+        {
+          "id": "params",
+          "type": "textinput",
+          "label": "Channel (Range 1-512), Value (Range 0-255);",
+          "description": "Use a range to set multiple channels to the same value, eg 1-20,127;30,255;\nTooltip: Each parameter should be separated by a comma (,) and each group of parameters should be separated by a semicolon (;)",
+          "default": "1,0;",
+          "useVariables": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Fade time (ms)",
+          "default": 0,
+          "min": 0,
+          "max": 9007199254740991,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 132
+      }
+    },
+    {
+      "id": "set_consecutive",
+      "name": "Set Consecutive Values",
+      "description": "Set a run of channels, starting from the given channel. Useful for fixtures with multiple channels",
+      "options": [
+        {
+          "id": "start",
+          "type": "number",
+          "label": "Start channel (Range 1-512)",
+          "default": 1,
+          "min": 1,
+          "max": 512,
+          "step": 1,
+          "integer": true
+        },
+        {
+          "id": "values",
+          "type": "textinput",
+          "label": "Values (Range 0-255)",
+          "description": "eg 255,100,0 sets the start channel to 255, the next channel to 100 and the one after to 0\nTooltip: Each value should be separated by a comma (,). The first value is set on the start channel",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Fade time (ms)",
+          "default": 0,
+          "min": 0,
+          "max": 9007199254740991,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 161
+      }
+    },
+    {
+      "id": "offset",
+      "name": "Offset Value",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel (Range 1-512)",
+          "default": 1,
+          "min": 1,
+          "max": 512,
+          "step": 1,
+          "integer": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value change",
+          "default": 1,
+          "min": -255,
+          "max": 255,
+          "step": 1
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Fade time (ms)",
+          "default": 0,
+          "min": 0,
+          "max": 9007199254740991,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 195
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "channel_value",
+      "name": "Channel Value",
+      "feedbackType": "value",
+      "description": "The value currently being sent for a channel. Store this in a local variable to show it on a button",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel (Range 1-512)",
+          "default": 1,
+          "min": 1,
+          "max": 512,
+          "step": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 15
+      }
+    }
+  ]
+}

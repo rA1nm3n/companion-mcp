@@ -1,0 +1,1897 @@
+{
+  "moduleId": "arena-osc",
+  "name": "Resolume: Arena OSC (Unofficial)",
+  "repo": "ElytaM/companion-module-resolume-arena-osc-unofficial",
+  "version": "2.1.9",
+  "baseVersion": "^2.1.2",
+  "lastCommit": "2026-10-10",
+  "lastCommitSha": "bdbefde",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "send_blank",
+      "name": "Send message without arguments",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2608
+      }
+    },
+    {
+      "id": "send_int",
+      "name": "Send integer",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "int",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1",
+          "regex": "/^[+-]?\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2617
+      }
+    },
+    {
+      "id": "send_float",
+      "name": "Send float",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2630
+      }
+    },
+    {
+      "id": "send_string",
+      "name": "Send string",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "string",
+          "type": "textinput",
+          "label": "Value",
+          "default": "text",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2643
+      }
+    },
+    {
+      "id": "send_multiple",
+      "name": "Send message with multiple arguments",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Arguments",
+          "description": "Space-delimited numbers, booleans, or strings.",
+          "default": "1 \"text\" 2.5",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2656
+      }
+    },
+    {
+      "id": "send_boolean",
+      "name": "Send boolean",
+      "options": [
+        {
+          "id": "w",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Note",
+          "description": "Non-standard, may only work with some receivers."
+        },
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "checkbox",
+          "label": "Value",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2675
+      }
+    },
+    {
+      "id": "send_blob",
+      "name": "Send blob",
+      "options": [
+        {
+          "id": "w",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Note",
+          "description": "Non-standard, may only work with some receivers."
+        },
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "blob",
+          "type": "textinput",
+          "label": "Blob Data (Base64)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:hexswitch) === false"
+        },
+        {
+          "id": "blob_hex",
+          "type": "textinput",
+          "label": "Blob Data (Hex)",
+          "default": "0A0B0C",
+          "useVariables": true,
+          "visibleWhen": "$(options:hexswitch) === true"
+        },
+        {
+          "id": "hexswitch",
+          "type": "checkbox",
+          "label": "Use Hex",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2688
+      }
+    },
+    {
+      "id": "arena_trigger_clip",
+      "name": "[Arena] Trigger clip (layer + clip number)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2717
+      }
+    },
+    {
+      "id": "arena_trigger_column",
+      "name": "[Arena] Trigger column (by number)",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2730
+      }
+    },
+    {
+      "id": "arena_select_clip",
+      "name": "[Arena] Select clip (focus, no trigger)",
+      "description": "Selects (focuses) a clip in the Arena UI without triggering it.",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2741
+      }
+    },
+    {
+      "id": "arena_select_column",
+      "name": "[Arena] Select column (focus, no trigger)",
+      "description": "Selects (focuses) a column in the Arena UI without triggering it.",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2755
+      }
+    },
+    {
+      "id": "arena_clear_layer",
+      "name": "[Arena] Clear layer",
+      "description": "Clears the specified layer. Sends 1 then 0 after 100ms (momentary).",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2767
+      }
+    },
+    {
+      "id": "arena_layer_opacity",
+      "name": "[Arena] Layer opacity",
+      "description": "Sets the video opacity of a layer (0.0 = transparent, 1.0 = full).",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "opacity",
+          "type": "textinput",
+          "label": "Opacity (0.0 – 1.0)",
+          "default": "1",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2781
+      }
+    },
+    {
+      "id": "arena_layer_bypass",
+      "name": "[Arena] Layer bypass",
+      "description": "Sets the bypass (mute) state of a layer.",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "ON (bypass)"
+            },
+            {
+              "id": "off",
+              "label": "OFF (active)"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2795
+      }
+    },
+    {
+      "id": "arena_master_opacity",
+      "name": "[Arena] Master composition opacity",
+      "description": "Sets the master video opacity of the composition (0.0 – 1.0).",
+      "options": [
+        {
+          "id": "opacity",
+          "type": "textinput",
+          "label": "Opacity (0.0 – 1.0)",
+          "default": "1",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2813
+      }
+    },
+    {
+      "id": "arena_bpm_set",
+      "name": "[Arena] Set BPM",
+      "description": "Sets the composition BPM/tempo. Normalized to the configured BPM range (Connection settings) unless \"actual BPM value\" mode is enabled.",
+      "options": [
+        {
+          "id": "bpm",
+          "type": "textinput",
+          "label": "BPM",
+          "default": "120",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2825
+      }
+    },
+    {
+      "id": "arena_bpm_tap",
+      "name": "[Arena] Tap tempo",
+      "description": "Sends a tap tempo trigger to Arena.",
+      "options": [],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2839
+      }
+    },
+    {
+      "id": "arena_trigger_group_column",
+      "name": "[Arena] Trigger group column",
+      "description": "Triggers (connects) a column within a group.",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2850
+      }
+    },
+    {
+      "id": "arena_select_group_column",
+      "name": "[Arena] Select group column (focus, no trigger)",
+      "description": "Selects (focuses) a column within a group without triggering it.",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2864
+      }
+    },
+    {
+      "id": "arena_audio_volume_set",
+      "name": "[Arena] Set audio volume",
+      "description": "Sets audio volume to an absolute value. Smooth fade ramps over 400ms (16 steps).",
+      "options": [
+        {
+          "id": "volume",
+          "type": "textinput",
+          "label": "Volume (0.0–1.0)",
+          "default": "1",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        },
+        {
+          "id": "fade",
+          "type": "checkbox",
+          "label": "Smooth fade",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2880
+      }
+    },
+    {
+      "id": "arena_speed_set",
+      "name": "[Arena] Set composition speed",
+      "description": "Sets composition speed immediately to an absolute value (0.0–1.0).",
+      "options": [
+        {
+          "id": "speed",
+          "type": "textinput",
+          "label": "Speed (0.0–1.0)",
+          "default": "0.25",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2899
+      }
+    },
+    {
+      "id": "arena_audio_volume_nudge",
+      "name": "[Arena] Audio volume — velocity nudge",
+      "description": "Each press adjusts volume. Press faster for larger steps (velocity-sensitive). Supports rotary redirection from the Quick Control Panel.",
+      "options": [
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "up",
+          "choices": [
+            {
+              "id": "up",
+              "label": "Up (+)"
+            },
+            {
+              "id": "down",
+              "label": "Down (-)"
+            }
+          ]
+        },
+        {
+          "id": "min_step",
+          "type": "number",
+          "label": "Min step (slow press)",
+          "default": 0.005,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "max_step",
+          "type": "number",
+          "label": "Max step (fast press)",
+          "default": 0.06,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "menu_active_guard",
+          "type": "checkbox",
+          "label": "Menu active guard — suppress this action while the Control Panel is open; redirect to its Volume/Master tool instead if one is armed",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2915
+      }
+    },
+    {
+      "id": "arena_speed_nudge",
+      "name": "[Arena] Composition speed — velocity nudge",
+      "description": "Each press adjusts composition speed (0.0–1.0 float). Press faster for larger steps. Supports rotary redirection from the Quick Control Panel.",
+      "options": [
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "up",
+          "choices": [
+            {
+              "id": "up",
+              "label": "Up (+)"
+            },
+            {
+              "id": "down",
+              "label": "Down (-)"
+            }
+          ]
+        },
+        {
+          "id": "min_step",
+          "type": "number",
+          "label": "Min step (slow press)",
+          "default": 0.003,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "max_step",
+          "type": "number",
+          "label": "Max step (fast press)",
+          "default": 0.08,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "menu_active_guard",
+          "type": "checkbox",
+          "label": "Menu active guard — suppress this action while the Control Panel is open; redirect to its Volume/Master tool instead if one is armed",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2946
+      }
+    },
+    {
+      "id": "arena_master_opacity_nudge",
+      "name": "[Arena] Master opacity — velocity nudge",
+      "description": "Each press adjusts master composition opacity. Press faster for larger steps. Supports rotary redirection from the Quick Control Panel.",
+      "options": [
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "up",
+          "choices": [
+            {
+              "id": "up",
+              "label": "Up (+)"
+            },
+            {
+              "id": "down",
+              "label": "Down (-)"
+            }
+          ]
+        },
+        {
+          "id": "min_step",
+          "type": "number",
+          "label": "Min step (slow press)",
+          "default": 0.005,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "max_step",
+          "type": "number",
+          "label": "Max step (fast press)",
+          "default": 0.06,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "menu_active_guard",
+          "type": "checkbox",
+          "label": "Menu active guard — suppress this action while the Control Panel is open; redirect to its Volume/Master tool instead if one is armed",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 2975
+      }
+    },
+    {
+      "id": "arena_float_nudge",
+      "name": "OSC: Float nudge (any path)",
+      "description": "Velocity-sensitive nudge for any OSC float parameter. Assign the \"Up\" variant to rotate_right and \"Down\" to rotate_left to turn any encoder into a controller for any Arena parameter (color, intensity, effect level…). The current value is tracked internally and queried from Arena on the first press.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/composition/video/opacity",
+          "useVariables": true
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "up",
+          "choices": [
+            {
+              "id": "up",
+              "label": "Up (+)"
+            },
+            {
+              "id": "down",
+              "label": "Down (-)"
+            }
+          ]
+        },
+        {
+          "id": "min_step",
+          "type": "number",
+          "label": "Min step (slow)",
+          "default": 0.005,
+          "min": 0.001,
+          "max": 1,
+          "step": 0.001
+        },
+        {
+          "id": "max_step",
+          "type": "number",
+          "label": "Max step (fast)",
+          "default": 0.05,
+          "min": 0.001,
+          "max": 1,
+          "step": 0.001
+        },
+        {
+          "id": "range_min",
+          "type": "number",
+          "label": "Range min",
+          "default": 0,
+          "min": -10,
+          "max": 10,
+          "step": 0.001
+        },
+        {
+          "id": "range_max",
+          "type": "number",
+          "label": "Range max",
+          "default": 1,
+          "min": -10,
+          "max": 10,
+          "step": 0.001
+        },
+        {
+          "id": "query_unknown",
+          "type": "checkbox",
+          "label": "Query current value from Arena when unknown",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3004
+      }
+    },
+    {
+      "id": "preset_slot_trigger",
+      "name": "[Arena] Preset slot — Trigger / Assign",
+      "description": "Edit/delete mode ON → assign or delete. Slot empty → 3s quick-assign. Slot filled → trigger.",
+      "options": [
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot number",
+          "default": 1,
+          "min": 1,
+          "max": 200
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3047
+      }
+    },
+    {
+      "id": "preset_slot_edit_mode",
+      "name": "[Arena] Preset slot — Toggle edit mode",
+      "description": "While edit mode is active, pressing a slot assigns the current Arena selection.",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "Turn ON"
+            },
+            {
+              "id": "off",
+              "label": "Turn OFF"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3193
+      }
+    },
+    {
+      "id": "preset_slot_delete_mode",
+      "name": "[Arena] Preset slot — Toggle delete mode",
+      "description": "While delete mode is active, pressing a slot clears it (red blink).",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "Turn ON"
+            },
+            {
+              "id": "off",
+              "label": "Turn OFF"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3221
+      }
+    },
+    {
+      "id": "preset_slot_clear",
+      "name": "[Arena] Preset slot — Clear",
+      "options": [
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot number",
+          "default": 1,
+          "min": 1,
+          "max": 200
+        },
+        {
+          "id": "clear_btn",
+          "type": "other",
+          "rawType": "simple",
+          "label": "Clear this slot now",
+          "description": "Button field (type \"simple\") with the button text \"Clear Slot\"; carries no value used by the callback."
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3249
+      }
+    },
+    {
+      "id": "arena_autopilot_set",
+      "name": "[Arena] Set clip autopilot from duration minus layer transition",
+      "description": "Press 1: previews computed autopilot time on button. Press 2 (within 8s): sends to Arena. Computes clip_duration − transition − offset.",
+      "options": [
+        {
+          "id": "customTarget",
+          "type": "checkbox",
+          "label": "Use specific layer / clip instead of last selected",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "clip",
+          "type": "number",
+          "label": "Clip",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "offset",
+          "type": "number",
+          "label": "Extra offset (seconds, subtracted)",
+          "default": 0,
+          "min": -60,
+          "max": 600
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3268
+      }
+    },
+    {
+      "id": "arena_layer_transition_set",
+      "name": "[Arena] Set layer transition duration",
+      "description": "Sets the transition duration (in seconds) for a layer.",
+      "options": [
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration (seconds)",
+          "default": 5,
+          "min": 0,
+          "max": 10
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3358
+      }
+    },
+    {
+      "id": "arena_install_resolume_shortcuts",
+      "name": "[Arena] Install Resolume Arena shortcuts file",
+      "description": "Writes the ARENA-OSC.xml OSC shortcut preset to the Resolume Arena Presets/Shortcuts folder on this machine. OSC shortcuts define which paths Arena sends as output feedback.",
+      "options": [
+        {
+          "id": "folder",
+          "type": "textinput",
+          "label": "Target folder (leave blank for default: %APPDATA%\\Resolume Arena)",
+          "default": ""
+        },
+        {
+          "id": "filename",
+          "type": "textinput",
+          "label": "Filename",
+          "default": "ARENA-OSC.xml"
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3381
+      }
+    },
+    {
+      "id": "arena_loop_start",
+      "name": "[Arena] Loop-start — hold autopilot loop",
+      "description": "While active: 1 second before each clip cycle end, increments autopilot/loops by 1, deferring autopilot indefinitely. Press Loop-fin to stop.",
+      "options": [
+        {
+          "id": "watch_layer",
+          "type": "number",
+          "label": "Watch layer",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "watch_clip",
+          "type": "number",
+          "label": "Watch clip",
+          "default": 1,
+          "min": 1,
+          "max": 500
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3422
+      }
+    },
+    {
+      "id": "arena_loop_fin",
+      "name": "[Arena] Loop-fin — release autopilot loop",
+      "description": "Stops the Loop-start watcher. Autopilot will fire normally on the next cycle end.",
+      "options": [
+        {
+          "id": "watch_layer",
+          "type": "number",
+          "label": "Watch layer",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "watch_clip",
+          "type": "number",
+          "label": "Watch clip",
+          "default": 1,
+          "min": 1,
+          "max": 500
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3473
+      }
+    },
+    {
+      "id": "arena_toggle_progress_polling",
+      "name": "[Arena] Toggle real-time progress polling",
+      "description": "Enables/disables periodic clip position re-sync at runtime (mirrors the Connection setting). Useful to quickly reduce OSC traffic on sensitive networks.",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "Turn on"
+            },
+            {
+              "id": "off",
+              "label": "Turn off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3496
+      }
+    },
+    {
+      "id": "arena_check_connection",
+      "name": "[Arena] Check connection (ping)",
+      "description": "Measures OSC round-trip latency and jitter to Arena using a lightweight query. Updates arena_ping_ms / arena_ping_jitter_ms.",
+      "options": [],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3516
+      }
+    },
+    {
+      "id": "arena_control_panel_activate",
+      "name": "[Arena] Control Panel — Activate",
+      "description": "Toggles the Quick Control Panel. While inactive, Control Panel slot buttons stay in \"bypass\". While active, 3 tabs of tools: Tab 1 — Paint / ACT MGR / Edit Mode / Del Mode; Tab 2 — Master / Vol / Speed rotary menus; Tab 3 — Ping / Poll Toggle / OSC Reconnect / Del All. Rotate encoder to switch tabs.",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "Turn on"
+            },
+            {
+              "id": "off",
+              "label": "Turn off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3527
+      }
+    },
+    {
+      "id": "arena_control_slot_press",
+      "name": "[Arena] Control Panel — Slot press",
+      "description": "Bound to one of the Control Panel slot buttons (1..N). Does nothing while the panel is inactive (\"bypass\"). Slot count is set in Connection settings.",
+      "options": [
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot number",
+          "default": 1,
+          "min": 1,
+          "max": 8
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3561
+      }
+    },
+    {
+      "id": "arena_control_slot_rotate",
+      "name": "[Arena] Control Panel — Slot rotate",
+      "description": "Add to rotate_left / rotate_right steps of a physical encoder. Behaviour: during Paint picker — scrolls color wheel; when Vol/Master/Speed is armed — controls that parameter; otherwise — scrolls between the 3 tool tabs. Bypass while panel is inactive.",
+      "options": [
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot number (matches the panel button)",
+          "default": 1,
+          "min": 1,
+          "max": 8
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "right",
+          "choices": [
+            {
+              "id": "right",
+              "label": "Right (+)"
+            },
+            {
+              "id": "left",
+              "label": "Left (-)"
+            }
+          ]
+        },
+        {
+          "id": "min_step",
+          "type": "number",
+          "label": "Min step (slow)",
+          "default": 0.003,
+          "min": 0.001,
+          "max": 0.5
+        },
+        {
+          "id": "max_step",
+          "type": "number",
+          "label": "Max step (fast)",
+          "default": 0.02,
+          "min": 0.001,
+          "max": 0.5
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3747
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "preset_slot",
+      "name": "[Arena] Preset slot display",
+      "description": "Shows clip/column name and color. Blinks orange (edit), red (delete), amber (quick-assign). Shows live progress bar when the assigned clip is playing.",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot number",
+          "default": 1,
+          "min": 1,
+          "max": 200
+        },
+        {
+          "id": "clip_color",
+          "type": "colorpicker",
+          "label": "Clip color",
+          "default": 20680
+        },
+        {
+          "id": "column_color",
+          "type": "colorpicker",
+          "label": "Column color",
+          "default": 40960
+        },
+        {
+          "id": "group_column_color",
+          "type": "colorpicker",
+          "label": "Group Column color",
+          "default": 23040
+        },
+        {
+          "id": "showProgressBar",
+          "type": "checkbox",
+          "label": "Show progress bar when clip is playing",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 3802
+      }
+    },
+    {
+      "id": "preset_slot_edit",
+      "name": "[Arena] Edit mode active",
+      "description": "True while edit mode is ON.",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4028
+      }
+    },
+    {
+      "id": "preset_slot_delete",
+      "name": "[Arena] Delete mode active",
+      "description": "True while delete mode is ON.",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4037
+      }
+    },
+    {
+      "id": "arena_last_select_type",
+      "name": "[Arena] Last selection type",
+      "description": "True when last Arena selection matches the configured type.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "clip",
+          "choices": [
+            {
+              "id": "clip",
+              "label": "Clip"
+            },
+            {
+              "id": "column",
+              "label": "Column"
+            },
+            {
+              "id": "group_column",
+              "label": "Group Column"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4048
+      }
+    },
+    {
+      "id": "arena_bpm_value",
+      "name": "[Arena] BPM value",
+      "description": "True when Arena BPM matches the comparison.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "bpm",
+          "type": "textinput",
+          "label": "BPM",
+          "default": "120",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4064
+      }
+    },
+    {
+      "id": "arena_progress_polling_status",
+      "name": "[Arena] Progress polling status",
+      "description": "True while real-time clip progress polling is active.",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4087
+      }
+    },
+    {
+      "id": "user_var",
+      "name": "[Arena] User variable state",
+      "description": "True when the selected user variable is ON. Bind to any button to use as a custom indicator.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "var",
+          "type": "dropdown",
+          "label": "Variable",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "User var 1"
+            },
+            {
+              "id": "2",
+              "label": "User var 2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4096
+      }
+    },
+    {
+      "id": "arena_ping_status",
+      "name": "[Arena] Connection check (ping) status",
+      "description": "Colors by last measured OSC round-trip time. Run \"[Arena] Check connection (ping)\" to update.",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "goodMs",
+          "type": "textinput",
+          "label": "Good under (ms)",
+          "default": "50"
+        },
+        {
+          "id": "warnMs",
+          "type": "textinput",
+          "label": "Warning under (ms)",
+          "default": "150"
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4110
+      }
+    },
+    {
+      "id": "arena_control_slot",
+      "name": "[Arena] Control Panel — Slot display",
+      "description": "While the Quick Control Panel is inactive, this returns no override (stays in \"bypass\" — free to show anything else). While active, shows the current tool page, or — during Paint — a color-wheel swatch.",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot number",
+          "default": 1,
+          "min": 1,
+          "max": 8
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4129
+      }
+    },
+    {
+      "id": "arena_layer_bypass",
+      "name": "[Arena] Layer bypass state",
+      "description": "True when the layer is bypassed (muted).",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4347
+      }
+    },
+    {
+      "id": "arena_layer_opacity",
+      "name": "[Arena] Layer opacity value",
+      "description": "True when layer opacity matches comparison.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer number",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "opacity",
+          "type": "textinput",
+          "label": "Opacity (0.0 – 1.0)",
+          "default": "1",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4361
+      }
+    },
+    {
+      "id": "osc_feedback_int",
+      "name": "Listen for OSC messages (Integer)",
+      "description": "Requires \"Listen for Feedback\" to be enabled.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1",
+          "regex": "/^[+-]?\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4389
+      }
+    },
+    {
+      "id": "osc_feedback_float",
+      "name": "Listen for OSC messages (Float)",
+      "description": "Requires \"Listen for Feedback\" to be enabled.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1",
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4412
+      }
+    },
+    {
+      "id": "osc_feedback_bool",
+      "name": "Listen for OSC messages (Boolean)",
+      "description": "Requires \"Listen for Feedback\" to be enabled.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "w",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Note",
+          "description": "Non-standard type."
+        },
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "checkbox",
+          "label": "Value",
+          "default": false
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4435
+      }
+    },
+    {
+      "id": "osc_feedback_string",
+      "name": "Listen for OSC messages (String)",
+      "description": "Requires \"Listen for Feedback\" to be enabled.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Value",
+          "default": "my string",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4455
+      }
+    },
+    {
+      "id": "osc_feedback_multi",
+      "name": "Listen for OSC messages (Multiple Arguments)",
+      "description": "Requires \"Listen for Feedback\" to be enabled.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Arguments",
+          "default": "1 \"test\" 2.5",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4477
+      }
+    },
+    {
+      "id": "osc_feedback_noargs",
+      "name": "Listen for OSC messages (No Arguments)",
+      "description": "Requires \"Listen for Feedback\" to be enabled.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4505
+      }
+    },
+    {
+      "id": "oscProgressBar",
+      "name": "OSC: Progress Bar (Layer)",
+      "description": "Visual progress bar for layer clip playback. Green → Orange → Red → Fast blink (≤5s). Always full green if looping. Requires \"Listen for Feedback\".",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "hideWhenNotRunning",
+          "type": "checkbox",
+          "label": "Hide when clip not running",
+          "default": true
+        },
+        {
+          "id": "orangeSeconds",
+          "type": "textinput",
+          "label": "Orange at remaining seconds",
+          "default": "30",
+          "useVariables": true
+        },
+        {
+          "id": "redSeconds",
+          "type": "textinput",
+          "label": "Red at remaining seconds",
+          "default": "10",
+          "useVariables": true
+        },
+        {
+          "id": "runningColor",
+          "type": "colorpicker",
+          "label": "Running color (green)",
+          "default": 51200
+        },
+        {
+          "id": "warningColor",
+          "type": "colorpicker",
+          "label": "Warning color (orange)",
+          "default": 16747520
+        },
+        {
+          "id": "criticalColor",
+          "type": "colorpicker",
+          "label": "Critical color (red)",
+          "default": 14417920
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4524
+      }
+    },
+    {
+      "id": "oscActiveColumn",
+      "name": "OSC: Active Column",
+      "description": "True when the specified column is the currently active composition column. Requires \"Listen for Feedback\".",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4593
+      }
+    },
+    {
+      "id": "oscConnectedClip",
+      "name": "OSC: Clip connected (playing)",
+      "description": "True when the specified layer + clip slot is the currently connected (playing) clip. Requires \"Listen for Feedback\".",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip slot",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4608
+      }
+    },
+    {
+      "id": "oscLayerLooping",
+      "name": "OSC: Clip looping",
+      "description": "True when the active clip on the layer is in a looping playmode (Loop, Ping Pong, Random). Requires \"Listen for Feedback\".",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4625
+      }
+    },
+    {
+      "id": "oscGroupColumnConnected",
+      "name": "OSC: Group Column active (connected)",
+      "description": "True when the specified column is currently the active (connected) column in the group. Requires \"Listen for Feedback\".",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4640
+      }
+    },
+    {
+      "id": "arena_autopilot_info",
+      "name": "[Arena] Autopilot — preview / result",
+      "description": "Shows preview (press 1) or confirmed result (press 2) of arena_autopilot_set.",
+      "feedbackType": "advanced",
+      "options": [],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 4658
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 39 actions (src/index.js updateActions, one setActionDefinitions call with 39 plain properties) and 23 feedbacks (updateFeedbacks, one setFeedbackDefinitions call): 18 boolean and 5 advanced (preset_slot, arena_ping_status, arena_control_slot, oscProgressBar, arena_autopilot_info). Both calls are unconditional; no definition is generated per layer, clip or model, and all choices are literal lists. The entries were extracted with the TypeScript compiler API from the literals of src/index.js and checked against the source by hand on a sample (send_blob, send_multiple, arena_layer_opacity, arena_bpm_value, user_var, arena_layer_bypass, osc_feedback_noargs, oscProgressBar, preset_slot_clear).",
+    "Third-party community module (repository ElytaM/companion-module-resolume-arena-osc-unofficial, outside the bitfocus organization); not verified whether it is listed in the Companion module store. Unofficial: it controls Resolume Arena only over OSC (not the REST/WebSocket API, except optional REST thumbnail requests to the Arena web server, src/thumbnail-client.js, default port 8080).",
+    "Protocol and config (src/index.js getConfigFields, src/utils.js setupOSC): OSC over UDP (default), TCP or raw TCP to the Arena host (targetPort default \"7000\"); optional feedback listening (feedbackPort default \"7001\", UDP only); optional second machine (Arena 2, UDP, ports 7000/7002/8080 by default), up to five OSC relays that forward incoming UDP messages, remote control via an OSC path prefix (default /companion), BPM range (default 20-500 or \"actual BPM\" mode) and a Quick Control Panel slot count (default 4, 2-8). Variables and presets are not catalogued (src/index.js setVariableDefinitions, setPresetDefinitions).",
+    "Layer, clip, column and group numbers of the [Arena] actions are text inputs with Regex.NUMBER (/^\\d+$/) and useVariables, so values are strings; the callbacks parseInt them. Float fields use Regex.SIGNED_FLOAT, integer fields Regex.SIGNED_NUMBER (resolved from @companion-module/base 2.1.2, dist/module-api/enums.js). Several [Arena] fields are number fields (autopilot, loop, nudge and Control Panel actions).",
+    "Colorpicker defaults are computed in the source with this._rgb(r, g, b) = (r << 16) | (g << 8) | b and are recorded as the resulting integers (for example 20680 = rgb(0, 80, 200)); the colour fields of oscProgressBar also set returnType: \"number\".",
+    "Generic send_* actions and all [Arena] actions use _sendOSC(path, args) with the default machine 1; only preset slots carry a machine number (src/index.js _triggerSlot), so Arena 2 is reached through slots, not through these actions.",
+    "The dropdown choice ids of the comparison options are lowercase words (equal, greaterthan, lessthan, greaterthanequal, lessthanequal, notequal); the three non-numeric OSC feedbacks offer only equal and notequal.",
+    "Several actions are stateful, not plain OSC sends: arena_autopilot_set needs two presses (preview, then send within 8 s), arena_audio_volume_nudge/arena_speed_nudge/arena_master_opacity_nudge/arena_float_nudge scale the step with press speed (min_step/max_step), arena_loop_start/arena_loop_fin start and stop a watcher, and the preset_slot_* and arena_control_* actions edit the module state (slots are stored by the module, src/index.js _savePresetSlots).",
+    "arena_install_resolume_shortcuts writes a file (default ARENA-OSC.xml, default folder %APPDATA%\\Resolume Arena when the folder option is blank) on the machine that runs Companion.",
+    "The static-text fields inside action and feedback options (id \"w\") and the \"simple\" button field of preset_slot_clear are recorded with type other and a rawType; they hold no value.",
+    "No test against a running Arena or Companion; the module runs on node22 with @companion-module/base ^2.1.2, so option values may be expressions."
+  ]
+}

@@ -1,0 +1,584 @@
+{
+  "moduleId": "bmd-multiview4",
+  "name": "Blackmagic Design MultiView 4",
+  "repo": "bitfocus/companion-module-bmd-multiview4",
+  "version": "2.0.0",
+  "baseVersion": "~1.13.5",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "08b6bab",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "mode",
+      "name": "Display Mode",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Display Mode",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "SOLO"
+            },
+            {
+              "id": "false",
+              "label": "2x2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 22
+      }
+    },
+    {
+      "id": "audio",
+      "name": "Audio from Input",
+      "options": [
+        {
+          "id": "inp",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0
+            },
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            }
+          ],
+          "choicesNote": "Ids 0-3 (numbers, one per input; model.inputCount = 4 for the only defined model MODEL_MULTIVIEW4, src/model.ts:36-39). Labels are the input labels read from the device, falling back to 'Input N' (src/state.ts:25-27); the action/feedback definitions are re-registered by #initThings with the current labels (src/main.ts:89, called again at line 263)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 37
+      }
+    },
+    {
+      "id": "solo",
+      "name": "Solo from Input",
+      "options": [
+        {
+          "id": "inp",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0
+            },
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            }
+          ],
+          "choicesNote": "Ids 0-3 (numbers, one per input; model.inputCount = 4 for the only defined model MODEL_MULTIVIEW4, src/model.ts:36-39). Labels are the input labels read from the device, falling back to 'Input N' (src/state.ts:25-27); the action/feedback definitions are re-registered by #initThings with the current labels (src/main.ts:89, called again at line 263)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 55
+      }
+    },
+    {
+      "id": "label",
+      "name": "Input Label",
+      "options": [
+        {
+          "id": "inp",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0
+            },
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            }
+          ],
+          "choicesNote": "Ids 0-3 (numbers, one per input; model.inputCount = 4 for the only defined model MODEL_MULTIVIEW4, src/model.ts:36-39). Labels are the input labels read from the device, falling back to 'Input N' (src/state.ts:25-27); the action/feedback definitions are re-registered by #initThings with the current labels (src/main.ts:89, called again at line 263)."
+        },
+        {
+          "id": "label",
+          "type": "textinput",
+          "label": "Label",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 73
+      }
+    },
+    {
+      "id": "set_format",
+      "name": "Set output format",
+      "description": "The default '60p' is not one of the choices (src/actions.ts:104).",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "60p",
+          "choices": [
+            {
+              "id": "1080i50",
+              "label": "1080i50"
+            },
+            {
+              "id": "1080i5994",
+              "label": "1080i59.94"
+            },
+            {
+              "id": "2160p25",
+              "label": "2160p25"
+            },
+            {
+              "id": "2160p2997",
+              "label": "2160p29.97"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 97
+      }
+    },
+    {
+      "id": "set_border",
+      "name": "Display border",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 114
+      }
+    },
+    {
+      "id": "set_labels",
+      "name": "Display labels",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "set_meters",
+      "name": "Display audio meters",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 148
+      }
+    },
+    {
+      "id": "set_tally",
+      "name": "Display SDI tally",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 165
+      }
+    },
+    {
+      "id": "set_widescreen_sd",
+      "name": "Widescreen SD enable",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 182
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "solo_source",
+      "name": "Solo source",
+      "description": "If the input specified is the solo source, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": 0
+            },
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            }
+          ],
+          "choicesNote": "Ids 0-3 (numbers, one per input; model.inputCount = 4 for the only defined model MODEL_MULTIVIEW4, src/model.ts:36-39). Labels are the input labels read from the device, falling back to 'Input N' (src/state.ts:25-27); the action/feedback definitions are re-registered by #initThings with the current labels (src/main.ts:89, called again at line 263)."
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "audio_source",
+      "name": "Audio source",
+      "description": "If the input specified is the audio source, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": 0
+            },
+            {
+              "id": 1
+            },
+            {
+              "id": 2
+            },
+            {
+              "id": 3
+            }
+          ],
+          "choicesNote": "Ids 0-3 (numbers, one per input; model.inputCount = 4 for the only defined model MODEL_MULTIVIEW4, src/model.ts:36-39). Labels are the input labels read from the device, falling back to 'Input N' (src/state.ts:25-27); the action/feedback definitions are re-registered by #initThings with the current labels (src/main.ts:89, called again at line 263)."
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 37
+      }
+    },
+    {
+      "id": "output_format",
+      "name": "Output format",
+      "description": "If the output format specified is in use, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "0",
+          "choices": [
+            {
+              "id": "1080i50",
+              "label": "1080i50"
+            },
+            {
+              "id": "1080i5994",
+              "label": "1080i59.94"
+            },
+            {
+              "id": "2160p25",
+              "label": "2160p25"
+            },
+            {
+              "id": "2160p2997",
+              "label": "2160p29.97"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 59
+      }
+    },
+    {
+      "id": "solo_enabled",
+      "name": "Solo enable state",
+      "description": "If the solo enable state specified is active, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "0",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 81
+      }
+    },
+    {
+      "id": "widescreen_sd",
+      "name": "Widescreen SD enable state",
+      "description": "If the widescreen SD enable state specified is active, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "0",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "display_border",
+      "name": "Display border state",
+      "description": "If the display border state specified is active, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "0",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 125
+      }
+    },
+    {
+      "id": "display_labels",
+      "name": "Display labels state",
+      "description": "If the display labels state specified is active, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "0",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 147
+      }
+    },
+    {
+      "id": "display_meters",
+      "name": "Display audio meters state",
+      "description": "If the display audio meters state specified is active, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "0",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 169
+      }
+    },
+    {
+      "id": "display_tally",
+      "name": "Display SDI tally state",
+      "description": "If the display SDI tally state specified is active, give feedback",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Value",
+          "default": "0",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 191
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 10 actions (src/actions.ts) and 9 boolean feedbacks (src/feedback.ts). Both are returned by one function each and registered in src/main.ts:90-91; only the model MODEL_MULTIVIEW4 exists (src/model.ts).",
+    "Protocol: a text protocol over TCP (blocks in the style of the Videohub protocol), port 9990 unless the host is given as ip:port (src/main.ts:135). Config: Bonjour device picker or IP (src/config.ts). Commands are blocks such as `CONFIGURATION:\\nSolo enabled: true\\n\\n` and `VIDEO OUTPUT ROUTING:\\n<output> <input>\\n\\n`.",
+    "audio and solo route the chosen input to fixed outputs of the model (audio = output 5, solo = output 4, src/model.ts:37-39).",
+    "Source quirks kept: every feedback dropdown for true/false and output format defaults to the string '0', which is not one of its choice ids ('true'/'false', or the format ids); only the input feedbacks' default '0' string differs from the numeric input ids 0-3. The set_format action default is '60p', which is also not among the choices (1080i50, 1080i5994, 2160p25, 2160p2997).",
+    "output_format compares with `==` against state.configuration.outputFormat; the true/false feedbacks compare against `option === 'true'` (src/feedback.ts).",
+    "Default style of all feedbacks: black text (0x000000) on yellow (0xffff00).",
+    "Built on @companion-module/base ~1.13.5: options do not support expressions. Variables and presets are not catalogued."
+  ]
+}

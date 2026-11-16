@@ -1,0 +1,192 @@
+{
+  "moduleId": "crestron-digitalmatrix",
+  "name": "Crestron DigitalMedia Switcher",
+  "repo": "bitfocus/companion-module-crestron-digitalmatrix",
+  "version": "2.1.4",
+  "baseVersion": "~1.11.2",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "e1d723e",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "route",
+      "name": "Route source to destination",
+      "options": [
+        {
+          "id": "id_type",
+          "type": "dropdown",
+          "label": "Route type",
+          "default": "SETAVROUTE",
+          "choices": [
+            {
+              "id": "SETAVROUTE",
+              "label": "Audio & Video"
+            },
+            {
+              "id": "SETAVUROUTE",
+              "label": "Audio, Video & USB"
+            },
+            {
+              "id": "SETVIDEOROUTE",
+              "label": "Video"
+            },
+            {
+              "id": "SETAUDIOROUTE",
+              "label": "Audio"
+            },
+            {
+              "id": "SETUSBROUTE",
+              "label": "USB"
+            }
+          ]
+        },
+        {
+          "id": "id_dst_var_cbx",
+          "type": "checkbox",
+          "label": "Custom output or variable",
+          "default": false
+        },
+        {
+          "id": "id_dst_var",
+          "type": "textinput",
+          "label": "Output or variable",
+          "useVariables": true,
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "visibleWhen": "(options) => options.id_dst_var_cbx"
+        },
+        {
+          "id": "id_dst",
+          "type": "dropdown",
+          "label": "Output",
+          "choicesNote": "Runtime list: one entry per output card found in the \"dumpdmrouteinfo\" report, id = slot number (number), label = running index 1..n. Registered only after the first routing response has been parsed.",
+          "valueType": "number",
+          "min": 0,
+          "description": "Default in the source: id of the first output in the list. Hidden (and replaced by the variable field) when the matching \"Custom output or variable\" checkbox is set.",
+          "visibleWhen": "(options) => !options.id_dst_var_cbx"
+        },
+        {
+          "id": "id_src_var_cbx",
+          "type": "checkbox",
+          "label": "Custom input or variable",
+          "default": false
+        },
+        {
+          "id": "id_src_var",
+          "type": "textinput",
+          "label": "Input or variable",
+          "useVariables": true,
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "visibleWhen": "(options) => options.id_src_var_cbx"
+        },
+        {
+          "id": "id_src",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Runtime list: {id 0 (number), label \"Off\"} followed by one entry per input card slot found in the report, id = slot number (number), label = the same number. Registered only after the first routing response has been parsed.",
+          "valueType": "number",
+          "min": 0,
+          "description": "Default in the source: id of the first source in the list (0 = Off).",
+          "visibleWhen": "(options) => !options.id_src_var_cbx",
+          "useVariables": true
+        }
+      ],
+      "description": "Sends \"<route type> <input slot> <output slot>\" and re-reads the routing table after one second.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 3
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "output_routing",
+      "name": "Output Routing Status",
+      "description": "Returns true if a route is active",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "id_type",
+          "type": "dropdown",
+          "label": "Audio/Video/USB:",
+          "default": "Video",
+          "choices": [
+            {
+              "id": "Video",
+              "label": "Video"
+            },
+            {
+              "id": "Audio",
+              "label": "Audio"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            }
+          ]
+        },
+        {
+          "id": "output_var_cbx",
+          "type": "checkbox",
+          "label": "Custom output or variable",
+          "default": false
+        },
+        {
+          "id": "output_var",
+          "type": "textinput",
+          "label": "Output or variable",
+          "useVariables": true,
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "visibleWhen": "(options) => options.output_var_cbx"
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "choicesNote": "Runtime list: one entry per output card found in the \"dumpdmrouteinfo\" report, id = slot number (number), label = running index 1..n. Registered only after the first routing response has been parsed.",
+          "valueType": "number",
+          "min": 0,
+          "description": "Default in the source: id of the first output in the list. Hidden (and replaced by the variable field) when the matching \"Custom output or variable\" checkbox is set.",
+          "visibleWhen": "(options) => !options.output_var_cbx"
+        },
+        {
+          "id": "input_var_cbx",
+          "type": "checkbox",
+          "label": "Custom input or variable",
+          "default": false
+        },
+        {
+          "id": "input_var",
+          "type": "textinput",
+          "label": "Input or variable",
+          "useVariables": true,
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "visibleWhen": "(options) => options.input_var_cbx"
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Runtime list: {id 0 (number), label \"Off\"} followed by one entry per input card slot found in the report, id = slot number (number), label = the same number. Registered only after the first routing response has been parsed.",
+          "valueType": "number",
+          "min": 0,
+          "description": "Default in the source: id of the first source in the list (0 = Off).",
+          "visibleWhen": "(options) => !options.input_var_cbx"
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 5
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 1 action (route, actions.js) and 1 boolean feedback (output_routing, feedbacks.js). Both are registered only after the first routing response from the switcher has been parsed (index.js, firstRun block), so they do not exist while the module is disconnected.",
+    "Protocol: Telnet-style TCP to the Crestron DM console (TCPHelper, config \"Target Port\", default 23, Regex.PORT), optional authentication (username and password config fields), optional polling interval (0..10000 ms, step 100, 0 = disabled). Routing commands: SETAVROUTE, SETAVUROUTE, SETVIDEOROUTE, SETAUDIOROUTE, SETUSBROUTE with \"<input slot> <output slot>\"; routes are read back with \"dumpdmrouteinfo\".",
+    "Dropdown ids are slot numbers (numbers, not strings). The \"custom\" checkbox switches to a text field that accepts a number or a variable (regex \"/^(\\d+|\\$\\(.+\\))/\" as written, without end anchor); the value is resolved with parseVariablesInString and getSlotOrOff, which treats a typed number as the LABEL of a list entry (for outputs the running index 1..n, for inputs the slot number) and returns the slot id of that entry, or 0 (Off) when no label matches or the value is not a number.",
+    "The feedback id_type option declares two default keys in the source (first \"0\", then \"Video\"); in a JavaScript object literal the later one wins, so the effective default is \"Video\" and that is what the catalog records. Its callback compares the stored route value with === against the dropdown id (number), so a variable-resolved value follows getSlotOrOff.",
+    "The route action field id_src sets useVariables: true on a dropdown (ignored by Companion for dropdowns, recorded as written).",
+    "Presets (presets.js), variables (RouteOut<slot>Video / Audio / USB) and the upgrade script (upgrade.js) are not catalogued.",
+    "Built on @companion-module/base ~1.11.2: options do not support expressions."
+  ]
+}

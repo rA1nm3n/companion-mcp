@@ -1,0 +1,451 @@
+{
+  "moduleId": "figure53-go-button",
+  "name": "figure53-go-button",
+  "repo": "bitfocus/companion-module-figure53-go-button",
+  "version": "2.3.0",
+  "baseVersion": "^1.8.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "d926ee7",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "go",
+      "name": "GO",
+      "description": "Sends OSC /go",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 23
+      }
+    },
+    {
+      "id": "oops",
+      "name": "Oops",
+      "description": "Sends OSC /oops",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 30
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Stop",
+      "description": "Sends OSC /stop",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 37
+      }
+    },
+    {
+      "id": "panic",
+      "name": "Panic",
+      "description": "Sends OSC /panic",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 44
+      }
+    },
+    {
+      "id": "reset",
+      "name": "Reset",
+      "description": "Sends OSC /reset",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 51
+      }
+    },
+    {
+      "id": "next",
+      "name": "Next Cue",
+      "description": "Sends OSC /playhead/next",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 58
+      }
+    },
+    {
+      "id": "previous",
+      "name": "Previous Cue",
+      "description": "Sends OSC /playhead/previous",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 65
+      }
+    },
+    {
+      "id": "resume",
+      "name": "Resume",
+      "description": "Sends OSC /resume",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 72
+      }
+    },
+    {
+      "id": "pause",
+      "name": "Pause",
+      "description": "Sends OSC /pause",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 79
+      }
+    },
+    {
+      "id": "toggleFullScreen",
+      "name": "Full Screen mode",
+      "description": "Sends OSC /toggleFullScreen, then (TCP only) the probe /fullScreen",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 86
+      }
+    },
+    {
+      "id": "toggleMasterVolumeVisible",
+      "name": "Master Volume visible",
+      "description": "Sends OSC /toggleMasterVolumeVisible, then (TCP only) the probe /mastervolumeVisible",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 93
+      }
+    },
+    {
+      "id": "volumeStepUp",
+      "name": "Volume Step Up",
+      "description": "Sends OSC /volumeStepUp",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 100
+      }
+    },
+    {
+      "id": "volumeStepDown",
+      "name": "Volume Step Down",
+      "description": "Sends OSC /volumeStepDown",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 107
+      }
+    },
+    {
+      "id": "toggleDim",
+      "name": "Master Dim",
+      "description": "Sends OSC /toggleDim, then (TCP only) the probe /dim",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 114
+      }
+    },
+    {
+      "id": "toggleMute",
+      "name": "Master Mute",
+      "description": "Sends OSC /toggleMute, then (TCP only) the probe /mute",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 121
+      }
+    },
+    {
+      "id": "timer_start",
+      "name": "Timer Start",
+      "description": "Sends OSC /timer/start",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 128
+      }
+    },
+    {
+      "id": "timer_stop",
+      "name": "Timer Stop",
+      "description": "Sends OSC /timer/stop",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 135
+      }
+    },
+    {
+      "id": "timer_reset",
+      "name": "Timer Reset",
+      "description": "Sends OSC /timer/reset",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 142
+      }
+    },
+    {
+      "id": "timer_toggle",
+      "name": "Timer Start/Stop",
+      "description": "Sends OSC /timer/toggleRunning",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 149
+      }
+    },
+    {
+      "id": "start",
+      "name": "Start (cue)",
+      "description": "Sends OSC /cue/<cue>/start",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 156
+      }
+    },
+    {
+      "id": "goto",
+      "name": "Go To (cue)",
+      "description": "Sends OSC /playhead/<cue>",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 170
+      }
+    },
+    {
+      "id": "hitGo",
+      "name": "Hit Go",
+      "description": "Sends OSC /hit/<hitNum>/start",
+      "options": [
+        {
+          "id": "hitNum",
+          "type": "textinput",
+          "label": "Hit Number",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 184
+      }
+    },
+    {
+      "id": "hitStop",
+      "name": "Hit Stop",
+      "description": "Sends OSC /hit/<hitNum>/stop",
+      "options": [
+        {
+          "id": "hitNum",
+          "type": "textinput",
+          "label": "Hit Number",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 198
+      }
+    },
+    {
+      "id": "hitPause",
+      "name": "Hit Pause",
+      "description": "Sends OSC /hit/<hitNum>/pause",
+      "options": [
+        {
+          "id": "hitNum",
+          "type": "textinput",
+          "label": "Hit Number",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 212
+      }
+    },
+    {
+      "id": "volume",
+      "name": "Master Volume Set",
+      "description": "Sends OSC /volume with one float argument (parseFloat of the text)",
+      "options": [
+        {
+          "id": "volume",
+          "type": "textinput",
+          "label": "Volume in dB",
+          "default": "0.0"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 227
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "fs_bg",
+      "name": "Full Screen?",
+      "description": "Indicate on button when in Full Screen mode",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 6
+      },
+      "availability": "Registered only when the connection uses TCP (gobutton.js init_feedbacks)."
+    },
+    {
+      "id": "mf_bg",
+      "name": "Master Fader Visible?",
+      "description": "Indicate on button when Master Fader is Visible",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 28
+      },
+      "availability": "Registered only when the connection uses TCP (gobutton.js init_feedbacks)."
+    },
+    {
+      "id": "dim_bg",
+      "name": "Master Fader Dimmed?",
+      "description": "Indicate on button when Master Fader is Dimmed",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 49
+      },
+      "availability": "Registered only when the connection uses TCP (gobutton.js init_feedbacks)."
+    },
+    {
+      "id": "mute_bg",
+      "name": "Muted?",
+      "description": "Indicate when Muted",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 70
+      },
+      "availability": "Registered only when the connection uses TCP (gobutton.js init_feedbacks)."
+    },
+    {
+      "id": "q_bg",
+      "name": "Use Cue Background",
+      "description": "Use the Go Button color of this cue number as background",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue Number",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 91
+      },
+      "availability": "Registered only when the connection uses TCP (gobutton.js init_feedbacks)."
+    }
+  ],
+  "notes": [
+    "Complete list: 25 actions (actions.js compileActionDefinitions, registered by init_actions) and 5 feedbacks (feedbacks.js compileFeedbackDefinitions, registered only when useTCP is true, else setFeedbackDefinitions({})).",
+    "Protocol: OSC to Figure 53 Go Button, UDP by default, TCP when the config checkbox 'Use TCP?' is set (needed for feedbacks and variables). Config fields (config.js): Target IP (regex Regex.IP), Port (textinput, regex Regex.PORT, default '53100'), Use TCP? (default false), Use Tenths (default false, requires TCP), OSC Pascode.",
+    "The descriptions of the actions name the OSC address the callback sends (actions.js sendCommand). The toggle actions additionally send a probe message when TCP is used. With UDP and TCP not ready the callback only logs.",
+    "Cue and hit numbers are free text inputs without regex or useVariables; they are spliced into the OSC address unmodified. Feedback q_bg normalises the cue number with cleanCueNum (gobutton.js line 41: non-word characters other than '.' become '_').",
+    "Feedback Status dropdowns use the numeric ids 1 (On) and 0 (Off) of choices.js ON_OFF (choices.js line 1), default 1. Callbacks use !!options.which: fs_bg compares self.fullScreen == !!which, mf_bg, dim_bg and mute_bg return the state && !!which, so choosing Off makes mf_bg, dim_bg and mute_bg never true (source behaviour).",
+    "Variables and presets are not catalogued. The module sets instanceOptions.disableVariableValidation.",
+    "The module is on @companion-module/base ^1.8.0 (1.x), so option values are not expressions. Not tested against Go Button or Companion."
+  ]
+}

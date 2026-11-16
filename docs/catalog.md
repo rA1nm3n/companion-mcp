@@ -16,7 +16,7 @@ src/catalog/
   types.ts          zod schemas and TypeScript types
   index.ts          lookup and validation API
   data/
-    _index.json     all known modules (kind full or index-only), devices without a module
+    _index.json     all known modules (kind full; index-only is reserved for modules without data), devices without a module
     <moduleId>.json one file per catalogued module
 test/catalog/       schema, consistency, lookup and validation tests
 ```
@@ -27,17 +27,17 @@ zod lazily, on first access.
 
 ## Public API (`src/catalog/index.ts`)
 
-| Function                                           | Purpose                                                                                 |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `listModules()`                                    | All modules of the index (about 125), with repo, version, base library, kind            |
-| `searchModules(query)`                             | Case-insensitive AND search over id, repo, manufacturer, products, keywords             |
-| `getModule(id)`                                    | Full data of a catalogued module, `undefined` for index-only or unknown modules         |
-| `findAction(moduleId, actionId)`                   | One action definition                                                                   |
-| `findFeedback(moduleId, feedbackId)`               | One feedback definition                                                                 |
-| `validateActionOptions(moduleId, actionId, opts)`  | `Issue[]` for options in the Companion 5 format `{ optionId: { isExpression, value } }` |
-| `validateFeedbackOptions(moduleId, feedbackId, o)` | Same for feedbacks                                                                      |
-| `supportsExpressions(module, entity?)`             | Whether option values may be expressions (see below)                                    |
-| `listNoModule()`, `listUnusable()`                 | Devices without a module (with generic alternatives), repositories that cannot be used  |
+| Function                                           | Purpose                                                                                                                                       |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `listModules()`                                    | All modules of the index (124), with repo, version, base library, kind                                                                        |
+| `searchModules(query)`                             | Case-insensitive AND search over id, repo, manufacturer, products, keywords                                                                   |
+| `getModule(id)`                                    | Full data of a catalogued module, `undefined` for unknown modules (and for modules that are only listed in the index, if any are added later) |
+| `findAction(moduleId, actionId)`                   | One action definition                                                                                                                         |
+| `findFeedback(moduleId, feedbackId)`               | One feedback definition                                                                                                                       |
+| `validateActionOptions(moduleId, actionId, opts)`  | `Issue[]` for options in the Companion 5 format `{ optionId: { isExpression, value } }`                                                       |
+| `validateFeedbackOptions(moduleId, feedbackId, o)` | Same for feedbacks                                                                                                                            |
+| `supportsExpressions(module, entity?)`             | Whether option values may be expressions (see below)                                                                                          |
+| `listNoModule()`, `listUnusable()`                 | Devices without a module (with generic alternatives), repositories that cannot be used                                                        |
 
 An `Issue` is `{ path, code, message }`. Codes: `unknown-module`, `unknown-action`,
 `unknown-feedback`, `unknown-option`, `missing-option`, `invalid-option-shape`, `invalid-type`,
