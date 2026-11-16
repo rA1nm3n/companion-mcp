@@ -1,0 +1,484 @@
+{
+  "moduleId": "dtvideolabs-playbackproplus",
+  "name": "DT Videolabs PlaybackPro Plus",
+  "repo": "bitfocus/companion-module-dtvideolabs-playbackproplus",
+  "version": "2.1.0",
+  "baseVersion": "~1.4.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "0de1984",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 45 actions (actions.js, returned by getActionDefinitions) and no feedbacks (the module never calls setFeedbackDefinitions). Two further actions (selectClipForPreview, takeClipById) are commented out in the source (actions.js:327-353, \"Need clarification on the ID expected here\") and are not catalogued.",
+    "Protocol: plain text commands of two characters (plus a clip number for the two clip actions) sent without terminator over TCP port 4647 (default) or UDP port 7000, chosen by the config dropdown prot (ids tcp and udp, default tcp); host has Regex.IP and no default (config.js, main.js:57-110). Nothing is read back, so there is no state, variables or feedback.",
+    "Each action description lists the command text it sends (self.send). Several actions send the same command: play and resumePgm both send PL.",
+    "The two clip actions define their number option without default, min, max or step (the source only sets type, label and id), and use different label capitalisation (loadClip \"clip ID\", loadAndTakeClip \"Clip ID\"). The callbacks apply parseInt(value, 10) and send it directly after GO or GT. Valid clip ids are not defined in the module.",
+    "The actions marked \"has no effect??\" in the source (pgmGotoIn, pgmGotoOut, pvwGotoIn, pvwGotoOut) are recorded as written; whether the device ignores these commands was not checked.",
+    "Built on @companion-module/base ~1.4.0: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "take",
+      "name": "Take clip to Program",
+      "description": "Sends the command text \"TA\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 3
+      }
+    },
+    {
+      "id": "play",
+      "name": "Play from current location (Program)",
+      "description": "Sends the command text \"PL\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 10
+      }
+    },
+    {
+      "id": "pause",
+      "name": "Pause/Resume (Program)",
+      "description": "Sends the command text \"OP\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 17
+      }
+    },
+    {
+      "id": "pausePgm",
+      "name": "Pause playback (Program)",
+      "description": "Sends the command text \"PA\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 24
+      }
+    },
+    {
+      "id": "resumePgm",
+      "name": "Resume playback from current location (Program)",
+      "description": "Sends the command text \"PL\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 31
+      }
+    },
+    {
+      "id": "kill",
+      "name": "Stop Program playback (Kill)",
+      "description": "Sends the command text \"KL\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 38
+      }
+    },
+    {
+      "id": "link",
+      "name": "Link Temp (Toggle)",
+      "description": "Sends the command text \"IT\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 45
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze Temp (Toggle)",
+      "description": "Sends the command text \"FT\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 52
+      }
+    },
+    {
+      "id": "loop",
+      "name": "Loop Temp (Toggle)",
+      "description": "Sends the command text \"LT\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 59
+      }
+    },
+    {
+      "id": "loopTempEnable",
+      "name": "Loop Temp (Enable)",
+      "description": "Sends the command text \"SL\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 66
+      }
+    },
+    {
+      "id": "loopTempDisable",
+      "name": "Loop Temp (Disable)",
+      "description": "Sends the command text \"EL\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 73
+      }
+    },
+    {
+      "id": "previous",
+      "name": "Previous Clip (Preview)",
+      "description": "Sends the command text \"PR\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 80
+      }
+    },
+    {
+      "id": "next",
+      "name": "Next Clip (Preview)",
+      "description": "Sends the command text \"NX\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 87
+      }
+    },
+    {
+      "id": "last10",
+      "name": "Goto last 10 seconds",
+      "description": "Sends the command text \"10\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 94
+      }
+    },
+    {
+      "id": "last20",
+      "name": "Goto last 20 seconds",
+      "description": "Sends the command text \"20\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 101
+      }
+    },
+    {
+      "id": "last30",
+      "name": "Goto last 30 seconds",
+      "description": "Sends the command text \"30\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 108
+      }
+    },
+    {
+      "id": "pgmFR",
+      "name": "Fast Reverse (Program)",
+      "description": "Sends the command text \"OR\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 115
+      }
+    },
+    {
+      "id": "pgmFF",
+      "name": "Fast Forward (Program)",
+      "description": "Sends the command text \"OF\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 122
+      }
+    },
+    {
+      "id": "pgmStepBack",
+      "name": "Step Backward (Program)",
+      "description": "Sends the command text \"O-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 129
+      }
+    },
+    {
+      "id": "pgmStepFwd",
+      "name": "Step Forward (Program)",
+      "description": "Sends the command text \"O+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 136
+      }
+    },
+    {
+      "id": "pgmGotoIn",
+      "name": "Goto In (Program)",
+      "description": "Sends the command text \"OI\". Source comment: \"has no effect??\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 143
+      }
+    },
+    {
+      "id": "pgmGotoOut",
+      "name": "Goto Out (Program)",
+      "description": "Sends the command text \"OO\". Source comment: \"has no effect??\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 151
+      }
+    },
+    {
+      "id": "markIn",
+      "name": "Mark In (Preview)",
+      "description": "Sends the command text \"ES\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 159
+      }
+    },
+    {
+      "id": "markOut",
+      "name": "Mark Out (Preview)",
+      "description": "Sends the command text \"EE\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 166
+      }
+    },
+    {
+      "id": "pvwGotoIn",
+      "name": "Goto In (Preview)",
+      "description": "Sends the command text \"EI\". Source comment: \"has no effect??\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 173
+      }
+    },
+    {
+      "id": "pvwGotoOut",
+      "name": "Goto Out (Preview)",
+      "description": "Sends the command text \"EO\". Source comment: \"has no effect??\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 181
+      }
+    },
+    {
+      "id": "pvwPause",
+      "name": "Play/Pause (Preview)",
+      "description": "Sends the command text \"EP\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 189
+      }
+    },
+    {
+      "id": "pvwFR",
+      "name": "Fast Reverse (Preview)",
+      "description": "Sends the command text \"ER\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 196
+      }
+    },
+    {
+      "id": "pvwFF",
+      "name": "Fast Forward (Preview)",
+      "description": "Sends the command text \"EF\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 203
+      }
+    },
+    {
+      "id": "pvwStepRev",
+      "name": "Step Backward (Preview)",
+      "description": "Sends the command text \"E-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 210
+      }
+    },
+    {
+      "id": "pvwStepFwd",
+      "name": "Step Forward (Preview)",
+      "description": "Sends the command text \"E+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 217
+      }
+    },
+    {
+      "id": "loadClip",
+      "name": "Load clip (id) into Preview",
+      "description": "Sends the command text \"GO\" followed by the clip number (parseInt of the option, no separator).",
+      "options": [
+        {
+          "id": "clip",
+          "type": "number",
+          "label": "clip ID"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 224
+      }
+    },
+    {
+      "id": "loadAndTakeClip",
+      "name": "Load clip (id) and Take to Program",
+      "description": "Sends the command text \"GT\" followed by the clip number (parseInt of the option, no separator).",
+      "options": [
+        {
+          "id": "clip",
+          "type": "number",
+          "label": "Clip ID"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 237
+      }
+    },
+    {
+      "id": "clearPreviewClip",
+      "name": "Clear Preview clip",
+      "description": "Sends the command text \"CL\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 250
+      }
+    },
+    {
+      "id": "decreaseFadeOut",
+      "name": "Decrease End All fade out duration",
+      "description": "Sends the command text \"K-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 257
+      }
+    },
+    {
+      "id": "increaseFadeOut",
+      "name": "Increase End All fade out duration",
+      "description": "Sends the command text \"K+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 264
+      }
+    },
+    {
+      "id": "decreaseLinkTempDuration",
+      "name": "Decrease Link Temp duration",
+      "description": "Sends the command text \"I-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 271
+      }
+    },
+    {
+      "id": "increaseLinkTempDuration",
+      "name": "Increase Link Temp duration",
+      "description": "Sends the command text \"I+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 278
+      }
+    },
+    {
+      "id": "decreaseLoopTempDuration",
+      "name": "Decrease Loop Temp duration",
+      "description": "Sends the command text \"L-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 285
+      }
+    },
+    {
+      "id": "increaseLoopTempDuration",
+      "name": "Increase Loop Temp duration",
+      "description": "Sends the command text \"L+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 292
+      }
+    },
+    {
+      "id": "decreaseFadeOnTake",
+      "name": "Decrease Fade On Take duration",
+      "description": "Sends the command text \"F-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 299
+      }
+    },
+    {
+      "id": "increaseFadeOnTake",
+      "name": "Increase Fade On Take duration",
+      "description": "Sends the command text \"F+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 306
+      }
+    },
+    {
+      "id": "decreaseTakeDuration",
+      "name": "Decrease Take duration",
+      "description": "Sends the command text \"T-\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 313
+      }
+    },
+    {
+      "id": "increaseTakeDuration",
+      "name": "Increase Take duration",
+      "description": "Sends the command text \"T+\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 320
+      }
+    },
+    {
+      "id": "saveShow",
+      "name": "Save Show file",
+      "description": "Sends the command text \"SA\".",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 354
+      }
+    }
+  ],
+  "feedbacks": []
+}
