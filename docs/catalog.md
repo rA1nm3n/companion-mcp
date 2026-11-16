@@ -154,6 +154,6 @@ Files are formatted with Prettier (`npx prettier --write src/catalog`).
 `_index.json` lists every module found in the surveyed repositories (module id from the manifest,
 repository, version, base library range, date of the last commit, manufacturer, products,
 keywords), a `noModule` section with devices that have no module and the generic modules that can
-replace them (`generic-osc`, `generic-tcp-udp`, `generic-http`, `generic-pjlink`), and `unusable`
+replace them (`generic-osc`, `generic-tcp-udp`, `generic-http`, `generic-pjlink`; the list stays empty, with an explaining note, when no alternative was verified), and `unusable`
 repositories (for example modules whose manifest id is still the template placeholder). Legacy
 repositories without a manifest are listed with the directory name as id and a note.
