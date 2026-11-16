@@ -1,0 +1,1221 @@
+{
+  "moduleId": "hdkatov-visca",
+  "name": "hdkatov:VISCA",
+  "repo": "bitfocus/companion-module-hdkatov-visca",
+  "version": "1.0.2",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "04ea260",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "zoom_in_action",
+      "name": "Zoom In",
+      "description": "Adjust zoom in level 0 (low) - 07 (high)",
+      "options": [
+        {
+          "id": "zoom_in",
+          "type": "dropdown",
+          "label": "Select Level",
+          "default": "5",
+          "choices": [
+            {
+              "id": "0",
+              "label": "0 (low)"
+            },
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            },
+            {
+              "id": "5",
+              "label": "5"
+            },
+            {
+              "id": "6",
+              "label": "6"
+            },
+            {
+              "id": "7",
+              "label": "7 (high)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 3
+      }
+    },
+    {
+      "id": "zoom_out_action",
+      "name": "Zoom Out",
+      "description": "Adjust zoom out level 0 (low) - 07 (high)",
+      "options": [
+        {
+          "id": "zoom_out",
+          "type": "dropdown",
+          "label": "Select Level",
+          "default": "5",
+          "choices": [
+            {
+              "id": "0",
+              "label": "0 (low)"
+            },
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            },
+            {
+              "id": "5",
+              "label": "5"
+            },
+            {
+              "id": "6",
+              "label": "6"
+            },
+            {
+              "id": "7",
+              "label": "7 (high)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 22
+      }
+    },
+    {
+      "id": "zoom_stop_action",
+      "name": "Zoom Stop",
+      "description": "Stop zoom action",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 41
+      }
+    },
+    {
+      "id": "focus_action",
+      "name": "Focus",
+      "description": "Stop, Far, Far (var), Near, Near (var), Auto, Manual, One Push",
+      "options": [
+        {
+          "id": "focus",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "3802",
+          "choices": [
+            {
+              "id": "0800",
+              "label": "Stop"
+            },
+            {
+              "id": "0802",
+              "label": "Far"
+            },
+            {
+              "id": "082",
+              "label": "Far (var)"
+            },
+            {
+              "id": "0803",
+              "label": "Near"
+            },
+            {
+              "id": "083",
+              "label": "Near (var)"
+            },
+            {
+              "id": "3802",
+              "label": "Auto"
+            },
+            {
+              "id": "3803",
+              "label": "Manual"
+            },
+            {
+              "id": "1801",
+              "label": "One Push"
+            }
+          ]
+        },
+        {
+          "id": "far",
+          "type": "number",
+          "label": "Far: 0 (low) - 15 (high)",
+          "default": 3,
+          "min": 0,
+          "max": 15,
+          "visibleWhen": "options.focus.toString() === '082' (source isVisible)"
+        },
+        {
+          "id": "near",
+          "type": "number",
+          "label": "Near: 0 (low) - 15 (high)",
+          "default": 3,
+          "min": 0,
+          "max": 15,
+          "visibleWhen": "options.focus.toString() === '083' (source isVisible)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 50
+      }
+    },
+    {
+      "id": "wb_action",
+      "name": "White Balance",
+      "description": "Auto, ATW, Indoor, Outdoor, One Push WB, Manual, One Push WB Trigger",
+      "options": [
+        {
+          "id": "white_balance",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "3500",
+          "choices": [
+            {
+              "id": "3500",
+              "label": "Auto"
+            },
+            {
+              "id": "3504",
+              "label": "ATW"
+            },
+            {
+              "id": "3501",
+              "label": "Indoor"
+            },
+            {
+              "id": "3502",
+              "label": "Outdoor"
+            },
+            {
+              "id": "3503",
+              "label": "One Push WB mode"
+            },
+            {
+              "id": "3505",
+              "label": "Manual"
+            },
+            {
+              "id": "1005",
+              "label": "One Push WB trigger"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 98
+      }
+    },
+    {
+      "id": "red_gain_action",
+      "name": "Red Gain",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "red_gain",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "0302",
+          "choices": [
+            {
+              "id": "0302",
+              "label": "Up"
+            },
+            {
+              "id": "0303",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 118
+      }
+    },
+    {
+      "id": "blue_gain_action",
+      "name": "Blue Gain",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "blue_gain",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "0402",
+          "choices": [
+            {
+              "id": "0402",
+              "label": "Up"
+            },
+            {
+              "id": "0403",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 136
+      }
+    },
+    {
+      "id": "auto_exposure_action",
+      "name": "Auto Exposure",
+      "description": "Full Auto, Manual, Shutter Priority, Iris Priority, Bright",
+      "options": [
+        {
+          "id": "auto_exposure",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "00",
+          "choices": [
+            {
+              "id": "00",
+              "label": "Full Auto"
+            },
+            {
+              "id": "03",
+              "label": "Manual"
+            },
+            {
+              "id": "0A",
+              "label": "Shutter Priority"
+            },
+            {
+              "id": "0B",
+              "label": "Iris Priority"
+            },
+            {
+              "id": "0D",
+              "label": "Bright"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 154
+      }
+    },
+    {
+      "id": "shutter_action",
+      "name": "Shutter",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "shutter",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "Up"
+            },
+            {
+              "id": "03",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 173
+      }
+    },
+    {
+      "id": "iris_action",
+      "name": "Iris",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "iris",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "Up"
+            },
+            {
+              "id": "03",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 191
+      }
+    },
+    {
+      "id": "gain_action",
+      "name": "Gain",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "gain",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "Up"
+            },
+            {
+              "id": "03",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 209
+      }
+    },
+    {
+      "id": "bright_action",
+      "name": "Bright",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "bright",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "Up"
+            },
+            {
+              "id": "03",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 227
+      }
+    },
+    {
+      "id": "exposure_comp_action",
+      "name": "Exposure Compensation",
+      "description": "Up (+), Down (-)",
+      "options": [
+        {
+          "id": "exposure_comp",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "Up"
+            },
+            {
+              "id": "03",
+              "label": "Down"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 245
+      }
+    },
+    {
+      "id": "backlight_action",
+      "name": "Backlight",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "backlight",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 263
+      }
+    },
+    {
+      "id": "preset_action",
+      "name": "Camera Preset",
+      "description": "Range 0 - 255, Recall (Load), Set (Save), Reset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "Recall"
+            },
+            {
+              "id": "01",
+              "label": "Set"
+            },
+            {
+              "id": "00",
+              "label": "Reset"
+            }
+          ]
+        },
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Preset Number 0 - 255",
+          "default": 0,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 281
+      }
+    },
+    {
+      "id": "profile_action",
+      "name": "Profile",
+      "description": "Range 1 - 5, Read , Save",
+      "options": [
+        {
+          "id": "profile",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "01",
+          "choices": [
+            {
+              "id": "01",
+              "label": "Read"
+            },
+            {
+              "id": "02",
+              "label": "Save"
+            }
+          ]
+        },
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Profile Number 1 - 5",
+          "default": 1,
+          "min": 1,
+          "max": 5
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 307
+      }
+    },
+    {
+      "id": "menu_action",
+      "name": "Menu On/Off",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 333
+      }
+    },
+    {
+      "id": "osd_action",
+      "name": "On Screen Display",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 341
+      }
+    },
+    {
+      "id": "pan_tilt_action",
+      "name": "Pan Tilt",
+      "description": "Up, Down, Left, Right, Up Left, Up Right, Down Left, Down Right, Stop, Home, Reset, and Pan/Tilt speed 1 (low) - 24 (high)",
+      "options": [
+        {
+          "id": "pan_tilt",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "0301",
+          "choices": [
+            {
+              "id": "0301",
+              "label": "Up"
+            },
+            {
+              "id": "0302",
+              "label": "Down"
+            },
+            {
+              "id": "0103",
+              "label": "Left"
+            },
+            {
+              "id": "0203",
+              "label": "Right"
+            },
+            {
+              "id": "0101",
+              "label": "Up Left"
+            },
+            {
+              "id": "0201",
+              "label": "Up Right"
+            },
+            {
+              "id": "0102",
+              "label": "Down Left"
+            },
+            {
+              "id": "0202",
+              "label": "Down Right"
+            },
+            {
+              "id": "0303",
+              "label": "Stop"
+            },
+            {
+              "id": "04",
+              "label": "Home"
+            },
+            {
+              "id": "05",
+              "label": "Reset"
+            }
+          ]
+        },
+        {
+          "id": "pan_speed",
+          "type": "number",
+          "label": "Pan Speed: 1 (low) - 24 (high)",
+          "default": 5,
+          "min": 1,
+          "max": 24,
+          "visibleWhen": "hidden when options.pan_tilt is '04' or '05' (source isVisible: '04' === pt | '05' === pt returns false)"
+        },
+        {
+          "id": "tilt_speed",
+          "type": "number",
+          "label": "Tilt Speed: 1 (low) - 24 (high)",
+          "default": 5,
+          "min": 1,
+          "max": 24,
+          "visibleWhen": "hidden when options.pan_tilt is '04' or '05' (source isVisible: '04' === pt | '05' === pt returns false)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 349
+      }
+    },
+    {
+      "id": "wdr_action",
+      "name": "Wide Dynamic Range",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "wdr",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 401
+      }
+    },
+    {
+      "id": "menu_enter_action",
+      "name": "Menu Enter",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 419
+      }
+    },
+    {
+      "id": "tally_action",
+      "name": "Tally Lamp",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "tally_lamp",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 427
+      }
+    },
+    {
+      "id": "freeze_action",
+      "name": "Freeze",
+      "description": "On, Off, Preset On, Preset Off",
+      "options": [
+        {
+          "id": "freeze",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            },
+            {
+              "id": "22",
+              "label": "Preset On"
+            },
+            {
+              "id": "23",
+              "label": "Preset Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 445
+      }
+    },
+    {
+      "id": "auto_tracking_action",
+      "name": "Auto Tracking",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "auto_tracking",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 464
+      }
+    },
+    {
+      "id": "auto_tracking_v1_action",
+      "name": "Auto Tracking v1",
+      "description": "On, Off; An alternate command for Auto Tracking",
+      "options": [
+        {
+          "id": "auto_tracking_v1",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 482
+      }
+    },
+    {
+      "id": "frame_tracking_action",
+      "name": "Frame Tracking",
+      "description": "Framing Start, Auto Framing, Manual Framing",
+      "options": [
+        {
+          "id": "frame_tracking",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "00",
+              "label": "Framing Start"
+            },
+            {
+              "id": "02",
+              "label": "Auto Framing Mode"
+            },
+            {
+              "id": "03",
+              "label": "Manual Framing Mode"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 500
+      }
+    },
+    {
+      "id": "audio_tracking_action",
+      "name": "Audio Tracking",
+      "description": "Audio Tracking, Audio Frame, Audio Preset Tracking",
+      "options": [
+        {
+          "id": "audio_tracking",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "04",
+          "choices": [
+            {
+              "id": "04",
+              "label": "Audio Tracking Mode"
+            },
+            {
+              "id": "05",
+              "label": "Audio Frame Mode"
+            },
+            {
+              "id": "06",
+              "label": "Audio Preset Tracking Mode"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 519
+      }
+    },
+    {
+      "id": "tracking_control_action",
+      "name": "Tracking Control Mode",
+      "description": "Full Body, Upper Body, Tracking Point, Multi-Presenter, Presenter, Zone, Hybrid",
+      "options": [
+        {
+          "id": "tracking_control",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "A4",
+          "choices": [
+            {
+              "id": "A0",
+              "label": "Full Body"
+            },
+            {
+              "id": "A1",
+              "label": "Upper Body"
+            },
+            {
+              "id": "A2",
+              "label": "Tracking Point"
+            },
+            {
+              "id": "A3",
+              "label": "Multi-presenter"
+            },
+            {
+              "id": "A4",
+              "label": "Presenter Mode"
+            },
+            {
+              "id": "A5",
+              "label": "Zone Mode"
+            },
+            {
+              "id": "A6",
+              "label": "Hybrid Mode"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 538
+      }
+    },
+    {
+      "id": "multi_presenter_action",
+      "name": "Multi-presenter",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "multi_presenter",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 558
+      }
+    },
+    {
+      "id": "multi_presenter_set_preset_action",
+      "name": "Multi-presenter Set Preset",
+      "description": "Range 0 - 255",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Preset Number",
+          "default": 0,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 576
+      }
+    },
+    {
+      "id": "autozoom_action",
+      "name": "Auto Zoom",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "auto_zoom",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 593
+      }
+    },
+    {
+      "id": "effective_tracking_action",
+      "name": "Effective Tracking Area",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "effective_tracking",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 611
+      }
+    },
+    {
+      "id": "rtmp_action",
+      "name": "RTMP",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "rtmp",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 629
+      }
+    },
+    {
+      "id": "video_mode_action",
+      "name": "Video Mode",
+      "description": "IP+Stream, USB, NDI, Streaming",
+      "options": [
+        {
+          "id": "video_mode",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "00",
+              "label": "IP+Stream"
+            },
+            {
+              "id": "01",
+              "label": "USB Only"
+            },
+            {
+              "id": "02",
+              "label": "NDI Only"
+            },
+            {
+              "id": "03",
+              "label": "Streaming Only"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 647
+      }
+    },
+    {
+      "id": "presets_affect_action",
+      "name": "Preset Affects PTZ & Focus",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "presets_affect",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 666
+      }
+    },
+    {
+      "id": "relative_zoom_action",
+      "name": "Relative Zoom Ratio",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "relative_zoom",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 684
+      }
+    },
+    {
+      "id": "auto_tilt_action",
+      "name": "Auto Tilt",
+      "description": "On, Off",
+      "options": [
+        {
+          "id": "auto_tilt",
+          "type": "dropdown",
+          "label": "Select Configuration Type",
+          "default": "02",
+          "choices": [
+            {
+              "id": "02",
+              "label": "On"
+            },
+            {
+              "id": "03",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 702
+      }
+    },
+    {
+      "id": "auto_zoom_tilt_set_preset_action",
+      "name": "Auto Zoom/Tilt Set Preset",
+      "description": "Range 0 - 255",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Preset Number",
+          "default": 0,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 720
+      }
+    },
+    {
+      "id": "custom_action",
+      "name": "Custom Command",
+      "description": "Use VISCA commands. See Help for additional guidance",
+      "options": [
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "Type a VISCA command. See Help for additional guidance."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 737
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 39 actions (actions.js), registered in one setActionDefinitions call. The module defines no feedbacks (no setFeedbackDefinitions anywhere) and no variables; main.js only creates actions and presets. Presets (presets.js) are not catalogued because the schema has no preset field.",
+    "Transport: UDP via UDPHelper to the configured Target IP and port (default '52381', main.js:119-125). sendCommand (main.js:69-81) sends Buffer.from(hex, 'hex') of the action string as is: the bytes are a plain VISCA command (8x ... FF) without the 8-byte VISCA-over-IP header (payload type, length, sequence number), although the instance keeps an unused sequenceNumber. Replies are only logged at debug level; the module reports status OK without checking the camera.",
+    "All command bytes are fixed in the callbacks and use camera address 81. Dropdown ids are the hex nibbles the callback appends to the command and are strings; the catalog keeps them as written.",
+    "focus_action: the choice ids '082' (Far (var)) and '083' (Near (var)) are three characters long as in the source. The callback appends Number(far).toString(16) (one hex digit for 0 to 15) to form the variable-speed command. The fixed choices '0802'/'0803' are the standard-speed Far/Near. The far and near number fields have min 0 and max 15 but no integer flag, a fractional value would produce a malformed command.",
+    "preset_action, profile_action, multi_presenter_set_preset_action and auto_zoom_tilt_set_preset_action convert the number with Number(num).toString(16).padStart(2, '0'); the number fields declare min and max but no integer flag.",
+    "frame_tracking_action, audio_tracking_action and auto_tracking_v1_action all send 8101047D<value>00FF; only the dropdown values differ. frame_tracking_action has default '02' (Auto Framing Mode) with choice ids '00', '02', '03'. video_mode_action has default '02' (NDI Only).",
+    "pan_tilt_action: pan_speed and tilt_speed are both number fields with min 1 and max 24 (the labels say '1 (low) - 24 (high)'); they are hidden for Home ('04') and Reset ('05'), which send 810106<04|05>FF without speeds. The source isVisible uses a bitwise OR of two booleans; this works but is as written in the source.",
+    "custom_action: a plain textinput without useVariables and without regex. All spaces are removed (replace(/ /g, '')) and the rest is passed to Buffer.from(..., 'hex'), which silently stops at the first invalid hex character; nothing validates the VISCA framing.",
+    "Several actions share option ids across actions only by name (for example 'num'); every option id is unique inside its action. Choice ids are strings throughout, number fields are real numbers.",
+    "Built on @companion-module/base ~1.12.1: options do not support expressions. Not tested against a camera or a running Companion instance; the catalog data comes from reading the source only."
+  ]
+}
