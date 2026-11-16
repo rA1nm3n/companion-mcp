@@ -1,0 +1,3906 @@
+{
+  "moduleId": "pixelhue-mediaserver",
+  "name": "Pixelhue Media-Server",
+  "repo": "bitfocus/companion-module-pixelhue-mediaserver",
+  "version": "1.5.1",
+  "baseVersion": "~1.15.1",
+  "lastCommit": "2026-11-11",
+  "lastCommitSha": "e68f494",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "program",
+      "name": "program",
+      "description": "Selects the program slot to play: stores it as the module's current program id and sends control tag 366 with the program id (4 bytes).",
+      "options": [
+        {
+          "id": "program",
+          "type": "dropdown",
+          "label": "Program",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "ProgramId 0"
+            },
+            {
+              "id": 1,
+              "label": "ProgramId 1"
+            },
+            {
+              "id": 2,
+              "label": "ProgramId 2"
+            },
+            {
+              "id": 3,
+              "label": "ProgramId 3"
+            },
+            {
+              "id": 4,
+              "label": "ProgramId 4"
+            },
+            {
+              "id": 5,
+              "label": "ProgramId 5"
+            },
+            {
+              "id": 6,
+              "label": "ProgramId 6"
+            },
+            {
+              "id": 7,
+              "label": "ProgramId 7"
+            },
+            {
+              "id": 8,
+              "label": "ProgramId 8"
+            },
+            {
+              "id": 9,
+              "label": "ProgramId 9"
+            },
+            {
+              "id": 10,
+              "label": "ProgramId 10"
+            },
+            {
+              "id": 11,
+              "label": "ProgramId 11"
+            },
+            {
+              "id": 12,
+              "label": "ProgramId 12"
+            },
+            {
+              "id": 13,
+              "label": "ProgramId 13"
+            },
+            {
+              "id": 14,
+              "label": "ProgramId 14"
+            },
+            {
+              "id": 15,
+              "label": "ProgramId 15"
+            },
+            {
+              "id": 16,
+              "label": "ProgramId 16"
+            },
+            {
+              "id": 17,
+              "label": "ProgramId 17"
+            },
+            {
+              "id": 18,
+              "label": "ProgramId 18"
+            },
+            {
+              "id": 19,
+              "label": "ProgramId 19"
+            },
+            {
+              "id": 20,
+              "label": "ProgramId 20"
+            },
+            {
+              "id": 21,
+              "label": "ProgramId 21"
+            },
+            {
+              "id": 22,
+              "label": "ProgramId 22"
+            },
+            {
+              "id": 23,
+              "label": "ProgramId 23"
+            },
+            {
+              "id": 24,
+              "label": "ProgramId 24"
+            },
+            {
+              "id": 25,
+              "label": "ProgramId 25"
+            },
+            {
+              "id": 26,
+              "label": "ProgramId 26"
+            },
+            {
+              "id": 27,
+              "label": "ProgramId 27"
+            },
+            {
+              "id": 28,
+              "label": "ProgramId 28"
+            },
+            {
+              "id": 29,
+              "label": "ProgramId 29"
+            },
+            {
+              "id": 30,
+              "label": "ProgramId 30"
+            },
+            {
+              "id": 31,
+              "label": "ProgramId 31"
+            },
+            {
+              "id": 32,
+              "label": "ProgramId 32"
+            },
+            {
+              "id": 33,
+              "label": "ProgramId 33"
+            },
+            {
+              "id": 34,
+              "label": "ProgramId 34"
+            },
+            {
+              "id": 35,
+              "label": "ProgramId 35"
+            },
+            {
+              "id": 36,
+              "label": "ProgramId 36"
+            },
+            {
+              "id": 37,
+              "label": "ProgramId 37"
+            },
+            {
+              "id": 38,
+              "label": "ProgramId 38"
+            },
+            {
+              "id": 39,
+              "label": "ProgramId 39"
+            },
+            {
+              "id": 40,
+              "label": "ProgramId 40"
+            },
+            {
+              "id": 41,
+              "label": "ProgramId 41"
+            },
+            {
+              "id": 42,
+              "label": "ProgramId 42"
+            },
+            {
+              "id": 43,
+              "label": "ProgramId 43"
+            },
+            {
+              "id": 44,
+              "label": "ProgramId 44"
+            },
+            {
+              "id": 45,
+              "label": "ProgramId 45"
+            },
+            {
+              "id": 46,
+              "label": "ProgramId 46"
+            },
+            {
+              "id": 47,
+              "label": "ProgramId 47"
+            },
+            {
+              "id": 48,
+              "label": "ProgramId 48"
+            },
+            {
+              "id": 49,
+              "label": "ProgramId 49"
+            },
+            {
+              "id": 50,
+              "label": "ProgramId 50"
+            },
+            {
+              "id": 51,
+              "label": "ProgramId 51"
+            },
+            {
+              "id": 52,
+              "label": "ProgramId 52"
+            },
+            {
+              "id": 53,
+              "label": "ProgramId 53"
+            },
+            {
+              "id": 54,
+              "label": "ProgramId 54"
+            },
+            {
+              "id": 55,
+              "label": "ProgramId 55"
+            },
+            {
+              "id": 56,
+              "label": "ProgramId 56"
+            },
+            {
+              "id": 57,
+              "label": "ProgramId 57"
+            },
+            {
+              "id": 58,
+              "label": "ProgramId 58"
+            },
+            {
+              "id": 59,
+              "label": "ProgramId 59"
+            },
+            {
+              "id": 60,
+              "label": "ProgramId 60"
+            },
+            {
+              "id": 61,
+              "label": "ProgramId 61"
+            },
+            {
+              "id": 62,
+              "label": "ProgramId 62"
+            },
+            {
+              "id": 63,
+              "label": "ProgramId 63"
+            },
+            {
+              "id": 64,
+              "label": "ProgramId 64"
+            },
+            {
+              "id": 65,
+              "label": "ProgramId 65"
+            },
+            {
+              "id": 66,
+              "label": "ProgramId 66"
+            },
+            {
+              "id": 67,
+              "label": "ProgramId 67"
+            },
+            {
+              "id": 68,
+              "label": "ProgramId 68"
+            },
+            {
+              "id": 69,
+              "label": "ProgramId 69"
+            },
+            {
+              "id": 70,
+              "label": "ProgramId 70"
+            },
+            {
+              "id": 71,
+              "label": "ProgramId 71"
+            },
+            {
+              "id": 72,
+              "label": "ProgramId 72"
+            },
+            {
+              "id": 73,
+              "label": "ProgramId 73"
+            },
+            {
+              "id": 74,
+              "label": "ProgramId 74"
+            },
+            {
+              "id": 75,
+              "label": "ProgramId 75"
+            },
+            {
+              "id": 76,
+              "label": "ProgramId 76"
+            },
+            {
+              "id": 77,
+              "label": "ProgramId 77"
+            },
+            {
+              "id": 78,
+              "label": "ProgramId 78"
+            },
+            {
+              "id": 79,
+              "label": "ProgramId 79"
+            },
+            {
+              "id": 80,
+              "label": "ProgramId 80"
+            },
+            {
+              "id": 81,
+              "label": "ProgramId 81"
+            },
+            {
+              "id": 82,
+              "label": "ProgramId 82"
+            },
+            {
+              "id": 83,
+              "label": "ProgramId 83"
+            },
+            {
+              "id": 84,
+              "label": "ProgramId 84"
+            },
+            {
+              "id": 85,
+              "label": "ProgramId 85"
+            },
+            {
+              "id": 86,
+              "label": "ProgramId 86"
+            },
+            {
+              "id": 87,
+              "label": "ProgramId 87"
+            },
+            {
+              "id": 88,
+              "label": "ProgramId 88"
+            },
+            {
+              "id": 89,
+              "label": "ProgramId 89"
+            },
+            {
+              "id": 90,
+              "label": "ProgramId 90"
+            },
+            {
+              "id": 91,
+              "label": "ProgramId 91"
+            },
+            {
+              "id": 92,
+              "label": "ProgramId 92"
+            },
+            {
+              "id": 93,
+              "label": "ProgramId 93"
+            },
+            {
+              "id": 94,
+              "label": "ProgramId 94"
+            },
+            {
+              "id": 95,
+              "label": "ProgramId 95"
+            },
+            {
+              "id": 96,
+              "label": "ProgramId 96"
+            },
+            {
+              "id": 97,
+              "label": "ProgramId 97"
+            },
+            {
+              "id": 98,
+              "label": "ProgramId 98"
+            },
+            {
+              "id": 99,
+              "label": "ProgramId 99"
+            },
+            {
+              "id": 100,
+              "label": "ProgramId 100"
+            },
+            {
+              "id": 101,
+              "label": "ProgramId 101"
+            },
+            {
+              "id": 102,
+              "label": "ProgramId 102"
+            },
+            {
+              "id": 103,
+              "label": "ProgramId 103"
+            },
+            {
+              "id": 104,
+              "label": "ProgramId 104"
+            },
+            {
+              "id": 105,
+              "label": "ProgramId 105"
+            },
+            {
+              "id": 106,
+              "label": "ProgramId 106"
+            },
+            {
+              "id": 107,
+              "label": "ProgramId 107"
+            },
+            {
+              "id": 108,
+              "label": "ProgramId 108"
+            },
+            {
+              "id": 109,
+              "label": "ProgramId 109"
+            },
+            {
+              "id": 110,
+              "label": "ProgramId 110"
+            },
+            {
+              "id": 111,
+              "label": "ProgramId 111"
+            },
+            {
+              "id": 112,
+              "label": "ProgramId 112"
+            },
+            {
+              "id": 113,
+              "label": "ProgramId 113"
+            },
+            {
+              "id": 114,
+              "label": "ProgramId 114"
+            },
+            {
+              "id": 115,
+              "label": "ProgramId 115"
+            },
+            {
+              "id": 116,
+              "label": "ProgramId 116"
+            },
+            {
+              "id": 117,
+              "label": "ProgramId 117"
+            },
+            {
+              "id": 118,
+              "label": "ProgramId 118"
+            },
+            {
+              "id": 119,
+              "label": "ProgramId 119"
+            },
+            {
+              "id": 120,
+              "label": "ProgramId 120"
+            },
+            {
+              "id": 121,
+              "label": "ProgramId 121"
+            },
+            {
+              "id": 122,
+              "label": "ProgramId 122"
+            },
+            {
+              "id": 123,
+              "label": "ProgramId 123"
+            },
+            {
+              "id": 124,
+              "label": "ProgramId 124"
+            },
+            {
+              "id": 125,
+              "label": "ProgramId 125"
+            },
+            {
+              "id": 126,
+              "label": "ProgramId 126"
+            },
+            {
+              "id": 127,
+              "label": "ProgramId 127"
+            },
+            {
+              "id": 128,
+              "label": "ProgramId 128"
+            },
+            {
+              "id": 129,
+              "label": "ProgramId 129"
+            },
+            {
+              "id": 130,
+              "label": "ProgramId 130"
+            },
+            {
+              "id": 131,
+              "label": "ProgramId 131"
+            },
+            {
+              "id": 132,
+              "label": "ProgramId 132"
+            },
+            {
+              "id": 133,
+              "label": "ProgramId 133"
+            },
+            {
+              "id": 134,
+              "label": "ProgramId 134"
+            },
+            {
+              "id": 135,
+              "label": "ProgramId 135"
+            },
+            {
+              "id": 136,
+              "label": "ProgramId 136"
+            },
+            {
+              "id": 137,
+              "label": "ProgramId 137"
+            },
+            {
+              "id": 138,
+              "label": "ProgramId 138"
+            },
+            {
+              "id": 139,
+              "label": "ProgramId 139"
+            },
+            {
+              "id": 140,
+              "label": "ProgramId 140"
+            },
+            {
+              "id": 141,
+              "label": "ProgramId 141"
+            },
+            {
+              "id": 142,
+              "label": "ProgramId 142"
+            },
+            {
+              "id": 143,
+              "label": "ProgramId 143"
+            },
+            {
+              "id": 144,
+              "label": "ProgramId 144"
+            },
+            {
+              "id": 145,
+              "label": "ProgramId 145"
+            },
+            {
+              "id": 146,
+              "label": "ProgramId 146"
+            },
+            {
+              "id": 147,
+              "label": "ProgramId 147"
+            },
+            {
+              "id": 148,
+              "label": "ProgramId 148"
+            },
+            {
+              "id": 149,
+              "label": "ProgramId 149"
+            },
+            {
+              "id": 150,
+              "label": "ProgramId 150"
+            },
+            {
+              "id": 151,
+              "label": "ProgramId 151"
+            },
+            {
+              "id": 152,
+              "label": "ProgramId 152"
+            },
+            {
+              "id": 153,
+              "label": "ProgramId 153"
+            },
+            {
+              "id": 154,
+              "label": "ProgramId 154"
+            },
+            {
+              "id": 155,
+              "label": "ProgramId 155"
+            },
+            {
+              "id": 156,
+              "label": "ProgramId 156"
+            },
+            {
+              "id": 157,
+              "label": "ProgramId 157"
+            },
+            {
+              "id": 158,
+              "label": "ProgramId 158"
+            },
+            {
+              "id": 159,
+              "label": "ProgramId 159"
+            },
+            {
+              "id": 160,
+              "label": "ProgramId 160"
+            },
+            {
+              "id": 161,
+              "label": "ProgramId 161"
+            },
+            {
+              "id": 162,
+              "label": "ProgramId 162"
+            },
+            {
+              "id": 163,
+              "label": "ProgramId 163"
+            },
+            {
+              "id": 164,
+              "label": "ProgramId 164"
+            },
+            {
+              "id": 165,
+              "label": "ProgramId 165"
+            },
+            {
+              "id": 166,
+              "label": "ProgramId 166"
+            },
+            {
+              "id": 167,
+              "label": "ProgramId 167"
+            },
+            {
+              "id": 168,
+              "label": "ProgramId 168"
+            },
+            {
+              "id": 169,
+              "label": "ProgramId 169"
+            },
+            {
+              "id": 170,
+              "label": "ProgramId 170"
+            },
+            {
+              "id": 171,
+              "label": "ProgramId 171"
+            },
+            {
+              "id": 172,
+              "label": "ProgramId 172"
+            },
+            {
+              "id": 173,
+              "label": "ProgramId 173"
+            },
+            {
+              "id": 174,
+              "label": "ProgramId 174"
+            },
+            {
+              "id": 175,
+              "label": "ProgramId 175"
+            },
+            {
+              "id": 176,
+              "label": "ProgramId 176"
+            },
+            {
+              "id": 177,
+              "label": "ProgramId 177"
+            },
+            {
+              "id": 178,
+              "label": "ProgramId 178"
+            },
+            {
+              "id": 179,
+              "label": "ProgramId 179"
+            },
+            {
+              "id": 180,
+              "label": "ProgramId 180"
+            },
+            {
+              "id": 181,
+              "label": "ProgramId 181"
+            },
+            {
+              "id": 182,
+              "label": "ProgramId 182"
+            },
+            {
+              "id": 183,
+              "label": "ProgramId 183"
+            },
+            {
+              "id": 184,
+              "label": "ProgramId 184"
+            },
+            {
+              "id": 185,
+              "label": "ProgramId 185"
+            },
+            {
+              "id": 186,
+              "label": "ProgramId 186"
+            },
+            {
+              "id": 187,
+              "label": "ProgramId 187"
+            },
+            {
+              "id": 188,
+              "label": "ProgramId 188"
+            },
+            {
+              "id": 189,
+              "label": "ProgramId 189"
+            },
+            {
+              "id": 190,
+              "label": "ProgramId 190"
+            },
+            {
+              "id": 191,
+              "label": "ProgramId 191"
+            },
+            {
+              "id": 192,
+              "label": "ProgramId 192"
+            },
+            {
+              "id": 193,
+              "label": "ProgramId 193"
+            },
+            {
+              "id": 194,
+              "label": "ProgramId 194"
+            },
+            {
+              "id": 195,
+              "label": "ProgramId 195"
+            },
+            {
+              "id": 196,
+              "label": "ProgramId 196"
+            },
+            {
+              "id": 197,
+              "label": "ProgramId 197"
+            },
+            {
+              "id": 198,
+              "label": "ProgramId 198"
+            },
+            {
+              "id": 199,
+              "label": "ProgramId 199"
+            },
+            {
+              "id": 200,
+              "label": "ProgramId 200"
+            },
+            {
+              "id": 201,
+              "label": "ProgramId 201"
+            },
+            {
+              "id": 202,
+              "label": "ProgramId 202"
+            },
+            {
+              "id": 203,
+              "label": "ProgramId 203"
+            },
+            {
+              "id": 204,
+              "label": "ProgramId 204"
+            },
+            {
+              "id": 205,
+              "label": "ProgramId 205"
+            },
+            {
+              "id": 206,
+              "label": "ProgramId 206"
+            },
+            {
+              "id": 207,
+              "label": "ProgramId 207"
+            },
+            {
+              "id": 208,
+              "label": "ProgramId 208"
+            },
+            {
+              "id": 209,
+              "label": "ProgramId 209"
+            },
+            {
+              "id": 210,
+              "label": "ProgramId 210"
+            },
+            {
+              "id": 211,
+              "label": "ProgramId 211"
+            },
+            {
+              "id": 212,
+              "label": "ProgramId 212"
+            },
+            {
+              "id": 213,
+              "label": "ProgramId 213"
+            },
+            {
+              "id": 214,
+              "label": "ProgramId 214"
+            },
+            {
+              "id": 215,
+              "label": "ProgramId 215"
+            },
+            {
+              "id": 216,
+              "label": "ProgramId 216"
+            },
+            {
+              "id": 217,
+              "label": "ProgramId 217"
+            },
+            {
+              "id": 218,
+              "label": "ProgramId 218"
+            },
+            {
+              "id": 219,
+              "label": "ProgramId 219"
+            },
+            {
+              "id": 220,
+              "label": "ProgramId 220"
+            },
+            {
+              "id": 221,
+              "label": "ProgramId 221"
+            },
+            {
+              "id": 222,
+              "label": "ProgramId 222"
+            },
+            {
+              "id": 223,
+              "label": "ProgramId 223"
+            },
+            {
+              "id": 224,
+              "label": "ProgramId 224"
+            },
+            {
+              "id": 225,
+              "label": "ProgramId 225"
+            },
+            {
+              "id": 226,
+              "label": "ProgramId 226"
+            },
+            {
+              "id": 227,
+              "label": "ProgramId 227"
+            },
+            {
+              "id": 228,
+              "label": "ProgramId 228"
+            },
+            {
+              "id": 229,
+              "label": "ProgramId 229"
+            },
+            {
+              "id": 230,
+              "label": "ProgramId 230"
+            },
+            {
+              "id": 231,
+              "label": "ProgramId 231"
+            },
+            {
+              "id": 232,
+              "label": "ProgramId 232"
+            },
+            {
+              "id": 233,
+              "label": "ProgramId 233"
+            },
+            {
+              "id": 234,
+              "label": "ProgramId 234"
+            },
+            {
+              "id": 235,
+              "label": "ProgramId 235"
+            },
+            {
+              "id": 236,
+              "label": "ProgramId 236"
+            },
+            {
+              "id": 237,
+              "label": "ProgramId 237"
+            },
+            {
+              "id": 238,
+              "label": "ProgramId 238"
+            },
+            {
+              "id": 239,
+              "label": "ProgramId 239"
+            },
+            {
+              "id": 240,
+              "label": "ProgramId 240"
+            },
+            {
+              "id": 241,
+              "label": "ProgramId 241"
+            },
+            {
+              "id": 242,
+              "label": "ProgramId 242"
+            },
+            {
+              "id": 243,
+              "label": "ProgramId 243"
+            },
+            {
+              "id": 244,
+              "label": "ProgramId 244"
+            },
+            {
+              "id": 245,
+              "label": "ProgramId 245"
+            },
+            {
+              "id": 246,
+              "label": "ProgramId 246"
+            },
+            {
+              "id": 247,
+              "label": "ProgramId 247"
+            },
+            {
+              "id": 248,
+              "label": "ProgramId 248"
+            },
+            {
+              "id": 249,
+              "label": "ProgramId 249"
+            },
+            {
+              "id": 250,
+              "label": "ProgramId 250"
+            },
+            {
+              "id": 251,
+              "label": "ProgramId 251"
+            },
+            {
+              "id": 252,
+              "label": "ProgramId 252"
+            },
+            {
+              "id": 253,
+              "label": "ProgramId 253"
+            },
+            {
+              "id": 254,
+              "label": "ProgramId 254"
+            },
+            {
+              "id": 255,
+              "label": "ProgramId 255"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 12
+      }
+    },
+    {
+      "id": "pause_program",
+      "name": "pause_program",
+      "description": "Sends control tag 133 with the current program id (the one last chosen with the program action, initially 0).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 59
+      }
+    },
+    {
+      "id": "play_program",
+      "name": "play_program",
+      "description": "Sends control tag 271 with the current program id (the one last chosen with the program action, initially 0).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 77
+      }
+    },
+    {
+      "id": "stop_program",
+      "name": "stop_program",
+      "description": "Sends control tag 272 with the current program id (the one last chosen with the program action, initially 0).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 95
+      }
+    },
+    {
+      "id": "open_ftb",
+      "name": "open_ftb",
+      "description": "Sends control tag 260 (no data).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 113
+      }
+    },
+    {
+      "id": "close_ftb",
+      "name": "close_ftb",
+      "description": "Sends control tag 261 (no data).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 129
+      }
+    },
+    {
+      "id": "open_volume",
+      "name": "open_volume",
+      "description": "Sends control tag 262 (no data).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 145
+      }
+    },
+    {
+      "id": "close_volume",
+      "name": "close_volume",
+      "description": "Sends control tag 263 (no data).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 161
+      }
+    },
+    {
+      "id": "ppt_pgup",
+      "name": "ppt_pgup",
+      "description": "Sends control tag 286 with trigger id 0.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 275
+      }
+    },
+    {
+      "id": "ppt_pgdn",
+      "name": "ppt_pgdn",
+      "description": "Sends control tag 287 with trigger id 0.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 294
+      }
+    },
+    {
+      "id": "volume_up",
+      "name": "volume_up",
+      "description": "Sends control tag 328 with a fixed step of 5 (VOLUME_STEP).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 349
+      }
+    },
+    {
+      "id": "volume_down",
+      "name": "volume_down",
+      "description": "Sends control tag 329 with a fixed step of 5 (VOLUME_STEP).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 367
+      }
+    },
+    {
+      "id": "brightness_up",
+      "name": "brightness_up",
+      "description": "Sends control tag 391 with data 0x01 and a fixed step of 2 (BRIGHTNESS_STEP).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 386
+      }
+    },
+    {
+      "id": "brightness_down",
+      "name": "brightness_down",
+      "description": "Sends control tag 391 with data 0x00 and a fixed step of 2 (BRIGHTNESS_STEP).",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 406
+      }
+    },
+    {
+      "id": "play",
+      "name": "play",
+      "description": "Sends control tag 387 with data 0.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 426
+      }
+    },
+    {
+      "id": "pause",
+      "name": "pause",
+      "description": "Sends control tag 387 with data 1.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 443
+      }
+    },
+    {
+      "id": "stop",
+      "name": "stop",
+      "description": "Sends control tag 387 with data 2.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 460
+      }
+    },
+    {
+      "id": "open_test_program",
+      "name": "open_test_program",
+      "description": "Sends control tag 258 (no data).",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 503
+      }
+    },
+    {
+      "id": "close_test_program",
+      "name": "close_test_program",
+      "description": "Sends control tag 259 (no data).",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 522
+      }
+    },
+    {
+      "id": "previous_program",
+      "name": "previous_program",
+      "description": "Sends control tag 388 with data 0.",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 543
+      }
+    },
+    {
+      "id": "next_program",
+      "name": "next_program",
+      "description": "Sends control tag 388 with data 1.",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 565
+      }
+    },
+    {
+      "id": "bind_media",
+      "name": "bind_media",
+      "description": "Sends control tag 10004 with program and layer index (2 bytes each, little endian). Registers the button for the Bind Media feedback (subscribe/unsubscribe).",
+      "options": [
+        {
+          "id": "layer_index",
+          "type": "dropdown",
+          "label": "Select Layer",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "layerId 0"
+            },
+            {
+              "id": "1",
+              "label": "layerId 1"
+            },
+            {
+              "id": "2",
+              "label": "layerId 2"
+            },
+            {
+              "id": "3",
+              "label": "layerId 3"
+            },
+            {
+              "id": "4",
+              "label": "layerId 4"
+            },
+            {
+              "id": "5",
+              "label": "layerId 5"
+            },
+            {
+              "id": "6",
+              "label": "layerId 6"
+            },
+            {
+              "id": "7",
+              "label": "layerId 7"
+            },
+            {
+              "id": "8",
+              "label": "layerId 8"
+            },
+            {
+              "id": "9",
+              "label": "layerId 9"
+            },
+            {
+              "id": "10",
+              "label": "layerId 10"
+            },
+            {
+              "id": "11",
+              "label": "layerId 11"
+            },
+            {
+              "id": "12",
+              "label": "layerId 12"
+            },
+            {
+              "id": "13",
+              "label": "layerId 13"
+            },
+            {
+              "id": "14",
+              "label": "layerId 14"
+            },
+            {
+              "id": "15",
+              "label": "layerId 15"
+            },
+            {
+              "id": "16",
+              "label": "layerId 16"
+            },
+            {
+              "id": "17",
+              "label": "layerId 17"
+            },
+            {
+              "id": "18",
+              "label": "layerId 18"
+            },
+            {
+              "id": "19",
+              "label": "layerId 19"
+            },
+            {
+              "id": "20",
+              "label": "layerId 20"
+            },
+            {
+              "id": "21",
+              "label": "layerId 21"
+            },
+            {
+              "id": "22",
+              "label": "layerId 22"
+            },
+            {
+              "id": "23",
+              "label": "layerId 23"
+            },
+            {
+              "id": "24",
+              "label": "layerId 24"
+            },
+            {
+              "id": "25",
+              "label": "layerId 25"
+            },
+            {
+              "id": "26",
+              "label": "layerId 26"
+            },
+            {
+              "id": "27",
+              "label": "layerId 27"
+            },
+            {
+              "id": "28",
+              "label": "layerId 28"
+            },
+            {
+              "id": "29",
+              "label": "layerId 29"
+            },
+            {
+              "id": "30",
+              "label": "layerId 30"
+            },
+            {
+              "id": "31",
+              "label": "layerId 31"
+            },
+            {
+              "id": "32",
+              "label": "layerId 32"
+            },
+            {
+              "id": "33",
+              "label": "layerId 33"
+            },
+            {
+              "id": "34",
+              "label": "layerId 34"
+            },
+            {
+              "id": "35",
+              "label": "layerId 35"
+            },
+            {
+              "id": "36",
+              "label": "layerId 36"
+            },
+            {
+              "id": "37",
+              "label": "layerId 37"
+            },
+            {
+              "id": "38",
+              "label": "layerId 38"
+            },
+            {
+              "id": "39",
+              "label": "layerId 39"
+            },
+            {
+              "id": "40",
+              "label": "layerId 40"
+            },
+            {
+              "id": "41",
+              "label": "layerId 41"
+            },
+            {
+              "id": "42",
+              "label": "layerId 42"
+            },
+            {
+              "id": "43",
+              "label": "layerId 43"
+            },
+            {
+              "id": "44",
+              "label": "layerId 44"
+            },
+            {
+              "id": "45",
+              "label": "layerId 45"
+            },
+            {
+              "id": "46",
+              "label": "layerId 46"
+            },
+            {
+              "id": "47",
+              "label": "layerId 47"
+            },
+            {
+              "id": "48",
+              "label": "layerId 48"
+            },
+            {
+              "id": "49",
+              "label": "layerId 49"
+            }
+          ]
+        },
+        {
+          "id": "program_index",
+          "type": "dropdown",
+          "label": "Select Program",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "ProgramId 0"
+            },
+            {
+              "id": 1,
+              "label": "ProgramId 1"
+            },
+            {
+              "id": 2,
+              "label": "ProgramId 2"
+            },
+            {
+              "id": 3,
+              "label": "ProgramId 3"
+            },
+            {
+              "id": 4,
+              "label": "ProgramId 4"
+            },
+            {
+              "id": 5,
+              "label": "ProgramId 5"
+            },
+            {
+              "id": 6,
+              "label": "ProgramId 6"
+            },
+            {
+              "id": 7,
+              "label": "ProgramId 7"
+            },
+            {
+              "id": 8,
+              "label": "ProgramId 8"
+            },
+            {
+              "id": 9,
+              "label": "ProgramId 9"
+            },
+            {
+              "id": 10,
+              "label": "ProgramId 10"
+            },
+            {
+              "id": 11,
+              "label": "ProgramId 11"
+            },
+            {
+              "id": 12,
+              "label": "ProgramId 12"
+            },
+            {
+              "id": 13,
+              "label": "ProgramId 13"
+            },
+            {
+              "id": 14,
+              "label": "ProgramId 14"
+            },
+            {
+              "id": 15,
+              "label": "ProgramId 15"
+            },
+            {
+              "id": 16,
+              "label": "ProgramId 16"
+            },
+            {
+              "id": 17,
+              "label": "ProgramId 17"
+            },
+            {
+              "id": 18,
+              "label": "ProgramId 18"
+            },
+            {
+              "id": 19,
+              "label": "ProgramId 19"
+            },
+            {
+              "id": 20,
+              "label": "ProgramId 20"
+            },
+            {
+              "id": 21,
+              "label": "ProgramId 21"
+            },
+            {
+              "id": 22,
+              "label": "ProgramId 22"
+            },
+            {
+              "id": 23,
+              "label": "ProgramId 23"
+            },
+            {
+              "id": 24,
+              "label": "ProgramId 24"
+            },
+            {
+              "id": 25,
+              "label": "ProgramId 25"
+            },
+            {
+              "id": 26,
+              "label": "ProgramId 26"
+            },
+            {
+              "id": 27,
+              "label": "ProgramId 27"
+            },
+            {
+              "id": 28,
+              "label": "ProgramId 28"
+            },
+            {
+              "id": 29,
+              "label": "ProgramId 29"
+            },
+            {
+              "id": 30,
+              "label": "ProgramId 30"
+            },
+            {
+              "id": 31,
+              "label": "ProgramId 31"
+            },
+            {
+              "id": 32,
+              "label": "ProgramId 32"
+            },
+            {
+              "id": 33,
+              "label": "ProgramId 33"
+            },
+            {
+              "id": 34,
+              "label": "ProgramId 34"
+            },
+            {
+              "id": 35,
+              "label": "ProgramId 35"
+            },
+            {
+              "id": 36,
+              "label": "ProgramId 36"
+            },
+            {
+              "id": 37,
+              "label": "ProgramId 37"
+            },
+            {
+              "id": 38,
+              "label": "ProgramId 38"
+            },
+            {
+              "id": 39,
+              "label": "ProgramId 39"
+            },
+            {
+              "id": 40,
+              "label": "ProgramId 40"
+            },
+            {
+              "id": 41,
+              "label": "ProgramId 41"
+            },
+            {
+              "id": 42,
+              "label": "ProgramId 42"
+            },
+            {
+              "id": 43,
+              "label": "ProgramId 43"
+            },
+            {
+              "id": 44,
+              "label": "ProgramId 44"
+            },
+            {
+              "id": 45,
+              "label": "ProgramId 45"
+            },
+            {
+              "id": 46,
+              "label": "ProgramId 46"
+            },
+            {
+              "id": 47,
+              "label": "ProgramId 47"
+            },
+            {
+              "id": 48,
+              "label": "ProgramId 48"
+            },
+            {
+              "id": 49,
+              "label": "ProgramId 49"
+            },
+            {
+              "id": 50,
+              "label": "ProgramId 50"
+            },
+            {
+              "id": 51,
+              "label": "ProgramId 51"
+            },
+            {
+              "id": 52,
+              "label": "ProgramId 52"
+            },
+            {
+              "id": 53,
+              "label": "ProgramId 53"
+            },
+            {
+              "id": 54,
+              "label": "ProgramId 54"
+            },
+            {
+              "id": 55,
+              "label": "ProgramId 55"
+            },
+            {
+              "id": 56,
+              "label": "ProgramId 56"
+            },
+            {
+              "id": 57,
+              "label": "ProgramId 57"
+            },
+            {
+              "id": 58,
+              "label": "ProgramId 58"
+            },
+            {
+              "id": 59,
+              "label": "ProgramId 59"
+            },
+            {
+              "id": 60,
+              "label": "ProgramId 60"
+            },
+            {
+              "id": 61,
+              "label": "ProgramId 61"
+            },
+            {
+              "id": 62,
+              "label": "ProgramId 62"
+            },
+            {
+              "id": 63,
+              "label": "ProgramId 63"
+            },
+            {
+              "id": 64,
+              "label": "ProgramId 64"
+            },
+            {
+              "id": 65,
+              "label": "ProgramId 65"
+            },
+            {
+              "id": 66,
+              "label": "ProgramId 66"
+            },
+            {
+              "id": 67,
+              "label": "ProgramId 67"
+            },
+            {
+              "id": 68,
+              "label": "ProgramId 68"
+            },
+            {
+              "id": 69,
+              "label": "ProgramId 69"
+            },
+            {
+              "id": 70,
+              "label": "ProgramId 70"
+            },
+            {
+              "id": 71,
+              "label": "ProgramId 71"
+            },
+            {
+              "id": 72,
+              "label": "ProgramId 72"
+            },
+            {
+              "id": 73,
+              "label": "ProgramId 73"
+            },
+            {
+              "id": 74,
+              "label": "ProgramId 74"
+            },
+            {
+              "id": 75,
+              "label": "ProgramId 75"
+            },
+            {
+              "id": 76,
+              "label": "ProgramId 76"
+            },
+            {
+              "id": 77,
+              "label": "ProgramId 77"
+            },
+            {
+              "id": 78,
+              "label": "ProgramId 78"
+            },
+            {
+              "id": 79,
+              "label": "ProgramId 79"
+            },
+            {
+              "id": 80,
+              "label": "ProgramId 80"
+            },
+            {
+              "id": 81,
+              "label": "ProgramId 81"
+            },
+            {
+              "id": 82,
+              "label": "ProgramId 82"
+            },
+            {
+              "id": 83,
+              "label": "ProgramId 83"
+            },
+            {
+              "id": 84,
+              "label": "ProgramId 84"
+            },
+            {
+              "id": 85,
+              "label": "ProgramId 85"
+            },
+            {
+              "id": 86,
+              "label": "ProgramId 86"
+            },
+            {
+              "id": 87,
+              "label": "ProgramId 87"
+            },
+            {
+              "id": 88,
+              "label": "ProgramId 88"
+            },
+            {
+              "id": 89,
+              "label": "ProgramId 89"
+            },
+            {
+              "id": 90,
+              "label": "ProgramId 90"
+            },
+            {
+              "id": 91,
+              "label": "ProgramId 91"
+            },
+            {
+              "id": 92,
+              "label": "ProgramId 92"
+            },
+            {
+              "id": 93,
+              "label": "ProgramId 93"
+            },
+            {
+              "id": 94,
+              "label": "ProgramId 94"
+            },
+            {
+              "id": 95,
+              "label": "ProgramId 95"
+            },
+            {
+              "id": 96,
+              "label": "ProgramId 96"
+            },
+            {
+              "id": 97,
+              "label": "ProgramId 97"
+            },
+            {
+              "id": 98,
+              "label": "ProgramId 98"
+            },
+            {
+              "id": 99,
+              "label": "ProgramId 99"
+            },
+            {
+              "id": 100,
+              "label": "ProgramId 100"
+            },
+            {
+              "id": 101,
+              "label": "ProgramId 101"
+            },
+            {
+              "id": 102,
+              "label": "ProgramId 102"
+            },
+            {
+              "id": 103,
+              "label": "ProgramId 103"
+            },
+            {
+              "id": 104,
+              "label": "ProgramId 104"
+            },
+            {
+              "id": 105,
+              "label": "ProgramId 105"
+            },
+            {
+              "id": 106,
+              "label": "ProgramId 106"
+            },
+            {
+              "id": 107,
+              "label": "ProgramId 107"
+            },
+            {
+              "id": 108,
+              "label": "ProgramId 108"
+            },
+            {
+              "id": 109,
+              "label": "ProgramId 109"
+            },
+            {
+              "id": 110,
+              "label": "ProgramId 110"
+            },
+            {
+              "id": 111,
+              "label": "ProgramId 111"
+            },
+            {
+              "id": 112,
+              "label": "ProgramId 112"
+            },
+            {
+              "id": 113,
+              "label": "ProgramId 113"
+            },
+            {
+              "id": 114,
+              "label": "ProgramId 114"
+            },
+            {
+              "id": 115,
+              "label": "ProgramId 115"
+            },
+            {
+              "id": 116,
+              "label": "ProgramId 116"
+            },
+            {
+              "id": 117,
+              "label": "ProgramId 117"
+            },
+            {
+              "id": 118,
+              "label": "ProgramId 118"
+            },
+            {
+              "id": 119,
+              "label": "ProgramId 119"
+            },
+            {
+              "id": 120,
+              "label": "ProgramId 120"
+            },
+            {
+              "id": 121,
+              "label": "ProgramId 121"
+            },
+            {
+              "id": 122,
+              "label": "ProgramId 122"
+            },
+            {
+              "id": 123,
+              "label": "ProgramId 123"
+            },
+            {
+              "id": 124,
+              "label": "ProgramId 124"
+            },
+            {
+              "id": 125,
+              "label": "ProgramId 125"
+            },
+            {
+              "id": 126,
+              "label": "ProgramId 126"
+            },
+            {
+              "id": 127,
+              "label": "ProgramId 127"
+            },
+            {
+              "id": 128,
+              "label": "ProgramId 128"
+            },
+            {
+              "id": 129,
+              "label": "ProgramId 129"
+            },
+            {
+              "id": 130,
+              "label": "ProgramId 130"
+            },
+            {
+              "id": 131,
+              "label": "ProgramId 131"
+            },
+            {
+              "id": 132,
+              "label": "ProgramId 132"
+            },
+            {
+              "id": 133,
+              "label": "ProgramId 133"
+            },
+            {
+              "id": 134,
+              "label": "ProgramId 134"
+            },
+            {
+              "id": 135,
+              "label": "ProgramId 135"
+            },
+            {
+              "id": 136,
+              "label": "ProgramId 136"
+            },
+            {
+              "id": 137,
+              "label": "ProgramId 137"
+            },
+            {
+              "id": 138,
+              "label": "ProgramId 138"
+            },
+            {
+              "id": 139,
+              "label": "ProgramId 139"
+            },
+            {
+              "id": 140,
+              "label": "ProgramId 140"
+            },
+            {
+              "id": 141,
+              "label": "ProgramId 141"
+            },
+            {
+              "id": 142,
+              "label": "ProgramId 142"
+            },
+            {
+              "id": 143,
+              "label": "ProgramId 143"
+            },
+            {
+              "id": 144,
+              "label": "ProgramId 144"
+            },
+            {
+              "id": 145,
+              "label": "ProgramId 145"
+            },
+            {
+              "id": 146,
+              "label": "ProgramId 146"
+            },
+            {
+              "id": 147,
+              "label": "ProgramId 147"
+            },
+            {
+              "id": 148,
+              "label": "ProgramId 148"
+            },
+            {
+              "id": 149,
+              "label": "ProgramId 149"
+            },
+            {
+              "id": 150,
+              "label": "ProgramId 150"
+            },
+            {
+              "id": 151,
+              "label": "ProgramId 151"
+            },
+            {
+              "id": 152,
+              "label": "ProgramId 152"
+            },
+            {
+              "id": 153,
+              "label": "ProgramId 153"
+            },
+            {
+              "id": 154,
+              "label": "ProgramId 154"
+            },
+            {
+              "id": 155,
+              "label": "ProgramId 155"
+            },
+            {
+              "id": 156,
+              "label": "ProgramId 156"
+            },
+            {
+              "id": 157,
+              "label": "ProgramId 157"
+            },
+            {
+              "id": 158,
+              "label": "ProgramId 158"
+            },
+            {
+              "id": 159,
+              "label": "ProgramId 159"
+            },
+            {
+              "id": 160,
+              "label": "ProgramId 160"
+            },
+            {
+              "id": 161,
+              "label": "ProgramId 161"
+            },
+            {
+              "id": 162,
+              "label": "ProgramId 162"
+            },
+            {
+              "id": 163,
+              "label": "ProgramId 163"
+            },
+            {
+              "id": 164,
+              "label": "ProgramId 164"
+            },
+            {
+              "id": 165,
+              "label": "ProgramId 165"
+            },
+            {
+              "id": 166,
+              "label": "ProgramId 166"
+            },
+            {
+              "id": 167,
+              "label": "ProgramId 167"
+            },
+            {
+              "id": 168,
+              "label": "ProgramId 168"
+            },
+            {
+              "id": 169,
+              "label": "ProgramId 169"
+            },
+            {
+              "id": 170,
+              "label": "ProgramId 170"
+            },
+            {
+              "id": 171,
+              "label": "ProgramId 171"
+            },
+            {
+              "id": 172,
+              "label": "ProgramId 172"
+            },
+            {
+              "id": 173,
+              "label": "ProgramId 173"
+            },
+            {
+              "id": 174,
+              "label": "ProgramId 174"
+            },
+            {
+              "id": 175,
+              "label": "ProgramId 175"
+            },
+            {
+              "id": 176,
+              "label": "ProgramId 176"
+            },
+            {
+              "id": 177,
+              "label": "ProgramId 177"
+            },
+            {
+              "id": 178,
+              "label": "ProgramId 178"
+            },
+            {
+              "id": 179,
+              "label": "ProgramId 179"
+            },
+            {
+              "id": 180,
+              "label": "ProgramId 180"
+            },
+            {
+              "id": 181,
+              "label": "ProgramId 181"
+            },
+            {
+              "id": 182,
+              "label": "ProgramId 182"
+            },
+            {
+              "id": 183,
+              "label": "ProgramId 183"
+            },
+            {
+              "id": 184,
+              "label": "ProgramId 184"
+            },
+            {
+              "id": 185,
+              "label": "ProgramId 185"
+            },
+            {
+              "id": 186,
+              "label": "ProgramId 186"
+            },
+            {
+              "id": 187,
+              "label": "ProgramId 187"
+            },
+            {
+              "id": 188,
+              "label": "ProgramId 188"
+            },
+            {
+              "id": 189,
+              "label": "ProgramId 189"
+            },
+            {
+              "id": 190,
+              "label": "ProgramId 190"
+            },
+            {
+              "id": 191,
+              "label": "ProgramId 191"
+            },
+            {
+              "id": 192,
+              "label": "ProgramId 192"
+            },
+            {
+              "id": 193,
+              "label": "ProgramId 193"
+            },
+            {
+              "id": 194,
+              "label": "ProgramId 194"
+            },
+            {
+              "id": 195,
+              "label": "ProgramId 195"
+            },
+            {
+              "id": 196,
+              "label": "ProgramId 196"
+            },
+            {
+              "id": 197,
+              "label": "ProgramId 197"
+            },
+            {
+              "id": 198,
+              "label": "ProgramId 198"
+            },
+            {
+              "id": 199,
+              "label": "ProgramId 199"
+            },
+            {
+              "id": 200,
+              "label": "ProgramId 200"
+            },
+            {
+              "id": 201,
+              "label": "ProgramId 201"
+            },
+            {
+              "id": 202,
+              "label": "ProgramId 202"
+            },
+            {
+              "id": 203,
+              "label": "ProgramId 203"
+            },
+            {
+              "id": 204,
+              "label": "ProgramId 204"
+            },
+            {
+              "id": 205,
+              "label": "ProgramId 205"
+            },
+            {
+              "id": 206,
+              "label": "ProgramId 206"
+            },
+            {
+              "id": 207,
+              "label": "ProgramId 207"
+            },
+            {
+              "id": 208,
+              "label": "ProgramId 208"
+            },
+            {
+              "id": 209,
+              "label": "ProgramId 209"
+            },
+            {
+              "id": 210,
+              "label": "ProgramId 210"
+            },
+            {
+              "id": 211,
+              "label": "ProgramId 211"
+            },
+            {
+              "id": 212,
+              "label": "ProgramId 212"
+            },
+            {
+              "id": 213,
+              "label": "ProgramId 213"
+            },
+            {
+              "id": 214,
+              "label": "ProgramId 214"
+            },
+            {
+              "id": 215,
+              "label": "ProgramId 215"
+            },
+            {
+              "id": 216,
+              "label": "ProgramId 216"
+            },
+            {
+              "id": 217,
+              "label": "ProgramId 217"
+            },
+            {
+              "id": 218,
+              "label": "ProgramId 218"
+            },
+            {
+              "id": 219,
+              "label": "ProgramId 219"
+            },
+            {
+              "id": 220,
+              "label": "ProgramId 220"
+            },
+            {
+              "id": 221,
+              "label": "ProgramId 221"
+            },
+            {
+              "id": 222,
+              "label": "ProgramId 222"
+            },
+            {
+              "id": 223,
+              "label": "ProgramId 223"
+            },
+            {
+              "id": 224,
+              "label": "ProgramId 224"
+            },
+            {
+              "id": 225,
+              "label": "ProgramId 225"
+            },
+            {
+              "id": 226,
+              "label": "ProgramId 226"
+            },
+            {
+              "id": 227,
+              "label": "ProgramId 227"
+            },
+            {
+              "id": 228,
+              "label": "ProgramId 228"
+            },
+            {
+              "id": 229,
+              "label": "ProgramId 229"
+            },
+            {
+              "id": 230,
+              "label": "ProgramId 230"
+            },
+            {
+              "id": 231,
+              "label": "ProgramId 231"
+            },
+            {
+              "id": 232,
+              "label": "ProgramId 232"
+            },
+            {
+              "id": 233,
+              "label": "ProgramId 233"
+            },
+            {
+              "id": 234,
+              "label": "ProgramId 234"
+            },
+            {
+              "id": 235,
+              "label": "ProgramId 235"
+            },
+            {
+              "id": 236,
+              "label": "ProgramId 236"
+            },
+            {
+              "id": 237,
+              "label": "ProgramId 237"
+            },
+            {
+              "id": 238,
+              "label": "ProgramId 238"
+            },
+            {
+              "id": 239,
+              "label": "ProgramId 239"
+            },
+            {
+              "id": 240,
+              "label": "ProgramId 240"
+            },
+            {
+              "id": 241,
+              "label": "ProgramId 241"
+            },
+            {
+              "id": 242,
+              "label": "ProgramId 242"
+            },
+            {
+              "id": 243,
+              "label": "ProgramId 243"
+            },
+            {
+              "id": 244,
+              "label": "ProgramId 244"
+            },
+            {
+              "id": 245,
+              "label": "ProgramId 245"
+            },
+            {
+              "id": 246,
+              "label": "ProgramId 246"
+            },
+            {
+              "id": 247,
+              "label": "ProgramId 247"
+            },
+            {
+              "id": 248,
+              "label": "ProgramId 248"
+            },
+            {
+              "id": 249,
+              "label": "ProgramId 249"
+            },
+            {
+              "id": 250,
+              "label": "ProgramId 250"
+            },
+            {
+              "id": 251,
+              "label": "ProgramId 251"
+            },
+            {
+              "id": 252,
+              "label": "ProgramId 252"
+            },
+            {
+              "id": 253,
+              "label": "ProgramId 253"
+            },
+            {
+              "id": 254,
+              "label": "ProgramId 254"
+            },
+            {
+              "id": 255,
+              "label": "ProgramId 255"
+            }
+          ]
+        }
+      ],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 584
+      }
+    },
+    {
+      "id": "bind_cue_tag",
+      "name": "bind_cue_tag",
+      "description": "Sends control tag 10005 with the cue index.",
+      "options": [
+        {
+          "id": "cue_tag_index",
+          "type": "number",
+          "label": "Cue Index",
+          "default": 0,
+          "min": 0,
+          "max": 99999
+        }
+      ],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 659
+      }
+    },
+    {
+      "id": "score_up",
+      "name": "score_up",
+      "description": "Raises the score of the currently selected scoreboard media (select it first with select_media): control tag 10039, type 0x01, value = step.",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 1,
+          "min": 1,
+          "max": 999,
+          "description": "Amount to increase the score by each time"
+        }
+      ],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 687
+      }
+    },
+    {
+      "id": "score_down",
+      "name": "score_down",
+      "description": "Lowers the score of the currently selected scoreboard media (select it first with select_media): control tag 10039, type 0xFF, value = step.",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 1,
+          "min": 1,
+          "max": 999,
+          "description": "Amount to decrease the score by each time"
+        }
+      ],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 720
+      }
+    },
+    {
+      "id": "score_reset",
+      "name": "score_reset",
+      "description": "Resets the main score of the currently selected scoreboard media: control tag 10041, no data.",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 754
+      }
+    },
+    {
+      "id": "score_undo",
+      "name": "score_undo",
+      "description": "Undoes the last step of the currently selected scoreboard media: control tag 10042, no data.",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 773
+      }
+    },
+    {
+      "id": "score_set",
+      "name": "score_set",
+      "description": "Sets the main score of the currently selected scoreboard media to the given value: control tag 10040 (2 bytes). The module clamps the value to 0-999 (clampValues).",
+      "options": [
+        {
+          "id": "score",
+          "type": "number",
+          "label": "Score",
+          "default": 0,
+          "min": 0,
+          "max": 999,
+          "step": 1,
+          "integer": true,
+          "description": "Target score (0-999)"
+        }
+      ],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 791
+      }
+    },
+    {
+      "id": "select_media",
+      "name": "select_media",
+      "description": "Selects a media by program and layer: control tag 10038 (program id in the low 4 bytes, layer id in the high 4 bytes). Registers the button for the Selected Media feedback (subscribe/unsubscribe).",
+      "options": [
+        {
+          "id": "program_index",
+          "type": "dropdown",
+          "label": "Select Program",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "ProgramId 0"
+            },
+            {
+              "id": 1,
+              "label": "ProgramId 1"
+            },
+            {
+              "id": 2,
+              "label": "ProgramId 2"
+            },
+            {
+              "id": 3,
+              "label": "ProgramId 3"
+            },
+            {
+              "id": 4,
+              "label": "ProgramId 4"
+            },
+            {
+              "id": 5,
+              "label": "ProgramId 5"
+            },
+            {
+              "id": 6,
+              "label": "ProgramId 6"
+            },
+            {
+              "id": 7,
+              "label": "ProgramId 7"
+            },
+            {
+              "id": 8,
+              "label": "ProgramId 8"
+            },
+            {
+              "id": 9,
+              "label": "ProgramId 9"
+            },
+            {
+              "id": 10,
+              "label": "ProgramId 10"
+            },
+            {
+              "id": 11,
+              "label": "ProgramId 11"
+            },
+            {
+              "id": 12,
+              "label": "ProgramId 12"
+            },
+            {
+              "id": 13,
+              "label": "ProgramId 13"
+            },
+            {
+              "id": 14,
+              "label": "ProgramId 14"
+            },
+            {
+              "id": 15,
+              "label": "ProgramId 15"
+            },
+            {
+              "id": 16,
+              "label": "ProgramId 16"
+            },
+            {
+              "id": 17,
+              "label": "ProgramId 17"
+            },
+            {
+              "id": 18,
+              "label": "ProgramId 18"
+            },
+            {
+              "id": 19,
+              "label": "ProgramId 19"
+            },
+            {
+              "id": 20,
+              "label": "ProgramId 20"
+            },
+            {
+              "id": 21,
+              "label": "ProgramId 21"
+            },
+            {
+              "id": 22,
+              "label": "ProgramId 22"
+            },
+            {
+              "id": 23,
+              "label": "ProgramId 23"
+            },
+            {
+              "id": 24,
+              "label": "ProgramId 24"
+            },
+            {
+              "id": 25,
+              "label": "ProgramId 25"
+            },
+            {
+              "id": 26,
+              "label": "ProgramId 26"
+            },
+            {
+              "id": 27,
+              "label": "ProgramId 27"
+            },
+            {
+              "id": 28,
+              "label": "ProgramId 28"
+            },
+            {
+              "id": 29,
+              "label": "ProgramId 29"
+            },
+            {
+              "id": 30,
+              "label": "ProgramId 30"
+            },
+            {
+              "id": 31,
+              "label": "ProgramId 31"
+            },
+            {
+              "id": 32,
+              "label": "ProgramId 32"
+            },
+            {
+              "id": 33,
+              "label": "ProgramId 33"
+            },
+            {
+              "id": 34,
+              "label": "ProgramId 34"
+            },
+            {
+              "id": 35,
+              "label": "ProgramId 35"
+            },
+            {
+              "id": 36,
+              "label": "ProgramId 36"
+            },
+            {
+              "id": 37,
+              "label": "ProgramId 37"
+            },
+            {
+              "id": 38,
+              "label": "ProgramId 38"
+            },
+            {
+              "id": 39,
+              "label": "ProgramId 39"
+            },
+            {
+              "id": 40,
+              "label": "ProgramId 40"
+            },
+            {
+              "id": 41,
+              "label": "ProgramId 41"
+            },
+            {
+              "id": 42,
+              "label": "ProgramId 42"
+            },
+            {
+              "id": 43,
+              "label": "ProgramId 43"
+            },
+            {
+              "id": 44,
+              "label": "ProgramId 44"
+            },
+            {
+              "id": 45,
+              "label": "ProgramId 45"
+            },
+            {
+              "id": 46,
+              "label": "ProgramId 46"
+            },
+            {
+              "id": 47,
+              "label": "ProgramId 47"
+            },
+            {
+              "id": 48,
+              "label": "ProgramId 48"
+            },
+            {
+              "id": 49,
+              "label": "ProgramId 49"
+            },
+            {
+              "id": 50,
+              "label": "ProgramId 50"
+            },
+            {
+              "id": 51,
+              "label": "ProgramId 51"
+            },
+            {
+              "id": 52,
+              "label": "ProgramId 52"
+            },
+            {
+              "id": 53,
+              "label": "ProgramId 53"
+            },
+            {
+              "id": 54,
+              "label": "ProgramId 54"
+            },
+            {
+              "id": 55,
+              "label": "ProgramId 55"
+            },
+            {
+              "id": 56,
+              "label": "ProgramId 56"
+            },
+            {
+              "id": 57,
+              "label": "ProgramId 57"
+            },
+            {
+              "id": 58,
+              "label": "ProgramId 58"
+            },
+            {
+              "id": 59,
+              "label": "ProgramId 59"
+            },
+            {
+              "id": 60,
+              "label": "ProgramId 60"
+            },
+            {
+              "id": 61,
+              "label": "ProgramId 61"
+            },
+            {
+              "id": 62,
+              "label": "ProgramId 62"
+            },
+            {
+              "id": 63,
+              "label": "ProgramId 63"
+            },
+            {
+              "id": 64,
+              "label": "ProgramId 64"
+            },
+            {
+              "id": 65,
+              "label": "ProgramId 65"
+            },
+            {
+              "id": 66,
+              "label": "ProgramId 66"
+            },
+            {
+              "id": 67,
+              "label": "ProgramId 67"
+            },
+            {
+              "id": 68,
+              "label": "ProgramId 68"
+            },
+            {
+              "id": 69,
+              "label": "ProgramId 69"
+            },
+            {
+              "id": 70,
+              "label": "ProgramId 70"
+            },
+            {
+              "id": 71,
+              "label": "ProgramId 71"
+            },
+            {
+              "id": 72,
+              "label": "ProgramId 72"
+            },
+            {
+              "id": 73,
+              "label": "ProgramId 73"
+            },
+            {
+              "id": 74,
+              "label": "ProgramId 74"
+            },
+            {
+              "id": 75,
+              "label": "ProgramId 75"
+            },
+            {
+              "id": 76,
+              "label": "ProgramId 76"
+            },
+            {
+              "id": 77,
+              "label": "ProgramId 77"
+            },
+            {
+              "id": 78,
+              "label": "ProgramId 78"
+            },
+            {
+              "id": 79,
+              "label": "ProgramId 79"
+            },
+            {
+              "id": 80,
+              "label": "ProgramId 80"
+            },
+            {
+              "id": 81,
+              "label": "ProgramId 81"
+            },
+            {
+              "id": 82,
+              "label": "ProgramId 82"
+            },
+            {
+              "id": 83,
+              "label": "ProgramId 83"
+            },
+            {
+              "id": 84,
+              "label": "ProgramId 84"
+            },
+            {
+              "id": 85,
+              "label": "ProgramId 85"
+            },
+            {
+              "id": 86,
+              "label": "ProgramId 86"
+            },
+            {
+              "id": 87,
+              "label": "ProgramId 87"
+            },
+            {
+              "id": 88,
+              "label": "ProgramId 88"
+            },
+            {
+              "id": 89,
+              "label": "ProgramId 89"
+            },
+            {
+              "id": 90,
+              "label": "ProgramId 90"
+            },
+            {
+              "id": 91,
+              "label": "ProgramId 91"
+            },
+            {
+              "id": 92,
+              "label": "ProgramId 92"
+            },
+            {
+              "id": 93,
+              "label": "ProgramId 93"
+            },
+            {
+              "id": 94,
+              "label": "ProgramId 94"
+            },
+            {
+              "id": 95,
+              "label": "ProgramId 95"
+            },
+            {
+              "id": 96,
+              "label": "ProgramId 96"
+            },
+            {
+              "id": 97,
+              "label": "ProgramId 97"
+            },
+            {
+              "id": 98,
+              "label": "ProgramId 98"
+            },
+            {
+              "id": 99,
+              "label": "ProgramId 99"
+            },
+            {
+              "id": 100,
+              "label": "ProgramId 100"
+            },
+            {
+              "id": 101,
+              "label": "ProgramId 101"
+            },
+            {
+              "id": 102,
+              "label": "ProgramId 102"
+            },
+            {
+              "id": 103,
+              "label": "ProgramId 103"
+            },
+            {
+              "id": 104,
+              "label": "ProgramId 104"
+            },
+            {
+              "id": 105,
+              "label": "ProgramId 105"
+            },
+            {
+              "id": 106,
+              "label": "ProgramId 106"
+            },
+            {
+              "id": 107,
+              "label": "ProgramId 107"
+            },
+            {
+              "id": 108,
+              "label": "ProgramId 108"
+            },
+            {
+              "id": 109,
+              "label": "ProgramId 109"
+            },
+            {
+              "id": 110,
+              "label": "ProgramId 110"
+            },
+            {
+              "id": 111,
+              "label": "ProgramId 111"
+            },
+            {
+              "id": 112,
+              "label": "ProgramId 112"
+            },
+            {
+              "id": 113,
+              "label": "ProgramId 113"
+            },
+            {
+              "id": 114,
+              "label": "ProgramId 114"
+            },
+            {
+              "id": 115,
+              "label": "ProgramId 115"
+            },
+            {
+              "id": 116,
+              "label": "ProgramId 116"
+            },
+            {
+              "id": 117,
+              "label": "ProgramId 117"
+            },
+            {
+              "id": 118,
+              "label": "ProgramId 118"
+            },
+            {
+              "id": 119,
+              "label": "ProgramId 119"
+            },
+            {
+              "id": 120,
+              "label": "ProgramId 120"
+            },
+            {
+              "id": 121,
+              "label": "ProgramId 121"
+            },
+            {
+              "id": 122,
+              "label": "ProgramId 122"
+            },
+            {
+              "id": 123,
+              "label": "ProgramId 123"
+            },
+            {
+              "id": 124,
+              "label": "ProgramId 124"
+            },
+            {
+              "id": 125,
+              "label": "ProgramId 125"
+            },
+            {
+              "id": 126,
+              "label": "ProgramId 126"
+            },
+            {
+              "id": 127,
+              "label": "ProgramId 127"
+            },
+            {
+              "id": 128,
+              "label": "ProgramId 128"
+            },
+            {
+              "id": 129,
+              "label": "ProgramId 129"
+            },
+            {
+              "id": 130,
+              "label": "ProgramId 130"
+            },
+            {
+              "id": 131,
+              "label": "ProgramId 131"
+            },
+            {
+              "id": 132,
+              "label": "ProgramId 132"
+            },
+            {
+              "id": 133,
+              "label": "ProgramId 133"
+            },
+            {
+              "id": 134,
+              "label": "ProgramId 134"
+            },
+            {
+              "id": 135,
+              "label": "ProgramId 135"
+            },
+            {
+              "id": 136,
+              "label": "ProgramId 136"
+            },
+            {
+              "id": 137,
+              "label": "ProgramId 137"
+            },
+            {
+              "id": 138,
+              "label": "ProgramId 138"
+            },
+            {
+              "id": 139,
+              "label": "ProgramId 139"
+            },
+            {
+              "id": 140,
+              "label": "ProgramId 140"
+            },
+            {
+              "id": 141,
+              "label": "ProgramId 141"
+            },
+            {
+              "id": 142,
+              "label": "ProgramId 142"
+            },
+            {
+              "id": 143,
+              "label": "ProgramId 143"
+            },
+            {
+              "id": 144,
+              "label": "ProgramId 144"
+            },
+            {
+              "id": 145,
+              "label": "ProgramId 145"
+            },
+            {
+              "id": 146,
+              "label": "ProgramId 146"
+            },
+            {
+              "id": 147,
+              "label": "ProgramId 147"
+            },
+            {
+              "id": 148,
+              "label": "ProgramId 148"
+            },
+            {
+              "id": 149,
+              "label": "ProgramId 149"
+            },
+            {
+              "id": 150,
+              "label": "ProgramId 150"
+            },
+            {
+              "id": 151,
+              "label": "ProgramId 151"
+            },
+            {
+              "id": 152,
+              "label": "ProgramId 152"
+            },
+            {
+              "id": 153,
+              "label": "ProgramId 153"
+            },
+            {
+              "id": 154,
+              "label": "ProgramId 154"
+            },
+            {
+              "id": 155,
+              "label": "ProgramId 155"
+            },
+            {
+              "id": 156,
+              "label": "ProgramId 156"
+            },
+            {
+              "id": 157,
+              "label": "ProgramId 157"
+            },
+            {
+              "id": 158,
+              "label": "ProgramId 158"
+            },
+            {
+              "id": 159,
+              "label": "ProgramId 159"
+            },
+            {
+              "id": 160,
+              "label": "ProgramId 160"
+            },
+            {
+              "id": 161,
+              "label": "ProgramId 161"
+            },
+            {
+              "id": 162,
+              "label": "ProgramId 162"
+            },
+            {
+              "id": 163,
+              "label": "ProgramId 163"
+            },
+            {
+              "id": 164,
+              "label": "ProgramId 164"
+            },
+            {
+              "id": 165,
+              "label": "ProgramId 165"
+            },
+            {
+              "id": 166,
+              "label": "ProgramId 166"
+            },
+            {
+              "id": 167,
+              "label": "ProgramId 167"
+            },
+            {
+              "id": 168,
+              "label": "ProgramId 168"
+            },
+            {
+              "id": 169,
+              "label": "ProgramId 169"
+            },
+            {
+              "id": 170,
+              "label": "ProgramId 170"
+            },
+            {
+              "id": 171,
+              "label": "ProgramId 171"
+            },
+            {
+              "id": 172,
+              "label": "ProgramId 172"
+            },
+            {
+              "id": 173,
+              "label": "ProgramId 173"
+            },
+            {
+              "id": 174,
+              "label": "ProgramId 174"
+            },
+            {
+              "id": 175,
+              "label": "ProgramId 175"
+            },
+            {
+              "id": 176,
+              "label": "ProgramId 176"
+            },
+            {
+              "id": 177,
+              "label": "ProgramId 177"
+            },
+            {
+              "id": 178,
+              "label": "ProgramId 178"
+            },
+            {
+              "id": 179,
+              "label": "ProgramId 179"
+            },
+            {
+              "id": 180,
+              "label": "ProgramId 180"
+            },
+            {
+              "id": 181,
+              "label": "ProgramId 181"
+            },
+            {
+              "id": 182,
+              "label": "ProgramId 182"
+            },
+            {
+              "id": 183,
+              "label": "ProgramId 183"
+            },
+            {
+              "id": 184,
+              "label": "ProgramId 184"
+            },
+            {
+              "id": 185,
+              "label": "ProgramId 185"
+            },
+            {
+              "id": 186,
+              "label": "ProgramId 186"
+            },
+            {
+              "id": 187,
+              "label": "ProgramId 187"
+            },
+            {
+              "id": 188,
+              "label": "ProgramId 188"
+            },
+            {
+              "id": 189,
+              "label": "ProgramId 189"
+            },
+            {
+              "id": 190,
+              "label": "ProgramId 190"
+            },
+            {
+              "id": 191,
+              "label": "ProgramId 191"
+            },
+            {
+              "id": 192,
+              "label": "ProgramId 192"
+            },
+            {
+              "id": 193,
+              "label": "ProgramId 193"
+            },
+            {
+              "id": 194,
+              "label": "ProgramId 194"
+            },
+            {
+              "id": 195,
+              "label": "ProgramId 195"
+            },
+            {
+              "id": 196,
+              "label": "ProgramId 196"
+            },
+            {
+              "id": 197,
+              "label": "ProgramId 197"
+            },
+            {
+              "id": 198,
+              "label": "ProgramId 198"
+            },
+            {
+              "id": 199,
+              "label": "ProgramId 199"
+            },
+            {
+              "id": 200,
+              "label": "ProgramId 200"
+            },
+            {
+              "id": 201,
+              "label": "ProgramId 201"
+            },
+            {
+              "id": 202,
+              "label": "ProgramId 202"
+            },
+            {
+              "id": 203,
+              "label": "ProgramId 203"
+            },
+            {
+              "id": 204,
+              "label": "ProgramId 204"
+            },
+            {
+              "id": 205,
+              "label": "ProgramId 205"
+            },
+            {
+              "id": 206,
+              "label": "ProgramId 206"
+            },
+            {
+              "id": 207,
+              "label": "ProgramId 207"
+            },
+            {
+              "id": 208,
+              "label": "ProgramId 208"
+            },
+            {
+              "id": 209,
+              "label": "ProgramId 209"
+            },
+            {
+              "id": 210,
+              "label": "ProgramId 210"
+            },
+            {
+              "id": 211,
+              "label": "ProgramId 211"
+            },
+            {
+              "id": 212,
+              "label": "ProgramId 212"
+            },
+            {
+              "id": 213,
+              "label": "ProgramId 213"
+            },
+            {
+              "id": 214,
+              "label": "ProgramId 214"
+            },
+            {
+              "id": 215,
+              "label": "ProgramId 215"
+            },
+            {
+              "id": 216,
+              "label": "ProgramId 216"
+            },
+            {
+              "id": 217,
+              "label": "ProgramId 217"
+            },
+            {
+              "id": 218,
+              "label": "ProgramId 218"
+            },
+            {
+              "id": 219,
+              "label": "ProgramId 219"
+            },
+            {
+              "id": 220,
+              "label": "ProgramId 220"
+            },
+            {
+              "id": 221,
+              "label": "ProgramId 221"
+            },
+            {
+              "id": 222,
+              "label": "ProgramId 222"
+            },
+            {
+              "id": 223,
+              "label": "ProgramId 223"
+            },
+            {
+              "id": 224,
+              "label": "ProgramId 224"
+            },
+            {
+              "id": 225,
+              "label": "ProgramId 225"
+            },
+            {
+              "id": 226,
+              "label": "ProgramId 226"
+            },
+            {
+              "id": 227,
+              "label": "ProgramId 227"
+            },
+            {
+              "id": 228,
+              "label": "ProgramId 228"
+            },
+            {
+              "id": 229,
+              "label": "ProgramId 229"
+            },
+            {
+              "id": 230,
+              "label": "ProgramId 230"
+            },
+            {
+              "id": 231,
+              "label": "ProgramId 231"
+            },
+            {
+              "id": 232,
+              "label": "ProgramId 232"
+            },
+            {
+              "id": 233,
+              "label": "ProgramId 233"
+            },
+            {
+              "id": 234,
+              "label": "ProgramId 234"
+            },
+            {
+              "id": 235,
+              "label": "ProgramId 235"
+            },
+            {
+              "id": 236,
+              "label": "ProgramId 236"
+            },
+            {
+              "id": 237,
+              "label": "ProgramId 237"
+            },
+            {
+              "id": 238,
+              "label": "ProgramId 238"
+            },
+            {
+              "id": 239,
+              "label": "ProgramId 239"
+            },
+            {
+              "id": 240,
+              "label": "ProgramId 240"
+            },
+            {
+              "id": 241,
+              "label": "ProgramId 241"
+            },
+            {
+              "id": 242,
+              "label": "ProgramId 242"
+            },
+            {
+              "id": 243,
+              "label": "ProgramId 243"
+            },
+            {
+              "id": 244,
+              "label": "ProgramId 244"
+            },
+            {
+              "id": 245,
+              "label": "ProgramId 245"
+            },
+            {
+              "id": 246,
+              "label": "ProgramId 246"
+            },
+            {
+              "id": 247,
+              "label": "ProgramId 247"
+            },
+            {
+              "id": 248,
+              "label": "ProgramId 248"
+            },
+            {
+              "id": 249,
+              "label": "ProgramId 249"
+            },
+            {
+              "id": 250,
+              "label": "ProgramId 250"
+            },
+            {
+              "id": 251,
+              "label": "ProgramId 251"
+            },
+            {
+              "id": 252,
+              "label": "ProgramId 252"
+            },
+            {
+              "id": 253,
+              "label": "ProgramId 253"
+            },
+            {
+              "id": 254,
+              "label": "ProgramId 254"
+            },
+            {
+              "id": 255,
+              "label": "ProgramId 255"
+            }
+          ]
+        },
+        {
+          "id": "layer_index",
+          "type": "dropdown",
+          "label": "Select Layer",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "layerId 0"
+            },
+            {
+              "id": "1",
+              "label": "layerId 1"
+            },
+            {
+              "id": "2",
+              "label": "layerId 2"
+            },
+            {
+              "id": "3",
+              "label": "layerId 3"
+            },
+            {
+              "id": "4",
+              "label": "layerId 4"
+            },
+            {
+              "id": "5",
+              "label": "layerId 5"
+            },
+            {
+              "id": "6",
+              "label": "layerId 6"
+            },
+            {
+              "id": "7",
+              "label": "layerId 7"
+            },
+            {
+              "id": "8",
+              "label": "layerId 8"
+            },
+            {
+              "id": "9",
+              "label": "layerId 9"
+            },
+            {
+              "id": "10",
+              "label": "layerId 10"
+            },
+            {
+              "id": "11",
+              "label": "layerId 11"
+            },
+            {
+              "id": "12",
+              "label": "layerId 12"
+            },
+            {
+              "id": "13",
+              "label": "layerId 13"
+            },
+            {
+              "id": "14",
+              "label": "layerId 14"
+            },
+            {
+              "id": "15",
+              "label": "layerId 15"
+            },
+            {
+              "id": "16",
+              "label": "layerId 16"
+            },
+            {
+              "id": "17",
+              "label": "layerId 17"
+            },
+            {
+              "id": "18",
+              "label": "layerId 18"
+            },
+            {
+              "id": "19",
+              "label": "layerId 19"
+            },
+            {
+              "id": "20",
+              "label": "layerId 20"
+            },
+            {
+              "id": "21",
+              "label": "layerId 21"
+            },
+            {
+              "id": "22",
+              "label": "layerId 22"
+            },
+            {
+              "id": "23",
+              "label": "layerId 23"
+            },
+            {
+              "id": "24",
+              "label": "layerId 24"
+            },
+            {
+              "id": "25",
+              "label": "layerId 25"
+            },
+            {
+              "id": "26",
+              "label": "layerId 26"
+            },
+            {
+              "id": "27",
+              "label": "layerId 27"
+            },
+            {
+              "id": "28",
+              "label": "layerId 28"
+            },
+            {
+              "id": "29",
+              "label": "layerId 29"
+            },
+            {
+              "id": "30",
+              "label": "layerId 30"
+            },
+            {
+              "id": "31",
+              "label": "layerId 31"
+            },
+            {
+              "id": "32",
+              "label": "layerId 32"
+            },
+            {
+              "id": "33",
+              "label": "layerId 33"
+            },
+            {
+              "id": "34",
+              "label": "layerId 34"
+            },
+            {
+              "id": "35",
+              "label": "layerId 35"
+            },
+            {
+              "id": "36",
+              "label": "layerId 36"
+            },
+            {
+              "id": "37",
+              "label": "layerId 37"
+            },
+            {
+              "id": "38",
+              "label": "layerId 38"
+            },
+            {
+              "id": "39",
+              "label": "layerId 39"
+            },
+            {
+              "id": "40",
+              "label": "layerId 40"
+            },
+            {
+              "id": "41",
+              "label": "layerId 41"
+            },
+            {
+              "id": "42",
+              "label": "layerId 42"
+            },
+            {
+              "id": "43",
+              "label": "layerId 43"
+            },
+            {
+              "id": "44",
+              "label": "layerId 44"
+            },
+            {
+              "id": "45",
+              "label": "layerId 45"
+            },
+            {
+              "id": "46",
+              "label": "layerId 46"
+            },
+            {
+              "id": "47",
+              "label": "layerId 47"
+            },
+            {
+              "id": "48",
+              "label": "layerId 48"
+            },
+            {
+              "id": "49",
+              "label": "layerId 49"
+            }
+          ]
+        }
+      ],
+      "availability": "Only registered when the Model setting is ms3pro (getAllActions, ADD_ACTIONS_DEVICES in utils/constant.js).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 826
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "selected_media",
+      "name": "Selected Media",
+      "description": "Show this button's Select Media action program and layer",
+      "feedbackType": "advanced",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (updateFeedbacks in src/main.js).",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 3
+      }
+    },
+    {
+      "id": "bind_media",
+      "name": "Bind Media",
+      "description": "Show this button's Bind Media action program and layer",
+      "feedbackType": "advanced",
+      "options": [],
+      "availability": "Only registered when the Model setting is ms3pro (updateFeedbacks in src/main.js).",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 19
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 17 actions from getActions() and 12 more from getAllActions() (src/actions.js) plus 2 advanced feedbacks (src/feedbacks.js). Which set is registered depends on the Model setting (src/main.js:27-37): model ms3pro gets all 29 actions and both feedbacks, any other value gets only the 17 base actions and no feedbacks. Commented-out code in actions.js (set_volume, open_layer_volume, close_layer_volume, refresh, update_program, take_program, cut_program) is not registered and not catalogued.",
+    "Protocol: UDP to the media server (config host, default 192.168.0.10; port, default \"18960\"; the module binds locally to 0.0.0.0:18961). Every action sends one binary control frame built by encodeControlProtocol (utils/cmdCodec.js) with a numeric tag; the tag per action is in its description. The module never reads device state except the program list request (tag 129) at start, whose result is not used.",
+    "Config fields (src/main.js:145-179): info (static text), host (textinput, Regex.IP, default 192.168.0.10), port (textinput, Regex.PORT, default \"18960\"), modelId (dropdown, choices ms3pro \"Pilot MS3 Pro\" and ms3 \"Pilot MS3\", default ms3pro). init() reads this.config.modelID (capital D) while the field id is modelId; updateActions/updateFeedbacks use modelId.",
+    "The program dropdowns offer ids 0-255 as numbers (PROGRAM_CHOICES, label \"ProgramId N\", src/actions.js:5); the layer dropdowns offer the strings \"0\" to \"49\" (label \"layerId N\") while the program default is the number 0 and the layer default is the string \"0\". The ids keep their source type here.",
+    "pause_program, play_program and stop_program act on instance.programId, which is only set by the program action (initial value 0); they have no options.",
+    "score_set declares asInteger and clampValues (clamping is not part of the catalog schema). Option tooltips are recorded as description.",
+    "Built on @companion-module/base ~1.15.1: options do not support expressions. Names are the source names, which equal the action ids."
+  ]
+}
