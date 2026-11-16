@@ -1,0 +1,728 @@
+{
+  "moduleId": "malighting-grandma2",
+  "name": "MA Lighting grandMA2",
+  "repo": "bitfocus/companion-module-malighting-grandma2",
+  "version": "2.3.0",
+  "baseVersion": "^1.8.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "199c98a",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "command",
+      "name": "Run Custom Command",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Command",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 17
+      }
+    },
+    {
+      "id": "button",
+      "name": "Button Press/Release",
+      "options": [
+        {
+          "id": "button",
+          "type": "dropdown",
+          "label": "Button",
+          "default": 11,
+          "choices": [
+            {
+              "id": "3",
+              "label": "Ch Pg +"
+            },
+            {
+              "id": "4",
+              "label": "Ch Pg -"
+            },
+            {
+              "id": "5",
+              "label": "Fd Pg +"
+            },
+            {
+              "id": "6",
+              "label": "Fd Pg -"
+            },
+            {
+              "id": "7",
+              "label": "Bt Pg +"
+            },
+            {
+              "id": "8",
+              "label": "Bt Pg -"
+            },
+            {
+              "id": "9",
+              "label": "Pause Playback"
+            },
+            {
+              "id": "10",
+              "label": "Go - Playback"
+            },
+            {
+              "id": "11",
+              "label": "Go + Playback"
+            },
+            {
+              "id": "12",
+              "label": "X1"
+            },
+            {
+              "id": "13",
+              "label": "X2"
+            },
+            {
+              "id": "14",
+              "label": "X3"
+            },
+            {
+              "id": "15",
+              "label": "X4"
+            },
+            {
+              "id": "16",
+              "label": "X5"
+            },
+            {
+              "id": "17",
+              "label": "X6"
+            },
+            {
+              "id": "18",
+              "label": "X7"
+            },
+            {
+              "id": "19",
+              "label": "X8"
+            },
+            {
+              "id": "20",
+              "label": "X9"
+            },
+            {
+              "id": "21",
+              "label": "X10"
+            },
+            {
+              "id": "22",
+              "label": "X11"
+            },
+            {
+              "id": "23",
+              "label": "X12"
+            },
+            {
+              "id": "24",
+              "label": "X13"
+            },
+            {
+              "id": "25",
+              "label": "X14"
+            },
+            {
+              "id": "26",
+              "label": "X15"
+            },
+            {
+              "id": "27",
+              "label": "X16"
+            },
+            {
+              "id": "28",
+              "label": "X17"
+            },
+            {
+              "id": "29",
+              "label": "X18"
+            },
+            {
+              "id": "30",
+              "label": "X19"
+            },
+            {
+              "id": "31",
+              "label": "X20"
+            },
+            {
+              "id": "32",
+              "label": "List"
+            },
+            {
+              "id": "33",
+              "label": "User 1"
+            },
+            {
+              "id": "34",
+              "label": "User 2"
+            },
+            {
+              "id": "36",
+              "label": "U1"
+            },
+            {
+              "id": "37",
+              "label": "U2"
+            },
+            {
+              "id": "38",
+              "label": "U3"
+            },
+            {
+              "id": "39",
+              "label": "U4"
+            },
+            {
+              "id": "40",
+              "label": "Nipple ⦿"
+            },
+            {
+              "id": "41",
+              "label": "Fix"
+            },
+            {
+              "id": "42",
+              "label": "Select"
+            },
+            {
+              "id": "43",
+              "label": "Off"
+            },
+            {
+              "id": "44",
+              "label": "Temp"
+            },
+            {
+              "id": "45",
+              "label": "Top"
+            },
+            {
+              "id": "46",
+              "label": "On"
+            },
+            {
+              "id": "47",
+              "label": "<<<"
+            },
+            {
+              "id": "48",
+              "label": "Learn"
+            },
+            {
+              "id": "49",
+              "label": ">>>"
+            },
+            {
+              "id": "50",
+              "label": "Go -"
+            },
+            {
+              "id": "51",
+              "label": "Pause"
+            },
+            {
+              "id": "52",
+              "label": "Go +"
+            },
+            {
+              "id": "53",
+              "label": "Oops"
+            },
+            {
+              "id": "54",
+              "label": "Esc"
+            },
+            {
+              "id": "55",
+              "label": "Edit"
+            },
+            {
+              "id": "56",
+              "label": "Goto"
+            },
+            {
+              "id": "57",
+              "label": "Update"
+            },
+            {
+              "id": "58",
+              "label": "Time"
+            },
+            {
+              "id": "59",
+              "label": "Store"
+            },
+            {
+              "id": "60",
+              "label": "Blind"
+            },
+            {
+              "id": "61",
+              "label": "Freeze"
+            },
+            {
+              "id": "62",
+              "label": "Preview"
+            },
+            {
+              "id": "63",
+              "label": "Assign"
+            },
+            {
+              "id": "64",
+              "label": "Align"
+            },
+            {
+              "id": "65",
+              "label": "Blackout"
+            },
+            {
+              "id": "66",
+              "label": "View"
+            },
+            {
+              "id": "67",
+              "label": "Effect"
+            },
+            {
+              "id": "68",
+              "label": "MA"
+            },
+            {
+              "id": "69",
+              "label": "Delete"
+            },
+            {
+              "id": "70",
+              "label": "Page"
+            },
+            {
+              "id": "71",
+              "label": "Macro"
+            },
+            {
+              "id": "72",
+              "label": "Preset"
+            },
+            {
+              "id": "73",
+              "label": "Copy"
+            },
+            {
+              "id": "74",
+              "label": "Sequence"
+            },
+            {
+              "id": "75",
+              "label": "Cue"
+            },
+            {
+              "id": "76",
+              "label": "Executor"
+            },
+            {
+              "id": "82",
+              "label": "Channel"
+            },
+            {
+              "id": "83",
+              "label": "Fixture"
+            },
+            {
+              "id": "84",
+              "label": "Group"
+            },
+            {
+              "id": "85",
+              "label": "Move"
+            },
+            {
+              "id": "86",
+              "label": "0"
+            },
+            {
+              "id": "87",
+              "label": "1"
+            },
+            {
+              "id": "88",
+              "label": "2"
+            },
+            {
+              "id": "89",
+              "label": "3"
+            },
+            {
+              "id": "90",
+              "label": "4"
+            },
+            {
+              "id": "91",
+              "label": "5"
+            },
+            {
+              "id": "92",
+              "label": "6"
+            },
+            {
+              "id": "93",
+              "label": "7"
+            },
+            {
+              "id": "94",
+              "label": "8"
+            },
+            {
+              "id": "95",
+              "label": "9"
+            },
+            {
+              "id": "96",
+              "label": "+"
+            },
+            {
+              "id": "97",
+              "label": "-"
+            },
+            {
+              "id": "98",
+              "label": "."
+            },
+            {
+              "id": "99",
+              "label": "Full"
+            },
+            {
+              "id": "100",
+              "label": "Highlight"
+            },
+            {
+              "id": "101",
+              "label": "Solo"
+            },
+            {
+              "id": "102",
+              "label": "Thru"
+            },
+            {
+              "id": "103",
+              "label": "If"
+            },
+            {
+              "id": "104",
+              "label": "At"
+            },
+            {
+              "id": "105",
+              "label": "Clear"
+            },
+            {
+              "id": "106",
+              "label": "Please"
+            },
+            {
+              "id": "107",
+              "label": "Up"
+            },
+            {
+              "id": "108",
+              "label": "Set"
+            },
+            {
+              "id": "109",
+              "label": "Previous"
+            },
+            {
+              "id": "110",
+              "label": "Next"
+            },
+            {
+              "id": "111",
+              "label": "Down"
+            },
+            {
+              "id": "116",
+              "label": "Help"
+            },
+            {
+              "id": "117",
+              "label": "Backup"
+            },
+            {
+              "id": "118",
+              "label": "Setup"
+            },
+            {
+              "id": "119",
+              "label": "Tools"
+            },
+            {
+              "id": "120",
+              "label": "V1"
+            },
+            {
+              "id": "121",
+              "label": "V2"
+            },
+            {
+              "id": "122",
+              "label": "V3"
+            },
+            {
+              "id": "123",
+              "label": "V4"
+            },
+            {
+              "id": "124",
+              "label": "V5"
+            },
+            {
+              "id": "125",
+              "label": "V6"
+            },
+            {
+              "id": "126",
+              "label": "V7"
+            },
+            {
+              "id": "127",
+              "label": "V8"
+            },
+            {
+              "id": "128",
+              "label": "V9"
+            },
+            {
+              "id": "129",
+              "label": "V10"
+            }
+          ]
+        },
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Press (down)"
+            },
+            {
+              "id": "false",
+              "label": "Release (up)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 32
+      }
+    },
+    {
+      "id": "wheel",
+      "name": "Move wheel up/down",
+      "options": [
+        {
+          "id": "steps",
+          "type": "textinput",
+          "label": "Steps to move wheel (+/-)",
+          "default": 1,
+          "description": "Negative numbers move down",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 56
+      }
+    },
+    {
+      "id": "encoder",
+      "name": "Rotate Encoder",
+      "options": [
+        {
+          "id": "encoder_from_variable",
+          "type": "checkbox",
+          "label": "Use variable for encoder",
+          "default": false
+        },
+        {
+          "id": "enc",
+          "type": "dropdown",
+          "label": "Select Encoder",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Main Encoder (1)"
+            },
+            {
+              "id": 1,
+              "label": "Main Encoder (2)"
+            },
+            {
+              "id": 2,
+              "label": "Main Encoder (3)"
+            },
+            {
+              "id": 3,
+              "label": "Main Encoder (4)"
+            },
+            {
+              "id": 4,
+              "label": "Command Screen Encoder (5)"
+            },
+            {
+              "id": 5,
+              "label": "Screen 2 Encoder (6)"
+            },
+            {
+              "id": 6,
+              "label": "Screen 3 Encoder (7)"
+            },
+            {
+              "id": 7,
+              "label": "Screen 4 Encoder (8)"
+            }
+          ],
+          "visibleWhen": "(options) => !options.encoder_from_variable"
+        },
+        {
+          "id": "encoder_variable",
+          "type": "textinput",
+          "label": "Encoder Number (1-8)",
+          "default": 1,
+          "useVariables": true,
+          "visibleWhen": "(options) => !!options.encoder_from_variable"
+        },
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "choices": [
+            {
+              "id": "-1",
+              "label": "CCW"
+            },
+            {
+              "id": "1",
+              "label": "CW"
+            }
+          ]
+        },
+        {
+          "id": "steps",
+          "type": "number",
+          "label": "Steps",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Adjust by how much per click?"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 104
+      }
+    },
+    {
+      "id": "encoder_p",
+      "name": "Encoder Press/Release",
+      "options": [
+        {
+          "id": "encoder_from_variable",
+          "type": "checkbox",
+          "label": "Use variable for encoder",
+          "default": false
+        },
+        {
+          "id": "enc",
+          "type": "dropdown",
+          "label": "Select Encoder",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Main Encoder (1)"
+            },
+            {
+              "id": 1,
+              "label": "Main Encoder (2)"
+            },
+            {
+              "id": 2,
+              "label": "Main Encoder (3)"
+            },
+            {
+              "id": 3,
+              "label": "Main Encoder (4)"
+            },
+            {
+              "id": 4,
+              "label": "Command Screen Encoder (5)"
+            },
+            {
+              "id": 5,
+              "label": "Screen 2 Encoder (6)"
+            },
+            {
+              "id": 6,
+              "label": "Screen 3 Encoder (7)"
+            },
+            {
+              "id": 7,
+              "label": "Screen 4 Encoder (8)"
+            }
+          ],
+          "visibleWhen": "(options) => !options.encoder_from_variable"
+        },
+        {
+          "id": "encoder_variable",
+          "type": "textinput",
+          "label": "Encoder Number (1-8)",
+          "default": 1,
+          "useVariables": true,
+          "visibleWhen": "(options) => !!options.encoder_from_variable"
+        },
+        {
+          "id": "dir",
+          "type": "dropdown",
+          "label": "Direction",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Press (down)"
+            },
+            {
+              "id": "false",
+              "label": "Release (up)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 136
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "The module has no feedbacks (grandma2.js only sets action definitions and one variable, response).",
+    "Transport: Telnet to the console (port 30000), login with user and password from the module config; every action sends a command line (command, or LUA 'gma.canbus.*' calls). The module text names the console; the manifest lists only GrandMA2 and does not mention onPC or other variants, so onPC coverage is not verified.",
+    "The button option 'button' has the numeric default 11 while all choice ids are strings ('11'); the catalog records the source as written (actions.js:38-41, choices.js).",
+    "The encoder and encoder_p actions are built in a block after the literal action table (actionDefs[cmd]); the option list is the shared encOpt array (checkbox, dropdown, textinput) followed by the action-specific options. The enc dropdown ids are numbers 0-7 (ar2obj in actions.js:3-5); labels read 'Main Encoder (1)' to 'Screen 4 Encoder (8)'.",
+    "Encoder fields: when encoder_from_variable is checked, encoder_variable (1-8, variables allowed) replaces enc; the callback clamps it to 0-7 after subtracting 1.",
+    "Legacy action ids pushbutton, relbutton and encoder<N> exist only in upgrade scripts (upgrades.js) and are not registered actions.",
+    "Built on @companion-module/base ^1.8.0: no expressions; variables only through useVariables text inputs."
+  ]
+}

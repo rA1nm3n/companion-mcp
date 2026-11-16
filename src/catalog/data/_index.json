@@ -338,6 +338,29 @@
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
+      "moduleId": "chamsys-magicq-osc",
+      "repo": "bitfocus/companion-module-chamsys-magicq-osc",
+      "version": "3.3.0",
+      "baseVersion": "~2.0.4",
+      "lastCommit": "2026-10-27",
+      "kind": "full",
+      "manufacturer": "ChamSys",
+      "products": ["MagicQ"],
+      "keywords": ["Lighting"]
+    },
+    {
+      "moduleId": "chamsys-magicq-udp",
+      "repo": "bitfocus/companion-module-chamsys-magicq-udp",
+      "version": "2.1.0",
+      "baseVersion": "~1.4.3",
+      "lastCommit": "2026-11-01",
+      "kind": "full",
+      "manufacturer": "ChamSys",
+      "products": ["MagicQ (UDP)"],
+      "keywords": ["Lighting"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
       "moduleId": "christie-projector",
       "repo": "bitfocus/companion-module-christie-projector",
       "version": "4.1.0",
@@ -781,6 +804,30 @@
       "manufacturer": "Luminex",
       "products": ["GigaCore"],
       "keywords": ["Switch", "Luminex", "GigaCore"]
+    },
+    {
+      "moduleId": "malighting-grandma2",
+      "repo": "bitfocus/companion-module-malighting-grandma2",
+      "version": "2.3.0",
+      "baseVersion": "^1.8.0",
+      "lastCommit": "2026-10-30",
+      "kind": "full",
+      "manufacturer": "MA Lighting",
+      "products": ["GrandMA2"],
+      "keywords": ["Lighting"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
+      "moduleId": "malighting-grandma3",
+      "repo": "bitfocus/companion-module-malighting-grandma3",
+      "version": "1.4.1",
+      "baseVersion": "~1.14.1",
+      "lastCommit": "2026-10-31",
+      "kind": "full",
+      "manufacturer": "MA Lighting",
+      "products": ["GrandMA3"],
+      "keywords": ["Lighting"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
       "moduleId": "modulopi-moduloplayer",

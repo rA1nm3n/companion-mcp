@@ -5,10 +5,14 @@ import birddogPtz from './data/birddog-ptz.json' with { type: 'json' };
 import bmdAtem from './data/bmd-atem.json' with { type: 'json' };
 import bmdHyperdeck from './data/bmd-hyperdeck.json' with { type: 'json' };
 import bmdVideohub from './data/bmd-videohub.json' with { type: 'json' };
+import chamsysMagicqOsc from './data/chamsys-magicq-osc.json' with { type: 'json' };
+import chamsysMagicqUdp from './data/chamsys-magicq-udp.json' with { type: 'json' };
 import datatonWatchoutJson from './data/dataton-watchout-json.json' with { type: 'json' };
 import datatonWatchout from './data/dataton-watchout.json' with { type: 'json' };
 import internal from './data/internal.json' with { type: 'json' };
 import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
+import malightingGrandma2 from './data/malighting-grandma2.json' with { type: 'json' };
+import malightingGrandma3 from './data/malighting-grandma3.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
@@ -43,10 +47,14 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'bmd-atem': bmdAtem,
   'bmd-hyperdeck': bmdHyperdeck,
   'bmd-videohub': bmdVideohub,
+  'chamsys-magicq-osc': chamsysMagicqOsc,
+  'chamsys-magicq-udp': chamsysMagicqUdp,
   'dataton-watchout': datatonWatchout,
   'dataton-watchout-json': datatonWatchoutJson,
   internal,
   'luminex-gigacore': luminexGigacore,
+  'malighting-grandma2': malightingGrandma2,
+  'malighting-grandma3': malightingGrandma3,
   'panasonic-ptz': panasonicPtz,
   'resolume-arena': resolumeArena,
   'shure-wireless': shureWireless,

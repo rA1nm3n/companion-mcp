@@ -7,6 +7,7 @@ import {
   listUnusable,
   searchModules,
   supportsExpressions,
+  validateActionOptions,
 } from '../../src/catalog/index.js';
 
 describe('listModules', () => {
@@ -141,5 +142,59 @@ describe('supportsExpressions', () => {
     const panasonic = getModule('panasonic-ptz');
     expect(atem && supportsExpressions(atem)).toBe(true);
     expect(panasonic && supportsExpressions(panasonic)).toBe(false);
+  });
+});
+
+describe('lighting console modules', () => {
+  it('finds the module ids by product name', () => {
+    const ids = (q: string) => searchModules(q).map((m) => m.moduleId);
+    expect(ids('grandma')).toEqual(['malighting-grandma2', 'malighting-grandma3']);
+    expect(ids('magicq')).toEqual(['chamsys-magicq-osc', 'chamsys-magicq-udp']);
+  });
+
+  it('knows the registered action and feedback ids', () => {
+    expect(findAction('malighting-grandma2', 'encoder_p')?.provenance.file).toBe('actions.js');
+    expect(findAction('malighting-grandma3', 'exec_button')?.options.map((o) => o.id)).toEqual([
+      'page',
+      'current_page',
+      'button_number',
+      'button_state',
+    ]);
+    expect(findFeedback('malighting-grandma3', 'sequence_active')?.feedbackType).toBe('boolean');
+    expect(findAction('chamsys-magicq-udp', 'pbJump')?.options).toHaveLength(3);
+    expect(findFeedback('chamsys-magicq-osc', 'dbo')?.options).toEqual([]);
+  });
+
+  it('applies expression support from the base library version', () => {
+    const osc = getModule('chamsys-magicq-osc');
+    const udp = getModule('chamsys-magicq-udp');
+    const expr = { pbId: { isExpression: true, value: '1 + 1' } };
+    expect(osc && supportsExpressions(osc)).toBe(true);
+    expect(udp && supportsExpressions(udp)).toBe(false);
+    expect(validateActionOptions('chamsys-magicq-osc', 'pbGo', expr)).toEqual([]);
+    expect(validateActionOptions('chamsys-magicq-udp', 'pbGo', expr).map((i) => i.code)).toEqual([
+      'expression-not-supported',
+    ]);
+    const blocked = {
+      pbFId: { isExpression: true, value: '1' },
+      pbId: { isExpression: false, value: '1' },
+    };
+    expect(
+      validateActionOptions('chamsys-magicq-osc', 'pbFlash', blocked).map((i) => i.code),
+    ).toEqual(['expression-not-allowed']);
+  });
+
+  it('validates grandMA2 button ids with their source types', () => {
+    const ok = {
+      button: { isExpression: false, value: '11' },
+      dir: { isExpression: false, value: 'true' },
+    };
+    expect(validateActionOptions('malighting-grandma2', 'button', ok)).toEqual([]);
+    expect(
+      validateActionOptions('malighting-grandma2', 'button', {
+        ...ok,
+        dir: { isExpression: false, value: 'up' },
+      }).map((i) => i.code),
+    ).toEqual(['invalid-value']);
   });
 });

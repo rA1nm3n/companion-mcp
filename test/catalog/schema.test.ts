@@ -30,6 +30,12 @@ const PRIO1 = [
   'resolume-arena',
 ];
 const REPORT_05 = ['bmd-atem', 'bmd-videohub', 'studiocoast-vmix', 'birddog-ptz'];
+const LIGHTING = [
+  'malighting-grandma2',
+  'malighting-grandma3',
+  'chamsys-magicq-osc',
+  'chamsys-magicq-udp',
+];
 
 function load(file: string): unknown {
   return JSON.parse(readFileSync(new URL(file, DATA_DIR), 'utf8'));
@@ -38,7 +44,7 @@ function load(file: string): unknown {
 describe('catalog data files', () => {
   it('has the expected set of module files', () => {
     const ids = moduleFiles.map((f) => f.replace(/\.json$/, ''));
-    for (const id of [...PRIO1, ...REPORT_05, 'internal']) expect(ids).toContain(id);
+    for (const id of [...PRIO1, ...REPORT_05, ...LIGHTING, 'internal']) expect(ids).toContain(id);
   });
 
   it.each(moduleFiles)('%s matches the module schema', (file) => {
@@ -155,6 +161,8 @@ describe('catalog consistency', () => {
       'panasonic-ptz/insPosition/position',
       'panasonic-ptz/colorBarsType/type',
       'studiocoast-vmix/dynamic/number',
+      // grandMA2 button: numeric default 11, string choice ids (actions.js:38-41, choices.js)
+      'malighting-grandma2/button/button',
     ]);
     const found = new Set<string>();
     for (const mod of modules) {
