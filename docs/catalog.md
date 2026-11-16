@@ -76,6 +76,10 @@ and 5"), `optionsComplete`, `optionsSupportExpressions`, and for feedbacks `feed
   that resolve `$(...)`; numeric text inputs are not range-checked when a variable is present.
 - `allowInvalidValues` (module source): values outside the list are accepted. The validator then
   only applies the declared value shape.
+- `allowCustom` (module source): free text next to the listed choices. A value outside the list is
+  accepted if it matches the declared shape (`valueType`, `min`, `max`, `valuePattern`); without a
+  declared shape any value is accepted. The listed choices are still checked as usual when the
+  value is one of them. The Yamaha value dropdowns and the Avantis mute dropdown use it.
 - `disableAutoExpression` (module source): the field cannot be switched to expression mode.
 - `visibleWhen`, `regex` are informational (the source condition and the source regular
   expression). They are not evaluated.
@@ -163,3 +167,20 @@ keywords), a `noModule` section with devices that have no module and the generic
 replace them (`generic-osc`, `generic-tcp-udp`, `generic-http`, `generic-pjlink`; the list stays empty, with an explaining note, when no alternative was verified), and `unusable`
 repositories (for example modules whose manifest id is still the template placeholder). Legacy
 repositories without a manifest are listed with the directory name as id and a note.
+
+### Audio consoles
+
+Large or generated option sets are not enumerated per strip. Each module records the pattern once
+and describes the range in `choicesNote`, `min`/`max` or `availability`:
+
+- `yamaha-rcp` covers the CL/QL, Rivage PM, TF, DM3, DM7/DM5 consoles and the RIO/TIO/RSio devices.
+  Its actions and feedbacks are generated from the per-model parameter tables, so the catalog
+  merges the models: one entry per command, with the models that register it in `availability`.
+  `yamaha-scp` is the legacy id of the same module; `yamaha-dm` is an unmodified template.
+- `behringer-x32` (X32/M32) target dropdowns use `allowInvalidValues` because the module parses
+  loose spellings of a channel reference.
+- Allen & Heath: `allenheath-sq`, `allenheath-avantis`, `allenheath-dlive`,
+  `allenheath-dlive-ilive`, `allenheath-cq`, `allenheath-ahm` and `allenheath-dt168` are
+  catalogued. The Qu repository has no manifest and is listed as unusable; GLD, ZED and Xone have no
+  module (see `noModule`). Avantis strip ids are MIDI channel numbers; the strip counts grow with
+  the D-Pack option (`choicesNote`).

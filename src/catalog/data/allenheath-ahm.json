@@ -1,0 +1,700 @@
+{
+  "moduleId": "allenheath-ahm",
+  "name": "Allen & Heath AHM",
+  "repo": "bitfocus/companion-module-allenheath-ahm",
+  "version": "3.0.0",
+  "baseVersion": "~2.0.0",
+  "lastCommit": "2026-11-11",
+  "lastCommitSha": "795a84f",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Plain JavaScript module (src/actions.js, src/feedbacks.js); every action and feedback is registered in getActions and getFeedbacks, no entries were left out. Control is over MIDI over TCP for the AHM-16, AHM-32 and AHM-64 (README of the module; the device type is the ahm_type config option).",
+    "The number of inputs and zones follows the configured AHM type (16, 32 or 64, default 64 when the type is invalid); control groups are fixed at 32 (main.js:88-93). The catalog records the maximum of the AHM-64 and marks it in the option description; the number fields set clampValues: false so values from a larger type are kept.",
+    "The option ids come from the shared builders in src/actions.js:43-160 (listOptions: number; muteOptions: mute_number and mute; setLevelOptions: setlvl_ch_number and level; adjustLevelOptions: incdec_ch_number and incdec) and generateNumberOptions in src/feedbacks.js:38-52. The level dropdown ids are indexes into the 128 dBu steps of dbu_Values.",
+    "Feedback types: the boolean feedbacks have no options beyond the channel numbers; the value feedbacks return the level in dBu.",
+    "Not catalogued: variables, presets and the upgrade scripts.",
+    "Built on @companion-module/base ~2.0.0: expressions are supported for option values."
+  ],
+  "actions": [
+    {
+      "id": "mute_input",
+      "name": "Mute Input",
+      "options": [
+        {
+          "id": "mute_number",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 174
+      }
+    },
+    {
+      "id": "mute_zone",
+      "name": "Mute Zone",
+      "options": [
+        {
+          "id": "mute_number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 189
+      }
+    },
+    {
+      "id": "mute_controlgroup",
+      "name": "Mute Control Group",
+      "options": [
+        {
+          "id": "mute_number",
+          "type": "number",
+          "label": "Control Group",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 204
+      }
+    },
+    {
+      "id": "input_to_zone",
+      "name": "Mute Input to Zone",
+      "options": [
+        {
+          "id": "mute_number",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 219
+      }
+    },
+    {
+      "id": "set_level_input",
+      "name": "Set Level of Input",
+      "options": [
+        {
+          "id": "setlvl_ch_number",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Set Level (dBu)",
+          "default": "0",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127 (index into dbu_Values in src/utility/constants.js:4-133: 0 = -inf, 1 = -47.5 dBu, ... 127 = +10.0 dBu). The source default is the string \"0\" while the ids are numbers."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 241
+      }
+    },
+    {
+      "id": "inc_dec_level_input",
+      "name": "Increment/Decrement Level of Input",
+      "options": [
+        {
+          "id": "incdec_ch_number",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "incdec",
+          "type": "dropdown",
+          "label": "Increment/Decrement",
+          "default": "inc",
+          "choices": [
+            {
+              "id": "inc",
+              "label": "Increment"
+            },
+            {
+              "id": "dec",
+              "label": "Decrement"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 256
+      }
+    },
+    {
+      "id": "set_level_zone",
+      "name": "Set Level of Zone",
+      "options": [
+        {
+          "id": "setlvl_ch_number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Set Level (dBu)",
+          "default": "0",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127 (index into dbu_Values in src/utility/constants.js:4-133: 0 = -inf, 1 = -47.5 dBu, ... 127 = +10.0 dBu). The source default is the string \"0\" while the ids are numbers."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 270
+      }
+    },
+    {
+      "id": "inc_dec_level_zone",
+      "name": "Increment/Decrement Level of Zone",
+      "options": [
+        {
+          "id": "incdec_ch_number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "incdec",
+          "type": "dropdown",
+          "label": "Increment/Decrement",
+          "default": "inc",
+          "choices": [
+            {
+              "id": "inc",
+              "label": "Increment"
+            },
+            {
+              "id": "dec",
+              "label": "Decrement"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 285
+      }
+    },
+    {
+      "id": "set_level_controlgroup",
+      "name": "Set Level of Control Group",
+      "options": [
+        {
+          "id": "setlvl_ch_number",
+          "type": "number",
+          "label": "Control Group",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Set Level (dBu)",
+          "default": "0",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127 (index into dbu_Values in src/utility/constants.js:4-133: 0 = -inf, 1 = -47.5 dBu, ... 127 = +10.0 dBu). The source default is the string \"0\" while the ids are numbers."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 299
+      }
+    },
+    {
+      "id": "inc_dec_level_controlgroup",
+      "name": "Increment/Decrement Level of Control Group",
+      "options": [
+        {
+          "id": "incdec_ch_number",
+          "type": "number",
+          "label": "Control Group",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true
+        },
+        {
+          "id": "incdec",
+          "type": "dropdown",
+          "label": "Increment/Decrement",
+          "default": "inc",
+          "choices": [
+            {
+              "id": "inc",
+              "label": "Increment"
+            },
+            {
+              "id": "dec",
+              "label": "Decrement"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 314
+      }
+    },
+    {
+      "id": "inc_dec_in_zn_send_level",
+      "name": "Increment/Decrement Input to Zone Send Level",
+      "options": [
+        {
+          "id": "incdec_ch_number",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "incdec",
+          "type": "dropdown",
+          "label": "Increment/Decrement",
+          "default": "inc",
+          "choices": [
+            {
+              "id": "inc",
+              "label": "Increment"
+            },
+            {
+              "id": "dec",
+              "label": "Decrement"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 328
+      }
+    },
+    {
+      "id": "inc_dec_zn_zn_send_level",
+      "name": "Increment/Decrement Zone to Zone Send Level",
+      "options": [
+        {
+          "id": "incdec_ch_number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "incdec",
+          "type": "dropdown",
+          "label": "Increment/Decrement",
+          "default": "inc",
+          "choices": [
+            {
+              "id": "inc",
+              "label": "Increment"
+            },
+            {
+              "id": "dec",
+              "label": "Decrement"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 343
+      }
+    },
+    {
+      "id": "preset_recall",
+      "name": "Recall Preset",
+      "options": [
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Preset",
+          "default": 1,
+          "min": 1,
+          "max": 500,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 360
+      }
+    },
+    {
+      "id": "playback_track",
+      "name": "Playback Track",
+      "options": [
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Playback Track",
+          "default": 1,
+          "min": 1,
+          "max": 127,
+          "integer": true
+        },
+        {
+          "id": "playbackChannel",
+          "type": "dropdown",
+          "label": "Playback Channel",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Mono1"
+            },
+            {
+              "id": 1,
+              "label": "Mono2"
+            },
+            {
+              "id": 2,
+              "label": "Stereo"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 372
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "inputMute",
+      "name": "Input Mute",
+      "description": "Change background when input on mute",
+      "options": [
+        {
+          "id": "input",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 57
+      }
+    },
+    {
+      "id": "inputLevel",
+      "name": "Input Level",
+      "description": "Returns level of input in dBu",
+      "options": [
+        {
+          "id": "input",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 84
+      }
+    },
+    {
+      "id": "zoneMute",
+      "name": "Zone Mute",
+      "description": "Change background when zone on mute",
+      "options": [
+        {
+          "id": "zone",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 117
+      }
+    },
+    {
+      "id": "zoneLevel",
+      "name": "Zone Level",
+      "description": "Returns level of zone in dBu",
+      "options": [
+        {
+          "id": "zone",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 144
+      }
+    },
+    {
+      "id": "cgMute",
+      "name": "Control Group Mute",
+      "description": "Change background when control group on mute",
+      "options": [
+        {
+          "id": "cg",
+          "type": "number",
+          "label": "Control Group",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 172
+      }
+    },
+    {
+      "id": "cgLevel",
+      "name": "Control Group Level",
+      "description": "Returns level of control group in dBu",
+      "options": [
+        {
+          "id": "cg",
+          "type": "number",
+          "label": "Control Group",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 206
+      }
+    },
+    {
+      "id": "inputToZoneMute",
+      "name": "Input to Zone - Mute",
+      "description": "Change background when input to zone on mute",
+      "options": [
+        {
+          "id": "input",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "zone",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 247
+      }
+    },
+    {
+      "id": "inputToZoneLevel",
+      "name": "Input to Zone - Level",
+      "description": "Returns value of input sent to zone",
+      "options": [
+        {
+          "id": "input",
+          "type": "number",
+          "label": "Input",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        },
+        {
+          "id": "zone",
+          "type": "number",
+          "label": "Zone",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Largest value; the real limit follows the configured AHM type (16, 32 or 64 inputs and zones, 32 control groups)."
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 287
+      }
+    },
+    {
+      "id": "currentPreset",
+      "name": "Active Preset",
+      "description": "Feedback when a specific preset has been recalled",
+      "options": [
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Preset",
+          "default": 1,
+          "min": 1,
+          "max": 500,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 328
+      }
+    }
+  ]
+}

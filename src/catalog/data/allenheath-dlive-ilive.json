@@ -1,0 +1,5765 @@
+{
+  "moduleId": "allenheath-dlive-ilive",
+  "name": "Allen & Heath dLive & iLive (dlive-ilive)",
+  "repo": "bitfocus/companion-module-allenheath-dlive-ilive",
+  "version": "2.0.3",
+  "baseVersion": "^1.4.0",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "2e3abed",
+  "status": "read",
+  "coverage": "complete",
+  "notes": [
+    "Plain JavaScript module (actions.js, getActionDefinitions) that registers a different set of actions depending on the console model chosen in the connection config (dLive or iLive); the catalog lists every action of both sets and the availability text says for which model. The module defines no feedbacks.",
+    "Dropdown ids for strips are numbers: for a strip list of n entries from the offset ofs the ids are 1+ofs..n+ofs (muteOptions, phantomOptions, faderOptions and sendLevelOptions in actions.js:52-117 and 663-696). Fader levels are ids 0..127 (0 = -INF, then 0.5 dB steps from -53 dB to +10 dB). Lists longer than 40 entries are described in choicesNote with the id range.",
+    "The input channel, DCA and scene lists depend on the model: dLive 128 channels, 24 DCAs and 500 scenes, iLive 64 channels, 16 DCAs and 250 scenes (actions.js:14-16). Where the lists differ between the models the entry carries a note with both ranges.",
+    "Several fader and send actions include the fade duration fields (shared FadeDurationChoice in fades.js) although the module applies the fade only for some of them (sendActionWithFade for fader_input, fader_mono_group and the send actions; the other fader actions use sendAction).",
+    "The module has two repositories with overlapping scope: bitfocus/companion-module-allenheath-dlive (manifest id allenheath-dlive, TypeScript rewrite for dLive only) and this one (manifest id allenheath-dlive-ilive, dLive and iLive). Each manifest lists the other id under legacyIds; the source does not show which of them Companion currently installs for a new connection. Catalogued separately as allenheath-dlive and allenheath-dlive-ilive.",
+    "Package version 2.0.3 (the manifest still says 2.0.0). Built on @companion-module/base ^1.4.0 (1.x): option values do not support expressions, although some fields set isVisibleExpression.",
+    "Not catalogued: config fields, variables and the upgrade scripts."
+  ],
+  "actions": [
+    {
+      "id": "mute_input",
+      "name": "Mute Input",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"Input Channel 1\"..\"Input Channel 128\", default 0; iLive: 64 choices, ids 32..95; labels \"Input Channel 1\"..\"Input Channel 64\", default 32)"
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 121
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "mute_mono_group",
+      "name": "Mute Mono Group",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono Group",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Group 1\"..\"Mono Group 62\""
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 128
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_stereo_group",
+      "name": "Mute Stereo Group",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo Group",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Group 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Group 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Group 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Group 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Group 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Group 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Group 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Group 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Group 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Group 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Group 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Group 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Group 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Group 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Group 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Group 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Group 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Group 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Group 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Group 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Group 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Group 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Group 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Group 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Group 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Group 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Group 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Group 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Group 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Group 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Group 31"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 135
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_mono_aux",
+      "name": "Mute Mono Aux",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono Aux",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Aux 1\"..\"Mono Aux 62\""
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 142
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_stereo_aux",
+      "name": "Mute Stereo Aux",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo Aux",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Aux 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Aux 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Aux 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Aux 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Aux 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Aux 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Aux 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Aux 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Aux 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Aux 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Aux 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Aux 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Aux 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Aux 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Aux 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Aux 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Aux 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Aux 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Aux 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Aux 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Aux 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Aux 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Aux 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Aux 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Aux 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Aux 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Aux 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Aux 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Aux 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Aux 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Aux 31"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 149
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_mono_matrix",
+      "name": "Mute Mono Matrix",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono Matrix",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Matrix 1\"..\"Mono Matrix 62\""
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 156
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_stereo_matrix",
+      "name": "Mute Stereo Matrix",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo Matrix",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Matrix 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Matrix 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Matrix 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Matrix 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Matrix 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Matrix 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Matrix 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Matrix 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Matrix 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Matrix 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Matrix 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Matrix 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Matrix 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Matrix 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Matrix 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Matrix 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Matrix 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Matrix 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Matrix 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Matrix 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Matrix 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Matrix 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Matrix 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Matrix 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Matrix 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Matrix 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Matrix 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Matrix 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Matrix 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Matrix 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Matrix 31"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 163
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_mono_fx_send",
+      "name": "Mute Mono FX Send",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono FX Send",
+          "default": 0,
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 16 choices, default 0; iLive: 8 choices, default 0)"
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 170
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes). Name differs by model (dLive: Mute Mono FX Send; iLive: Mute FX Send)"
+    },
+    {
+      "id": "mute_stereo_fx_send",
+      "name": "Mute Stereo FX Send",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo FX Send",
+          "default": 16,
+          "choices": [
+            {
+              "id": 16,
+              "label": "Stereo FX Send 1"
+            },
+            {
+              "id": 17,
+              "label": "Stereo FX Send 2"
+            },
+            {
+              "id": 18,
+              "label": "Stereo FX Send 3"
+            },
+            {
+              "id": 19,
+              "label": "Stereo FX Send 4"
+            },
+            {
+              "id": 20,
+              "label": "Stereo FX Send 5"
+            },
+            {
+              "id": 21,
+              "label": "Stereo FX Send 6"
+            },
+            {
+              "id": 22,
+              "label": "Stereo FX Send 7"
+            },
+            {
+              "id": 23,
+              "label": "Stereo FX Send 8"
+            },
+            {
+              "id": 24,
+              "label": "Stereo FX Send 9"
+            },
+            {
+              "id": 25,
+              "label": "Stereo FX Send 10"
+            },
+            {
+              "id": 26,
+              "label": "Stereo FX Send 11"
+            },
+            {
+              "id": 27,
+              "label": "Stereo FX Send 12"
+            },
+            {
+              "id": 28,
+              "label": "Stereo FX Send 13"
+            },
+            {
+              "id": 29,
+              "label": "Stereo FX Send 14"
+            },
+            {
+              "id": 30,
+              "label": "Stereo FX Send 15"
+            },
+            {
+              "id": 31,
+              "label": "Stereo FX Send 16"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 177
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_fx_return",
+      "name": "Mute FX Return",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "FX Return",
+          "default": 32,
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 16 choices, default 32; iLive: 8 choices, default 8)"
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 184
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "mute_master",
+      "name": "Mute Group Master",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mute Group Master",
+          "default": 78,
+          "choices": [
+            {
+              "id": 78,
+              "label": "Mute Group Master 1"
+            },
+            {
+              "id": 79,
+              "label": "Mute Group Master 2"
+            },
+            {
+              "id": 80,
+              "label": "Mute Group Master 3"
+            },
+            {
+              "id": 81,
+              "label": "Mute Group Master 4"
+            },
+            {
+              "id": 82,
+              "label": "Mute Group Master 5"
+            },
+            {
+              "id": 83,
+              "label": "Mute Group Master 6"
+            },
+            {
+              "id": 84,
+              "label": "Mute Group Master 7"
+            },
+            {
+              "id": 85,
+              "label": "Mute Group Master 8"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 191
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_dca",
+      "name": "Mute DCA",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "DCA",
+          "default": 54,
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 24 choices, default 54; iLive: 16 choices, default 16)"
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 198
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "mute_ufx_send",
+      "name": "Mute UFX Stereo Send",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "UFX Stereo Send",
+          "default": 86,
+          "choices": [
+            {
+              "id": 86,
+              "label": "UFX Stereo Send 1"
+            },
+            {
+              "id": 87,
+              "label": "UFX Stereo Send 2"
+            },
+            {
+              "id": 88,
+              "label": "UFX Stereo Send 3"
+            },
+            {
+              "id": 89,
+              "label": "UFX Stereo Send 4"
+            },
+            {
+              "id": 90,
+              "label": "UFX Stereo Send 5"
+            },
+            {
+              "id": 91,
+              "label": "UFX Stereo Send 6"
+            },
+            {
+              "id": 92,
+              "label": "UFX Stereo Send 7"
+            },
+            {
+              "id": 93,
+              "label": "UFX Stereo Send 8"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 205
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_ufx_return",
+      "name": "Mute UFX Stereo Return",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "UFX Stereo Return",
+          "default": 94,
+          "choices": [
+            {
+              "id": 94,
+              "label": "UFX Stereo Return 1"
+            },
+            {
+              "id": 95,
+              "label": "UFX Stereo Return 2"
+            },
+            {
+              "id": 96,
+              "label": "UFX Stereo Return 3"
+            },
+            {
+              "id": 97,
+              "label": "UFX Stereo Return 4"
+            },
+            {
+              "id": 98,
+              "label": "UFX Stereo Return 5"
+            },
+            {
+              "id": 99,
+              "label": "UFX Stereo Return 6"
+            },
+            {
+              "id": 100,
+              "label": "UFX Stereo Return 7"
+            },
+            {
+              "id": 101,
+              "label": "UFX Stereo Return 8"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 212
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_input",
+      "name": "Set Input Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"Channel 1\"..\"Channel 128\", default 0; iLive: 64 choices, ids 32..95; labels \"Channel 1\"..\"Channel 64\", default 32)"
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 219
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "fader_mono_group",
+      "name": "Set Mono Group Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono Group",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Group 1\"..\"Mono Group 62\""
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 226
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_stereo_group",
+      "name": "Set Stereo Group Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo Group",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Group 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Group 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Group 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Group 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Group 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Group 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Group 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Group 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Group 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Group 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Group 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Group 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Group 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Group 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Group 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Group 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Group 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Group 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Group 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Group 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Group 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Group 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Group 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Group 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Group 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Group 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Group 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Group 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Group 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Group 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Group 31"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 233
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_mono_aux",
+      "name": "Set Mono Aux Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono Aux",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Aux 1\"..\"Mono Aux 62\""
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 240
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_stereo_aux",
+      "name": "Set Stereo Aux Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo Aux",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Aux 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Aux 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Aux 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Aux 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Aux 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Aux 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Aux 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Aux 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Aux 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Aux 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Aux 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Aux 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Aux 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Aux 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Aux 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Aux 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Aux 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Aux 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Aux 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Aux 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Aux 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Aux 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Aux 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Aux 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Aux 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Aux 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Aux 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Aux 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Aux 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Aux 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Aux 31"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 247
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_mono_matrix",
+      "name": "Set Mono Matrix Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono Matrix",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Matrix 1\"..\"Mono Matrix 62\""
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 254
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_stereo_matrix",
+      "name": "Set Stereo Matrix Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo Matrix",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Matrix 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Matrix 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Matrix 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Matrix 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Matrix 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Matrix 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Matrix 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Matrix 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Matrix 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Matrix 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Matrix 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Matrix 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Matrix 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Matrix 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Matrix 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Matrix 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Matrix 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Matrix 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Matrix 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Matrix 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Matrix 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Matrix 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Matrix 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Matrix 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Matrix 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Matrix 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Matrix 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Matrix 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Matrix 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Matrix 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Matrix 31"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 261
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_mono_fx_send",
+      "name": "Set Mono FX Send Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mono FX Send",
+          "default": 0,
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 16 choices, default 0; iLive: 8 choices, default 0)"
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 268
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes). Name differs by model (dLive: Set Mono FX Send Master Fader to Level; iLive: Set FX Send Master Fader to Level)"
+    },
+    {
+      "id": "fader_stereo_fx_send",
+      "name": "Set Stereo FX Send Master Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Stereo FX Send",
+          "default": 16,
+          "choices": [
+            {
+              "id": 16,
+              "label": "Stereo FX Send 1"
+            },
+            {
+              "id": 17,
+              "label": "Stereo FX Send 2"
+            },
+            {
+              "id": 18,
+              "label": "Stereo FX Send 3"
+            },
+            {
+              "id": 19,
+              "label": "Stereo FX Send 4"
+            },
+            {
+              "id": 20,
+              "label": "Stereo FX Send 5"
+            },
+            {
+              "id": 21,
+              "label": "Stereo FX Send 6"
+            },
+            {
+              "id": 22,
+              "label": "Stereo FX Send 7"
+            },
+            {
+              "id": 23,
+              "label": "Stereo FX Send 8"
+            },
+            {
+              "id": 24,
+              "label": "Stereo FX Send 9"
+            },
+            {
+              "id": 25,
+              "label": "Stereo FX Send 10"
+            },
+            {
+              "id": 26,
+              "label": "Stereo FX Send 11"
+            },
+            {
+              "id": 27,
+              "label": "Stereo FX Send 12"
+            },
+            {
+              "id": 28,
+              "label": "Stereo FX Send 13"
+            },
+            {
+              "id": 29,
+              "label": "Stereo FX Send 14"
+            },
+            {
+              "id": 30,
+              "label": "Stereo FX Send 15"
+            },
+            {
+              "id": 31,
+              "label": "Stereo FX Send 16"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 275
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_fx_return",
+      "name": "Set FX Return Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "FX Return",
+          "default": 32,
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 16 choices, default 32; iLive: 8 choices, default 8)"
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 282
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "fader_DCA",
+      "name": "Set DCA Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "DCA",
+          "default": 54,
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 24 choices, default 54; iLive: 16 choices, default 16)"
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 289
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "fader_ufx_send",
+      "name": "Set UFX Stereo Send Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "UFX Stereo Send",
+          "default": 86,
+          "choices": [
+            {
+              "id": 86,
+              "label": "UFX Stereo Send 1"
+            },
+            {
+              "id": 87,
+              "label": "UFX Stereo Send 2"
+            },
+            {
+              "id": 88,
+              "label": "UFX Stereo Send 3"
+            },
+            {
+              "id": 89,
+              "label": "UFX Stereo Send 4"
+            },
+            {
+              "id": 90,
+              "label": "UFX Stereo Send 5"
+            },
+            {
+              "id": 91,
+              "label": "UFX Stereo Send 6"
+            },
+            {
+              "id": 92,
+              "label": "UFX Stereo Send 7"
+            },
+            {
+              "id": 93,
+              "label": "UFX Stereo Send 8"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 296
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "fader_ufx_return",
+      "name": "Set UFX Stereo Return Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "UFX Stereo Return",
+          "default": 94,
+          "choices": [
+            {
+              "id": 94,
+              "label": "UFX Stereo Return 1"
+            },
+            {
+              "id": 95,
+              "label": "UFX Stereo Return 2"
+            },
+            {
+              "id": 96,
+              "label": "UFX Stereo Return 3"
+            },
+            {
+              "id": 97,
+              "label": "UFX Stereo Return 4"
+            },
+            {
+              "id": 98,
+              "label": "UFX Stereo Return 5"
+            },
+            {
+              "id": 99,
+              "label": "UFX Stereo Return 6"
+            },
+            {
+              "id": 100,
+              "label": "UFX Stereo Return 7"
+            },
+            {
+              "id": 101,
+              "label": "UFX Stereo Return 8"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 303
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "mute_mix",
+      "name": "Mute Mix",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 96,
+          "choices": [
+            {
+              "id": 96,
+              "label": "Mix 1"
+            },
+            {
+              "id": 97,
+              "label": "Mix 2"
+            },
+            {
+              "id": 98,
+              "label": "Mix 3"
+            },
+            {
+              "id": 99,
+              "label": "Mix 4"
+            },
+            {
+              "id": 100,
+              "label": "Mix 5"
+            },
+            {
+              "id": 101,
+              "label": "Mix 6"
+            },
+            {
+              "id": 102,
+              "label": "Mix 7"
+            },
+            {
+              "id": 103,
+              "label": "Mix 8"
+            },
+            {
+              "id": 104,
+              "label": "Mix 9"
+            },
+            {
+              "id": 105,
+              "label": "Mix 10"
+            },
+            {
+              "id": 106,
+              "label": "Mix 11"
+            },
+            {
+              "id": 107,
+              "label": "Mix 12"
+            },
+            {
+              "id": 108,
+              "label": "Mix 13"
+            },
+            {
+              "id": 109,
+              "label": "Mix 14"
+            },
+            {
+              "id": 110,
+              "label": "Mix 15"
+            },
+            {
+              "id": 111,
+              "label": "Mix 16"
+            },
+            {
+              "id": 112,
+              "label": "Mix 17"
+            },
+            {
+              "id": 113,
+              "label": "Mix 18"
+            },
+            {
+              "id": 114,
+              "label": "Mix 19"
+            },
+            {
+              "id": 115,
+              "label": "Mix 20"
+            },
+            {
+              "id": 116,
+              "label": "Mix 21"
+            },
+            {
+              "id": 117,
+              "label": "Mix 22"
+            },
+            {
+              "id": 118,
+              "label": "Mix 23"
+            },
+            {
+              "id": 119,
+              "label": "Mix 24"
+            },
+            {
+              "id": 120,
+              "label": "Mix 25"
+            },
+            {
+              "id": 121,
+              "label": "Mix 26"
+            },
+            {
+              "id": 122,
+              "label": "Mix 27"
+            },
+            {
+              "id": 123,
+              "label": "Mix 28"
+            },
+            {
+              "id": 124,
+              "label": "Mix 29"
+            },
+            {
+              "id": 125,
+              "label": "Mix 30"
+            },
+            {
+              "id": 126,
+              "label": "Mix 31"
+            },
+            {
+              "id": 127,
+              "label": "Mix 32"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "checkbox",
+          "label": "Mute",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 319
+      },
+      "availability": "iLive only"
+    },
+    {
+      "id": "fader_mix",
+      "name": "Set Mix Fader to Level",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 96,
+          "choices": [
+            {
+              "id": 96,
+              "label": "Mix 1"
+            },
+            {
+              "id": 97,
+              "label": "Mix 2"
+            },
+            {
+              "id": 98,
+              "label": "Mix 3"
+            },
+            {
+              "id": 99,
+              "label": "Mix 4"
+            },
+            {
+              "id": 100,
+              "label": "Mix 5"
+            },
+            {
+              "id": 101,
+              "label": "Mix 6"
+            },
+            {
+              "id": 102,
+              "label": "Mix 7"
+            },
+            {
+              "id": 103,
+              "label": "Mix 8"
+            },
+            {
+              "id": 104,
+              "label": "Mix 9"
+            },
+            {
+              "id": 105,
+              "label": "Mix 10"
+            },
+            {
+              "id": 106,
+              "label": "Mix 11"
+            },
+            {
+              "id": 107,
+              "label": "Mix 12"
+            },
+            {
+              "id": 108,
+              "label": "Mix 13"
+            },
+            {
+              "id": 109,
+              "label": "Mix 14"
+            },
+            {
+              "id": 110,
+              "label": "Mix 15"
+            },
+            {
+              "id": 111,
+              "label": "Mix 16"
+            },
+            {
+              "id": 112,
+              "label": "Mix 17"
+            },
+            {
+              "id": 113,
+              "label": "Mix 18"
+            },
+            {
+              "id": 114,
+              "label": "Mix 19"
+            },
+            {
+              "id": 115,
+              "label": "Mix 20"
+            },
+            {
+              "id": 116,
+              "label": "Mix 21"
+            },
+            {
+              "id": 117,
+              "label": "Mix 22"
+            },
+            {
+              "id": 118,
+              "label": "Mix 23"
+            },
+            {
+              "id": 119,
+              "label": "Mix 24"
+            },
+            {
+              "id": 120,
+              "label": "Mix 25"
+            },
+            {
+              "id": 121,
+              "label": "Mix 26"
+            },
+            {
+              "id": 122,
+              "label": "Mix 27"
+            },
+            {
+              "id": 123,
+              "label": "Mix 28"
+            },
+            {
+              "id": 124,
+              "label": "Mix 29"
+            },
+            {
+              "id": 125,
+              "label": "Mix 30"
+            },
+            {
+              "id": 126,
+              "label": "Mix 31"
+            },
+            {
+              "id": 127,
+              "label": "Mix 32"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 355
+      },
+      "availability": "iLive only"
+    },
+    {
+      "id": "phantom",
+      "name": "Toggle 48v Phantom on Preamp",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Preamp",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"Preamp 1\"..\"Preamp 128\", default 0; iLive: 64 choices, ids 0..63; labels \"Preamp 1\"..\"Preamp 64\", default 0)"
+        },
+        {
+          "id": "phantom",
+          "type": "checkbox",
+          "label": "Phantom",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 386
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "dca_assign",
+      "name": "Assign DCA Groups for channel",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": "0",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"CH 1\"..\"CH n\", default \"0\"; iLive: 64 choices, ids 0..63; labels \"CH 1\"..\"CH n\", default \"0\")",
+          "description": "The source default is the string \"0\" while the ids are numbers."
+        },
+        {
+          "id": "dcaGroup",
+          "type": "multidropdown",
+          "label": "DCA",
+          "default": [],
+          "valueType": "numeric",
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 24 choices, default []; iLive: 16 choices, default [])"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 394
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "mute_assign",
+      "name": "Assign Mute Groups for channel",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": "0",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH 1\"..\"CH n\"",
+          "description": "The source default is the string \"0\" while the ids are numbers."
+        },
+        {
+          "id": "muteGroup",
+          "type": "multidropdown",
+          "label": "MUTE",
+          "default": [],
+          "choices": [
+            {
+              "id": 0,
+              "label": "MUTE 1"
+            },
+            {
+              "id": 1,
+              "label": "MUTE 2"
+            },
+            {
+              "id": 2,
+              "label": "MUTE 3"
+            },
+            {
+              "id": 3,
+              "label": "MUTE 4"
+            },
+            {
+              "id": 4,
+              "label": "MUTE 5"
+            },
+            {
+              "id": 5,
+              "label": "MUTE 6"
+            },
+            {
+              "id": 6,
+              "label": "MUTE 7"
+            },
+            {
+              "id": 7,
+              "label": "MUTE 8"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 419
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "vsc",
+      "name": "Virtual Soundcheck",
+      "options": [
+        {
+          "id": "vscMode",
+          "type": "dropdown",
+          "label": "VSC Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Inactive"
+            },
+            {
+              "id": 1,
+              "label": "Record Send"
+            },
+            {
+              "id": 2,
+              "label": "Virtual SoundCheck"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 443
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "talkback_on",
+      "name": "Talkback On",
+      "options": [
+        {
+          "id": "on",
+          "type": "checkbox",
+          "label": "ON",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 463
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "scene_recall",
+      "name": "Scene recall",
+      "options": [
+        {
+          "id": "sceneNumber",
+          "type": "dropdown",
+          "label": "Scene Number",
+          "default": "0",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 499,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 500 choices, ids 0..499; labels \"SCENE 1\"..\"SCENE n\", default \"0\"; iLive: 250 choices, ids 0..249; labels \"SCENE 1\"..\"SCENE n\", default \"0\")",
+          "description": "The source default is the string \"0\" while the ids are numbers."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 479
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "scene_next",
+      "name": "Scene Go Next",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 499
+      },
+      "availability": "dLive and iLive"
+    },
+    {
+      "id": "scene_previous",
+      "name": "Scene Go Previous",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 507
+      },
+      "availability": "dLive and iLive"
+    },
+    {
+      "id": "solo_input",
+      "name": "Solo Input Channel",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"CH 1\"..\"CH n\", default 0; iLive: 64 choices, ids 0..63; labels \"CH 1\"..\"CH n\", default 0)"
+        },
+        {
+          "id": "solo",
+          "type": "checkbox",
+          "label": "Solo",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 516
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "eq_enable_input",
+      "name": "EQ Enable/Disable Input Channel",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"CH 1\"..\"CH n\", default 0; iLive: 64 choices, ids 0..63; labels \"CH 1\"..\"CH n\", default 0)"
+        },
+        {
+          "id": "enable",
+          "type": "checkbox",
+          "label": "EQ Enable",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 540
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "preamp_gain",
+      "name": "Set Preamp Gain",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"CH 1\"..\"CH n\", default 0; iLive: 64 choices, ids 0..63; labels \"CH 1\"..\"CH n\", default 0)"
+        },
+        {
+          "id": "gain",
+          "type": "dropdown",
+          "label": "Gain Level",
+          "default": 42,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are (id*60/127-10) dB, i.e. -10.0 dB to +50.0 dB"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 571
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "preamp_pad",
+      "name": "Toggle Preamp Pad",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"CH 1\"..\"CH n\", default 0; iLive: 64 choices, ids 0..63; labels \"CH 1\"..\"CH n\", default 0)"
+        },
+        {
+          "id": "pad",
+          "type": "checkbox",
+          "label": "Pad (-20dB)",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 597
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "hpf_control",
+      "name": "Set High Pass Filter",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "Differs by console model (dLive: 128 choices, ids 0..127; labels \"CH 1\"..\"CH n\", default 0; iLive: 64 choices, ids 0..63; labels \"CH 1\"..\"CH n\", default 0)"
+        },
+        {
+          "id": "frequency",
+          "type": "dropdown",
+          "label": "HPF Frequency",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "20 Hz"
+            },
+            {
+              "id": 2,
+              "label": "25 Hz"
+            },
+            {
+              "id": 3,
+              "label": "31.5 Hz"
+            },
+            {
+              "id": 4,
+              "label": "40 Hz"
+            },
+            {
+              "id": 5,
+              "label": "50 Hz"
+            },
+            {
+              "id": 6,
+              "label": "63 Hz"
+            },
+            {
+              "id": 7,
+              "label": "80 Hz"
+            },
+            {
+              "id": 8,
+              "label": "100 Hz"
+            },
+            {
+              "id": 9,
+              "label": "125 Hz"
+            },
+            {
+              "id": 10,
+              "label": "160 Hz"
+            },
+            {
+              "id": 11,
+              "label": "200 Hz"
+            },
+            {
+              "id": 12,
+              "label": "250 Hz"
+            },
+            {
+              "id": 13,
+              "label": "315 Hz"
+            },
+            {
+              "id": 14,
+              "label": "400 Hz"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 639
+      },
+      "availability": "dLive and iLive; the options differ between the models (see the option notes)"
+    },
+    {
+      "id": "send_aux_mono",
+      "name": "Set Aux Mono Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Mono Aux",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Aux 1\"..\"Mono Aux 62\""
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 700
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_aux_stereo",
+      "name": "Set Aux Stereo Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Stereo Aux",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Aux 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Aux 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Aux 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Aux 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Aux 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Aux 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Aux 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Aux 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Aux 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Aux 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Aux 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Aux 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Aux 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Aux 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Aux 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Aux 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Aux 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Aux 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Aux 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Aux 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Aux 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Aux 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Aux 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Aux 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Aux 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Aux 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Aux 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Aux 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Aux 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Aux 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Aux 31"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 708
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_fx_mono",
+      "name": "Set FX Mono Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Mono FX",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Mono FX 1"
+            },
+            {
+              "id": 1,
+              "label": "Mono FX 2"
+            },
+            {
+              "id": 2,
+              "label": "Mono FX 3"
+            },
+            {
+              "id": 3,
+              "label": "Mono FX 4"
+            },
+            {
+              "id": 4,
+              "label": "Mono FX 5"
+            },
+            {
+              "id": 5,
+              "label": "Mono FX 6"
+            },
+            {
+              "id": 6,
+              "label": "Mono FX 7"
+            },
+            {
+              "id": 7,
+              "label": "Mono FX 8"
+            },
+            {
+              "id": 8,
+              "label": "Mono FX 9"
+            },
+            {
+              "id": 9,
+              "label": "Mono FX 10"
+            },
+            {
+              "id": 10,
+              "label": "Mono FX 11"
+            },
+            {
+              "id": 11,
+              "label": "Mono FX 12"
+            },
+            {
+              "id": 12,
+              "label": "Mono FX 13"
+            },
+            {
+              "id": 13,
+              "label": "Mono FX 14"
+            },
+            {
+              "id": 14,
+              "label": "Mono FX 15"
+            },
+            {
+              "id": 15,
+              "label": "Mono FX 16"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 716
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_fx_stereo",
+      "name": "Set FX Stereo Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Stereo FX",
+          "default": 16,
+          "choices": [
+            {
+              "id": 16,
+              "label": "Stereo FX 1"
+            },
+            {
+              "id": 17,
+              "label": "Stereo FX 2"
+            },
+            {
+              "id": 18,
+              "label": "Stereo FX 3"
+            },
+            {
+              "id": 19,
+              "label": "Stereo FX 4"
+            },
+            {
+              "id": 20,
+              "label": "Stereo FX 5"
+            },
+            {
+              "id": 21,
+              "label": "Stereo FX 6"
+            },
+            {
+              "id": 22,
+              "label": "Stereo FX 7"
+            },
+            {
+              "id": 23,
+              "label": "Stereo FX 8"
+            },
+            {
+              "id": 24,
+              "label": "Stereo FX 9"
+            },
+            {
+              "id": 25,
+              "label": "Stereo FX 10"
+            },
+            {
+              "id": 26,
+              "label": "Stereo FX 11"
+            },
+            {
+              "id": 27,
+              "label": "Stereo FX 12"
+            },
+            {
+              "id": 28,
+              "label": "Stereo FX 13"
+            },
+            {
+              "id": 29,
+              "label": "Stereo FX 14"
+            },
+            {
+              "id": 30,
+              "label": "Stereo FX 15"
+            },
+            {
+              "id": 31,
+              "label": "Stereo FX 16"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 724
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_matrix_mono",
+      "name": "Set Matrix Mono Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Mono Matrix",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 61,
+          "integer": true,
+          "choicesNote": "62 choices, ids 0..61; labels \"Mono Matrix 1\"..\"Mono Matrix 62\""
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 732
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_matrix_stereo",
+      "name": "Set Matrix Stereo Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Stereo Matrix",
+          "default": 64,
+          "choices": [
+            {
+              "id": 64,
+              "label": "Stereo Matrix 1"
+            },
+            {
+              "id": 65,
+              "label": "Stereo Matrix 2"
+            },
+            {
+              "id": 66,
+              "label": "Stereo Matrix 3"
+            },
+            {
+              "id": 67,
+              "label": "Stereo Matrix 4"
+            },
+            {
+              "id": 68,
+              "label": "Stereo Matrix 5"
+            },
+            {
+              "id": 69,
+              "label": "Stereo Matrix 6"
+            },
+            {
+              "id": 70,
+              "label": "Stereo Matrix 7"
+            },
+            {
+              "id": 71,
+              "label": "Stereo Matrix 8"
+            },
+            {
+              "id": 72,
+              "label": "Stereo Matrix 9"
+            },
+            {
+              "id": 73,
+              "label": "Stereo Matrix 10"
+            },
+            {
+              "id": 74,
+              "label": "Stereo Matrix 11"
+            },
+            {
+              "id": 75,
+              "label": "Stereo Matrix 12"
+            },
+            {
+              "id": 76,
+              "label": "Stereo Matrix 13"
+            },
+            {
+              "id": 77,
+              "label": "Stereo Matrix 14"
+            },
+            {
+              "id": 78,
+              "label": "Stereo Matrix 15"
+            },
+            {
+              "id": 79,
+              "label": "Stereo Matrix 16"
+            },
+            {
+              "id": 80,
+              "label": "Stereo Matrix 17"
+            },
+            {
+              "id": 81,
+              "label": "Stereo Matrix 18"
+            },
+            {
+              "id": 82,
+              "label": "Stereo Matrix 19"
+            },
+            {
+              "id": 83,
+              "label": "Stereo Matrix 20"
+            },
+            {
+              "id": 84,
+              "label": "Stereo Matrix 21"
+            },
+            {
+              "id": 85,
+              "label": "Stereo Matrix 22"
+            },
+            {
+              "id": 86,
+              "label": "Stereo Matrix 23"
+            },
+            {
+              "id": 87,
+              "label": "Stereo Matrix 24"
+            },
+            {
+              "id": 88,
+              "label": "Stereo Matrix 25"
+            },
+            {
+              "id": 89,
+              "label": "Stereo Matrix 26"
+            },
+            {
+              "id": 90,
+              "label": "Stereo Matrix 27"
+            },
+            {
+              "id": 91,
+              "label": "Stereo Matrix 28"
+            },
+            {
+              "id": 92,
+              "label": "Stereo Matrix 29"
+            },
+            {
+              "id": 93,
+              "label": "Stereo Matrix 30"
+            },
+            {
+              "id": 94,
+              "label": "Stereo Matrix 31"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 740
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_ufx",
+      "name": "Set UFX Stereo Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "UFX Stereo Send",
+          "default": 86,
+          "choices": [
+            {
+              "id": 86,
+              "label": "UFX Stereo Send 1"
+            },
+            {
+              "id": 87,
+              "label": "UFX Stereo Send 2"
+            },
+            {
+              "id": 88,
+              "label": "UFX Stereo Send 3"
+            },
+            {
+              "id": 89,
+              "label": "UFX Stereo Send 4"
+            },
+            {
+              "id": 90,
+              "label": "UFX Stereo Send 5"
+            },
+            {
+              "id": 91,
+              "label": "UFX Stereo Send 6"
+            },
+            {
+              "id": 92,
+              "label": "UFX Stereo Send 7"
+            },
+            {
+              "id": 93,
+              "label": "UFX Stereo Send 8"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 749
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "ufx_global_key",
+      "name": "Set UFX Global Key",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Key",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "C"
+            },
+            {
+              "id": 1,
+              "label": "C#"
+            },
+            {
+              "id": 2,
+              "label": "D"
+            },
+            {
+              "id": 3,
+              "label": "D#"
+            },
+            {
+              "id": 4,
+              "label": "E"
+            },
+            {
+              "id": 5,
+              "label": "F"
+            },
+            {
+              "id": 6,
+              "label": "F#"
+            },
+            {
+              "id": 7,
+              "label": "G"
+            },
+            {
+              "id": 8,
+              "label": "G#"
+            },
+            {
+              "id": 9,
+              "label": "A"
+            },
+            {
+              "id": 10,
+              "label": "A#"
+            },
+            {
+              "id": 11,
+              "label": "B"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 773
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "ufx_global_scale",
+      "name": "Set UFX Global Scale",
+      "options": [
+        {
+          "id": "scale",
+          "type": "dropdown",
+          "label": "Scale",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Major"
+            },
+            {
+              "id": 1,
+              "label": "Minor"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 795
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "ufx_unit_parameter",
+      "name": "Set UFX Unit Parameter",
+      "options": [
+        {
+          "id": "midiChannel",
+          "type": "number",
+          "label": "UFX MIDI Channel (M)",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "controlNumber",
+          "type": "number",
+          "label": "Control Number (nn)",
+          "default": 1,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (vv)",
+          "default": 0,
+          "min": 0,
+          "max": 127
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 812
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "ufx_unit_key",
+      "name": "Set UFX Unit Key Parameter",
+      "options": [
+        {
+          "id": "midiChannel",
+          "type": "number",
+          "label": "UFX MIDI Channel (M)",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "controlNumber",
+          "type": "number",
+          "label": "Control Number (nn)",
+          "default": 1,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Key",
+          "default": "C",
+          "choices": [
+            {
+              "id": "C",
+              "label": "C"
+            },
+            {
+              "id": "C#",
+              "label": "C#"
+            },
+            {
+              "id": "D",
+              "label": "D"
+            },
+            {
+              "id": "D#",
+              "label": "D#"
+            },
+            {
+              "id": "E",
+              "label": "E"
+            },
+            {
+              "id": "F",
+              "label": "F"
+            },
+            {
+              "id": "F#",
+              "label": "F#"
+            },
+            {
+              "id": "G",
+              "label": "G"
+            },
+            {
+              "id": "G#",
+              "label": "G#"
+            },
+            {
+              "id": "A",
+              "label": "A"
+            },
+            {
+              "id": "A#",
+              "label": "A#"
+            },
+            {
+              "id": "B",
+              "label": "B"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 846
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "ufx_unit_scale",
+      "name": "Set UFX Unit Scale Parameter",
+      "options": [
+        {
+          "id": "midiChannel",
+          "type": "number",
+          "label": "UFX MIDI Channel (M)",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "controlNumber",
+          "type": "number",
+          "label": "Control Number (nn)",
+          "default": 1,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "scale",
+          "type": "dropdown",
+          "label": "Scale",
+          "default": "Major",
+          "choices": [
+            {
+              "id": "Major",
+              "label": "Major"
+            },
+            {
+              "id": "Minor",
+              "label": "Minor"
+            },
+            {
+              "id": "Chromatic",
+              "label": "Chromatic"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 892
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "input_to_main",
+      "name": "Input to Main Assign",
+      "options": [
+        {
+          "id": "strip",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels \"CH 1\"..\"CH n\""
+        },
+        {
+          "id": "assign",
+          "type": "checkbox",
+          "label": "Assign to Main",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 929
+      },
+      "availability": "dLive only"
+    },
+    {
+      "id": "send_mix",
+      "name": "Set Mix Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 63,
+          "integer": true,
+          "choicesNote": "64 choices, ids 0..63; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 96,
+          "choices": [
+            {
+              "id": 96,
+              "label": "Mix 1"
+            },
+            {
+              "id": 97,
+              "label": "Mix 2"
+            },
+            {
+              "id": 98,
+              "label": "Mix 3"
+            },
+            {
+              "id": 99,
+              "label": "Mix 4"
+            },
+            {
+              "id": 100,
+              "label": "Mix 5"
+            },
+            {
+              "id": 101,
+              "label": "Mix 6"
+            },
+            {
+              "id": 102,
+              "label": "Mix 7"
+            },
+            {
+              "id": 103,
+              "label": "Mix 8"
+            },
+            {
+              "id": 104,
+              "label": "Mix 9"
+            },
+            {
+              "id": 105,
+              "label": "Mix 10"
+            },
+            {
+              "id": 106,
+              "label": "Mix 11"
+            },
+            {
+              "id": 107,
+              "label": "Mix 12"
+            },
+            {
+              "id": 108,
+              "label": "Mix 13"
+            },
+            {
+              "id": 109,
+              "label": "Mix 14"
+            },
+            {
+              "id": 110,
+              "label": "Mix 15"
+            },
+            {
+              "id": 111,
+              "label": "Mix 16"
+            },
+            {
+              "id": 112,
+              "label": "Mix 17"
+            },
+            {
+              "id": 113,
+              "label": "Mix 18"
+            },
+            {
+              "id": 114,
+              "label": "Mix 19"
+            },
+            {
+              "id": 115,
+              "label": "Mix 20"
+            },
+            {
+              "id": 116,
+              "label": "Mix 21"
+            },
+            {
+              "id": 117,
+              "label": "Mix 22"
+            },
+            {
+              "id": 118,
+              "label": "Mix 23"
+            },
+            {
+              "id": 119,
+              "label": "Mix 24"
+            },
+            {
+              "id": 120,
+              "label": "Mix 25"
+            },
+            {
+              "id": 121,
+              "label": "Mix 26"
+            },
+            {
+              "id": 122,
+              "label": "Mix 27"
+            },
+            {
+              "id": 123,
+              "label": "Mix 28"
+            },
+            {
+              "id": 124,
+              "label": "Mix 29"
+            },
+            {
+              "id": 125,
+              "label": "Mix 30"
+            },
+            {
+              "id": 126,
+              "label": "Mix 31"
+            },
+            {
+              "id": 127,
+              "label": "Mix 32"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 953
+      },
+      "availability": "iLive only"
+    },
+    {
+      "id": "send_fx",
+      "name": "Set FX Send Level",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "dropdown",
+          "label": "Input Channel",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 63,
+          "integer": true,
+          "choicesNote": "64 choices, ids 0..63; labels \"CH n\""
+        },
+        {
+          "id": "send",
+          "type": "dropdown",
+          "label": "FX Send",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "FX Send 1"
+            },
+            {
+              "id": 1,
+              "label": "FX Send 2"
+            },
+            {
+              "id": 2,
+              "label": "FX Send 3"
+            },
+            {
+              "id": 3,
+              "label": "FX Send 4"
+            },
+            {
+              "id": 4,
+              "label": "FX Send 5"
+            },
+            {
+              "id": 5,
+              "label": "FX Send 6"
+            },
+            {
+              "id": 6,
+              "label": "FX Send 7"
+            },
+            {
+              "id": 7,
+              "label": "FX Send 8"
+            }
+          ]
+        },
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Send Level",
+          "default": 0,
+          "valueType": "numeric",
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "choicesNote": "128 choices, ids 0..127; labels are -INF, then (id-107)/2 dB in 0.5 dB steps, i.e. -53.0 dB to +10.0 dB (id 0 = -INF)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "step": 10,
+          "max": 60000,
+          "description": "Set the desired duration of the transition in milliseconds. Be aware that the minimal temporal resolution is defined by the Fader Update Rate setting of the module."
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Algorithm",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && (true)",
+          "description": "Select the algorithm with which the fade is performed."
+        },
+        {
+          "id": "fadeType",
+          "type": "dropdown",
+          "label": "Fade type",
+          "default": "ease-in-out",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-In"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-Out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-In-Out"
+            }
+          ],
+          "visibleWhen": "$(options:fadeDuration) > 0 && $(options:fadeAlgorithm) != 'linear' && (true)",
+          "description": "Select how to ease your algorithm. Easing avoids abrupt changes in value"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 961
+      },
+      "availability": "iLive only"
+    }
+  ],
+  "feedbacks": []
+}

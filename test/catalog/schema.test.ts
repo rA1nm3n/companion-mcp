@@ -35,6 +35,16 @@ const LIGHTING = [
   'malighting-grandma3',
   'chamsys-magicq-osc',
   'chamsys-magicq-udp',
+const AUDIO = [
+  'yamaha-rcp',
+  'behringer-x32',
+  'allenheath-ahm',
+  'allenheath-avantis',
+  'allenheath-cq',
+  'allenheath-dlive',
+  'allenheath-dlive-ilive',
+  'allenheath-dt168',
+  'allenheath-sq',
 ];
 
 function load(file: string): unknown {
@@ -45,6 +55,7 @@ describe('catalog data files', () => {
   it('has the expected set of module files', () => {
     const ids = moduleFiles.map((f) => f.replace(/\.json$/, ''));
     for (const id of [...PRIO1, ...REPORT_05, ...LIGHTING, 'internal']) expect(ids).toContain(id);
+    for (const id of [...PRIO1, ...REPORT_05, ...AUDIO, 'internal']) expect(ids).toContain(id);
   });
 
   it.each(moduleFiles)('%s matches the module schema', (file) => {
@@ -90,7 +101,7 @@ describe('catalog consistency', () => {
   });
 
   it('lists about 100 modules in the index', () => {
-    expect(listModules().length).toBeGreaterThanOrEqual(95);
+    expect(listModules().length).toBeGreaterThanOrEqual(105);
   });
 
   it('keeps index metadata in sync with the module data', () => {
@@ -169,7 +180,7 @@ describe('catalog consistency', () => {
       for (const e of [...mod.actions, ...mod.feedbacks]) {
         for (const o of e.options) {
           if (o.type !== 'dropdown' || !o.choices || o.default === undefined) continue;
-          if (o.allowInvalidValues || o.choices.length === 0) continue;
+          if (o.allowInvalidValues || o.allowCustom || o.choices.length === 0) continue;
           if (o.choices.some((c) => c.id === o.default)) continue;
           if (o.choices.some((c) => String(c.id) === String(o.default))) {
             found.add(`${mod.moduleId}/${e.id}/${o.id}`);
