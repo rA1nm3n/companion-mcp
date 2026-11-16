@@ -1,0 +1,907 @@
+{
+  "moduleId": "rossvideo-crossover",
+  "name": "Ross CrossOver / JVC KM-H",
+  "repo": "themusicnerd/companion-module-rossvideo-crossover",
+  "version": "1.0.0",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-10-20",
+  "lastCommitSha": "52fa3f5",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "set_source",
+      "name": "Set bus source",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "key1",
+              "label": "Key 1"
+            },
+            {
+              "id": "key2",
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Depends on the config option \"model\" (default km-h2500). Numeric GVG source ids, built from src/protocol.ts getSourceChoices(). Models km-h2500 and 6 (compact map, aux-only sources 11-14 removed): 0 Black, 1-4 Input 1-4, 6 Matte, 7 Input 5, 8 Input 6, 9 Media 1, 10 Media 2. Models km-h3000, solo, 12 and 16 (12-input map, aux-only sources 19-22 removed): 0 Black, 1-8 Input 1-8, 10 Matte, 11-14 Input 9-12, 17 Media 1, 18 Media 2.",
+          "valueType": "number",
+          "integer": true,
+          "min": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 38
+      }
+    },
+    {
+      "id": "cut_to_source",
+      "name": "Cut source directly to Program",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Depends on the config option \"model\" (default km-h2500). Numeric GVG source ids, built from src/protocol.ts getSourceChoices(). Models km-h2500 and 6 (compact map, aux-only sources 11-14 removed): 0 Black, 1-4 Input 1-4, 6 Matte, 7 Input 5, 8 Input 6, 9 Media 1, 10 Media 2. Models km-h3000, solo, 12 and 16 (12-input map, aux-only sources 19-22 removed): 0 Black, 1-8 Input 1-8, 10 Matte, 11-14 Input 9-12, 17 Media 1, 18 Media 2.",
+          "valueType": "number",
+          "integer": true,
+          "min": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 47
+      }
+    },
+    {
+      "id": "set_source_number",
+      "name": "Set bus source by GVG number",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "key1",
+              "label": "Key 1"
+            },
+            {
+              "id": "key2",
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "number",
+          "label": "GVG source number",
+          "default": 1,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 52
+      }
+    },
+    {
+      "id": "cut",
+      "name": "CUT",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 61
+      }
+    },
+    {
+      "id": "auto",
+      "name": "AUTO transition",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 62
+      }
+    },
+    {
+      "id": "ftb",
+      "name": "Fade to black",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 63
+      }
+    },
+    {
+      "id": "transition_type",
+      "name": "Select transition type",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "dissolve",
+          "choices": [
+            {
+              "id": "dissolve",
+              "label": "Dissolve"
+            },
+            {
+              "id": "wipe",
+              "label": "Wipe"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 64
+      }
+    },
+    {
+      "id": "wipe_pattern",
+      "name": "Select wipe pattern",
+      "options": [
+        {
+          "id": "pattern",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Pattern 0"
+            },
+            {
+              "id": 1,
+              "label": "Pattern 1"
+            },
+            {
+              "id": 2,
+              "label": "Pattern 2"
+            },
+            {
+              "id": 3,
+              "label": "Pattern 3"
+            },
+            {
+              "id": 4,
+              "label": "Pattern 4"
+            },
+            {
+              "id": 5,
+              "label": "Pattern 5"
+            },
+            {
+              "id": 6,
+              "label": "Pattern 6"
+            },
+            {
+              "id": 7,
+              "label": "Pattern 7"
+            },
+            {
+              "id": 8,
+              "label": "Pattern 8"
+            },
+            {
+              "id": 9,
+              "label": "Pattern 9"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 81
+      }
+    },
+    {
+      "id": "transition_layers",
+      "name": "Select next-transition layers",
+      "options": [
+        {
+          "id": "background",
+          "type": "checkbox",
+          "label": "Background",
+          "default": true
+        },
+        {
+          "id": "key1",
+          "type": "checkbox",
+          "label": "Key 1",
+          "default": false
+        },
+        {
+          "id": "key2",
+          "type": "checkbox",
+          "label": "Key 2",
+          "default": false
+        },
+        {
+          "id": "key3",
+          "type": "checkbox",
+          "label": "Key 3",
+          "default": false
+        },
+        {
+          "id": "key4",
+          "type": "checkbox",
+          "label": "Key 4",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 86
+      }
+    },
+    {
+      "id": "transition_rate",
+      "name": "Set AUTO transition rate",
+      "options": [
+        {
+          "id": "frames",
+          "type": "number",
+          "label": "Frames",
+          "default": 15,
+          "min": 0,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 106
+      }
+    },
+    {
+      "id": "reverse_wipe",
+      "name": "Toggle reverse wipe direction",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 111
+      }
+    },
+    {
+      "id": "key_transition",
+      "name": "Key transition",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Keyer",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Transition",
+          "default": "auto",
+          "choices": [
+            {
+              "id": "auto",
+              "label": "Auto"
+            },
+            {
+              "id": "cut",
+              "label": "Cut"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 116
+      }
+    },
+    {
+      "id": "key_type",
+      "name": "Select key type",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Keyer",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "self",
+          "choices": [
+            {
+              "id": "self",
+              "label": "Self key"
+            },
+            {
+              "id": "auto",
+              "label": "Auto select"
+            },
+            {
+              "id": "chroma",
+              "label": "Chroma key"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 149
+      }
+    },
+    {
+      "id": "key_option",
+      "name": "Toggle key option",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Keyer",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "Option",
+          "default": "invert",
+          "choices": [
+            {
+              "id": "invert",
+              "label": "Invert"
+            },
+            {
+              "id": "mask",
+              "label": "Mask"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 182
+      }
+    },
+    {
+      "id": "media_source",
+      "name": "Route media player to a bus",
+      "description": "Sets the bus to GVG source 9/10 on models km-h2500 and 6, and 17/18 on all other models (callback, src/actions.ts:230-231).",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "key1",
+              "label": "Key 1"
+            },
+            {
+              "id": "key2",
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "player",
+          "type": "dropdown",
+          "label": "Media player",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Media 1"
+            },
+            {
+              "id": 2,
+              "label": "Media 2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 213
+      }
+    },
+    {
+      "id": "set_analog",
+      "name": "Set advanced analog control",
+      "description": "Control ids are written as hexadecimal literals in the source and catalogued as decimal numbers (0x0a = 10, 0x0b = 11, 0x11 = 17, 0x12 = 18, 0x15 = 21, 0x1c = 28, 0x1d = 29, 0x1e = 30, 0x08 = 8, 0x09 = 9).",
+      "options": [
+        {
+          "id": "selector",
+          "type": "dropdown",
+          "label": "Control block",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "MLE / transition"
+            },
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "control",
+          "type": "dropdown",
+          "label": "Control",
+          "default": 10,
+          "choices": [
+            {
+              "id": 10,
+              "label": "Key clip"
+            },
+            {
+              "id": 11,
+              "label": "Key gain"
+            },
+            {
+              "id": 17,
+              "label": "Vertical position"
+            },
+            {
+              "id": 18,
+              "label": "Horizontal position"
+            },
+            {
+              "id": 21,
+              "label": "Pattern size"
+            },
+            {
+              "id": 28,
+              "label": "Aspect ratio"
+            },
+            {
+              "id": 29,
+              "label": "Border softness"
+            },
+            {
+              "id": 30,
+              "label": "Border width"
+            },
+            {
+              "id": 8,
+              "label": "Downstream key clip"
+            },
+            {
+              "id": 9,
+              "label": "Downstream key gain"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Raw value",
+          "default": 32768,
+          "min": 0,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 235
+      }
+    },
+    {
+      "id": "all_stop",
+      "name": "All Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 257
+      }
+    },
+    {
+      "id": "memory",
+      "name": "Store or recall memory (0-9)",
+      "options": [
+        {
+          "id": "operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "recall",
+          "choices": [
+            {
+              "id": "recall",
+              "label": "Recall"
+            },
+            {
+              "id": "store",
+              "label": "Store"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Memory",
+          "default": 0,
+          "min": 0,
+          "max": 9
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 258
+      }
+    },
+    {
+      "id": "refresh",
+      "name": "Refresh switcher state",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 278
+      }
+    },
+    {
+      "id": "raw_gvg",
+      "name": "Send raw GVG-100 injector frame",
+      "options": [
+        {
+          "id": "frame",
+          "type": "textinput",
+          "label": "Hex frame",
+          "default": "020041",
+          "useVariables": true,
+          "description": "Whitespace is removed before sending (callback, src/actions.ts:285)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 279
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "connected",
+      "name": "Switcher connected",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 7
+      }
+    },
+    {
+      "id": "program_source",
+      "name": "Source is on Program",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Depends on the config option \"model\" (default km-h2500). Numeric GVG source ids, built from src/protocol.ts getSourceChoices(). Models km-h2500 and 6 (compact map, aux-only sources 11-14 removed): 0 Black, 1-4 Input 1-4, 6 Matte, 7 Input 5, 8 Input 6, 9 Media 1, 10 Media 2. Models km-h3000, solo, 12 and 16 (12-input map, aux-only sources 19-22 removed): 0 Black, 1-8 Input 1-8, 10 Matte, 11-14 Input 9-12, 17 Media 1, 18 Media 2.",
+          "valueType": "number",
+          "integer": true,
+          "min": 0
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "preview_source",
+      "name": "Source is on Preview",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Depends on the config option \"model\" (default km-h2500). Numeric GVG source ids, built from src/protocol.ts getSourceChoices(). Models km-h2500 and 6 (compact map, aux-only sources 11-14 removed): 0 Black, 1-4 Input 1-4, 6 Matte, 7 Input 5, 8 Input 6, 9 Media 1, 10 Media 2. Models km-h3000, solo, 12 and 16 (12-input map, aux-only sources 19-22 removed): 0 Black, 1-8 Input 1-8, 10 Matte, 11-14 Input 9-12, 17 Media 1, 18 Media 2.",
+          "valueType": "number",
+          "integer": true,
+          "min": 0
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 21
+      }
+    },
+    {
+      "id": "key_source",
+      "name": "Source is selected on key bus",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Keyer",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Depends on the config option \"model\" (default km-h2500). Numeric GVG source ids, built from src/protocol.ts getSourceChoices(). Models km-h2500 and 6 (compact map, aux-only sources 11-14 removed): 0 Black, 1-4 Input 1-4, 6 Matte, 7 Input 5, 8 Input 6, 9 Media 1, 10 Media 2. Models km-h3000, solo, 12 and 16 (12-input map, aux-only sources 19-22 removed): 0 Black, 1-8 Input 1-8, 10 Matte, 11-14 Input 9-12, 17 Media 1, 18 Media 2.",
+          "valueType": "number",
+          "integer": true,
+          "min": 0
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 28
+      }
+    },
+    {
+      "id": "wipe_pattern",
+      "name": "Wipe pattern is selected",
+      "options": [
+        {
+          "id": "pattern",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Pattern 0"
+            },
+            {
+              "id": 1,
+              "label": "Pattern 1"
+            },
+            {
+              "id": 2,
+              "label": "Pattern 2"
+            },
+            {
+              "id": 3,
+              "label": "Pattern 3"
+            },
+            {
+              "id": 4,
+              "label": "Pattern 4"
+            },
+            {
+              "id": 5,
+              "label": "Pattern 5"
+            },
+            {
+              "id": 6,
+              "label": "Pattern 6"
+            },
+            {
+              "id": 7,
+              "label": "Pattern 7"
+            },
+            {
+              "id": 8,
+              "label": "Pattern 8"
+            },
+            {
+              "id": 9,
+              "label": "Pattern 9"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 48
+      }
+    },
+    {
+      "id": "transition_type",
+      "name": "Transition type is selected",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "dissolve",
+          "choices": [
+            {
+              "id": "dissolve",
+              "label": "Dissolve"
+            },
+            {
+              "id": "wipe",
+              "label": "Wipe"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 63
+      }
+    },
+    {
+      "id": "transition_layer",
+      "name": "Layer is selected for next transition",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Background"
+            },
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            },
+            {
+              "id": 8,
+              "label": "Key 3"
+            },
+            {
+              "id": 16,
+              "label": "Key 4"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 81
+      }
+    },
+    {
+      "id": "reverse_wipe",
+      "name": "Reverse wipe is enabled",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 102
+      }
+    },
+    {
+      "id": "ftb_on",
+      "name": "Fade to black is active",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 109
+      }
+    },
+    {
+      "id": "key_on_air",
+      "name": "Key is on air",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Keyer",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 116
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 20 actions (src/actions.ts) and 10 boolean feedbacks (src/feedbacks.ts), each registered in one call (setActionDefinitions, setFeedbackDefinitions). Variables and presets are not catalogued.",
+    "Third-party module (repository themusicnerd/companion-module-rossvideo-crossover, not the bitfocus organization). The manifest names bitfocus/companion-module-rossvideo-crossover as repository and the legacy id jvc-km-h2500. The README states live testing on a JVC KM-H2500 / CrossOver 6 only; the catalog was not tested against a device.",
+    "Protocol: GVG-100 editor protocol over TCP (config option \"GVG-100 console port\", default 2100); the module also polls the switcher state (default 1000 ms) and has an optional web manager and FTP Media-Store client that are configuration only (no actions).",
+    "Model dependency: the config option \"model\" (km-h2500 default, km-h3000, solo, 6, 12, 16) selects the source map; the Source dropdowns of set_source, cut_to_source, program_source, preview_source and key_source are therefore not enumerated (choicesNote). Actions and feedbacks are rebuilt on every configUpdated (src/main.ts:114-120).",
+    "Quirk kept as in the source: the compact (CrossOver 6) map is used for models km-h2500, 6 and when no model is set; km-h3000 and solo use the 12-input map (src/protocol.ts getSourceMap()), while media_source treats only km-h2500 and 6 as compact (src/actions.ts:230).",
+    "The number fields declare no asInteger; the callbacks cast with Number(). transition_layers builds a bitmask: key1=1, key2=2, background=4, key3=8, key4=16 (matching the ids of the transition_layer feedback).",
+    "Built on @companion-module/base ~2.1.3: option values may be expressions (no option sets disableAutoExpression)."
+  ]
+}

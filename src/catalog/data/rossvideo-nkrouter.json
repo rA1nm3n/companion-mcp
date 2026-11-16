@@ -1,0 +1,92 @@
+{
+  "moduleId": "rossvideo-nkrouter",
+  "name": "Ross NK Router",
+  "repo": "bitfocus/companion-module-rossvideo-nkrouter",
+  "version": "2.0.5",
+  "baseVersion": "^1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "3ac7867",
+  "status": "read",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "routerXPT",
+      "name": "Route Crosspoint",
+      "description": "Route a Source to a Destination",
+      "options": [
+        {
+          "id": "level",
+          "type": "multidropdown",
+          "label": "Level",
+          "default": [],
+          "choices": [
+            {
+              "id": "1",
+              "label": "MD Video"
+            },
+            {
+              "id": "2",
+              "label": "SDI Video"
+            },
+            {
+              "id": "4",
+              "label": "AES Audio 1"
+            },
+            {
+              "id": "8",
+              "label": "AES Audio 2"
+            },
+            {
+              "id": "16",
+              "label": "Analog Video"
+            },
+            {
+              "id": "32",
+              "label": "Analog Audio 1"
+            },
+            {
+              "id": "64",
+              "label": "Analog Audio 2"
+            },
+            {
+              "id": "128",
+              "label": "Machine Control"
+            }
+          ],
+          "description": "minSelection 1 (not representable in the catalog). Ids are strings; the callback adds the selected values together into a bit mask (1-255) and the module logs an error and sends nothing if the sum is 0."
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "1",
+          "choicesNote": "Ids are the strings \"1\"..\"N\" with N = config option \"inputs\" (min 1, max 512, default 16), built in src/api.ts UpdateOptions() (src/api.ts:18-24); labels are the same numbers.",
+          "valueType": "string",
+          "valuePattern": "^[0-9]+$"
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "1",
+          "choicesNote": "Ids are the strings \"1\"..\"N\" with N = config option \"outputs\" (min 1, max 512, default 16), built in src/api.ts UpdateOptions() (src/api.ts:18-24); labels are the same numbers.",
+          "valueType": "string",
+          "valuePattern": "^[0-9]+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 8
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: one action (routerXPT, src/actions.ts) and no feedbacks. src/feedbacks.ts registers an empty definition set; src/presets.ts and src/variables.ts are empty as well.",
+    "Protocol: binary NK-NET packets over TCP to the NK-NET adapter (config option \"Port (default 5000)\", default 5000, plus the T-Bus address of the router, default 1; src/api.ts ChangeXPT()). Received data is only logged (verbose option) and triggers checkFeedbacks(); there is no state parsing. After connecting it sends PHOENIX-DB N and a HI keep-alive every 10 seconds.",
+    "Input and output are 1-based in the options and converted to 0-based in the packet; the module logs an error and sends nothing when input or output exceed the configured counts (src/api.ts:92-117).",
+    "Option lists depend on the config options \"inputs\" and \"outputs\" (rebuilt in init and configUpdated), so they are not enumerated.",
+    "The manifest repository points to josephdadams/companion-module-rossvideo-nkrouter; the catalog uses the bitfocus repository of the index.",
+    "Built on @companion-module/base ^1.12.1: options do not support expressions."
+  ]
+}
