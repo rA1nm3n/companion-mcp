@@ -1,0 +1,393 @@
+{
+  "moduleId": "teradek-prism",
+  "name": "Teradek Prism",
+  "repo": "bitfocus/companion-module-teradek-prism",
+  "version": "2.1.0",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "53d5764",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "recordingControl",
+      "name": "Recording Control",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4
+      }
+    },
+    {
+      "id": "setRecordingName",
+      "name": "Set Recording Name",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "File Name"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 26
+      }
+    },
+    {
+      "id": "recordWithName",
+      "name": "Record With Name",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "File Name"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 43
+      }
+    },
+    {
+      "id": "setStreamingInfo",
+      "name": "Set RTMP Streaming Info",
+      "options": [
+        {
+          "id": "streamName",
+          "type": "textinput",
+          "label": "Stream Name"
+        },
+        {
+          "id": "username",
+          "type": "textinput",
+          "label": "Username"
+        },
+        {
+          "id": "password",
+          "type": "textinput",
+          "label": "Password"
+        },
+        {
+          "id": "streamURL",
+          "type": "textinput",
+          "label": "Stream URL"
+        },
+        {
+          "id": "streamKey",
+          "type": "textinput",
+          "label": "Stream Key"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 61
+      }
+    },
+    {
+      "id": "streamingControl",
+      "name": "Streaming Control",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "publish",
+          "choices": [
+            {
+              "id": "publish",
+              "label": "Publish"
+            },
+            {
+              "id": "unpublish",
+              "label": "Unpublish"
+            },
+            {
+              "id": "Sharelink/publish",
+              "label": "Sharelink Publish"
+            },
+            {
+              "id": "Sharelink/unpublish",
+              "label": "Sharelink Unpublish"
+            },
+            {
+              "id": "broadcast",
+              "label": "Broadcast"
+            },
+            {
+              "id": "halt",
+              "label": "Halt"
+            },
+            {
+              "id": "cancel",
+              "label": "Cancel"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "endpreview",
+              "label": "End Preview"
+            },
+            {
+              "id": "complete",
+              "label": "Complete"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 101
+      }
+    },
+    {
+      "id": "setSCTE",
+      "name": "Set SCTE 35 Message Settings",
+      "description": "Adjust selected SCTE 35 message properties. Requires firmware v2.23.20250722 or later, and a valid license.",
+      "options": [
+        {
+          "id": "properties",
+          "type": "multidropdown",
+          "label": "Properties",
+          "description": "Properties not selected will be left at their existing values.",
+          "default": ["break_duration"],
+          "choices": [
+            {
+              "id": "splice_type",
+              "label": "Splice Type"
+            },
+            {
+              "id": "pre_roll",
+              "label": "Pre-Roll"
+            },
+            {
+              "id": "event_id",
+              "label": "Event ID (Hex)"
+            },
+            {
+              "id": "network_event",
+              "label": "Network Event"
+            },
+            {
+              "id": "break_duration",
+              "label": "Break Duration"
+            },
+            {
+              "id": "program_id",
+              "label": "Unique Program ID"
+            },
+            {
+              "id": "avail_num",
+              "label": "Available Num"
+            },
+            {
+              "id": "avail_expect",
+              "label": "Avails Expected"
+            }
+          ]
+        },
+        {
+          "id": "splice_type",
+          "type": "dropdown",
+          "label": "Splice Type",
+          "default": "normal",
+          "choices": [
+            {
+              "id": "normal",
+              "label": "Normal"
+            },
+            {
+              "id": "immediate",
+              "label": "Immediate"
+            }
+          ],
+          "visibleWhen": "arrayIncludes($(options:properties), \"splice_type\")"
+        },
+        {
+          "id": "pre_roll",
+          "type": "number",
+          "label": "Pre-Roll (milliseconds)",
+          "default": 0,
+          "min": 0,
+          "visibleWhen": "arrayIncludes($(options:properties), \"pre_roll\")"
+        },
+        {
+          "id": "event_id",
+          "type": "textinput",
+          "label": "Event ID (Hex)",
+          "default": "",
+          "visibleWhen": "arrayIncludes($(options:properties), \"event_id\")"
+        },
+        {
+          "id": "network_event",
+          "type": "dropdown",
+          "label": "Network Event",
+          "default": "out-of-network",
+          "choices": [
+            {
+              "id": "out-of-network",
+              "label": "Out of Network"
+            },
+            {
+              "id": "return-to-network",
+              "label": "Return to Network"
+            }
+          ],
+          "visibleWhen": "arrayIncludes($(options:properties), \"network_event\")"
+        },
+        {
+          "id": "break_duration",
+          "type": "number",
+          "label": "Break Duration (milliseconds)",
+          "default": 10000,
+          "min": 0,
+          "visibleWhen": "arrayIncludes($(options:properties), \"break_duration\")"
+        },
+        {
+          "id": "program_id",
+          "type": "number",
+          "label": "Unique Program ID",
+          "default": 0,
+          "min": 0,
+          "visibleWhen": "arrayIncludes($(options:properties), \"program_id\")"
+        },
+        {
+          "id": "avail_num",
+          "type": "number",
+          "label": "Available Num",
+          "default": 0,
+          "min": 0,
+          "visibleWhen": "arrayIncludes($(options:properties), \"avail_num\")"
+        },
+        {
+          "id": "avail_expect",
+          "type": "number",
+          "label": "Available Expected",
+          "default": 0,
+          "min": 0,
+          "visibleWhen": "arrayIncludes($(options:properties), \"avail_expect\")"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 131
+      }
+    },
+    {
+      "id": "sendSCTE",
+      "name": "Send SCTE 35 Message",
+      "description": "Sends an SCTE 35 message with the current settings. You can adjust the settings using the \"Set SCTE 35 Message Settings\" action",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 257
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "recordingState",
+      "name": "Recording State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "State",
+          "default": "Recording",
+          "choices": [
+            {
+              "id": "Recording",
+              "label": "Recording"
+            },
+            {
+              "id": "Ready",
+              "label": "Ready"
+            },
+            {
+              "id": "Invalid",
+              "label": "Invalid"
+            },
+            {
+              "id": "Not Ready",
+              "label": "Not Ready"
+            },
+            {
+              "id": "Preparing",
+              "label": "Preparing"
+            },
+            {
+              "id": "Offline",
+              "label": "Offline"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 8
+      }
+    },
+    {
+      "id": "streamingState",
+      "name": "Streaming State",
+      "options": [
+        {
+          "id": "option",
+          "type": "dropdown",
+          "label": "State",
+          "default": "Live",
+          "choices": [
+            {
+              "id": "Live",
+              "label": "Live"
+            },
+            {
+              "id": "Ready",
+              "label": "Ready"
+            },
+            {
+              "id": "Playing",
+              "label": "Playing"
+            },
+            {
+              "id": "Invalid",
+              "label": "Invalid"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 41
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 7 actions (src/actions.js) and 2 boolean feedbacks (src/feedbacks.js), all plain assignments in getActions/getFeedbacks, no runtime generation. Variables and presets are not catalogued.",
+    "Protocol: MQTT over WebSocket to ws://<host>/mqtt with the configured username and password (src/index.js initMqtt). Each command publishes a JSON payload to <topic>/<timestamp>. The topic prefix depends on the device mode reported by the device: Session/0/Record and Session/0/Stream/0 in Normal mode, SessionLL/VideoEncoders/0/Record and SessionLL/VideoEncoders/0/Streams/0 in Low-Latency mode (this.prefix, this.data.mode). Recording and streaming actions switch to the Low-Latency prefix at run time; the feedbacks read this.data.recording.state and this.data.streaming.state.",
+    "Action setSCTE (Set SCTE 35 Message Settings) and sendSCTE are only usable with firmware v2.23.20250722 or later and a valid license (action description in the source). In setSCTE the properties multidropdown selects which of the other fields are used; the other fields use isVisibleExpression with arrayIncludes($(options:properties), ...), recorded in visibleWhen. The callback only sends fields whose value is truthy, so a value of 0 is not sent. setSCTE always posts to SessionLL/VideoEncoders/0/Metadata/set.",
+    "Actions setRecordingName and recordWithName both use the option id command (a file name, despite the id) and post {name} to <record prefix>/RECUpload/set; recordWithName then also posts start. setStreamingInfo posts {password, channel_name, username, url, stream} to <stream prefix>/RTMP/set; its option ids are streamName, username, password, streamURL and streamKey. None of these textinputs has a default or useVariables in the source.",
+    "The feedback dropdown values are state strings as reported by the device. The option default of recordingState ('Recording') and streamingState ('Live') match a choice id.",
+    "The module manifest runs on node22. Built on @companion-module/base ~1.12.1: options do not support expressions, even though the source uses isVisibleExpression for visibility."
+  ]
+}
