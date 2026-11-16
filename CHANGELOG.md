@@ -5,6 +5,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-16
+
 ### Added
 
 - Catalog: full action and feedback data for all remaining usable modules of the index (124 modules in total), read from the module sources with file and line: QLab, ProPresenter, Keynote, PowerPoint, OBS Studio, Ableton OSC, Disguise, Pixera, Hippotizer REST, Millumin, ArKaos, ModuloPlayer, SModeLive, DT Videolabs, Pandoras Box, CasparCG, Resolume WS and Arena OSC, Sony, PTZOptics and HDKatov VISCA, Panasonic cameras, Kairos and projector, NEC, Ross, Tally Arbiter, TSL, Vizrt, Extron, Kramer, Lightware, Crestron, Novastar, PixelHue, Brompton, Analog Way, Barco, BMD Multiview 4, Christie, Teradek, Epiphan Pearl and the generic Art-Net, sACN, HTTP, OSC, MIDI, PJLink and TCP/UDP modules.
