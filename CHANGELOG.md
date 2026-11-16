@@ -16,6 +16,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Satellite client (`src/satellite`): virtual surface over the Satellite API (TCP and WebSocket), settled page snapshots and `pressVerified`, which reports success only from a render change.
 - MCP server (`src/server.ts`, `src/cli.ts`) with 15 `companion_*` tools: catalog lookup, validation, page generation and building, status, export, page read-back, connection and surface listing, `import_page` and `rollback` (both dry-run by default), `satellite_snapshot` (read the rendered page) and `press` (dry run by default, write gate and press allow-list, reports `accepted`, `render_changed`, `target_changed`, `page_changed`).
 - `diffReadback` options `connectionIdMap` and `inferConnectionIds`: remapped entity `connectionId`s (explicit import remapping or a consistent 1:1 mapping, contradictions stay errors) and an absent versus empty `children` are tolerated inside the diff. The tool layer no longer rewrites the intended export.
+- Claude Desktop extension: `npm run bundle` builds `build/companion-mcp-<version>.mcpb` (manifest 0.3, production dependencies only, tool list read from the real server, validated with the official `mcpb` CLI pinned in the script). The install dialog exposes URL, REST token (sensitive), write gate (off), allowed hosts, press allow-list and the unknown-version switch.
+- `sanitizeEnv`: environment values that still contain an unreplaced `${...}` placeholder are treated as unset, so an empty optional extension field can never become a literal token or URL.
 - Documentation: `docs/architecture.md`, `docs/catalog.md`, `docs/satellite.md`, `docs/tools.md`.
 
 ### Known limitations

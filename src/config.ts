@@ -61,11 +61,27 @@ const EnvSchema = z.object({
 });
 
 /**
+ * Extension hosts (MCPB) substitute `${user_config.KEY}` placeholders. If the user left an optional field
+ * empty, an unreplaced placeholder could reach the server as a literal value (for example as a token).
+ * Such values are treated as unset so that defaults apply.
+ */
+export function sanitizeEnv(
+  env: Readonly<Record<string, string | undefined>>,
+): Record<string, string | undefined> {
+  const result: Record<string, string | undefined> = {};
+  for (const [key, value] of Object.entries(env)) {
+    result[key] = value !== undefined && /\$\{[^}]*\}/.test(value) ? undefined : value;
+  }
+  return result;
+}
+
+/**
  * Reads the configuration from an environment object. Variables: `COMPANION_URL`, `COMPANION_REST_TOKEN`,
  * `COMPANION_MCP_ALLOW_UNKNOWN_VERSION` plus the safety variables of {@link loadSafetyConfig}.
  * Throws {@link ConfigError} (or `SafetyError` with code `CONFIG_INVALID`) for invalid values.
  */
-export function loadConfig(env: Readonly<Record<string, string | undefined>>): AppConfig {
+export function loadConfig(rawEnv: Readonly<Record<string, string | undefined>>): AppConfig {
+  const env = sanitizeEnv(rawEnv);
   const parsed = EnvSchema.safeParse({
     COMPANION_URL: env['COMPANION_URL'],
     COMPANION_REST_TOKEN: env['COMPANION_REST_TOKEN'],

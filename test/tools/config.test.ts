@@ -65,4 +65,21 @@ describe('loadConfig', () => {
   it('fails closed on a malformed press allow-list', () => {
     expect(() => loadConfig({ COMPANION_MCP_PRESS_ALLOW: 'nonsense' })).toThrow(SafetyError);
   });
+
+  it('treats unreplaced extension placeholders as unset (defaults apply)', () => {
+    const config = loadConfig({
+      COMPANION_URL: '${user_config.companion_url}',
+      COMPANION_REST_TOKEN: '${user_config.rest_token}',
+      COMPANION_MCP_WRITE: '${user_config.write_enabled}',
+      COMPANION_MCP_ALLOWED_HOSTS: '${user_config.allowed_hosts}',
+      COMPANION_MCP_PRESS_ALLOW: '${user_config.press_allow}',
+    });
+    expect(config.url).toBe(DEFAULT_COMPANION_URL);
+    expect(config.restToken).toBeUndefined();
+    expect(config.safety).toEqual({
+      writeEnabled: false,
+      allowedHosts: ['127.0.0.1', 'localhost', '::1'],
+      pressAllow: null,
+    });
+  });
 });

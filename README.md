@@ -58,7 +58,22 @@ Note: Companion's tRPC endpoint and the Satellite ports have **no authentication
 
 ## Installation
 
-Not yet published. Use it from source:
+Not yet published to npm. Two ways to use it:
+
+### Claude Desktop extension (`.mcpb`)
+
+Build the bundle (needs Node.js 22.12+ and network access for `npx`) and open the file:
+
+```sh
+git clone https://github.com/rA1nm3n/companion-mcp.git
+cd companion-mcp
+npm ci
+npm run bundle        # writes build/companion-mcp-<version>.mcpb
+```
+
+Double-click the `.mcpb` file, or drag it into Claude Desktop under Settings → Extensions. The install dialog asks for the Companion URL (default `http://127.0.0.1:8000`) and the safety options. **Writing to Companion is off by default**; the host allow-list defaults to loopback. Placeholders the host leaves unreplaced are treated as unset.
+
+### From source
 
 ```sh
 git clone https://github.com/rA1nm3n/companion-mcp.git
@@ -93,6 +108,7 @@ npm run typecheck     # TypeScript, no emit
 npm test              # unit tests (Vitest); integration tests are skipped without COMPANION_TEST_URL
 npm run format        # check formatting (Prettier)
 npm run build         # compile to dist/
+npm run bundle        # build + pack the Claude Desktop extension (build/*.mcpb)
 ```
 
 Integration tests need a Companion 5.1.x instance: set `COMPANION_TEST_URL` (and `COMPANION_TEST_SATELLITE_PORT` for satellite tests) and run `npm run test:integration`. Never point them at a production system.
