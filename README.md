@@ -37,7 +37,7 @@ All tools are prefixed `companion_`. Full reference: [docs/tools.md](docs/tools.
 | Write (gate) | `import_page`, `rollback` (dry run by default)                             |
 | Satellite    | `satellite_snapshot`, `press` (see [docs/satellite.md](docs/satellite.md)) |
 
-Page templates exist for ATEM, Videohub, vMix and BirdDog. The catalog covers 15 modules in detail (ATEM, Videohub, vMix, BirdDog, HyperDeck, Panasonic PTZ, Analog Way AWJ/LivePremier, Barco EventMaster, Shure, Luminex GigaCore, Dataton Watchout, Resolume, Companion internal) and indexes 104 modules. See [docs/catalog.md](docs/catalog.md).
+Page templates exist for ATEM, Videohub, vMix, BirdDog and ShowPace. The catalog covers 38 modules in detail and indexes 126 modules. Detailed: ATEM, Videohub, vMix, BirdDog, HyperDeck, Panasonic PTZ, Analog Way AWJ/LivePremier, Barco EventMaster, Shure, Luminex GigaCore, Dataton Watchout, Resolume, TouchDesigner, MADRIX Aura, MadMapper 5/6, lighting consoles (grandMA2/3, ChamSys MagicQ OSC/UDP, Avolites Titan, ETC Eos, High End Hog 4, Obsidian ONYX telnet/OSC), audio consoles (Yamaha RCP, Behringer X32, Allen & Heath SQ/Avantis/dLive/dLive-iLive/CQ/AHM/DT168), ShowPace and Companion internal. See [docs/catalog.md](docs/catalog.md).
 
 ## Safety model
 
@@ -58,7 +58,22 @@ Note: Companion's tRPC endpoint and the Satellite ports have **no authentication
 
 ## Installation
 
-Not yet published. Use it from source:
+Not yet published to npm. Two ways to use it:
+
+### Claude Desktop extension (`.mcpb`)
+
+Build the bundle (needs Node.js 22.12+ and network access for `npx`) and open the file:
+
+```sh
+git clone https://github.com/rA1nm3n/companion-mcp.git
+cd companion-mcp
+npm ci
+npm run bundle        # writes build/companion-mcp-<version>.mcpb
+```
+
+Double-click the `.mcpb` file, or drag it into Claude Desktop under Settings → Extensions. The install dialog asks for the Companion URL (default `http://127.0.0.1:8000`) and the safety options. **Writing to Companion is off by default**; the host allow-list defaults to loopback. Placeholders the host leaves unreplaced are treated as unset.
+
+### From source
 
 ```sh
 git clone https://github.com/rA1nm3n/companion-mcp.git
@@ -93,6 +108,7 @@ npm run typecheck     # TypeScript, no emit
 npm test              # unit tests (Vitest); integration tests are skipped without COMPANION_TEST_URL
 npm run format        # check formatting (Prettier)
 npm run build         # compile to dist/
+npm run bundle        # build + pack the Claude Desktop extension (build/*.mcpb)
 ```
 
 Integration tests need a Companion 5.1.x instance: set `COMPANION_TEST_URL` (and `COMPANION_TEST_SATELLITE_PORT` for satellite tests) and run `npm run test:integration`. Never point them at a production system.

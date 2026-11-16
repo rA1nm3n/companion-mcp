@@ -43,7 +43,8 @@
     "test": "vitest run",
     "test:integration": "vitest run integration",
     "format": "prettier --check .",
-    "format:write": "prettier --write ."
+    "format:write": "prettier --write .",
+    "bundle": "npm run build && node scripts/build-mcpb.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

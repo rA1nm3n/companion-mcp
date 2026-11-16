@@ -29,7 +29,7 @@ zod lazily, on first access.
 
 | Function                                           | Purpose                                                                                 |
 | -------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `listModules()`                                    | All modules of the index (about 100), with repo, version, base library, kind            |
+| `listModules()`                                    | All modules of the index (about 125), with repo, version, base library, kind            |
 | `searchModules(query)`                             | Case-insensitive AND search over id, repo, manufacturer, products, keywords             |
 | `getModule(id)`                                    | Full data of a catalogued module, `undefined` for index-only or unknown modules         |
 | `findAction(moduleId, actionId)`                   | One action definition                                                                   |
@@ -76,6 +76,10 @@ and 5"), `optionsComplete`, `optionsSupportExpressions`, and for feedbacks `feed
   that resolve `$(...)`; numeric text inputs are not range-checked when a variable is present.
 - `allowInvalidValues` (module source): values outside the list are accepted. The validator then
   only applies the declared value shape.
+- `allowCustom` (module source): free text next to the listed choices. A value outside the list is
+  accepted if it matches the declared shape (`valueType`, `min`, `max`, `valuePattern`); without a
+  declared shape any value is accepted. The listed choices are still checked as usual when the
+  value is one of them. The Yamaha value dropdowns and the Avantis mute dropdown use it.
 - `disableAutoExpression` (module source): the field cannot be switched to expression mode.
 - `visibleWhen`, `regex` are informational (the source condition and the source regular
   expression). They are not evaluated.
@@ -129,8 +133,20 @@ Files are formatted with Prettier (`npx prettier --write src/catalog`).
 - ATEM `dskAuto` uses the option id `downstreamKeyerId`; the other DSK actions use `key`.
 - Option ids for the same concept differ between action and feedback (Videohub feedbacks use
   `output`, the actions use `destination`).
+- The MadMapper modules (`garagecube-madmapper5`, `garagecube-madmapper6`) expose only a subset in
+  their default `light` edition; entries outside it carry an `availability` note. Their column
+  dropdowns list `current` and columns 1 to 16 but accept any number (`allowCustom`), catalogued with
+  `allowInvalidValues` so the validator does not reject other columns.
+- Third-party modules (outside the bitfocus organization) are catalogued like the others; the
+  module `notes` say so.
 - ATEM and several others hide the M/E or DSK picker on single-M/E or single-DSK models and ignore
   its value.
+- `showpace-timer` is the maintainer's own module. Its `repo` is `rA1nm3n/showpace` (the module lives
+  in `integrations/companion`, so provenance paths start with that directory), not the
+  `bitfocus/companion-module-showpace-timer` that its manifest names. Whether the module is published
+  in the official Bitfocus module directory was not verified (see the module `notes`). The schema has
+  no fields for variables or presets, so the module `notes` list the variable ids and the preset
+  categories.
 
 ## Adding a module
 
@@ -154,6 +170,23 @@ Files are formatted with Prettier (`npx prettier --write src/catalog`).
 `_index.json` lists every module found in the surveyed repositories (module id from the manifest,
 repository, version, base library range, date of the last commit, manufacturer, products,
 keywords), a `noModule` section with devices that have no module and the generic modules that can
-replace them (`generic-osc`, `generic-tcp-udp`, `generic-http`, `generic-pjlink`), and `unusable`
+replace them (`generic-osc`, `generic-tcp-udp`, `generic-http`, `generic-pjlink`; the list stays empty, with an explaining note, when no alternative was verified), and `unusable`
 repositories (for example modules whose manifest id is still the template placeholder). Legacy
 repositories without a manifest are listed with the directory name as id and a note.
+
+### Audio consoles
+
+Large or generated option sets are not enumerated per strip. Each module records the pattern once
+and describes the range in `choicesNote`, `min`/`max` or `availability`:
+
+- `yamaha-rcp` covers the CL/QL, Rivage PM, TF, DM3, DM7/DM5 consoles and the RIO/TIO/RSio devices.
+  Its actions and feedbacks are generated from the per-model parameter tables, so the catalog
+  merges the models: one entry per command, with the models that register it in `availability`.
+  `yamaha-scp` is the legacy id of the same module; `yamaha-dm` is an unmodified template.
+- `behringer-x32` (X32/M32) target dropdowns use `allowInvalidValues` because the module parses
+  loose spellings of a channel reference.
+- Allen & Heath: `allenheath-sq`, `allenheath-avantis`, `allenheath-dlive`,
+  `allenheath-dlive-ilive`, `allenheath-cq`, `allenheath-ahm` and `allenheath-dt168` are
+  catalogued. The Qu repository has no manifest and is listed as unusable; GLD, ZED and Xone have no
+  module (see `noModule`). Avantis strip ids are MIDI channel numbers; the strip counts grow with
+  the D-Pack option (`choicesNote`).

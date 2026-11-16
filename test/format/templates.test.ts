@@ -3,11 +3,19 @@ import {
   atemSwitcherPage,
   birddogPresetPage,
   createSequentialIdGenerator,
+  showpaceTimerPage,
   validateExport,
   videohubRoutingPage,
   vmixInputPage,
   type PageExport,
 } from '../../src/format/index.js';
+import {
+  findAction,
+  findFeedback,
+  validateActionOptions,
+  validateFeedbackOptions,
+} from '../../src/catalog/index.js';
+import { catalogLookup } from '../../src/tools/catalog-adapter.js';
 import { testCatalog } from './helpers/test-catalog.js';
 
 const connection = (id = 'c1', label = 'dev') => ({ id, label });
@@ -317,6 +325,130 @@ describe('birddogPresetPage', () => {
     expect(() => birddogPresetPage({ connection: connection(), presets: [0] })).toThrow(
       /positive integer/,
     );
+  });
+});
+
+describe('showpaceTimerPage', () => {
+  // The small test catalog above does not know ShowPace: validate against the real catalog.
+  const expectValidReal = (file: PageExport): void => {
+    expect(validateExport(file, { catalog: catalogLookup }).errors).toEqual([]);
+    expect(validateExport(JSON.stringify(file)).errors).toEqual([]);
+  };
+  const entities = (file: PageExport): Array<{ kind: 'action' | 'feedback'; entity: any }> => {
+    const found: Array<{ kind: 'action' | 'feedback'; entity: any }> = [];
+    for (const row of Object.values(file.page.controls)) {
+      for (const button of Object.values(row ?? {}) as any[]) {
+        for (const set of Object.values(button.steps ?? {}) as any[]) {
+          for (const list of Object.values(set.action_sets ?? {}) as any[][]) {
+            for (const entity of list) found.push({ kind: 'action', entity });
+          }
+        }
+        for (const entity of button.feedbacks ?? []) found.push({ kind: 'feedback', entity });
+      }
+    }
+    return found;
+  };
+
+  it('is valid against the real catalog (every action and feedback id and option)', () => {
+    const file = showpaceTimerPage({
+      connection: connection('sp', 'showpace'),
+      tempoSteps: [90, 110, 135],
+      ids: ids(),
+    });
+    expect(validateExport(file, { catalog: catalogLookup }).errors).toEqual([]);
+    expectValidReal(file);
+    expect(file.instances.sp).toMatchObject({ moduleId: 'showpace-timer', label: 'showpace' });
+    const all = entities(file);
+    expect(all.length).toBeGreaterThan(10);
+    for (const { kind, entity } of all) {
+      const issues =
+        kind === 'action'
+          ? validateActionOptions('showpace-timer', entity.definitionId, entity.options)
+          : validateFeedbackOptions('showpace-timer', entity.definitionId, entity.options);
+      expect(issues, `${kind} ${entity.definitionId}`).toEqual([]);
+      expect(
+        kind === 'action'
+          ? findAction('showpace-timer', entity.definitionId)
+          : findFeedback('showpace-timer', entity.definitionId),
+        `${kind} ${entity.definitionId}`,
+      ).toBeDefined();
+    }
+  });
+
+  it('layout: display row, transport, rundown, tempo, direct tempo steps', () => {
+    const file = showpaceTimerPage({ connection: connection(), ids: ids() });
+    expect(Object.keys(file.page.controls)).toEqual(['0', '1', '2', '3', '4']);
+    expect(at(file, 1, 0).steps['0'].action_sets.down[0].definitionId).toBe('timer_start');
+    expect(at(file, 1, 1).steps['0'].action_sets.down[0].definitionId).toBe('timer_pause');
+    expect(at(file, 1, 2).steps['0'].action_sets.down[0].definitionId).toBe('timer_reset');
+    expect(at(file, 2, 0).steps['0'].action_sets.down[0].definitionId).toBe('rundown_prev');
+    expect(at(file, 2, 1).steps['0'].action_sets.down[0].definitionId).toBe('rundown_next');
+    expect(at(file, 3, 0).steps['0'].action_sets.down[0].definitionId).toBe('tempo_down');
+    expect(at(file, 3, 1).steps['0'].action_sets.down[0].definitionId).toBe('tempo_up');
+    expect(at(file, 3, 2).steps['0'].action_sets.down[0].definitionId).toBe('tempo_reset');
+    expect(at(file, 4, 2).steps['0'].action_sets.down[0]).toMatchObject({
+      definitionId: 'tempo_set',
+      options: { pct: { isExpression: false, value: 135 } },
+    });
+  });
+
+  it('display shows the remaining time as a variable with the four phase feedbacks', () => {
+    const file = showpaceTimerPage({ connection: connection('c', 'timer'), ids: ids() });
+    const display = at(file, 0, 0);
+    expect(display.style.layers[2].text).toMatchObject({
+      isExpression: true,
+      value: '`$(timer:remaining)`',
+    });
+    expect(display.feedbacks.map((f: any) => f.options.phase.value)).toEqual([
+      'normal',
+      'warning',
+      'critical',
+      'overtime',
+    ]);
+    expect(at(file, 0, 3).feedbacks[0].definitionId).toBe('tempo_changed');
+  });
+
+  it('display and direct tempo steps can be switched off', () => {
+    const file = showpaceTimerPage({
+      connection: connection(),
+      display: false,
+      tempoSteps: [],
+      ids: ids(),
+    });
+    expectValidReal(file);
+    expect(Object.keys(file.page.controls)).toEqual(['0', '1', '2']);
+  });
+
+  it('narrow grids wrap and navigation shifts the layout', () => {
+    const file = showpaceTimerPage({
+      connection: connection(),
+      columns: 2,
+      navigation: true,
+      ids: ids(),
+    });
+    expectValidReal(file);
+    expect(validateExport(file, { catalog: catalogLookup }).errors).toEqual([]);
+    expect(at(file, 0, 0)).toEqual({ type: 'pageup' });
+    expect(at(file, 0, 2).style.layers[2].text.value).toContain('segment_title');
+  });
+
+  it('rejects tempo steps outside the range of tempo_set', () => {
+    expect(() => showpaceTimerPage({ connection: connection(), tempoSteps: [49] })).toThrow(
+      /tempoSteps/,
+    );
+    expect(() => showpaceTimerPage({ connection: connection(), tempoSteps: [201] })).toThrow(
+      /tempoSteps/,
+    );
+  });
+
+  it('showpace page snapshot (default)', () => {
+    expect(
+      showpaceTimerPage({
+        connection: connection('sp', 'showpace'),
+        companionBuild: 'test',
+        ids: ids(),
+      }),
+    ).toMatchSnapshot();
   });
 });
 

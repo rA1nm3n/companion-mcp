@@ -144,6 +144,7 @@ describe('generate_page', () => {
     ['videohub', { connection, inputs: 4, outputs: 2 }],
     ['vmix', { connection, inputs: [1, 'Camera', { input: 3, label: 'Wide' }] }],
     ['birddog', { connection, presets: 6 }],
+    ['showpace', { connection }],
   ];
 
   it.each(cases)('generates a valid %s page', async (template, params) => {

@@ -1,0 +1,85 @@
+{
+  "manifest_version": "0.3",
+  "name": "companion-mcp",
+  "display_name": "Bitfocus Companion",
+  "version": "__VERSION__",
+  "description": "Create and maintain Bitfocus Companion 5.1 configuration (pages, buttons, actions, feedbacks) with validation, dry-run import and read-back verification.",
+  "long_description": "MCP server for Bitfocus Companion 5.1.x, focused on configuration creation. Config is generated as an export file, validated offline, and only imported through a gated write path (off by default, dry run first, checksummed snapshot, read-back diff). See the project README for the safety model.",
+  "author": {
+    "name": "Jochen Walter",
+    "url": "https://github.com/rA1nm3n"
+  },
+  "homepage": "https://github.com/rA1nm3n/companion-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rA1nm3n/companion-mcp.git"
+  },
+  "support": "https://github.com/rA1nm3n/companion-mcp/issues",
+  "license": "MIT",
+  "keywords": ["companion", "bitfocus", "streamdeck", "broadcast", "av"],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/cli.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/cli.js"],
+      "env": {
+        "COMPANION_URL": "${user_config.companion_url}",
+        "COMPANION_REST_TOKEN": "${user_config.rest_token}",
+        "COMPANION_MCP_WRITE": "${user_config.write_enabled}",
+        "COMPANION_MCP_ALLOWED_HOSTS": "${user_config.allowed_hosts}",
+        "COMPANION_MCP_PRESS_ALLOW": "${user_config.press_allow}",
+        "COMPANION_MCP_ALLOW_UNKNOWN_VERSION": "${user_config.allow_unknown_version}"
+      }
+    }
+  },
+  "tools": "__TOOLS__",
+  "user_config": {
+    "companion_url": {
+      "type": "string",
+      "title": "Companion URL",
+      "description": "Admin address of Companion, for example http://127.0.0.1:8000.",
+      "default": "http://127.0.0.1:8000",
+      "required": true
+    },
+    "rest_token": {
+      "type": "string",
+      "title": "REST API token (optional)",
+      "description": "Token (cpn_...) of Companion's REST API v2. Only needed for connection and surface listing. Leave empty if unused.",
+      "sensitive": true,
+      "required": false
+    },
+    "write_enabled": {
+      "type": "boolean",
+      "title": "Allow writing to Companion",
+      "description": "Off by default. When on, companion_import_page, companion_rollback and companion_press may change Companion. Imports still default to dry run.",
+      "default": false,
+      "required": false
+    },
+    "allowed_hosts": {
+      "type": "string",
+      "title": "Allowed hosts",
+      "description": "Comma-separated hosts the server may contact. Default is loopback only. Add the host of Companion if it runs on another machine.",
+      "default": "127.0.0.1,localhost,::1",
+      "required": false
+    },
+    "press_allow": {
+      "type": "string",
+      "title": "Allowed button presses (optional)",
+      "description": "Comma-separated page/row/column entries, for example 99/0/0. Empty means no restriction (still needs the write option).",
+      "default": "",
+      "required": false
+    },
+    "allow_unknown_version": {
+      "type": "boolean",
+      "title": "Accept untested Companion versions",
+      "description": "Only 5.1.x is tested. Turning this on is at your own risk.",
+      "default": false,
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": { "node": ">=22.12.0" }
+  }
+}

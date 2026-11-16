@@ -14,6 +14,7 @@ import {
   buildButton,
   buildConnection,
   buildPageExport,
+  showpaceTimerPage,
   videohubRoutingPage,
   validateExport,
   vmixInputPage,
@@ -23,6 +24,7 @@ import {
   type ExportInstance,
   type FeedbackInput,
   type PlacedControl,
+  type ShowpaceTimerPageOptions,
   type TemplateConnection,
   type VideohubRoutingPageOptions,
   type VmixInputPageOptions,
@@ -123,7 +125,14 @@ const BirddogParams = z.strictObject({
   columns: z.number().int().min(1).optional(),
 });
 
-const TEMPLATES = ['atem', 'videohub', 'vmix', 'birddog'] as const;
+const ShowpaceParams = z.strictObject({
+  ...TemplateCommon,
+  tempoSteps: z.array(z.number().min(50).max(200)).optional(),
+  display: z.boolean().optional(),
+  columns: z.number().int().min(1).optional(),
+});
+
+const TEMPLATES = ['atem', 'videohub', 'vmix', 'birddog', 'showpace'] as const;
 type TemplateName = (typeof TEMPLATES)[number];
 
 /**
@@ -160,6 +169,10 @@ function generateTemplate(template: TemplateName, rawParams: unknown) {
       return vmixInputPage(toOptions<VmixInputPageOptions>(VmixParams.parse(rawParams)));
     case 'birddog':
       return birddogPresetPage(toOptions<BirddogPresetPageOptions>(BirddogParams.parse(rawParams)));
+    case 'showpace':
+      return showpaceTimerPage(
+        toOptions<ShowpaceTimerPageOptions>(ShowpaceParams.parse(rawParams)),
+      );
   }
 }
 
@@ -420,7 +433,8 @@ export function registerOfflineTools(server: McpServer): void {
       'atem { inputs: count | [n | {input,label}], mixEffect?, programColor?, previewColor?, programTextColor?, previewTextColor?, transitions?, columns? }; ' +
       'videohub { inputs, outputs, routedColor?, routedTextColor?, labelColor?, ignoreLock? }; ' +
       'vmix { inputs: count | [number | name | {input,label}], mix? (1-16 or "Selected"), programColor?, previewColor?, tallyTextColor?, programRow?, columns? }; ' +
-      'birddog { presets: count | [n | {input,label}] (1-64), buttonColor?, columns? }. Colors are RGB integers (0xff0000 = 16711680). ' +
+      'birddog { presets: count | [n | {input,label}] (1-64), buttonColor?, columns? }; ' +
+      'showpace { tempoSteps?: number[] (50-200, default 110/120/135), display?, columns? } (ShowPace stage timer: display, start/pause/reset, previous/next segment, tempo). Colors are RGB integers (0xff0000 = 16711680). ' +
       'Use the result with companion_import_page.',
     input: z.strictObject({
       template: z.enum(TEMPLATES),

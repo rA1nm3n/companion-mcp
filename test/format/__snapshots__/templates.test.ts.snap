@@ -1808,3 +1808,3118 @@ exports[`determinism and snapshots > birddog page snapshot (2 presets) 1`] = `
   "version": 12,
 }
 `;
+
+exports[`showpaceTimerPage > showpace page snapshot (default) 1`] = `
+{
+  "companionBuild": "test",
+  "connectionCollections": [],
+  "imageLibrary": [],
+  "imageLibraryCollections": [],
+  "instances": {
+    "sp": {
+      "label": "showpace",
+      "lastUpgradeIndex": -1,
+      "moduleId": "showpace-timer",
+      "moduleVersionId": null,
+      "sortOrder": 0,
+      "updatePolicy": "manual",
+    },
+  },
+  "oldPageNumber": 1,
+  "page": {
+    "controls": {
+      "0": {
+        "0": {
+          "feedbacks": [
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "phase",
+              "id": "feedback-1",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {
+                "phase": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+              },
+              "styleOverrides": [
+                {
+                  "elementId": "element-2",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 32811,
+                  },
+                  "overrideId": "override-1",
+                },
+                {
+                  "elementId": "element-3",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16777215,
+                  },
+                  "overrideId": "override-2",
+                },
+              ],
+              "type": "feedback",
+            },
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "phase",
+              "id": "feedback-2",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {
+                "phase": {
+                  "isExpression": false,
+                  "value": "warning",
+                },
+              },
+              "styleOverrides": [
+                {
+                  "elementId": "element-2",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16763904,
+                  },
+                  "overrideId": "override-3",
+                },
+                {
+                  "elementId": "element-3",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 0,
+                  },
+                  "overrideId": "override-4",
+                },
+              ],
+              "type": "feedback",
+            },
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "phase",
+              "id": "feedback-3",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {
+                "phase": {
+                  "isExpression": false,
+                  "value": "critical",
+                },
+              },
+              "styleOverrides": [
+                {
+                  "elementId": "element-2",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 13369344,
+                  },
+                  "overrideId": "override-5",
+                },
+                {
+                  "elementId": "element-3",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16777215,
+                  },
+                  "overrideId": "override-6",
+                },
+              ],
+              "type": "feedback",
+            },
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "phase",
+              "id": "feedback-4",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {
+                "phase": {
+                  "isExpression": false,
+                  "value": "overtime",
+                },
+              },
+              "styleOverrides": [
+                {
+                  "elementId": "element-2",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 13369344,
+                  },
+                  "overrideId": "override-7",
+                },
+                {
+                  "elementId": "element-3",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16777215,
+                  },
+                  "overrideId": "override-8",
+                },
+              ],
+              "type": "feedback",
+            },
+          ],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Remaining time of the current segment, colored by phase",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-1",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-2",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 24,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-3",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": true,
+                  "value": "\`$(showpace:remaining)\`",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "1": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Title of the current segment",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-4",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-5",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 14,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-6",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": true,
+                  "value": "\`$(showpace:segment_title)\`",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "2": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Title of the next segment",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-7",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-8",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 14,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-9",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": true,
+                  "value": "\`NEXT: $(showpace:next_title)\`",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "3": {
+          "feedbacks": [
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "tempo_changed",
+              "id": "feedback-5",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {},
+              "styleOverrides": [
+                {
+                  "elementId": "element-11",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 14706176,
+                  },
+                  "overrideId": "override-9",
+                },
+                {
+                  "elementId": "element-12",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16777215,
+                  },
+                  "overrideId": "override-10",
+                },
+              ],
+              "type": "feedback",
+            },
+          ],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Tempo factor in percent (visible in the control room only)",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-10",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-11",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 14,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-12",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": true,
+                  "value": "\`TEMPO $(showpace:tempo_pct) %\`",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+      },
+      "1": {
+        "0": {
+          "feedbacks": [
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "running",
+              "id": "feedback-6",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {
+                "state": {
+                  "isExpression": false,
+                  "value": "running",
+                },
+              },
+              "styleOverrides": [
+                {
+                  "elementId": "element-14",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 32811,
+                  },
+                  "overrideId": "override-11",
+                },
+                {
+                  "elementId": "element-15",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16777215,
+                  },
+                  "overrideId": "override-12",
+                },
+              ],
+              "type": "feedback",
+            },
+          ],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Start or resume the timer",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "timer_start",
+                    "id": "action-1",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-13",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-14",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-15",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "START",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "1": {
+          "feedbacks": [
+            {
+              "children": {},
+              "connectionId": "sp",
+              "definitionId": "running",
+              "id": "feedback-7",
+              "isInverted": {
+                "isExpression": false,
+                "value": false,
+              },
+              "options": {
+                "state": {
+                  "isExpression": false,
+                  "value": "paused",
+                },
+              },
+              "styleOverrides": [
+                {
+                  "elementId": "element-17",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 14706176,
+                  },
+                  "overrideId": "override-13",
+                },
+                {
+                  "elementId": "element-18",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16777215,
+                  },
+                  "overrideId": "override-14",
+                },
+              ],
+              "type": "feedback",
+            },
+          ],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Pause the timer",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "timer_pause",
+                    "id": "action-2",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-16",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-17",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-18",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "PAUSE",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "2": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Reset the timer of the current segment",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "timer_reset",
+                    "id": "action-3",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-19",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 6291456,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-20",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-21",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "RESET",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+      },
+      "2": {
+        "0": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Go to the previous segment",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "rundown_prev",
+                    "id": "action-4",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-22",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-23",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-24",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "PREV",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "1": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Go to the next segment",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "rundown_next",
+                    "id": "action-5",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-25",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-26",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-27",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "NEXT",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+      },
+      "3": {
+        "0": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Decrease the tempo by 1 %",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "tempo_down",
+                    "id": "action-6",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-28",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-29",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-30",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "TEMPO -1 %",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "1": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Increase the tempo by 1 %",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "tempo_up",
+                    "id": "action-7",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-31",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-32",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-33",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "TEMPO +1 %",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "2": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Reset the tempo to 100 %",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "tempo_reset",
+                    "id": "action-8",
+                    "options": {},
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-34",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-35",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-36",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "TEMPO 100 %",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+      },
+      "4": {
+        "0": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Set the tempo to 110 %",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "tempo_set",
+                    "id": "action-9",
+                    "options": {
+                      "pct": {
+                        "isExpression": false,
+                        "value": 110,
+                      },
+                    },
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-37",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-38",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-39",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "TEMPO 110 %",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "1": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Set the tempo to 120 %",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "tempo_set",
+                    "id": "action-10",
+                    "options": {
+                      "pct": {
+                        "isExpression": false,
+                        "value": 120,
+                      },
+                    },
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-40",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-41",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-42",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "TEMPO 120 %",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+        "2": {
+          "feedbacks": [],
+          "localVariables": [],
+          "options": {
+            "canModifyStyleInApis": false,
+            "notes": "Set the tempo to 135 %",
+            "rotaryActions": false,
+            "stepExpression": "",
+            "stepProgression": "auto",
+          },
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "children": {},
+                    "connectionId": "sp",
+                    "definitionId": "tempo_set",
+                    "id": "action-11",
+                    "options": {
+                      "pct": {
+                        "isExpression": false,
+                        "value": 135,
+                      },
+                    },
+                    "type": "action",
+                  },
+                ],
+                "up": [],
+              },
+              "options": {
+                "runWhileHeld": [],
+              },
+            },
+          },
+          "style": {
+            "layers": [
+              {
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "id": "element-43",
+                "name": "Canvas",
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default",
+                },
+                "type": "canvas",
+                "usage": "auto",
+              },
+              {
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside",
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-44",
+                "name": "Background",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "pinnedProperties": [
+                  "color",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "type": "box",
+                "usage": "auto",
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+              {
+                "color": {
+                  "isExpression": false,
+                  "value": 16777215,
+                },
+                "enabled": {
+                  "isExpression": false,
+                  "value": true,
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans",
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 18,
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false,
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "id": "element-45",
+                "name": "Text",
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080,
+                },
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign",
+                ],
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": [],
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "TEMPO 135 %",
+                },
+                "type": "text",
+                "usage": "auto",
+                "valign": {
+                  "isExpression": false,
+                  "value": "center",
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal",
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100,
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0,
+                },
+              },
+            ],
+          },
+          "type": "button-layered",
+        },
+      },
+    },
+    "gridSize": {
+      "maxColumn": 7,
+      "maxRow": 4,
+      "minColumn": 0,
+      "minRow": 0,
+    },
+    "name": "ShowPace Timer",
+  },
+  "type": "page",
+  "version": 12,
+}
+`;
