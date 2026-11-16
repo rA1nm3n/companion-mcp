@@ -1,6 +1,6 @@
 {
   "name": "companion-mcp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "MCP server for Bitfocus Companion focused on creating and maintaining configuration (pages, buttons, actions, feedbacks, triggers).",
   "type": "module",
   "license": "MIT",
