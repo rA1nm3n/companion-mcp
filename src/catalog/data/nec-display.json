@@ -1,0 +1,135 @@
+{
+  "moduleId": "nec-display",
+  "name": "NEC Display",
+  "repo": "bitfocus/companion-module-nec-display",
+  "version": "1.2.0",
+  "baseVersion": "~1.14.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "075cff9",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 4 actions (src/actions.js) and 3 boolean feedbacks (src/feedbacks.js), registered in one call each; nothing is generated at runtime except the input dropdown choices.",
+    "Controls Sharp/NEC displays over TCP (config default port 7142, protocol dropdown 'ascii' or 'hex', default 'hex'; src/config.js). The ASCII protocol sends text commands such as 'power on' terminated by CR, the HEX protocol builds binary packets (src/hexprotocol.js, src/utils.js).",
+    "The input dropdown of setInput and the feedback input depends on the protocol chosen in the module config: the lists are built from self.getInputChoices(self.config.protocol) in src/utils.js when the definitions are registered. They are listed in choicesNote, not as closed choices.",
+    "HEX protocol inputs (src/hexprotocol.js INPUT_CHOICES): vga, rgbhv, dvi, hdmi1, video1, video2, svideo, tva, tvd, dvdhd1, option, dvdhd2, displayport1, displayport2, hdmi2. ASCII protocol inputs (src/utils.js getInputChoices): hdmi1, hdmi2, hdmi3, displayport1, displayport2, displayport3, mp, compute_module, option. In ASCII mode the id is sent as text ('input <id>') and not checked by the module.",
+    "setVolume declares regex: self.REGEX_NUMBER, which is not defined anywhere in the module (it evaluates to undefined), so the field has no effective pattern; the number field also sets range: false. Min 0, max 100.",
+    "setPower and setAudioMute 'toggle' work from the module's cached state (self.data.power / self.data.audiomute), not from a fresh device read. The audiomute feedback has no options.",
+    "Base library 1.14 (no expression support in options). Variables and presets are not catalogued."
+  ],
+  "actions": [
+    {
+      "id": "setPower",
+      "name": "Power",
+      "options": [
+        {
+          "id": "power",
+          "type": "dropdown",
+          "label": "Power",
+          "default": "on",
+          "choices": [
+            { "id": "on", "label": "On" },
+            { "id": "off", "label": "Off" },
+            { "id": "toggle", "label": "Toggle" }
+          ]
+        }
+      ],
+      "provenance": { "file": "src/actions.js", "line": 6 }
+    },
+    {
+      "id": "setInput",
+      "name": "Set Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "vga",
+          "choicesNote": "Depends on the protocol set in the module config. HEX: vga, rgbhv, dvi, hdmi1, video1, video2, svideo, tva, tvd, dvdhd1, option, dvdhd2, displayport1, displayport2, hdmi2. ASCII: hdmi1, hdmi2, hdmi3, displayport1, displayport2, displayport3, mp, compute_module, option. The default is the first choice of the active list ('vga' with HEX, 'hdmi1' with ASCII); '' if the protocol is neither.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": { "file": "src/actions.js", "line": 27 }
+    },
+    {
+      "id": "setVolume",
+      "name": "Set Volume",
+      "options": [
+        {
+          "id": "volume",
+          "type": "number",
+          "label": "Volume",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "required": true
+        }
+      ],
+      "provenance": { "file": "src/actions.js", "line": 43 }
+    },
+    {
+      "id": "setAudioMute",
+      "name": "Set Audio Mute",
+      "options": [
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            { "id": "on", "label": "Mute" },
+            { "id": "off", "label": "Unmute" },
+            { "id": "toggle", "label": "Toggle" }
+          ]
+        }
+      ],
+      "provenance": { "file": "src/actions.js", "line": 63 }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "power",
+      "name": "Power is in X State",
+      "description": "True if the Power is in X State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "power",
+          "type": "dropdown",
+          "label": "Power State",
+          "default": "on",
+          "choices": [
+            { "id": "on", "label": "On" },
+            { "id": "off", "label": "Off" }
+          ]
+        }
+      ],
+      "provenance": { "file": "src/feedbacks.js", "line": 11 }
+    },
+    {
+      "id": "input",
+      "name": "Input is Selected",
+      "description": "True if the Input is selected",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "vga",
+          "choicesNote": "Same protocol-dependent list as the setInput action (HEX or ASCII input ids, see module notes). The default is the first choice of the active list ('vga' with HEX, 'hdmi1' with ASCII).",
+          "valueType": "string"
+        }
+      ],
+      "provenance": { "file": "src/feedbacks.js", "line": 41 }
+    },
+    {
+      "id": "audiomute",
+      "name": "Audio is Muted",
+      "description": "True if the volume is muted",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": { "file": "src/feedbacks.js", "line": 67 }
+    }
+  ]
+}
