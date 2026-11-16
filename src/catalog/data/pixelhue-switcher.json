@@ -1,0 +1,1264 @@
+{
+  "moduleId": "pixelhue-switcher",
+  "name": "Pixelhue Switcher",
+  "repo": "bitfocus/companion-module-pixelhue-switcher",
+  "version": "2.2.9",
+  "baseVersion": "^1.12.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "355dc77",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "take",
+      "name": "TAKE",
+      "description": "Perform a TAKE on global selected screens",
+      "options": [
+        {
+          "id": "customTimeEnabled",
+          "type": "checkbox",
+          "label": "Custom time",
+          "default": false
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time",
+          "default": "500",
+          "required": false,
+          "useVariables": true,
+          "visibleWhen": "$(options:customTimeEnabled)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 29
+      }
+    },
+    {
+      "id": "takeSingleScreen",
+      "name": "TAKE Single Screen",
+      "description": "Perform a TAKE on a single screen from dropdown",
+      "options": [
+        {
+          "id": "customTimeEnabled",
+          "type": "checkbox",
+          "label": "Custom time",
+          "default": false
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time",
+          "default": "500",
+          "required": false,
+          "useVariables": true,
+          "visibleWhen": "$(options:customTimeEnabled)"
+        },
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens (id = screenId, label = screen name). Default is the first screen.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 64
+      }
+    },
+    {
+      "id": "takeMultipleScreen",
+      "name": "TAKE Multiple Screen",
+      "description": "Perform a TAKE on chosen screen",
+      "options": [
+        {
+          "id": "customTimeEnabled",
+          "type": "checkbox",
+          "label": "Custom time",
+          "default": false
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time",
+          "default": "500",
+          "required": false,
+          "useVariables": true,
+          "visibleWhen": "$(options:customTimeEnabled)"
+        },
+        {
+          "id": "screenId",
+          "type": "multidropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens (id = screenId, label = screen name). Default is a list with the first screen, or an empty list when there is no screen.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 111
+      }
+    },
+    {
+      "id": "cut",
+      "name": "CUT",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 167
+      }
+    },
+    {
+      "id": "matchPgm",
+      "name": "Match PGM",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 186
+      }
+    },
+    {
+      "id": "ftb",
+      "name": "Fade to black",
+      "description": "The ids reach the device as the module sends them: id 0 (\"Enable\") gives enable 0 and id 1 (\"Disable\") gives enable 1 in the PUT body (src/actions.ts:242, src/services/ApiClient.ts:161-168). Screen options come from getScreenSelectionOptions() in src/actionUtils.ts:98.",
+      "options": [
+        {
+          "id": "ftb",
+          "type": "dropdown",
+          "label": "FTB",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Toggle"
+            },
+            {
+              "id": 0,
+              "label": "Enable"
+            },
+            {
+              "id": 1,
+              "label": "Disable"
+            }
+          ]
+        },
+        {
+          "id": "useSelected",
+          "type": "checkbox",
+          "label": "Use global screen selection",
+          "default": true
+        },
+        {
+          "id": "screenIds",
+          "type": "multidropdown",
+          "label": "Screens",
+          "default": [],
+          "choicesNote": "Filled at runtime with the enabled screens of type SCREEN (2) and AUX (4); id = screen guid (string), label = screen name.",
+          "valueType": "string",
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 205
+      }
+    },
+    {
+      "id": "swapOrCopy",
+      "name": "Toggle Swap/Copy on Take/Cut",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 256
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze/Unfreeze",
+      "description": "Screen options come from getScreenSelectionOptions() in src/actionUtils.ts:98.",
+      "options": [
+        {
+          "id": "freeze",
+          "type": "dropdown",
+          "label": "Freeze",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Toggle"
+            },
+            {
+              "id": 0,
+              "label": "Unfreeze"
+            },
+            {
+              "id": 1,
+              "label": "Freeze"
+            }
+          ]
+        },
+        {
+          "id": "useSelected",
+          "type": "checkbox",
+          "label": "Use global screen selection",
+          "default": true
+        },
+        {
+          "id": "screenIds",
+          "type": "multidropdown",
+          "label": "Screens",
+          "default": [],
+          "choicesNote": "Filled at runtime with the enabled screens of type SCREEN (2) and AUX (4); id = screen guid (string), label = screen name.",
+          "valueType": "string",
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 264
+      }
+    },
+    {
+      "id": "toggleGlobalLoadPreset",
+      "name": "Change global Preset load destination",
+      "description": "The ids here (1 = Preview, 2 = Program) differ from the LoadIn values 4 (preview) and 2 (program) used by the other actions.",
+      "options": [
+        {
+          "id": "loadIn",
+          "type": "dropdown",
+          "label": "Load in",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Toggle"
+            },
+            {
+              "id": 1,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 315
+      }
+    },
+    {
+      "id": "loadPreset",
+      "name": "Load Preset",
+      "options": [
+        {
+          "id": "presetId",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": 1,
+          "choicesNote": "Filled at runtime from the device presets, sorted by serial (id = preset serial, label = \"<serial>. <name>\").",
+          "valueType": "number"
+        },
+        {
+          "id": "loadIn",
+          "type": "dropdown",
+          "label": "Load in",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Use global setting"
+            },
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 360
+      }
+    },
+    {
+      "id": "selectScreen",
+      "name": "Change Screen selection",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": 1,
+          "choicesNote": "Filled at runtime from the device screens (id = screenId, label = screen name).",
+          "valueType": "number"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Toggle"
+            },
+            {
+              "id": 0,
+              "label": "Deselect"
+            },
+            {
+              "id": 1,
+              "label": "Select"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 422
+      }
+    },
+    {
+      "id": "bringTo",
+      "name": "Bring selected layer to",
+      "description": "Layer options come from getLayerSelectionOptions() in src/actionUtils.ts:15.",
+      "options": [
+        {
+          "id": "bringTo",
+          "type": "dropdown",
+          "label": "Bring to",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Bring Forward"
+            },
+            {
+              "id": 2,
+              "label": "Bring Backward"
+            },
+            {
+              "id": 3,
+              "label": "Bring to Front"
+            },
+            {
+              "id": 4,
+              "label": "Bring to Back"
+            }
+          ]
+        },
+        {
+          "id": "useSelected",
+          "type": "checkbox",
+          "label": "Use selected layer",
+          "default": false
+        },
+        {
+          "id": "layerNumber",
+          "type": "textinput",
+          "label": "Layer No.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens of type SCREEN (2) (id = screenId, label = screen name); default is the first such screen, or 0 when there is none.",
+          "valueType": "number",
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "where",
+          "type": "dropdown",
+          "label": "Where",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ],
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 480
+      }
+    },
+    {
+      "id": "selectLayer",
+      "name": "Select Layer",
+      "description": "Layer options come from getLayerSelectionOptions() in src/actionUtils.ts:15. This action uses it without the \"Use selected layer\" checkbox, but the other fields keep the visibility condition on useSelected.",
+      "options": [
+        {
+          "id": "layerNumber",
+          "type": "textinput",
+          "label": "Layer No.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens of type SCREEN (2) (id = screenId, label = screen name); default is the first such screen, or 0 when there is none.",
+          "valueType": "number",
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "where",
+          "type": "dropdown",
+          "label": "Where",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ],
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 511
+      }
+    },
+    {
+      "id": "setEffectTime",
+      "name": "Set effect time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time",
+          "default": "500",
+          "required": true,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 523
+      }
+    },
+    {
+      "id": "applyLayerPreset",
+      "name": "Apply layer preset",
+      "description": "Layer options come from getLayerSelectionOptions() in src/actionUtils.ts:15.",
+      "options": [
+        {
+          "id": "layerPresetId",
+          "type": "dropdown",
+          "label": "Layer Preset",
+          "choicesNote": "Filled at runtime from the device layer presets (id = layerPresetId, label = preset name). The source default is the screenId of the first screen, not a layer preset id.",
+          "valueType": "number"
+        },
+        {
+          "id": "useSelected",
+          "type": "checkbox",
+          "label": "Use selected layer",
+          "default": false
+        },
+        {
+          "id": "layerNumber",
+          "type": "textinput",
+          "label": "Layer No.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens of type SCREEN (2) (id = screenId, label = screen name); default is the first such screen, or 0 when there is none.",
+          "valueType": "number",
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "where",
+          "type": "dropdown",
+          "label": "Where",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ],
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 541
+      }
+    },
+    {
+      "id": "changeLayerBounds",
+      "name": "Move and resize layer",
+      "description": "Layer options come from getLayerSelectionOptions() in src/actionUtils.ts:15. The four text values are parsed with parseInt after variable substitution.",
+      "options": [
+        {
+          "id": "x",
+          "type": "textinput",
+          "label": "X",
+          "useVariables": true
+        },
+        {
+          "id": "y",
+          "type": "textinput",
+          "label": "Y",
+          "useVariables": true
+        },
+        {
+          "id": "width",
+          "type": "textinput",
+          "label": "Width",
+          "useVariables": true
+        },
+        {
+          "id": "height",
+          "type": "textinput",
+          "label": "Height",
+          "useVariables": true
+        },
+        {
+          "id": "useSelected",
+          "type": "checkbox",
+          "label": "Use selected layer",
+          "default": false
+        },
+        {
+          "id": "layerNumber",
+          "type": "textinput",
+          "label": "Layer No.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens of type SCREEN (2) (id = screenId, label = screen name); default is the first such screen, or 0 when there is none.",
+          "valueType": "number",
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "where",
+          "type": "dropdown",
+          "label": "Where",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ],
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 574
+      }
+    },
+    {
+      "id": "toggleUmd",
+      "name": "Toggle UMD on Layer",
+      "options": [
+        {
+          "id": "layerId",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": 0,
+          "choicesNote": "Filled at runtime with the layers that belong to screens of type 8 (multiviewer); id = layerId, label = \"<screen name> - <source name>\".",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 627
+      }
+    },
+    {
+      "id": "inputOnLayer",
+      "name": "Set Input on Layer",
+      "description": "Layer options come from getLayerSelectionOptions() in src/actionUtils.ts:15.",
+      "options": [
+        {
+          "id": "inputId",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "",
+          "choicesNote": "Filled at runtime (getInputSourceChoices, src/actionUtils.ts:151): \"interface_<interfaceId>\" for input connectors (interfaceType 2, workMode 0) and \"crop_<cropId>\" for crop sources; label is \"<name> (Input)\", \"<name> (Link)\" or \"<name> (Crop)\".",
+          "valueType": "string",
+          "valuePattern": "^(interface|crop)_\\d+$"
+        },
+        {
+          "id": "useSelected",
+          "type": "checkbox",
+          "label": "Use selected layer",
+          "default": false
+        },
+        {
+          "id": "layerNumber",
+          "type": "textinput",
+          "label": "Layer No.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screens of type SCREEN (2) and AUX (4) (id = screenId, label = screen name); default is the first such screen, or 0 when there is none.",
+          "valueType": "number",
+          "visibleWhen": "$(options:useSelected) != true"
+        },
+        {
+          "id": "where",
+          "type": "dropdown",
+          "label": "Where",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ],
+          "visibleWhen": "$(options:useSelected) != true"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 676
+      }
+    },
+    {
+      "id": "switchSourceBackup",
+      "name": "Switch Input Backup",
+      "description": "Manual switch of input backup when enable=1. Skips PUT when disabled, or when switchMode=0 (auto) and either primary/backup source is offline.",
+      "options": [
+        {
+          "id": "backupSourceId",
+          "type": "dropdown",
+          "label": "Input Backup",
+          "default": "",
+          "choicesNote": "Filled at runtime from the device input backup entries (id = backup.id, a number; label = \"P: <primary input> - B: <backup input>\").",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 727
+      }
+    },
+    {
+      "id": "setTestPattern",
+      "name": "Set Test Pattern on Screen",
+      "description": "Set a test pattern on the selected screen. Pattern ids come from TEST_PATTERN_TYPE_CHOICES and SCREEN_TEST_PATTERN_TYPE_CHOICES in src/interfaces/TestPattern.ts; the options screenBorder and interfaceBorder are commented out in the source.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime with the screens of type SCREEN (2) and AUX (4) (id = screenId, label = screen name); default is the first of them.",
+          "valueType": "number"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Enable"
+            },
+            {
+              "id": 0,
+              "label": "Disable"
+            }
+          ]
+        },
+        {
+          "id": "testType",
+          "type": "dropdown",
+          "label": "Test Type",
+          "default": "interface",
+          "choices": [
+            {
+              "id": "interface",
+              "label": "Connector Test"
+            },
+            {
+              "id": "screen",
+              "label": "Screen Test"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1"
+        },
+        {
+          "id": "patternType",
+          "type": "dropdown",
+          "label": "Test Pattern",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Black"
+            },
+            {
+              "id": 1,
+              "label": "Red"
+            },
+            {
+              "id": 2,
+              "label": "Green"
+            },
+            {
+              "id": 3,
+              "label": "Blue"
+            },
+            {
+              "id": 4,
+              "label": "White"
+            },
+            {
+              "id": 5,
+              "label": "Vertical Color Bars"
+            },
+            {
+              "id": 6,
+              "label": "Horizontal Color Bars"
+            },
+            {
+              "id": 7,
+              "label": "Checkerboard"
+            },
+            {
+              "id": 9,
+              "label": "Overlap Circle"
+            },
+            {
+              "id": 256,
+              "label": "Horizontal Red Gradient"
+            },
+            {
+              "id": 257,
+              "label": "Horizontal Green Gradient"
+            },
+            {
+              "id": 258,
+              "label": "Horizontal Blue Gradient"
+            },
+            {
+              "id": 259,
+              "label": "Horizontal White Gradient"
+            },
+            {
+              "id": 260,
+              "label": "Vertical Red Gradient"
+            },
+            {
+              "id": 261,
+              "label": "Vertical Green Gradient"
+            },
+            {
+              "id": 262,
+              "label": "Vertical Blue Gradient"
+            },
+            {
+              "id": 263,
+              "label": "Vertical White Gradient"
+            },
+            {
+              "id": 512,
+              "label": "Horizontal Lines"
+            },
+            {
+              "id": 513,
+              "label": "Vertical Lines"
+            },
+            {
+              "id": 514,
+              "label": "White diagonal Left"
+            },
+            {
+              "id": 515,
+              "label": "White diagonal Right"
+            },
+            {
+              "id": 516,
+              "label": "Grid"
+            },
+            {
+              "id": 517,
+              "label": "Crossed Diagonals"
+            },
+            {
+              "id": 518,
+              "label": "Overlap Color"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == 'interface'"
+        },
+        {
+          "id": "screenPatternType",
+          "type": "dropdown",
+          "label": "Test Pattern",
+          "default": 519,
+          "choices": [
+            {
+              "id": 519,
+              "label": "Circle Alignment (Checkerboard Full Screen)"
+            },
+            {
+              "id": 520,
+              "label": "SMPTE"
+            },
+            {
+              "id": 521,
+              "label": "Circle Alignment (Grid Full Screen)"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == 'screen'"
+        },
+        {
+          "id": "bright",
+          "type": "dropdown",
+          "label": "Grayscale",
+          "default": 3,
+          "choices": [
+            {
+              "id": 1,
+              "label": "25"
+            },
+            {
+              "id": 2,
+              "label": "50"
+            },
+            {
+              "id": 3,
+              "label": "75"
+            },
+            {
+              "id": 4,
+              "label": "100"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1"
+        },
+        {
+          "id": "spacingLevel",
+          "type": "dropdown",
+          "label": "Spacing Level",
+          "default": 5,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == \"interface\" && ($(options:patternType) == 5 || $(options:patternType) == 6 ||$(options:patternType) == 7 || $(options:patternType) == 9 || $(options:patternType) == 256 || $(options:patternType) == 257 || $(options:patternType) == 258 || $(options:patternType) == 259 || $(options:patternType) == 260 || $(options:patternType) == 261 || $(options:patternType) == 262 || $(options:patternType) == 263)"
+        },
+        {
+          "id": "gridLineWidth",
+          "type": "number",
+          "label": "Grid Width",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "required": false,
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == \"interface\" && ($(options:patternType) == 512 || $(options:patternType) == 513 || $(options:patternType) == 514 || $(options:patternType) == 515 || $(options:patternType) == 516 || $(options:patternType) == 517 || $(options:patternType) == 518 || $(options:patternType) == 519 || $(options:patternType) == 521)"
+        },
+        {
+          "id": "speed",
+          "type": "dropdown",
+          "label": "Speed",
+          "default": 4,
+          "choices": [
+            {
+              "id": 0,
+              "label": "0"
+            },
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == \"interface\" && ($(options:patternType) == 512 || $(options:patternType) == 513 || $(options:patternType) == 514 || $(options:patternType) == 515 || $(options:patternType) == 516 || $(options:patternType) == 517 || $(options:patternType) == 518)"
+        },
+        {
+          "id": "verticalSpace",
+          "type": "number",
+          "label": "Vertical Space",
+          "default": 32,
+          "min": 1,
+          "max": 32767,
+          "step": 1,
+          "required": false,
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == \"interface\" && ($(options:patternType) == 512 || $(options:patternType) == 516 || $(options:patternType) == 518 || $(options:patternType) == 519 || $(options:patternType) == 521)"
+        },
+        {
+          "id": "horizontalSpace",
+          "type": "number",
+          "label": "Horizontal Space",
+          "default": 32,
+          "min": 1,
+          "max": 32767,
+          "step": 1,
+          "required": false,
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == \"interface\" && ($(options:patternType) == 513 || $(options:patternType) == 514 || $(options:patternType) == 515 || $(options:patternType) == 516 || $(options:patternType) == 517 || $(options:patternType) == 518 || $(options:patternType) == 519 || $(options:patternType) == 521)"
+        },
+        {
+          "id": "position",
+          "type": "dropdown",
+          "label": "Position",
+          "default": 3,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Top Left"
+            },
+            {
+              "id": 2,
+              "label": "Top Right"
+            },
+            {
+              "id": 3,
+              "label": "Center"
+            },
+            {
+              "id": 4,
+              "label": "Bottom Left"
+            },
+            {
+              "id": 5,
+              "label": "Bottom Right"
+            }
+          ],
+          "visibleWhen": "$(options:enable) == 1 && $(options:testType) == \"screen\" && ($(options:screenPatternType) == 519 || $(options:screenPatternType) == 521)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 804
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "globalLoadIn",
+      "name": "Global Load In State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "loadIn",
+          "type": "dropdown",
+          "label": "Load In",
+          "default": 4,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 44
+      }
+    },
+    {
+      "id": "presetState",
+      "name": "Preset State",
+      "description": "True when the preset currentRegion equals the chosen value or is 6 (src/feedbacks.ts:120).",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "presetId",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": 1,
+          "choicesNote": "Filled at runtime from the device presets, sorted by serial (id = preset serial, label = \"<serial>. <name>\").",
+          "valueType": "number"
+        },
+        {
+          "id": "loadIn",
+          "type": "dropdown",
+          "label": "Loaded In",
+          "default": 2,
+          "choices": [
+            {
+              "id": 4,
+              "label": "Preview"
+            },
+            {
+              "id": 2,
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 73
+      }
+    },
+    {
+      "id": "swapState",
+      "name": "Swap State",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 123
+      }
+    },
+    {
+      "id": "screenState",
+      "name": "Screen Selection State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime with the screens of type SCREEN (2) and AUX (4); id = screen guid (string), label = screen name. Default is the guid of the first such screen, or an empty string.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 135
+      }
+    },
+    {
+      "id": "screenFreezeState",
+      "name": "Screen Freeze State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime with the screens of type SCREEN (2) and AUX (4); id = screen guid (string), label = screen name. Default is the guid of the first such screen, or an empty string.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 163
+      }
+    },
+    {
+      "id": "screenFtbState",
+      "name": "Screen FTB State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime with the screens of type SCREEN (2) and AUX (4); id = screen guid (string), label = screen name. Default is the guid of the first such screen, or an empty string.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 192
+      }
+    },
+    {
+      "id": "screenTestPatternState",
+      "name": "Screen Test Pattern State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime with the screens of type SCREEN (2) and AUX (4); id = screen guid (string), label = screen name. Default is the guid of the first such screen, or an empty string.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 221
+      }
+    },
+    {
+      "id": "globalFtbState",
+      "name": "Global FTB State",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 250
+      }
+    },
+    {
+      "id": "globalFreezeState",
+      "name": "Global Freeze State",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 262
+      }
+    },
+    {
+      "id": "selectedLayerState",
+      "name": "Selected Layer State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "layerId",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": 1,
+          "choicesNote": "Filled at runtime with the layers that have a name and do not belong to the multiviewer screen; id = layerId, label = \"<screen name> -  [L<serial>] <PGM|PVW> <layer name>\".",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 274
+      }
+    },
+    {
+      "id": "sourceBackupState",
+      "name": "Input Backup – backup active",
+      "description": "Change style when the selected Input Backup configuration is using the backup input",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "backupSourceId",
+          "type": "dropdown",
+          "label": "Source Backup",
+          "default": "",
+          "choicesNote": "Filled at runtime from the device input backup entries (id = backup.id, a number; label = \"P: <primary input> - B: <backup input>\").",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 310
+      }
+    },
+    {
+      "id": "sourceSignalState",
+      "name": "Input Source Signal State",
+      "description": "Change style based on input source signal state",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "inputId",
+          "type": "dropdown",
+          "label": "Input Source",
+          "default": "",
+          "choicesNote": "Filled at runtime (getInputSourceChoices, src/actionUtils.ts:151): \"interface_<interfaceId>\" for input connectors and \"crop_<cropId>\" for crop sources.",
+          "valueType": "string",
+          "valuePattern": "^(interface|crop)_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 353
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 20 actions (src/actions.ts, one setActionDefinitions call) and 12 feedbacks (src/feedbacks.ts, one setFeedbackDefinitions call): 11 boolean and 1 advanced (sourceSignalState). Nothing is generated per model; the dropdown contents are built from the device state when the module (re)registers its definitions.",
+    "Most dropdowns are filled at runtime from the connected device (screens, layers, presets, layer presets, inputs, crop sources, input backups). They carry choicesNote and valueType instead of choices; only the fixed lists (Toggle/Enable, load destination, bring-to, test patterns, spacing, speed, position) are closed. Screen ids are numbers (screenId), screen selections in multidropdowns of ftb/freeze and the screen feedbacks use the guid string.",
+    "Where options default to the first screen (takeSingleScreen, takeMultipleScreen, setTestPattern, the screen feedbacks), the source default is evaluated at registration and not recorded as a fixed default. applyLayerPreset uses self.screens[0].screenId as the default of its layer preset dropdown (src/actions.ts:548), which is a screen id, not a layer preset id.",
+    "Connection (src/main.ts, src/config.ts, src/services): config fields host (Regex.IP, required) and deviceSn (dropdown of discovered devices, default \"Default\"). The module discovers devices, logs in through an HTTP client (http://<host>:<apiPort> or https on 19998) and opens a WebSocket to wss://<host>:19998/unico/v1/ucenter/ws for state updates (src/services/WebSocketClient.ts:43). Ports other than 19998 come from the device list; they were not verified.",
+    "Load destination ids: loadPreset, bringTo/layer \"Where\" and the feedbacks use 4 for preview and 2 for program (LoadIn in src/interfaces/Preset.ts), but toggleGlobalLoadPreset uses 0/1/2 (Toggle/Preview/Program).",
+    "Visibility conditions use isVisibleExpression (base 1.12+); they are recorded as written in visibleWhen. selectLayer calls getLayerSelectionOptions(self, false), so its fields keep a condition on the missing option useSelected.",
+    "ftb option ids: 0 is labelled Enable and 1 Disable, and the module passes !!option to ApiClient.ftb, which sends enable = 1 for true; the effective result on a device was not tested. In ApiClient.ftb the check uses the global object (`if (global)`), which is always truthy, so the toggle branch is never used.",
+    "Presets and variables are not catalogued. Built on @companion-module/base ^1.12.1: options do not support expressions. The manifest version is 0.0.0, the package.json version is 2.2.9; legacy id pixelhue-fseries."
+  ]
+}

@@ -1,0 +1,1559 @@
+{
+  "moduleId": "brompton-tessera",
+  "name": "Brompton Technology Tessera",
+  "repo": "bitfocus/companion-module-brompton-tessera",
+  "version": "2.2.0",
+  "baseVersion": "^1.11.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "98d77f3",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "inputPortNumberSelect",
+      "name": "Input Port Number Select",
+      "options": [
+        {
+          "id": "portNumber",
+          "type": "dropdown",
+          "label": "Port Number",
+          "description": "Input port number",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 749
+      }
+    },
+    {
+      "id": "inputPortTypeSelect",
+      "name": "Input Port Type Select",
+      "options": [
+        {
+          "id": "portType",
+          "type": "dropdown",
+          "label": "Port Type",
+          "description": "Input port type",
+          "default": "dvi",
+          "choices": [
+            {
+              "id": "dvi",
+              "label": "DVI"
+            },
+            {
+              "id": "hdmi",
+              "label": "HDMI"
+            },
+            {
+              "id": "sdi",
+              "label": "SDI"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 768
+      }
+    },
+    {
+      "id": "scalerToggle",
+      "name": "Scaler Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Scaler toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 790
+      }
+    },
+    {
+      "id": "colourReplaceToggle",
+      "name": "Colour Replace Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Colour replace toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 810
+      }
+    },
+    {
+      "id": "colourCorrectToggle",
+      "name": "14-Way Colour Correct Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "14-Way colour correct toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 830
+      }
+    },
+    {
+      "id": "curvesToggle",
+      "name": "Curves Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Curves toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 850
+      }
+    },
+    {
+      "id": "lutToggle",
+      "name": "3D LUT Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "14-Way Colour Correct toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 870
+      }
+    },
+    {
+      "id": "lutStrengthIncrease",
+      "name": "3D LUT Strength Increase",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Increase Amount (%)",
+          "description": "How much to increase by (%)",
+          "default": 50,
+          "min": 0.1,
+          "max": 100,
+          "step": 0.1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 890
+      }
+    },
+    {
+      "id": "lutStrengthDecrease",
+      "name": "3D LUT Strength Decrease",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Decrease Amount (%)",
+          "description": "How much to decrease by (%)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 0.1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 910
+      }
+    },
+    {
+      "id": "lutStrengthSelect",
+      "name": "3D LUT Strength Select",
+      "options": [
+        {
+          "id": "strength",
+          "type": "number",
+          "label": "3D LUT Strength (%)",
+          "description": "3D LUT Strength (%)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 0.1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 930
+      }
+    },
+    {
+      "id": "blackoutToggle",
+      "name": "Blackout Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Blackout toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 952
+      }
+    },
+    {
+      "id": "freezeToggle",
+      "name": "Freeze Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Freeze toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 972
+      }
+    },
+    {
+      "id": "testPatternToggle",
+      "name": "Test Pattern Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Test Pattern toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 992
+      }
+    },
+    {
+      "id": "testPatternFormatSelect",
+      "name": "Test Pattern Format Select",
+      "options": [
+        {
+          "id": "format",
+          "type": "dropdown",
+          "label": "Format",
+          "description": "Test pattern format",
+          "default": "from-input",
+          "choices": [
+            {
+              "id": "from-input",
+              "label": "From Input"
+            },
+            {
+              "id": "standard-dynamic-range",
+              "label": "Standard Dynamic Range"
+            },
+            {
+              "id": "perceptual-quantiser",
+              "label": "Perceptual Quantiser"
+            },
+            {
+              "id": "hybrid-log-gamma",
+              "label": "Hybrid Log Gamma"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1012
+      }
+    },
+    {
+      "id": "testPatternTypeSelect",
+      "name": "Test Pattern Type Select",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "description": "Test pattern type",
+          "default": "brompton",
+          "choices": [
+            {
+              "id": "brompton",
+              "label": "Brompton"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "green",
+              "label": "Green"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            },
+            {
+              "id": "cyan",
+              "label": "Cyan"
+            },
+            {
+              "id": "magenta",
+              "label": "Magenta"
+            },
+            {
+              "id": "yellow",
+              "label": "Yellow"
+            },
+            {
+              "id": "white",
+              "label": "White"
+            },
+            {
+              "id": "black",
+              "label": "Black"
+            },
+            {
+              "id": "grid",
+              "label": "Grid"
+            },
+            {
+              "id": "scrolling-grid",
+              "label": "Scrolling Grid"
+            },
+            {
+              "id": "checkerboard",
+              "label": "Checkerboard"
+            },
+            {
+              "id": "scrolling-checkerboard",
+              "label": "Scrolling Checkerboard"
+            },
+            {
+              "id": "colour-bars",
+              "label": "Colour Bars"
+            },
+            {
+              "id": "scrolling-colour-bars",
+              "label": "Scrolling Colour Bars"
+            },
+            {
+              "id": "gradient",
+              "label": "Gradient"
+            },
+            {
+              "id": "scrolling-gradient",
+              "label": "Scrolling Gradient"
+            },
+            {
+              "id": "strobe",
+              "label": "Strobe"
+            },
+            {
+              "id": "smpte-bars",
+              "label": "SMPTE Bars"
+            },
+            {
+              "id": "scrolling-smpte-bars",
+              "label": "Scrolling SMPTE Bars"
+            },
+            {
+              "id": "custom-colour",
+              "label": "Custom Colour"
+            },
+            {
+              "id": "custom",
+              "label": "Custom"
+            },
+            {
+              "id": "forty-five-degree-grid",
+              "label": "45 Degree Grid"
+            },
+            {
+              "id": "scrolling-forty-five-degree-grid",
+              "label": "Scrolling 45 Degree Grid"
+            },
+            {
+              "id": "custom-gradient",
+              "label": "Custom Gradient"
+            },
+            {
+              "id": "scrolling-custom-gradient",
+              "label": "Scrolling Custom Gradient"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1033
+      }
+    },
+    {
+      "id": "frameStoreFrameSelect",
+      "name": "Frame Store Select",
+      "options": [
+        {
+          "id": "frameStoreNumber",
+          "type": "number",
+          "label": "Frame Store Number",
+          "description": "The frame to select (1-50)",
+          "default": 1,
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1076
+      }
+    },
+    {
+      "id": "frameStoreFrameCapture",
+      "name": "Frame Store Capture",
+      "options": [
+        {
+          "id": "frameStoreNumber",
+          "type": "number",
+          "label": "Frame Store Number",
+          "description": "The frame to store the capture in (1-50)",
+          "default": 1,
+          "min": 1,
+          "max": 50,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1102
+      }
+    },
+    {
+      "id": "outputBrightnessSelect",
+      "name": "Output Brightness Select",
+      "options": [
+        {
+          "id": "brightness",
+          "type": "number",
+          "label": "Brightness (0-10000 nits)",
+          "description": "The output brightness (0-10000 nits)",
+          "default": 5000,
+          "min": 0,
+          "max": 10000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1130
+      }
+    },
+    {
+      "id": "outputBrightnessSetToMax",
+      "name": "Output Brightness Set To Common Maximum",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 1156
+      }
+    },
+    {
+      "id": "outputBrightnessIncrease",
+      "name": "Output Brightness Increase",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Increase Amount (1-10000 nits)",
+          "description": "How much to increase by (1-10000 nits)",
+          "default": 100,
+          "min": 1,
+          "max": 10000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1163
+      }
+    },
+    {
+      "id": "outputBrightnessDecrease",
+      "name": "Output Brightness Decrease",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Decrease Amount (1-10000 nits)",
+          "description": "How much to decrease by (1-10000 nits)",
+          "default": 100,
+          "min": 1,
+          "max": 10000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1183
+      }
+    },
+    {
+      "id": "overdriveToggle",
+      "name": "Overdrive Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Overdrive toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1203
+      }
+    },
+    {
+      "id": "highlightOutOfGamutToggle",
+      "name": "Highlight Out-Of-Gamut Pixels Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Highlight Out-Of-Gamut Pixels toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1223
+      }
+    },
+    {
+      "id": "highlightOutOfGamutToggle3_4",
+      "name": "Highlight Out-Of-Gamut Pixels Toggle/Enable/Disable (v3.4)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Highlight Out-Of-Gamut Pixels toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1243
+      }
+    },
+    {
+      "id": "highlightOverbrightToggle",
+      "name": "Highlight Overbright Pixels Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Highlight Overbright Pixels toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1263
+      }
+    },
+    {
+      "id": "oscaModuleToggle",
+      "name": "OSCA Module Correction Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "OSCA Module Correction toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1283
+      }
+    },
+    {
+      "id": "oscaSeamToggle",
+      "name": "OSCA Seam Correction Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "OSCA Seam Correction toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1303
+      }
+    },
+    {
+      "id": "darkMagicToggle",
+      "name": "Dark Magic Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Dark Magic toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1323
+      }
+    },
+    {
+      "id": "extendedBitDepthToggle",
+      "name": "Extended Bit Depth Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Extended Bit Depth toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1343
+      }
+    },
+    {
+      "id": "pureToneToggle",
+      "name": "PureTone Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "PureTone toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1363
+      }
+    },
+    {
+      "id": "outputColourTemperatureSelect",
+      "name": "Output Colour Temperature Select",
+      "options": [
+        {
+          "id": "temperature",
+          "type": "number",
+          "label": "Colour Temperature (2000-11000 K)",
+          "description": "The output colour temperature (2000-11000 K)",
+          "default": 6504,
+          "min": 2000,
+          "max": 11000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1383
+      }
+    },
+    {
+      "id": "outputColourTemperatureIncrease",
+      "name": "Output Colour Temperature Increase",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Increase Amount (1-9000 K)",
+          "description": "How much to increase by (1-9000 K)",
+          "default": 100,
+          "min": 1,
+          "max": 9000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1409
+      }
+    },
+    {
+      "id": "outputColourTemperatureDecrease",
+      "name": "Output Colour Temperature Decrease",
+      "options": [
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Decrease Amount (1-9000 K)",
+          "description": "How much to decrease by (1-9000 K)",
+          "default": 100,
+          "min": 1,
+          "max": 9000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1429
+      }
+    },
+    {
+      "id": "requestFailover",
+      "name": "Request Failover",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 1451
+      }
+    },
+    {
+      "id": "failoverEnabledToggle",
+      "name": "Failover Enabled Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Failover enabled toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1458
+      }
+    },
+    {
+      "id": "phaseOffsetModeSelect",
+      "name": "Phase Offset Mode Select",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Phase offset mode",
+          "default": "none",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "angle",
+              "label": "Angle"
+            },
+            {
+              "id": "fraction",
+              "label": "Fraction"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1480
+      }
+    },
+    {
+      "id": "phaseOffsetAngleSelect",
+      "name": "Phase Offset (Angle) Select",
+      "options": [
+        {
+          "id": "offset",
+          "type": "number",
+          "label": "Phase Offset Angle (-360˚ - 360˚)",
+          "description": "The phase offset angle (-360˚ - 360˚)",
+          "default": 0,
+          "min": -360,
+          "max": 360,
+          "step": 0.1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1500
+      }
+    },
+    {
+      "id": "phaseOffsetFractionSelect",
+      "name": "Phase Offset (Fraction) Select",
+      "options": [
+        {
+          "id": "offset",
+          "type": "number",
+          "label": "Phase Offset Fraction (-100% - 100%)",
+          "description": "The phase offset fraction (-100% - 100%)",
+          "default": 0,
+          "min": -100,
+          "max": 100,
+          "step": 0.1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1526
+      }
+    },
+    {
+      "id": "phaseOffsetIncrease",
+      "name": "Phase Offset Increase",
+      "options": [
+        {
+          "id": "angle",
+          "type": "number",
+          "label": "Increase Amount (Angle)",
+          "description": "How much to increase by in degrees",
+          "default": 0.1,
+          "min": 0,
+          "max": 360,
+          "step": 0.1,
+          "required": true
+        },
+        {
+          "id": "fraction",
+          "type": "number",
+          "label": "Increase Amount (%)",
+          "description": "How much to increase by as a %",
+          "default": 0.1,
+          "min": 0,
+          "max": 100,
+          "step": 0.1,
+          "required": true
+        },
+        {
+          "id": "wraparound",
+          "type": "checkbox",
+          "label": "Wrap-around?",
+          "description": "If true, positive values will wrap around to 0 when the maximum value is exceeded.",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1552
+      }
+    },
+    {
+      "id": "phaseOffsetDecrease",
+      "name": "Phase Offset Decrease",
+      "options": [
+        {
+          "id": "angle",
+          "type": "number",
+          "label": "Decrease Amount (Angle)",
+          "description": "How much to decrease by in degrees",
+          "default": 0.1,
+          "min": 0,
+          "max": 360,
+          "step": 0.1,
+          "required": true
+        },
+        {
+          "id": "fraction",
+          "type": "number",
+          "label": "Decrease Amount (%)",
+          "description": "How much to decrease by as a %",
+          "default": 0.1,
+          "min": 0,
+          "max": 100,
+          "step": 0.1,
+          "required": true
+        },
+        {
+          "id": "wraparound",
+          "type": "checkbox",
+          "label": "Wrap-around?",
+          "description": "If true, positive values will wrap around to 0 when the maximum value is exceeded.",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1591
+      }
+    },
+    {
+      "id": "shutterSyncModeSelect",
+      "name": "ShutterSync Mode Select (Camera)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "ShutterSync mode",
+          "default": "none",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "angle",
+              "label": "Angle"
+            },
+            {
+              "id": "speed",
+              "label": "Speed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1630
+      }
+    },
+    {
+      "id": "shutterSyncAngleSelect",
+      "name": "ShutterSync (Angle) Select",
+      "options": [
+        {
+          "id": "angle",
+          "type": "number",
+          "label": "ShutterSync Angle (1˚ - 360˚)",
+          "description": "The phase offset angle (1˚ - 360˚)",
+          "default": 180,
+          "min": 1,
+          "max": 360,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1650
+      }
+    },
+    {
+      "id": "shutterSyncSpeedSelect",
+      "name": "ShutterSync (Speed) Select",
+      "options": [
+        {
+          "id": "speed",
+          "type": "number",
+          "label": "ShutterSync Speed (1/10 - 1/250)",
+          "description": "The phase offset speed (1/10 - 1/250)",
+          "default": 120,
+          "min": 10,
+          "max": 250,
+          "step": 0.001,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1676
+      }
+    },
+    {
+      "id": "shutterSyncTimeSelect",
+      "name": "ShutterSync (Time) Select",
+      "options": [
+        {
+          "id": "time",
+          "type": "number",
+          "label": "ShutterSync Time (4 ms - 100 ms)",
+          "description": "The phase offset time (4 ms - 100 ms)",
+          "default": 10,
+          "min": 4,
+          "max": 100,
+          "step": 0.001,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1702
+      }
+    },
+    {
+      "id": "shutterSyncPrioritiseRefreshRateToggle",
+      "name": "ShutterSync Prioritise Refresh Rate Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "ShutterSync Prioritise Refresh Rate toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1728
+      }
+    },
+    {
+      "id": "hiddenMarkersToggle",
+      "name": "Hidden Markers Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Hidden Markers toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Marker Type",
+          "description": "Hidden Markers mode selection",
+          "default": "starTracker",
+          "choices": [
+            {
+              "id": "starTracker",
+              "label": "StarTracker"
+            },
+            {
+              "id": "redSpy",
+              "label": "RedSpy"
+            },
+            {
+              "id": "custom",
+              "label": "Custom"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1748
+      }
+    },
+    {
+      "id": "frameRemappingToggle",
+      "name": "Frame Remapping Toggle/Enable/Disable",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "description": "Frame Remapping toggle mode",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1786
+      }
+    },
+    {
+      "id": "presetSelect",
+      "name": "Preset Select",
+      "options": [
+        {
+          "id": "presetNumber",
+          "type": "number",
+          "label": "Preset Number",
+          "description": "The preset to activate (1-128)",
+          "default": 1,
+          "min": 1,
+          "max": 128,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1808
+      }
+    },
+    {
+      "id": "presetNext",
+      "name": "Preset Next",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 1834
+      }
+    },
+    {
+      "id": "presetPrevious",
+      "name": "Preset Previous",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 1841
+      }
+    },
+    {
+      "id": "groupBrightnessSelect",
+      "name": "Group Brightness Select",
+      "options": [
+        {
+          "id": "group",
+          "type": "number",
+          "label": "Group Number",
+          "description": "The group number",
+          "default": 1,
+          "min": 1,
+          "max": 4294967295,
+          "step": 1,
+          "required": true
+        },
+        {
+          "id": "brightness",
+          "type": "number",
+          "label": "Brightness (0-10000 nits)",
+          "description": "The group brightness (0-10000 nits)",
+          "default": 5000,
+          "min": 0,
+          "max": 10000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1850
+      }
+    },
+    {
+      "id": "groupBrightnessIncrease",
+      "name": "Group Brightness Increase",
+      "options": [
+        {
+          "id": "group",
+          "type": "number",
+          "label": "Group Number",
+          "description": "The group number",
+          "default": 1,
+          "min": 1,
+          "max": 4294967295,
+          "step": 1,
+          "required": true
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Increase Amount (1-10000 nits)",
+          "description": "How much to increase by (1-10000 nits)",
+          "default": 100,
+          "min": 1,
+          "max": 10000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1882
+      }
+    },
+    {
+      "id": "groupBrightnessDecrease",
+      "name": "Group Brightness Decrease",
+      "options": [
+        {
+          "id": "group",
+          "type": "number",
+          "label": "Group Number",
+          "description": "The group number",
+          "default": 1,
+          "min": 1,
+          "max": 4294967295,
+          "step": 1,
+          "required": true
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Decrease Amount (1-10000 nits)",
+          "description": "How much to decrease by (1-10000 nits)",
+          "default": 100,
+          "min": 1,
+          "max": 10000,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1914
+      }
+    },
+    {
+      "id": "shutDown",
+      "name": "Shut Down",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 1948
+      }
+    },
+    {
+      "id": "reboot",
+      "name": "Reboot",
+      "options": [],
+      "provenance": {
+        "file": "index.js",
+        "line": 1955
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 55 actions, all registered in one setActionDefinitions call in initActions() (index.js:737-1962). The module registers no feedbacks (no setFeedbackDefinitions call anywhere); the presets in presets.js contain feedback entries without a feedbackId, which do not refer to a registered feedback.",
+    "Protocol: plain HTTP on port 80 of the processor. State is polled with GET http://<ip>:80/api/ every 1000 ms (pollIntervalMs, index.js:10); every action sets a property with GET http://<ip>:80/<api path>?set=<value> (setProcessorProperty, index.js:705). The API paths are in apiKeys.js. Config fields: ip (Regex.IP, default 192.168.0.50) and maxBrightness (default 1550, used for percentage variables).",
+    "Toggle actions (*Toggle, option mode: toggle/enable/disable): enable and disable send true/false; toggle reads the current state from the last poll and fails with a log error when the state is not available.",
+    "Number options set no asInteger, but the callbacks of the actions that use validate() (index.js:76-88) reject non-whole numbers at runtime: preset, frame store, brightness, colour temperature, group, group brightness and all LUT strength actions (lutStrengthSelect has step 0.1 in the UI, yet setValidatedProperty calls validate(), so a fractional strength is rejected). The phase offset, ShutterSync angle/speed/time selects use validateFloat() and accept fractions.",
+    "Source quirks recorded unchanged: frameStoreFrameSelect writes to apiKeys.testPatternType (index.js:1098) instead of a frame-store key, so it is likely a copy-paste slip in the module; lutStrengthDecrease has min 0.0 while lutStrengthIncrease has min 0.1; the tooltip of lutToggle says \"14-Way Colour Correct toggle mode\"; hiddenMarkersToggle sends the lower-cased marker type (starTracker becomes startracker, redSpy becomes redspy) to api/output/network/hidden-markers/mode only when the variable hiddenMarkersMode is not \"?\".",
+    "Increase/decrease actions (lutStrength*, outputBrightness*, outputColourTemperature*, groupBrightness*) read the current value from the polled state, add or subtract the step and clamp to the range; phaseOffsetIncrease/Decrease use the current phaseOffsetMode variable to choose between the angle and the fraction option and ignore the other. Group brightness uses the path api/groups/items/<group>/brightness; the group number max is Math.pow(2, 32) - 1 = 4294967295 (index.js:52).",
+    "Option description is the source tooltip. Labels are the evaluated source strings (the module builds several labels from range constants, for example \"Brightness (0-10000 nits)\").",
+    "Variables, presets and the polling state are not catalogued. Built on @companion-module/base ^1.11.3: options do not support expressions. Manifest version is 0.0.0, package.json version is 2.2.0."
+  ]
+}
