@@ -1,0 +1,2820 @@
+{
+  "moduleId": "figure53-qlab-advance",
+  "name": "figure53-qlab-advance",
+  "repo": "bitfocus/companion-module-figure53-qlab-advance",
+  "version": "2.17.2",
+  "baseVersion": "^1.8.0",
+  "lastCommit": "2026-10-26",
+  "lastCommitSha": "edf8372",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "go",
+      "name": "GO",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 38
+      }
+    },
+    {
+      "id": "audition_go",
+      "name": "Audition GO",
+      "description": "QLab 5 ONLY",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 45
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Stop",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 53
+      }
+    },
+    {
+      "id": "new_Go",
+      "name": "Go Cue(s)",
+      "description": "GO with optional cue selection",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 60
+      }
+    },
+    {
+      "id": "new_auditGo",
+      "name": "Audition Cue(s)",
+      "description": "Audition with optional cue selection. QLab5 only",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 113
+      }
+    },
+    {
+      "id": "new_stop",
+      "name": "Stop Cue(s)",
+      "description": "Stop with optional cue selection",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 166
+      }
+    },
+    {
+      "id": "new_loadAt",
+      "name": "Load Cue(s) At",
+      "description": "Load to Time with optional cue selection",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "S",
+          "choices": [
+            {
+              "id": "S",
+              "label": "Set Time"
+            },
+            {
+              "id": "I",
+              "label": "Increase by"
+            },
+            {
+              "id": "D",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "hh",
+          "type": "textinput",
+          "label": "Hour",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "mm",
+          "type": "textinput",
+          "label": "Minute",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "ss",
+          "type": "textinput",
+          "label": "Seconds",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 219
+      }
+    },
+    {
+      "id": "select",
+      "name": "Select Cue",
+      "description": "Sets the Selection to a Cue(id)",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "N",
+          "choices": [
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 326
+      }
+    },
+    {
+      "id": "add_slice",
+      "name": "Add Slice",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 379
+      }
+    },
+    {
+      "id": "previous",
+      "name": "Previous Cue",
+      "options": [
+        {
+          "id": "seq",
+          "type": "checkbox",
+          "label": "Sequence?",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 386
+      }
+    },
+    {
+      "id": "next",
+      "name": "Next Cue",
+      "options": [
+        {
+          "id": "seq",
+          "type": "checkbox",
+          "label": "Sequence?",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 401
+      }
+    },
+    {
+      "id": "pause",
+      "name": "Pause",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 416
+      }
+    },
+    {
+      "id": "resume",
+      "name": "Resume",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 423
+      }
+    },
+    {
+      "id": "togglePause",
+      "name": "Toggle Pause",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 430
+      }
+    },
+    {
+      "id": "new_togglePause",
+      "name": "Pause/Resume toggle with optional Cue selection",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead/Next"
+            },
+            {
+              "id": "R",
+              "label": "Running Cue(s)"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 437
+      }
+    },
+    {
+      "id": "stopSelected",
+      "name": "Stop selected",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 497
+      }
+    },
+    {
+      "id": "new_panic",
+      "name": "Panic Cue(s)",
+      "description": "Panic cues, with optional time override",
+      "options": [
+        {
+          "id": "ws",
+          "type": "dropdown",
+          "label": "Workspace",
+          "default": "",
+          "choicesNote": "Fixed entry '' (Default) plus one entry per workspace reported by QLab at runtime (ids are the workspace unique IDs, label \"<name> (<id>)\"); not enumerable offline.",
+          "valueType": "string",
+          "useVariables": true
+        },
+        {
+          "id": "cl",
+          "type": "dropdown",
+          "label": "Cue List",
+          "default": "",
+          "choicesNote": "Fixed entry '' (Default) plus one entry per cue list reported by QLab at runtime (ids are the cue list unique IDs, label \"<name> (<id>)\"); not enumerable offline.",
+          "valueType": "string",
+          "useVariables": true
+        },
+        {
+          "id": "myTime",
+          "type": "checkbox",
+          "label": "Custom Time?",
+          "default": false
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time (in Seconds)",
+          "default": 1,
+          "useVariables": true,
+          "visibleWhen": "options.myTime",
+          "description": "Panic/Fade time in seconds, can be fractional"
+        },
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Default (All)"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 504
+      }
+    },
+    {
+      "id": "panic",
+      "name": "Panic (ALL)",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 612
+      }
+    },
+    {
+      "id": "panicInTime",
+      "name": "Panic (ALL) In Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in Seconds",
+          "default": 0,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 619
+      }
+    },
+    {
+      "id": "reset",
+      "name": "Reset",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 635
+      }
+    },
+    {
+      "id": "load",
+      "name": "Load Cue",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 642
+      }
+    },
+    {
+      "id": "preview",
+      "name": "Preview",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 649
+      }
+    },
+    {
+      "id": "audition_preview",
+      "name": "Audition Preview",
+      "description": "QLab5 ONLY",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 656
+      }
+    },
+    {
+      "id": "goto",
+      "name": "Go To (cue)",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "useVariables": true,
+          "description": "Source default is the number of the current playhead cue; empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 664
+      }
+    },
+    {
+      "id": "start",
+      "name": "Start (cue)",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 680
+      }
+    },
+    {
+      "id": "stop_cue",
+      "name": "Stop (cue)",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 696
+      }
+    },
+    {
+      "id": "panic_cue",
+      "name": "Panic (Cue)",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 712
+      }
+    },
+    {
+      "id": "panicInTime_cue",
+      "name": "Panic (Cue) In Time",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "useVariables": true
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in Seconds",
+          "default": 0,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 727
+      }
+    },
+    {
+      "id": "audition_go_cue",
+      "name": "Audition Cue",
+      "description": "QLab5 ONLY",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 750
+      }
+    },
+    {
+      "id": "audition_go_id",
+      "name": "Audition Cue ID",
+      "description": "QLab5 ONLY",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 767
+      }
+    },
+    {
+      "id": "goto_id",
+      "name": "Goto (Cue ID)",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 784
+      }
+    },
+    {
+      "id": "start_id",
+      "name": "Start (Cue ID)",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 800
+      }
+    },
+    {
+      "id": "stop_id",
+      "name": "Stop (Cue ID)",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 816
+      }
+    },
+    {
+      "id": "panic_id",
+      "name": "Panic (Cue ID)",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 832
+      }
+    },
+    {
+      "id": "panicInTime_id",
+      "name": "Panic (Cue ID) In Time",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in Seconds",
+          "default": 0,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 848
+      }
+    },
+    {
+      "id": "liveFadePreview",
+      "name": "Live Fade Preview mode",
+      "options": [
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 872
+      }
+    },
+    {
+      "id": "showMode",
+      "name": "Show mode",
+      "options": [
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 890
+      }
+    },
+    {
+      "id": "auditMode",
+      "name": "Audition",
+      "description": "QLab 5 sets 'Always Audition' mode Otherwise Show/Hide 'Audition Window'",
+      "options": [
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 908
+      }
+    },
+    {
+      "id": "auditWindows",
+      "name": "Audition Monitors",
+      "description": "QLab 5 only, open/close ALL audition monitors",
+      "options": [
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 928
+      }
+    },
+    {
+      "id": "overrideWindow",
+      "name": "Override Controls Window",
+      "options": [
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 947
+      }
+    },
+    {
+      "id": "overrides",
+      "name": "Master Override",
+      "options": [
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Override",
+          "default": "midiInputEnabled",
+          "choices": [
+            {
+              "id": "midiInputEnabled",
+              "label": "Midi Input [4, 5]"
+            },
+            {
+              "id": "midiOutputEnabled",
+              "label": "Midi Output [4, 5]"
+            },
+            {
+              "id": "mscInputEnabled",
+              "label": "MSC Input [4, 5]"
+            },
+            {
+              "id": "mscOutputEnabled",
+              "label": "MSC Output [4, 5]"
+            },
+            {
+              "id": "sysexInputEnabled",
+              "label": "SysEx Input [4, 5]"
+            },
+            {
+              "id": "sysexOutputEnabled",
+              "label": "SysEx Output [4, 5]"
+            },
+            {
+              "id": "oscOutputEnabled",
+              "label": "OSC Output [4]"
+            },
+            {
+              "id": "timecodeInputEnabled",
+              "label": "Timecode Input [4, 5]"
+            },
+            {
+              "id": "timecodeOutputEnabled",
+              "label": "Timecode Output [4, 5]"
+            },
+            {
+              "id": "artNetEnabled",
+              "label": "Art-Net Enabled [4]"
+            },
+            {
+              "id": "dmxOutputEnabled",
+              "label": "DMX Output [5]"
+            },
+            {
+              "id": "networkExternalInputEnabled",
+              "label": "External Network Input [5]"
+            },
+            {
+              "id": "networkExternalOutputEnabled",
+              "label": "External Network Output [5]"
+            },
+            {
+              "id": "networkLocalInputEnabled",
+              "label": "Local Network Input [5]"
+            },
+            {
+              "id": "networkLocalOutputEnabled",
+              "label": "Local Network Output [5]"
+            }
+          ]
+        },
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 965
+      }
+    },
+    {
+      "id": "minGo",
+      "name": "Minimum Go",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in Seconds",
+          "default": 0,
+          "useVariables": true,
+          "description": "Double Go Protection Time"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 990
+      }
+    },
+    {
+      "id": "cue_name",
+      "name": "Set Cue Name",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_name",
+          "type": "textinput",
+          "label": "Name",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1011
+      }
+    },
+    {
+      "id": "new_prewait",
+      "name": "Adjust Pre wait",
+      "description": "Set/Adjust Prewait time",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "S",
+          "choices": [
+            {
+              "id": "S",
+              "label": "Set Time"
+            },
+            {
+              "id": "I",
+              "label": "Increase by"
+            },
+            {
+              "id": "D",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "hh",
+          "type": "textinput",
+          "label": "Hour",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "mm",
+          "type": "textinput",
+          "label": "Minute",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "ss",
+          "type": "textinput",
+          "label": "Seconds",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1071
+      }
+    },
+    {
+      "id": "new_duration",
+      "name": "Adjust Duration",
+      "description": "Set/Adjust Duration time",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "S",
+          "choices": [
+            {
+              "id": "S",
+              "label": "Set Time"
+            },
+            {
+              "id": "I",
+              "label": "Increase by"
+            },
+            {
+              "id": "D",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "hh",
+          "type": "textinput",
+          "label": "Hour",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "mm",
+          "type": "textinput",
+          "label": "Minute",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "ss",
+          "type": "textinput",
+          "label": "Seconds",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1178
+      }
+    },
+    {
+      "id": "new_postwait",
+      "name": "Adjust Post wait",
+      "description": "Set/Adjust Postwait time",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "S",
+          "choices": [
+            {
+              "id": "S",
+              "label": "Set Time"
+            },
+            {
+              "id": "I",
+              "label": "Increase by"
+            },
+            {
+              "id": "D",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "hh",
+          "type": "textinput",
+          "label": "Hour",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "mm",
+          "type": "textinput",
+          "label": "Minute",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "ss",
+          "type": "textinput",
+          "label": "Seconds",
+          "default": 0,
+          "useVariables": true,
+          "regex": "/^[+-]?([0-9]*\\.)?[0-9]+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1285
+      }
+    },
+    {
+      "id": "prewait_dec",
+      "name": "Decrease Prewait",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1393
+      }
+    },
+    {
+      "id": "prewait_inc",
+      "name": "Increase Prewait",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1409
+      }
+    },
+    {
+      "id": "postwait_dec",
+      "name": "Decrease Postwait",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1425
+      }
+    },
+    {
+      "id": "postwait_inc",
+      "name": "Increase Postwait",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1441
+      }
+    },
+    {
+      "id": "duration_dec",
+      "name": "Decrease Duration",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1457
+      }
+    },
+    {
+      "id": "duration_inc",
+      "name": "Increase Duration",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1473
+      }
+    },
+    {
+      "id": "startTime_dec",
+      "name": "Decrease Start Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1489
+      }
+    },
+    {
+      "id": "startTime_inc",
+      "name": "Increase Start Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1505
+      }
+    },
+    {
+      "id": "endTime_dec",
+      "name": "Decrease End Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1521
+      }
+    },
+    {
+      "id": "endTime_inc",
+      "name": "Increase End Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time in seconds",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1537
+      }
+    },
+    {
+      "id": "continue",
+      "name": "Set Continue Mode",
+      "options": [
+        {
+          "id": "contId",
+          "type": "dropdown",
+          "label": "Continue Mode",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Do Not Continue"
+            },
+            {
+              "id": "1",
+              "label": "Auto Continue"
+            },
+            {
+              "id": "2",
+              "label": "Auto Follow"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1553
+      }
+    },
+    {
+      "id": "arm",
+      "name": "Arm Cue",
+      "options": [
+        {
+          "id": "armId",
+          "type": "dropdown",
+          "label": "Arm",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1570
+      }
+    },
+    {
+      "id": "new_arm",
+      "name": "Arm Cue(s)",
+      "description": "Arm with optional cue selection",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "tog",
+          "type": "dropdown",
+          "label": "Arm",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1594
+      }
+    },
+    {
+      "id": "new_flag",
+      "name": "Flag Cue(s)",
+      "description": "Flag with optional cue selection",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead"
+            },
+            {
+              "id": "S",
+              "label": "Selected"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "tog",
+          "type": "dropdown",
+          "label": "Flag",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1671
+      }
+    },
+    {
+      "id": "autoload",
+      "name": "Autoload Cue",
+      "options": [
+        {
+          "id": "autoId",
+          "type": "dropdown",
+          "label": "Autoload",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1749
+      }
+    },
+    {
+      "id": "flagged",
+      "name": "Flag Cue",
+      "options": [
+        {
+          "id": "flagId",
+          "type": "dropdown",
+          "label": "Flagged",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1771
+      }
+    },
+    {
+      "id": "cueColor",
+      "name": "Set Selected Cue Color",
+      "options": [
+        {
+          "id": "colorId",
+          "type": "dropdown",
+          "label": "Color",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "orange",
+              "label": "Orange"
+            },
+            {
+              "id": "yellow",
+              "label": "Yellow"
+            },
+            {
+              "id": "green",
+              "label": "Green"
+            },
+            {
+              "id": "cyan",
+              "label": "Cyan"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            },
+            {
+              "id": "purple",
+              "label": "Purple"
+            },
+            {
+              "id": "magenta",
+              "label": "Magenta"
+            },
+            {
+              "id": "berry",
+              "label": "Berry"
+            },
+            {
+              "id": "crimson",
+              "label": "Crimson"
+            },
+            {
+              "id": "forest",
+              "label": "Forest"
+            },
+            {
+              "id": "gray",
+              "label": "Gray"
+            },
+            {
+              "id": "Hot Pink",
+              "label": "Hot Pink"
+            },
+            {
+              "id": "indigo",
+              "label": "Indigo"
+            },
+            {
+              "id": "Lavender",
+              "label": "Lavender"
+            },
+            {
+              "id": "midnight",
+              "label": "Midnight"
+            },
+            {
+              "id": "olive",
+              "label": "Olive"
+            },
+            {
+              "id": "peach",
+              "label": "Peach"
+            },
+            {
+              "id": "plum",
+              "label": "Plum"
+            },
+            {
+              "id": "Sky Blue",
+              "label": "Sky Blue"
+            },
+            {
+              "id": "avocado",
+              "label": "Avocado"
+            },
+            {
+              "id": "bastardamber",
+              "label": "Bastard Amber"
+            },
+            {
+              "id": "bisque",
+              "label": "Bisque"
+            },
+            {
+              "id": "celadon",
+              "label": "Celadon"
+            },
+            {
+              "id": "cerulean",
+              "label": "Cerulean"
+            },
+            {
+              "id": "chartreuse",
+              "label": "Chartreuse"
+            },
+            {
+              "id": "coral",
+              "label": "Coral"
+            },
+            {
+              "id": "ecru",
+              "label": "Ecru"
+            },
+            {
+              "id": "edgecombgray",
+              "label": "Edgecomb Gray"
+            },
+            {
+              "id": "fuchsia",
+              "label": "Fuchsia"
+            },
+            {
+              "id": "fulvous",
+              "label": "Fulvous"
+            },
+            {
+              "id": "glaucous",
+              "label": "Glaucous"
+            },
+            {
+              "id": "grey",
+              "label": "Grey"
+            },
+            {
+              "id": "lilac",
+              "label": "Lilac"
+            },
+            {
+              "id": "maize",
+              "label": "Maize"
+            },
+            {
+              "id": "mauve",
+              "label": "Mauve"
+            },
+            {
+              "id": "ochre",
+              "label": "Ochre"
+            },
+            {
+              "id": "puce",
+              "label": "Puce"
+            },
+            {
+              "id": "rufous",
+              "label": "Rufous"
+            },
+            {
+              "id": "sage",
+              "label": "Sage"
+            },
+            {
+              "id": "scarlet",
+              "label": "Scarlet"
+            },
+            {
+              "id": "seafoamgreen",
+              "label": "Seafoam Green"
+            },
+            {
+              "id": "taupe",
+              "label": "Taupe"
+            },
+            {
+              "id": "verdigris",
+              "label": "Verdigris"
+            },
+            {
+              "id": "vermilion",
+              "label": "Vermilion"
+            },
+            {
+              "id": "viridian",
+              "label": "Viridian"
+            },
+            {
+              "id": "wenge",
+              "label": "Wenge"
+            },
+            {
+              "id": "zaffre",
+              "label": "Zaffre"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1793
+      }
+    },
+    {
+      "id": "infiniteLoop",
+      "name": "Set selected to infinite loop",
+      "options": [
+        {
+          "id": "choice",
+          "type": "dropdown",
+          "label": "on/off",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1810
+      }
+    },
+    {
+      "id": "holdLastFrame",
+      "name": "Set selected to hold last frame",
+      "options": [
+        {
+          "id": "choice",
+          "type": "dropdown",
+          "label": "on/off",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1832
+      }
+    },
+    {
+      "id": "manual",
+      "name": "Send custom OSC command",
+      "description": "Please consider filing a feature request",
+      "options": [
+        {
+          "id": "node",
+          "type": "textinput",
+          "label": "OSC Address",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "argType",
+          "type": "dropdown",
+          "label": "Argument Type",
+          "default": "n",
+          "choices": [
+            {
+              "id": "n",
+              "label": "None"
+            },
+            {
+              "id": "s",
+              "label": "String"
+            },
+            {
+              "id": "i",
+              "label": "Integer"
+            },
+            {
+              "id": "f",
+              "label": "Float"
+            }
+          ]
+        },
+        {
+          "id": "argS",
+          "type": "textinput",
+          "label": "String",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "option.argType === 's'"
+        },
+        {
+          "id": "argI",
+          "type": "textinput",
+          "label": "Integer",
+          "default": 0,
+          "useVariables": true,
+          "visibleWhen": "option.argType === 'i'"
+        },
+        {
+          "id": "argF",
+          "type": "textinput",
+          "label": "Float",
+          "default": 0,
+          "useVariables": true,
+          "visibleWhen": "option.argType === 'f'"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1854
+      }
+    },
+    {
+      "id": "copyCueID",
+      "name": "Copy Unique Cue ID",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1932
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "playhead_bg",
+      "name": "Playhead Color for Background",
+      "description": "Use the QLab color for the Playhead (next) cue as background",
+      "options": [],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 24
+      }
+    },
+    {
+      "id": "run_bg",
+      "name": "Running Que color for Background",
+      "description": "Use the QLab color of the running cue as background",
+      "options": [],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 34
+      }
+    },
+    {
+      "id": "q_bg",
+      "name": "Cue Number color for background",
+      "description": "Use the QLab color of the specified cue number as background",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue Number",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 43
+      }
+    },
+    {
+      "id": "qid_bg",
+      "name": "Cue ID color for background",
+      "description": "Use the QLab color of the specified cue ID as background",
+      "options": [
+        {
+          "id": "cueId",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 62
+      }
+    },
+    {
+      "id": "q_bg_color",
+      "name": "Cue color for background",
+      "description": "Use QLab color of specified cue as background",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "N",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead/Next"
+            },
+            {
+              "id": "R",
+              "label": "Running Cue(s)"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "advanced",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 81
+      }
+    },
+    {
+      "id": "q_armed",
+      "name": "Cue is Armed",
+      "description": "Indicate on button when the specified cue is Armed",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead/Next"
+            },
+            {
+              "id": "R",
+              "label": "Running Cue(s)"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 122
+      }
+    },
+    {
+      "id": "q_selected",
+      "name": "Cue is Selected",
+      "description": "Indicate on button when the specified cue is Selected",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "N",
+          "choices": [
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 166
+      }
+    },
+    {
+      "id": "q_flagged",
+      "name": "Cue is Flagged",
+      "description": "Indicate on button when the specified cue is Flagged",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "D",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead/Next"
+            },
+            {
+              "id": "R",
+              "label": "Running Cue(s)"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 213
+      }
+    },
+    {
+      "id": "q_paused",
+      "name": "Cue is Paused",
+      "description": "Indicate on button when the specified cue is Paused",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "R",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead/Next"
+            },
+            {
+              "id": "R",
+              "label": "Running Cue(s)"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 256
+      }
+    },
+    {
+      "id": "q_running",
+      "name": "Cue is Running",
+      "description": "Indicate on button when the specified cue is Running",
+      "options": [
+        {
+          "id": "scope",
+          "type": "dropdown",
+          "label": "Scope",
+          "default": "N",
+          "choices": [
+            {
+              "id": "D",
+              "label": "Playhead/Next"
+            },
+            {
+              "id": "R",
+              "label": "Running Cue(s)"
+            },
+            {
+              "id": "N",
+              "label": "Cue Number"
+            },
+            {
+              "id": "I",
+              "label": "Cue ID"
+            }
+          ]
+        },
+        {
+          "id": "q_num",
+          "type": "textinput",
+          "label": "Cue Number",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'N'",
+          "description": "Source default is the number of the current playhead cue (self.wsCues[self.nextCue]); it is empty while no workspace is loaded, so no default is recorded."
+        },
+        {
+          "id": "q_id",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "visibleWhen": "options.scope === 'I'",
+          "description": "Source default is the unique ID of the current playhead cue; it is empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 300
+      }
+    },
+    {
+      "id": "q_run",
+      "name": "Indicate Cue Number is running",
+      "description": "Indicate on button when the specified cue is running",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue Number",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 345
+      }
+    },
+    {
+      "id": "qid_run",
+      "name": "Indicate Cue ID is running",
+      "description": "Indicate on button when cue ID is running",
+      "options": [
+        {
+          "id": "cueID",
+          "type": "textinput",
+          "label": "Cue ID",
+          "useVariables": true,
+          "description": "Source default is the unique ID of the current playhead cue (self.nextCue); empty while no workspace is loaded, so no default is recorded."
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 369
+      }
+    },
+    {
+      "id": "any_run",
+      "name": "Indicate if any Cue is running",
+      "description": "Indicate on button when any cue is running",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 393
+      }
+    },
+    {
+      "id": "min_go",
+      "name": "Indicate Go button Status",
+      "description": "Indicate on Button when the Minimum Go Time is active",
+      "options": [
+        {
+          "id": "goMode",
+          "type": "dropdown",
+          "label": "Status?",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Disabled"
+            },
+            {
+              "id": "1",
+              "label": "Enabled"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 407
+      }
+    },
+    {
+      "id": "ws_mode",
+      "name": "Indicate Workspace Mode",
+      "description": "Indicate on Button QLab Show/Edit/Audition Mode",
+      "options": [
+        {
+          "id": "showMode",
+          "type": "dropdown",
+          "label": "Which Mode?",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Edit"
+            },
+            {
+              "id": "1",
+              "label": "Show"
+            },
+            {
+              "id": "2",
+              "label": "Audition"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 439
+      }
+    },
+    {
+      "id": "liveFadePreview",
+      "name": "Live Fade Preview",
+      "description": "Set Button when Live Fade Preview is active",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 474
+      }
+    },
+    {
+      "id": "ws_audit",
+      "name": "Audit Monitors",
+      "description": "Set Button when ALL Audit monitors are open",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 495
+      }
+    },
+    {
+      "id": "override",
+      "name": "Master Override",
+      "description": "Set Button when Override is Active",
+      "options": [
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Override",
+          "default": "midiInputEnabled",
+          "choices": [
+            {
+              "id": "midiInputEnabled",
+              "label": "Midi Input [4, 5]"
+            },
+            {
+              "id": "midiOutputEnabled",
+              "label": "Midi Output [4, 5]"
+            },
+            {
+              "id": "mscInputEnabled",
+              "label": "MSC Input [4, 5]"
+            },
+            {
+              "id": "mscOutputEnabled",
+              "label": "MSC Output [4, 5]"
+            },
+            {
+              "id": "sysexInputEnabled",
+              "label": "SysEx Input [4, 5]"
+            },
+            {
+              "id": "sysexOutputEnabled",
+              "label": "SysEx Output [4, 5]"
+            },
+            {
+              "id": "oscOutputEnabled",
+              "label": "OSC Output [4]"
+            },
+            {
+              "id": "timecodeInputEnabled",
+              "label": "Timecode Input [4, 5]"
+            },
+            {
+              "id": "timecodeOutputEnabled",
+              "label": "Timecode Output [4, 5]"
+            },
+            {
+              "id": "artNetEnabled",
+              "label": "Art-Net Enabled [4]"
+            },
+            {
+              "id": "dmxOutputEnabled",
+              "label": "DMX Output [5]"
+            },
+            {
+              "id": "networkExternalInputEnabled",
+              "label": "External Network Input [5]"
+            },
+            {
+              "id": "networkExternalOutputEnabled",
+              "label": "External Network Output [5]"
+            },
+            {
+              "id": "networkLocalInputEnabled",
+              "label": "Local Network Input [5]"
+            },
+            {
+              "id": "networkLocalOutputEnabled",
+              "label": "Local Network Output [5]"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 516
+      }
+    },
+    {
+      "id": "override_visible",
+      "name": "Override Window Visible",
+      "description": "Set Button when Override Window is visible",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 539
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 67 actions (actions.js compileActionDefinitions) and 19 feedbacks (feedbacks.js compileFeedbackDefinitions). Both are returned as one literal object; nothing is generated per cue. Feedbacks are registered only when the connection uses TCP (qlabfb.js init_feedbacks sets an empty list otherwise); actions are always registered.",
+    "Protocol: OSC to QLab 4 or 5, UDP or TCP (config checkbox 'Use TCP?', default true; required for feedbacks and variables). Config fields (config.js): Target Host/IP, Target Port (textinput, regex Regex.PORT, default 53000), Use TCP?, Use Tenths?, Expose cue name variables?, OSC Passcode (almost always required for QLab 5), Workspace (dropdown, default 'default', plus the workspaces QLab reports) and Cue List (dropdown, default 'default'). Variables and presets are not catalogued.",
+    "Cue selection pattern: many actions and feedbacks share the options Scope (dropdown), Cue Number (q_num) and Cue ID (q_id). The cue fields are shown only for the matching scope (visibleWhen). The scope lists differ: CUE_SCOPE (D Playhead, S Selected, N Cue Number, I Cue ID), FB_SCOPE (D Playhead/Next, R Running Cue(s), N, I), SSP_SCOPE (D Default (All), S Selected, N, I) and a two-entry N/I list; see the per-entity choices. The legacy actions (goto, start, stop_cue, ... *_id) take the cue number or ID in a plain text field.",
+    "The source default of every cue number or cue ID field is computed from the playhead cue at definition time (self.wsCues[self.nextCue]?.qNumber, .uniqueID or self.nextCue) and is therefore empty without a loaded workspace; it is not recorded as a default. In the feedbacks q_bg_color, q_armed, q_flagged, q_paused and q_running the cue number default expression reads the property q_num (or self[self.nextCue]?.q_num, self.nextCue.q_num), which the cue objects of cues.js do not have (they use qNumber), so it never yields a value.",
+    "On/off style dropdowns use the numeric ids 1 (On), 0 (Off) and, for actions, 2 (Toggle), exactly as in choices.js TOGGLE and ON_OFF. The Continue Mode choices have string ids '0', '1', '2' (choices.js CONTINUE_MODE) and the action 'continue' has no default. The feedbacks min_go (goMode) and ws_mode (showMode) have string ids '0'/'1' and '0'/'1'/'2' with string defaults '1'.",
+    "Regex values: the source uses Regex.NUMBER and Regex.SIGNED_FLOAT of @companion-module/base. The recorded strings are the values from @companion-module/base 1.15.0 (enums.js); the module locks 1.12.1 (yarn.lock), whose values were not inspected.",
+    "The source also sets a 'length: 2' on the Hour and Minute text inputs (no schema field) and the 'preset' property in the OVERRIDE choices (used by presets only); neither is recorded. Style defaults (defaultStyle) of boolean feedbacks are not recorded.",
+    "The 'Master Override' choices (Midi Input, Midi Output, MSC, SysEx, OSC Output, Timecode, Art-Net, DMX, network) carry the QLab version they apply to in the label ([4], [5], [4, 5]); the list is one fixed list for the action and the feedback.",
+    "Actions marked 'QLab 5 ONLY' or 'QLab5 only' in their description are registered unconditionally (compileActionDefinitions has no version check).",
+    "The module is on @companion-module/base ^1.8.0 (1.x), so option values are not expressions. Not tested against QLab or Companion."
+  ]
+}

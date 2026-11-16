@@ -1,0 +1,56 @@
+{
+  "moduleId": "figure53-qview",
+  "name": "figure53-qview",
+  "repo": "bitfocus/companion-module-figure53-qview",
+  "version": "2.0.1",
+  "baseVersion": "~1.10",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "4a6b8ca",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "next",
+      "name": "Goto next page",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 11
+      }
+    },
+    {
+      "id": "previous",
+      "name": "Goto previous page",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 18
+      }
+    },
+    {
+      "id": "goto_page",
+      "name": "Goto page",
+      "options": [
+        {
+          "id": "page",
+          "type": "number",
+          "label": "Page",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 25
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 3 actions (src/actions.js) and no feedbacks (src/index.js registers no feedback definitions; the module has no variables or presets).",
+    "Protocol: OSC over UDP via this.oscSend(host, port, address) with no arguments. Addresses sent: /goto/next, /goto/prev and /goto/page/<page> (src/index.js sendCommand, src/actions.js). Config fields: Target IP (regex Regex.IP, no default) and Target Port (textinput, regex Regex.PORT, default 60000).",
+    "The Page field is the shared Fields.Page of src/setup.js (line 2); it is a number option 1 to 9999 with default 1, no useVariables and no integer flag.",
+    "The module is on @companion-module/base ~1.10 (1.x), so option values are not expressions. Not tested against QView or Companion."
+  ]
+}
