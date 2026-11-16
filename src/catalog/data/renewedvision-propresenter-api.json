@@ -1,0 +1,2102 @@
+{
+  "moduleId": "renewedvision-propresenter-api",
+  "name": "Renewed Vision ProPresenter API",
+  "repo": "bitfocus/companion-module-renewedvision-propresenter-api",
+  "version": "1.2.0-rc6",
+  "baseVersion": "~1.10.0",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "d265c9d",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "activeAnnouncementOperation",
+      "name": "Active Announcement: Operation",
+      "description": "Perform an operation on the Active Announcement",
+      "options": [
+        {
+          "id": "active_announcement_operation",
+          "type": "dropdown",
+          "label": "Active Announcement: Operation",
+          "description": "Choose an operation to perform on the ACTIVE announcement.",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Active Announcement"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Slide"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Slide"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Slide"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Slide By Index"
+            },
+            {
+              "id": "timeline_operation",
+              "label": "Perform Timeline Operation"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "timeline_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "rewind",
+              "label": "Rewind"
+            }
+          ],
+          "visibleWhen": "(options) => options.active_announcement_operation == 'timeline_operation' || options.active_presentation_operation == 'timeline_operation' || options.focused_presentation_operation == 'timeline_operation' || options.specific_presentation_operation == 'timeline_operation'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 22
+      }
+    },
+    {
+      "id": "activeAudioPlaylistOperation",
+      "name": "Active Audio Playlist: Operation",
+      "description": "Perform an operation on the Active Audio Playlist.",
+      "options": [
+        {
+          "id": "active_audioplaylist_operation",
+          "type": "dropdown",
+          "label": "Active Audio Playlist: Operation",
+          "description": "Choose an operation to perform on the ACTIVE audio playlist.",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Active Audio Playlist"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Audio Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Audio Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Audio Item"
+            },
+            {
+              "id": "trigger_id",
+              "label": "Trigger Audio Item By It's ID"
+            }
+          ]
+        },
+        {
+          "id": "audio_item_id",
+          "type": "textinput",
+          "label": "Audio Item ID",
+          "description": "Enter Audio Item Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_audioplaylist_operation == 'trigger_id' || options.focused_audioplaylist_operation == 'trigger_id' || options.specific_audioplaylist_operation == 'trigger_id'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 57
+      }
+    },
+    {
+      "id": "focusedAudioPlaylistOperation",
+      "name": "Focused Audio Playlist: Operation",
+      "description": "Perform an operation on the Focused Audio Playlist.",
+      "options": [
+        {
+          "id": "focused_audioplaylist_operation",
+          "type": "dropdown",
+          "label": "Focused Audio Playlist: Operation",
+          "description": "Choose an operation to perform on the FOCUSED audio playlist.",
+          "default": "trigger_next",
+          "choices": [
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Audio Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Audio Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Audio Item"
+            },
+            {
+              "id": "trigger_id",
+              "label": "Trigger Audio Item By It's ID"
+            },
+            {
+              "id": "focus_next",
+              "label": "Move Focus To Next Playlist"
+            },
+            {
+              "id": "focus_previous",
+              "label": "Move Focus To Previous Playlist"
+            }
+          ]
+        },
+        {
+          "id": "audio_item_id",
+          "type": "textinput",
+          "label": "Audio Item ID",
+          "description": "Enter Audio Item Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_audioplaylist_operation == 'trigger_id' || options.focused_audioplaylist_operation == 'trigger_id' || options.specific_audioplaylist_operation == 'trigger_id'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 84
+      }
+    },
+    {
+      "id": "identifiedAudioPlaylistOperation",
+      "name": "Specific Audio Playlist: Operation",
+      "description": "Perform an operation on a specifically identified Audio Playlist.",
+      "options": [
+        {
+          "id": "specific_audioplaylist_operation",
+          "type": "dropdown",
+          "label": "Specific Audio Playlist: Operation",
+          "description": "Choose an operation to perform on a specifically identified audio playlist",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Specified Audio Playlist"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Audio Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Audio Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Audio Item"
+            },
+            {
+              "id": "trigger_id",
+              "label": "Trigger Audio Item By It's ID"
+            }
+          ]
+        },
+        {
+          "id": "audio_playlist_id",
+          "type": "textinput",
+          "label": "Audio Playlist Id",
+          "description": "Enter Audio Playlist Name or Index or UUID. Click Learn to get the UUID of the currently focused audio playlist.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "audio_item_id",
+          "type": "textinput",
+          "label": "Audio Item ID",
+          "description": "Enter Audio Item Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_audioplaylist_operation == 'trigger_id' || options.focused_audioplaylist_operation == 'trigger_id' || options.specific_audioplaylist_operation == 'trigger_id'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 114
+      }
+    },
+    {
+      "id": "captureOperation",
+      "name": "Capture: Operation",
+      "description": "Performs the requested capture operation (start, stop, toggle).",
+      "options": [
+        {
+          "id": "capture_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 159
+      }
+    },
+    {
+      "id": "clearLayerOrGroup",
+      "name": "Clear: Operation",
+      "description": "Clear the specified Layer or Clear Group",
+      "options": [
+        {
+          "id": "clear_layer_or_group_dropdown",
+          "type": "dropdown",
+          "label": "Clear Layer or Group",
+          "default": "layer",
+          "choices": [
+            {
+              "id": "layer",
+              "label": "Layer"
+            },
+            {
+              "id": "group",
+              "label": "Group"
+            }
+          ]
+        },
+        {
+          "id": "clear_layer_dropdown",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "slide",
+          "choices": [
+            {
+              "id": "audio",
+              "label": "Audio"
+            },
+            {
+              "id": "props",
+              "label": "Props"
+            },
+            {
+              "id": "messages",
+              "label": "Messages"
+            },
+            {
+              "id": "announcements",
+              "label": "Announcements"
+            },
+            {
+              "id": "slide",
+              "label": "Slide"
+            },
+            {
+              "id": "media",
+              "label": "Media"
+            },
+            {
+              "id": "video_input",
+              "label": "Video_input"
+            }
+          ],
+          "visibleWhen": "(options) => options.clear_layer_or_group_dropdown == 'layer'"
+        },
+        {
+          "id": "clear_group_id_dropdown",
+          "type": "dropdown",
+          "label": "Clear Group",
+          "default": "",
+          "visibleWhen": "(options) => options.clear_layer_or_group_dropdown == 'group'",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1313); each choice id is the clear group UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_cleargroupid', label: 'Manually Specify Clear Group ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "clear_group_id_text",
+          "type": "textinput",
+          "label": "Clear Group ID",
+          "description": "Enter Clear Group Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.clear_group_id_dropdown == 'manually_specify_cleargroupid' && options.clear_layer_or_group_dropdown == 'group'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 178
+      }
+    },
+    {
+      "id": "libraryByIdPresentationIdCueTrigger",
+      "name": "Library: Trigger Specific Slide in Specific Presentation",
+      "description": "Triggers the specified cue of the specified presentation in the specified library.",
+      "options": [
+        {
+          "id": "library_id",
+          "type": "textinput",
+          "label": "Library Id",
+          "description": "Enter Library Name or Index or UUID",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "presentation_id",
+          "type": "textinput",
+          "label": "Presentation ID",
+          "description": "Enter Presentation Name or Index or UUID.  Also can use a path. Click Learn to get the UUID of the currently focused presentation.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 208
+      }
+    },
+    {
+      "id": "lookIdTrigger",
+      "name": "Look: Trigger",
+      "description": "Triggers the specified audience look to make it the live/current look.",
+      "options": [
+        {
+          "id": "look_id_dropdown",
+          "type": "dropdown",
+          "label": "Look",
+          "description": "Choose an existing Look\nOr manually specify via text/variable)",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1326); each choice id is the look NAME (not the UUID), the label is the name. The last entry is always the placeholder { id: 'manually_specify_lookid', label: 'Manually Specify Look ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "look_id_text",
+          "type": "textinput",
+          "label": "Look ID",
+          "description": "Enter Look Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.look_id_dropdown == 'manually_specify_lookid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 231
+      }
+    },
+    {
+      "id": "marcoIdTrigger",
+      "name": "Macro: Trigger",
+      "description": "Triggers the specified macro.",
+      "options": [
+        {
+          "id": "macro_id_dropdown",
+          "type": "dropdown",
+          "label": "Macro",
+          "description": "Choose an existing Macro\nOr manually specify via text/variable",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1341); each choice id is the macro UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_macroid', label: 'Manually Specify Macro ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "macro_id_text",
+          "type": "textinput",
+          "label": "Macro ID",
+          "description": "Enter Macro Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.macro_id_dropdown == 'manually_specify_macroid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 270
+      }
+    },
+    {
+      "id": "activeMediaPlaylistOperation",
+      "name": "Active Media Playlist: Operation",
+      "description": "Perform an operation on the Active Media Playlist.",
+      "options": [
+        {
+          "id": "active_mediaplaylist_operation",
+          "type": "dropdown",
+          "label": "Active Media Playlist: Operation",
+          "description": "Choose an operation to perform on the ACTIVE media playlist.",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Active Media Playlist"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Media Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Media Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Media Item"
+            },
+            {
+              "id": "trigger_id",
+              "label": "Trigger Media Item By It's ID"
+            }
+          ]
+        },
+        {
+          "id": "media_item_id",
+          "type": "textinput",
+          "label": "Media Item Id",
+          "description": "Enter Media Item Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_mediaplaylist_operation == 'trigger_id' || options.focused_mediaplaylist_operation == 'trigger_id' || options.specific_mediaplaylist_operation == 'trigger_id'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 290
+      }
+    },
+    {
+      "id": "focusedMediaPlaylistOperation",
+      "name": "Focused Media Playlist: Operation",
+      "description": "Perform an operation on the Focused Media Playlist.",
+      "options": [
+        {
+          "id": "focused_mediaplaylist_operation",
+          "type": "dropdown",
+          "label": "Focused Media Playlist: Operation",
+          "description": "Choose an operation to perform on the FOCUSED audio playlist.",
+          "default": "trigger_next",
+          "choices": [
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Media Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Media Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Media Item"
+            },
+            {
+              "id": "trigger_id",
+              "label": "Trigger Media Item By It's ID"
+            },
+            {
+              "id": "focus_next",
+              "label": "Move Focus To Next Playlist"
+            },
+            {
+              "id": "focus_previous",
+              "label": "Move Focus To Previous Playlist"
+            }
+          ]
+        },
+        {
+          "id": "media_item_id",
+          "type": "textinput",
+          "label": "Media Item Id",
+          "description": "Enter Media Item Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_mediaplaylist_operation == 'trigger_id' || options.focused_mediaplaylist_operation == 'trigger_id' || options.specific_mediaplaylist_operation == 'trigger_id'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 319
+      }
+    },
+    {
+      "id": "identifiedMediaPlaylistOperation",
+      "name": "Specific Media Playlist: Operation",
+      "description": "Perform an operation on a specifically identified Media Playlist.",
+      "options": [
+        {
+          "id": "specific_mediaplaylist_operation",
+          "type": "dropdown",
+          "label": "Specific Media Playlist: Operation",
+          "description": "Choose an operation to perform on a specifically identified media playlist",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Specified Media Playlist"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Media Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Media Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Media Item"
+            },
+            {
+              "id": "trigger_id",
+              "label": "Trigger Media Item By It's ID"
+            }
+          ]
+        },
+        {
+          "id": "media_playlist_id",
+          "type": "textinput",
+          "label": "Media Playlist Id",
+          "description": "Enter Media Playlist Name or Index or UUID. Click Learn to get the UUID of the currently focused media playlist.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "media_item_id",
+          "type": "textinput",
+          "label": "Media Item Id",
+          "description": "Enter Media Item Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_mediaplaylist_operation == 'trigger_id' || options.focused_mediaplaylist_operation == 'trigger_id' || options.specific_mediaplaylist_operation == 'trigger_id'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 351
+      }
+    },
+    {
+      "id": "messageOperation",
+      "name": "Message: Operation",
+      "description": "Perform an operation on the specified message",
+      "options": [
+        {
+          "id": "message_operation",
+          "type": "dropdown",
+          "label": "Message: Operation",
+          "description": "Choose an operation to perform on a specifically identified message",
+          "default": "show",
+          "choices": [
+            {
+              "id": "show",
+              "label": "Show"
+            },
+            {
+              "id": "hide",
+              "label": "Hide"
+            }
+          ]
+        },
+        {
+          "id": "message_id_dropdown",
+          "type": "dropdown",
+          "label": "Message",
+          "description": "Choose an existing Message\nOr manually specify via text/variable",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1492); each choice id is the message UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_messageid', label: 'Manually Specify Message ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "message_id_text",
+          "type": "textinput",
+          "label": "Message ID",
+          "description": "Enter Message Name or Index or UUID",
+          "default": "TODO: not yet implemented",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.message_id_dropdown == 'manually_specify_messageid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 396
+      },
+      "optionsComplete": false,
+      "availability": "After the three fixed options the module appends one text input per token of every message that ProPresenter reports (src/main.ts:1497-1527, src/actions.ts:1329-1337): id '<messageUUID>__<txt|tmr|???>__<tokenName>', label = token name, useVariables, visible when message_id_dropdown equals that message UUID and message_operation is 'show'. Those options are not listed here."
+    },
+    {
+      "id": "miscFindMyMouse",
+      "name": "Misc: Find My Mouse",
+      "description": "Moves mouse cursor to center of ProPresenter UI",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 457
+      }
+    },
+    {
+      "id": "activeAnnouncementPlaylistOperation",
+      "name": "Active Announcement Playlist: Operation",
+      "description": "Perform an operation on the Playlist that has the active announcement in it.",
+      "options": [
+        {
+          "id": "active_announcement_playlist_operation",
+          "type": "dropdown",
+          "label": "Active Announcement Playlist: Operation",
+          "description": "Choose an operation to perform on the PLAYLIST with the currently ACTIVE ANNOUNCEMENT.",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Active Announcement Playlist"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Playlist Item"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Playlist Item By It's Index"
+            },
+            {
+              "id": "trigger_index_cueindex",
+              "label": "Trigger Cue By Index, in Playlist Item By It's Index"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "cue_index",
+          "type": "textinput",
+          "label": "Cue Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index_cueindex'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 466
+      }
+    },
+    {
+      "id": "activePresentationPlaylistOperation",
+      "name": "Active Presentation Playlist: Operation",
+      "description": "Perform an operation on the Playlist that has the active presentation in it.",
+      "options": [
+        {
+          "id": "active_presentation_playlist_operation",
+          "type": "dropdown",
+          "label": "Active Presentation Playlist: Operation",
+          "description": "Choose an operation to perform on the PLAYLIST with the currently ACTIVE PRESENTATION.",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Active Presentation Playlist"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Playlist Item"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Playlist Item By It's Index"
+            },
+            {
+              "id": "trigger_index_cueindex",
+              "label": "Trigger Cue By Index, in Playlist Item By It's Index"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "cue_index",
+          "type": "textinput",
+          "label": "Cue Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index_cueindex'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 495
+      }
+    },
+    {
+      "id": "focusedPlaylistOperation",
+      "name": "Focused Playlist: Operation",
+      "description": "Perform an operation on the focused Playlist.",
+      "options": [
+        {
+          "id": "focused_playlist_operation",
+          "type": "dropdown",
+          "label": "Focused Playlist: Operation",
+          "description": "Choose an operation to perform on the FOCUSED Playlist.",
+          "default": "trigger_next",
+          "choices": [
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Playlist Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Playlist Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Playlist Item"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Playlist Item By It's Index"
+            },
+            {
+              "id": "trigger_index_cueindex",
+              "label": "Trigger Cue By Index, in Playlist Item By It's Index"
+            },
+            {
+              "id": "focus_next",
+              "label": "Move Focus To Next Playlist"
+            },
+            {
+              "id": "focus_previous",
+              "label": "Move Focus To Previous Playlist"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "cue_index",
+          "type": "textinput",
+          "label": "Cue Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index_cueindex'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 535
+      }
+    },
+    {
+      "id": "specificPlaylistOperation",
+      "name": "Specific Playlist: Operation",
+      "description": "Perform an operation on a specifically identified Playlist.",
+      "options": [
+        {
+          "id": "specific_playlist_operation",
+          "type": "dropdown",
+          "label": "Specific Playlist: Operation",
+          "description": "Choose an operation to perform on a specifically identified Playlist",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Specified Playlist"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Playlist Item"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Playlist Item"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Playlist Item"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Playlist Item By It's Index"
+            },
+            {
+              "id": "trigger_index_cueindex",
+              "label": "Trigger Cue By Index, in Playlist Item By It's Index"
+            }
+          ]
+        },
+        {
+          "id": "playlist_id",
+          "type": "textinput",
+          "label": "Playlist Id",
+          "description": "Enter Playlist Name or Index or UUID. Click Learn to get the UUID of the currently focused playlist.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "cue_index",
+          "type": "textinput",
+          "label": "Cue Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index_cueindex'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 583
+      }
+    },
+    {
+      "id": "activePresentationOperation",
+      "name": "Active Presentation: Operation",
+      "description": "Perform an operation on the Active Presentation.",
+      "options": [
+        {
+          "id": "active_presentation_operation",
+          "type": "dropdown",
+          "label": "Active Presentation: Operation",
+          "description": "Choose an operation to perform on the ACTIVE Presentation.",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Active Presentation"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Slide"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Slide"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Slide"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Slide By It's Index"
+            },
+            {
+              "id": "trigger_slide_label",
+              "label": "Trigger Slide By It's Label"
+            },
+            {
+              "id": "group",
+              "label": "Trigger Specified Group"
+            },
+            {
+              "id": "timeline_operation",
+              "label": "Perform Timeline Operation"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "group_id_dropdown",
+          "type": "dropdown",
+          "label": "Group",
+          "description": "Choose an existing Group\nOr manually specify via text/variable)",
+          "default": "",
+          "visibleWhen": "(options) => options.active_presentation_operation == 'group' || options.focused_presentation_operation == 'group' || options.specific_presentation_operation == 'group'",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/actions.ts:1315); each choice id is the group NAME (the source notes that UUIDs do not work with the API yet), the label is the name. The last entry is always the placeholder { id: 'manually_specify_groupid', label: 'Manually Specify Group ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "group_id_text",
+          "type": "textinput",
+          "label": "Group ID",
+          "description": "Enter Group Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.group_id_dropdown == 'manually_specify_groupid' && (options.active_presentation_operation == 'group' || options.focused_presentation_operation == 'group' || options.specific_presentation_operation == 'group')"
+        },
+        {
+          "id": "timeline_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "rewind",
+              "label": "Rewind"
+            }
+          ],
+          "visibleWhen": "(options) => options.active_announcement_operation == 'timeline_operation' || options.active_presentation_operation == 'timeline_operation' || options.focused_presentation_operation == 'timeline_operation' || options.specific_presentation_operation == 'timeline_operation'"
+        },
+        {
+          "id": "slide_label",
+          "type": "textinput",
+          "label": "Slide Label",
+          "description": "The label of the slide to trigger. Respects the active presentation's current arrangement.",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_presentation_operation == 'trigger_slide_label'"
+        },
+        {
+          "id": "slide_label_case_insensitive",
+          "type": "checkbox",
+          "label": "Case Insensitive",
+          "default": false,
+          "visibleWhen": "(options) => options.active_presentation_operation == 'trigger_slide_label'"
+        },
+        {
+          "id": "slide_label_partial_match",
+          "type": "checkbox",
+          "label": "Partial Match (Contains)",
+          "description": "Match any slide label that contains the given text, rather than requiring an exact match.",
+          "default": false,
+          "visibleWhen": "(options) => options.active_presentation_operation == 'trigger_slide_label'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 631
+      }
+    },
+    {
+      "id": "focusedPresentationOperation",
+      "name": "Focused Presentation: Operation",
+      "description": "Perform an operation on the Focused Presentation.",
+      "options": [
+        {
+          "id": "focused_presentation_operation",
+          "type": "dropdown",
+          "label": "Focused Presentation: Operation",
+          "description": "Choose an operation to perform on the FOCUSED Presentation.",
+          "default": "trigger_next",
+          "choices": [
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Slide"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Slide"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Slide"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Slide By It's Index"
+            },
+            {
+              "id": "group",
+              "label": "Trigger Specified Group"
+            },
+            {
+              "id": "timeline_operation",
+              "label": "Perform Timeline Operation"
+            },
+            {
+              "id": "focus_next",
+              "label": "Move Focus To Next Presentation"
+            },
+            {
+              "id": "focus_previous",
+              "label": "Move Focus To Previous Presentation"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "group_id_dropdown",
+          "type": "dropdown",
+          "label": "Group",
+          "description": "Choose an existing Group\nOr manually specify via text/variable)",
+          "default": "",
+          "visibleWhen": "(options) => options.active_presentation_operation == 'group' || options.focused_presentation_operation == 'group' || options.specific_presentation_operation == 'group'",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/actions.ts:1315); each choice id is the group NAME (the source notes that UUIDs do not work with the API yet), the label is the name. The last entry is always the placeholder { id: 'manually_specify_groupid', label: 'Manually Specify Group ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "group_id_text",
+          "type": "textinput",
+          "label": "Group ID",
+          "description": "Enter Group Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.group_id_dropdown == 'manually_specify_groupid' && (options.active_presentation_operation == 'group' || options.focused_presentation_operation == 'group' || options.specific_presentation_operation == 'group')"
+        },
+        {
+          "id": "timeline_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "rewind",
+              "label": "Rewind"
+            }
+          ],
+          "visibleWhen": "(options) => options.active_announcement_operation == 'timeline_operation' || options.active_presentation_operation == 'timeline_operation' || options.focused_presentation_operation == 'timeline_operation' || options.specific_presentation_operation == 'timeline_operation'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 718
+      }
+    },
+    {
+      "id": "specificPresentationOperation",
+      "name": "Specific Presentation: Operation",
+      "description": "Perform an operation on a specifically identified Presentation.",
+      "options": [
+        {
+          "id": "specific_presentation_operation",
+          "type": "dropdown",
+          "label": "Specific Presentation: Operation",
+          "description": "Choose an operation to perform on a specifically identified Presentation. NOTE: This action targets the presentation in the library - not a playlist!",
+          "default": "focus",
+          "choices": [
+            {
+              "id": "focus",
+              "label": "Focus Specified Presentation"
+            },
+            {
+              "id": "trigger_next",
+              "label": "Trigger Next Slide"
+            },
+            {
+              "id": "trigger_previous",
+              "label": "Trigger Previous Slide"
+            },
+            {
+              "id": "trigger_first",
+              "label": "Trigger First Slide"
+            },
+            {
+              "id": "trigger_index",
+              "label": "Trigger Slide By It's Index"
+            },
+            {
+              "id": "group",
+              "label": "Trigger Specified Group"
+            },
+            {
+              "id": "timeline_operation",
+              "label": "Perform Timeline Operation"
+            }
+          ]
+        },
+        {
+          "id": "presentation_uuid",
+          "type": "textinput",
+          "label": "Presentation UUID",
+          "description": "Click Learn to get UUID of currently focused presentation.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Index",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_announcement_operation == 'trigger_index' || options.active_presentation_operation == 'trigger_index' || options.focused_presentation_operation == 'trigger_index' || options.specific_presentation_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index' || options.active_announcement_playlist_operation == 'trigger_index_cueindex' || options.active_presentation_playlist_operation == 'trigger_index' || options.active_presentation_playlist_operation == 'trigger_index_cueindex' || options.focused_playlist_operation == 'trigger_index' || options.focused_playlist_operation == 'trigger_index_cueindex' || options.specific_playlist_operation == 'trigger_index' || options.specific_playlist_operation == 'trigger_index_cueindex' || options.hasOwnProperty('library_id')"
+        },
+        {
+          "id": "group_id_dropdown",
+          "type": "dropdown",
+          "label": "Group",
+          "description": "Choose an existing Group\nOr manually specify via text/variable)",
+          "default": "",
+          "visibleWhen": "(options) => options.active_presentation_operation == 'group' || options.focused_presentation_operation == 'group' || options.specific_presentation_operation == 'group'",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/actions.ts:1315); each choice id is the group NAME (the source notes that UUIDs do not work with the API yet), the label is the name. The last entry is always the placeholder { id: 'manually_specify_groupid', label: 'Manually Specify Group ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "group_id_text",
+          "type": "textinput",
+          "label": "Group ID",
+          "description": "Enter Group Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.group_id_dropdown == 'manually_specify_groupid' && (options.active_presentation_operation == 'group' || options.focused_presentation_operation == 'group' || options.specific_presentation_operation == 'group')"
+        },
+        {
+          "id": "timeline_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "rewind",
+              "label": "Rewind"
+            }
+          ],
+          "visibleWhen": "(options) => options.active_announcement_operation == 'timeline_operation' || options.active_presentation_operation == 'timeline_operation' || options.focused_presentation_operation == 'timeline_operation' || options.specific_presentation_operation == 'timeline_operation'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 772
+      }
+    },
+    {
+      "id": "propOperation",
+      "name": "Prop: Operation",
+      "description": "Perform an operation of the specified prop.",
+      "options": [
+        {
+          "id": "prop_operation",
+          "type": "dropdown",
+          "label": "Prop: Operation",
+          "description": "Choose an operation to perform on a specifically identified prop",
+          "default": "show",
+          "choices": [
+            {
+              "id": "show",
+              "label": "Show"
+            },
+            {
+              "id": "hide",
+              "label": "Hide"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        },
+        {
+          "id": "prop_id_dropdown",
+          "type": "dropdown",
+          "label": "Prop",
+          "description": "Choose an existing Prop\nOr manually specify text/variable",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1357); each choice id is the prop UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_propid', label: 'Manually Specify Prop ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "prop_id_text",
+          "type": "textinput",
+          "label": "Prop ID",
+          "description": "Enter Prop Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.prop_id_dropdown == 'manually_specify_propid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 839
+      }
+    },
+    {
+      "id": "stageDisplayOperation",
+      "name": "Stage Display: Operation",
+      "description": "Perform an operation on the stage display",
+      "options": [
+        {
+          "id": "stagedisplay_operation",
+          "type": "dropdown",
+          "label": "Stage Display: Operation",
+          "description": "Choose an operation to perform on a stage display",
+          "default": "show_stage_message",
+          "choices": [
+            {
+              "id": "show_stage_message",
+              "label": "Show Stage Message"
+            },
+            {
+              "id": "hide_stage_message",
+              "label": "Hide Stage Message"
+            },
+            {
+              "id": "toggle_stage_message",
+              "label": "Toggle Stage Message"
+            },
+            {
+              "id": "set_layout",
+              "label": "Set Stage Display Layout"
+            }
+          ]
+        },
+        {
+          "id": "stage_message_text",
+          "type": "textinput",
+          "label": "Stage Message Text",
+          "description": "Enter text to display on stage message.\nEscape \" and \\ with a leading \\",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.stagedisplay_operation == 'show_stage_message' || options.stagedisplay_operation == 'toggle_stage_message'"
+        },
+        {
+          "id": "stagescreen_id_dropdown",
+          "type": "dropdown",
+          "label": "Stage Screen",
+          "description": "Choose an existing Stage Screen\nOr manually specify via text/variable",
+          "default": "",
+          "visibleWhen": "(options) => options.stagedisplay_operation == 'set_layout'",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1424); each choice id is the stage screen UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_stagescreenid', label: 'Manually Specify Stage Screen ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "stagescreen_id_text",
+          "type": "textinput",
+          "label": "Stage Screen Id",
+          "description": "Enter Stage Screen Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.stagescreen_id_dropdown == 'manually_specify_stagescreenid' && options.stagedisplay_operation == 'set_layout'"
+        },
+        {
+          "id": "stagescreenlayout_id_dropdown",
+          "type": "dropdown",
+          "label": "Stage Layout",
+          "description": "Choose an existing Stage Screen Layout\nOr manually specify via text/variable",
+          "default": "",
+          "visibleWhen": "(options) => options.stagedisplay_operation == 'set_layout'",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1462); each choice id is the stage layout UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_stagescreenlayoutid', label: 'Manually Specify Stage Screen Layout ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "stagescreenlayout_id_text",
+          "type": "textinput",
+          "label": "Stage Layout Id",
+          "description": "Enter Stage Screen Layout Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.stagescreenlayout_id_dropdown == 'manually_specify_stagescreenlayoutid' && options.stagedisplay_operation == 'set_layout'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 882
+      }
+    },
+    {
+      "id": "screensOperation",
+      "name": "Screens: Operation",
+      "description": "Show or hide audience or stage screens.",
+      "options": [
+        {
+          "id": "screens_choice",
+          "type": "dropdown",
+          "label": "Select Screens",
+          "description": "Select which screens to perform operation on.",
+          "default": "audience",
+          "choices": [
+            {
+              "id": "audience",
+              "label": "Audience Screens"
+            },
+            {
+              "id": "stage",
+              "label": "Stage Screens"
+            }
+          ]
+        },
+        {
+          "id": "screens_operation",
+          "type": "dropdown",
+          "label": "Screens Operation",
+          "description": "Show or hide selected screens.",
+          "default": "show",
+          "choices": [
+            {
+              "id": "show",
+              "label": "Show"
+            },
+            {
+              "id": "hide",
+              "label": "Hide"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 939
+      }
+    },
+    {
+      "id": "timerOperation",
+      "name": "Timer: Operation",
+      "description": "Performs an operation on the specified timer.",
+      "options": [
+        {
+          "id": "timer_id_dropdown",
+          "type": "dropdown",
+          "label": "Timer",
+          "description": "Choose an existing Timer\nOr manually specify via text/variable",
+          "default": "manually_specify_timerid",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:670); each choice id is the timer UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_timerid', label: 'Manually Specify Timer ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "timer_id_text",
+          "type": "textinput",
+          "label": "Timer ID",
+          "description": "Enter Timer Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.timer_id_dropdown == 'manually_specify_timerid'"
+        },
+        {
+          "id": "timer_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "reset",
+              "label": "Reset"
+            },
+            {
+              "id": "increment",
+              "label": "Increment"
+            },
+            {
+              "id": "set",
+              "label": "Set"
+            }
+          ]
+        },
+        {
+          "id": "timer_increment_value",
+          "type": "textinput",
+          "label": "Time (+-seconds)",
+          "description": "The number of seconds to add to this currently running timer. A negative number will subtract time from this timer.",
+          "default": "30",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.timer_operation == 'increment'"
+        },
+        {
+          "id": "timer_type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "countdown",
+          "choices": [
+            {
+              "id": "countdown",
+              "label": "Countdown Timer"
+            },
+            {
+              "id": "countdownto",
+              "label": "Countdown To Time"
+            },
+            {
+              "id": "elapsed",
+              "label": "Elapsed Time"
+            }
+          ],
+          "visibleWhen": "(options) => options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_duration",
+          "type": "textinput",
+          "label": "Duration",
+          "description": "Duration. In the form of hh:mm:ss or mm:ss or ss. Any or all of hh, mm, ss can have any number of digits. You can also use variables to construct a valid duration.",
+          "default": "00:05:00",
+          "useVariables": true,
+          "regex": "/^(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\))$/",
+          "visibleWhen": "(options) => options.timer_type == 'countdown' && options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_time_of_day",
+          "type": "textinput",
+          "label": "Time Of Day",
+          "description": "Time of day to countdown to. In the form of hh:mm:ss or mm:ss or ss. Any or all of hh, mm, ss can have any number of digits. You can also use variables to construct a valid time.",
+          "default": "09:00:00",
+          "useVariables": true,
+          "regex": "/^(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\))$/",
+          "visibleWhen": "(options) => options.timer_type == 'countdownto' && options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_timeperiod",
+          "type": "dropdown",
+          "label": "Time Period",
+          "default": "am",
+          "choices": [
+            {
+              "id": "am",
+              "label": "AM"
+            },
+            {
+              "id": "pm",
+              "label": "PM"
+            },
+            {
+              "id": "24h",
+              "label": "24H"
+            }
+          ],
+          "visibleWhen": "(options) => options.timer_type == 'countdownto' && options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_start_time",
+          "type": "textinput",
+          "label": "Start Time",
+          "description": "Start Time. In the form of hh:mm:ss or mm:ss or ss. Any or all of hh, mm, ss can have any number of digits. You can also use variables to construct a valid time.",
+          "default": "00:00:00",
+          "useVariables": true,
+          "regex": "/^(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\))$/",
+          "visibleWhen": "(options) => options.timer_type == 'elapsed' && options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_end_time",
+          "type": "textinput",
+          "label": "End Time (Optional). In the form of hh:mm:ss or mm:ss or ss. Any or all of hh, mm, ss can have any number of digits. You can also use variables to construct a valid time.",
+          "description": "Optional End Time (In the form of HH:MM:SS). Leave blank for no limit.",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\)):?(\\d*|\\$\\(.*:.*\\))$/",
+          "visibleWhen": "(options) => options.timer_type == 'elapsed' && options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_allows_overrun",
+          "type": "checkbox",
+          "label": "Allows Overrun",
+          "default": true,
+          "visibleWhen": "(options) => options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_optional_operation",
+          "type": "dropdown",
+          "label": "Operation (Optional, can be None)",
+          "description": "Choose an optional operation to perform in addition to setting details of timer - Select \"None\" to perform no operation and just set the timer",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "reset",
+              "label": "Reset"
+            },
+            {
+              "id": "none",
+              "label": "None"
+            }
+          ],
+          "visibleWhen": "(options) => options.timer_operation == 'set'"
+        },
+        {
+          "id": "timer_new_name",
+          "type": "textinput",
+          "label": "New Name (Optional)",
+          "description": "OPTIONAL new name for timer. (Leave blank to keep timer name unchanged)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.timer_operation == 'set' && options.timer_optional_operation == 'none'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 967
+      }
+    },
+    {
+      "id": "transportLayerOperation",
+      "name": "Transport Control: Operation",
+      "description": "Perform a Transport Control Operation for a specified layer",
+      "options": [
+        {
+          "id": "transport_layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "presentation",
+          "choices": [
+            {
+              "id": "presentation",
+              "label": "Presentation"
+            },
+            {
+              "id": "announcement",
+              "label": "Announcement"
+            },
+            {
+              "id": "audio",
+              "label": "Audio"
+            }
+          ]
+        },
+        {
+          "id": "transport_operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "toggle_play_pause",
+              "label": "Toggle Play/Pause"
+            },
+            {
+              "id": "skip_forward",
+              "label": "Skip Forward"
+            },
+            {
+              "id": "skip_backward",
+              "label": "Skip Backward"
+            },
+            {
+              "id": "go_to_time",
+              "label": "Go To Time"
+            },
+            {
+              "id": "go_to_end",
+              "label": "Go To End"
+            }
+          ]
+        },
+        {
+          "id": "transport_skip_time",
+          "type": "textinput",
+          "label": "Number Of Seconds To Skip",
+          "description": "Positive Integer",
+          "default": "15",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.transport_operation == 'skip_forward' || options.transport_operation == 'skip_backward'"
+        },
+        {
+          "id": "transport_goto_time",
+          "type": "textinput",
+          "label": "Goto Time",
+          "description": "Positive Integer",
+          "default": "15",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.transport_operation == 'go_to_time'"
+        },
+        {
+          "id": "transport_goto_end_time",
+          "type": "textinput",
+          "label": "Seconds From End",
+          "description": "Positive Integer",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.transport_operation == 'go_to_end'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1125
+      }
+    },
+    {
+      "id": "triggerOperation",
+      "name": "Trigger: Operation",
+      "description": "Triggers the next/previous item in the focused presentation, audio playlist or media playlist.",
+      "options": [
+        {
+          "id": "trigger_target",
+          "type": "dropdown",
+          "label": "Trigger Target",
+          "default": "presentation",
+          "choices": [
+            {
+              "id": "presentation",
+              "label": "Presentation"
+            },
+            {
+              "id": "media",
+              "label": "Media Playlist"
+            },
+            {
+              "id": "audio",
+              "label": "Audio Playlist"
+            }
+          ]
+        },
+        {
+          "id": "trigger_next_previous",
+          "type": "dropdown",
+          "label": "Next or Previous",
+          "default": "next",
+          "choices": [
+            {
+              "id": "next",
+              "label": "Next"
+            },
+            {
+              "id": "previous",
+              "label": "Previous"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1198
+      }
+    },
+    {
+      "id": "videoInputsIdTrigger",
+      "name": "VideoInputs: Trigger",
+      "description": "Triggers a video input from the video inputs playlist.",
+      "options": [
+        {
+          "id": "video_input_id_dropdown",
+          "type": "dropdown",
+          "label": "Video Input",
+          "description": "Choose an existing Video Input\nOr manually specify via text/variable",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1391); each choice id is the video input UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_videoinputsid', label: 'Manually Specify Video Input ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/actions.ts, \"Update ... choices\" blocks at the end of the GetActions function); the source default recorded here is the static one."
+        },
+        {
+          "id": "video_input_id_text",
+          "type": "textinput",
+          "label": "Video Input ID",
+          "description": "Enter Video Input Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.video_input_id_dropdown == 'manually_specify_videoinputsid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 1222
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "Layer",
+      "name": "Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "description": "\"Any Layer\" will trigger this feedback if any layer is active",
+          "default": "slide",
+          "choices": [
+            {
+              "id": "audio",
+              "label": "Audio"
+            },
+            {
+              "id": "messages",
+              "label": "Messages"
+            },
+            {
+              "id": "props",
+              "label": "Props"
+            },
+            {
+              "id": "announcements",
+              "label": "Announcements"
+            },
+            {
+              "id": "slide",
+              "label": "Slide"
+            },
+            {
+              "id": "media",
+              "label": "Media"
+            },
+            {
+              "id": "video_input",
+              "label": "Video Input"
+            },
+            {
+              "id": "any",
+              "label": "Any Layer"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 12
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "Screens",
+      "name": "Screens",
+      "options": [
+        {
+          "id": "screens",
+          "type": "dropdown",
+          "label": "Screens",
+          "default": "audience",
+          "choices": [
+            {
+              "id": "audience",
+              "label": "Audience"
+            },
+            {
+              "id": "stage",
+              "label": "Stage"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 46
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "StageMessage",
+      "name": "Stage Message",
+      "options": [
+        {
+          "id": "check_option",
+          "type": "dropdown",
+          "label": "Check",
+          "default": "any_stage_message_active",
+          "choices": [
+            {
+              "id": "any_stage_message_active",
+              "label": "Any Stage Message Is Active"
+            },
+            {
+              "id": "specific_stage_message_active",
+              "label": "Specific Stage Message Is Active"
+            }
+          ]
+        },
+        {
+          "id": "stage_message_text",
+          "type": "textinput",
+          "label": "Specific Stage Message Text To Check For",
+          "description": "Stage message text that this feedback will return true when it matches and is live",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.check_option == 'specific_stage_message_active'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 69
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "StageLayouts",
+      "name": "Stage Layouts",
+      "options": [
+        {
+          "id": "stagescreen_id_dropdown",
+          "type": "dropdown",
+          "label": "Stage Screen",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1424); each choice id is the stage screen UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_stagescreenid', label: 'Manually Specify Stage Screen ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/feedbacks.ts, \"Update ... choices\" blocks at the end of the GetFeedbacks function); the source default recorded here is the static one."
+        },
+        {
+          "id": "stagescreen_id_text",
+          "type": "textinput",
+          "label": "Stage Screen Id",
+          "description": "Enter Stage Screen Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.stagescreen_id_dropdown == 'manually_specify_stagescreenid'"
+        },
+        {
+          "id": "stagescreenlayout_id_dropdown",
+          "type": "dropdown",
+          "label": "Stage Layout",
+          "description": "Choose an existing Stage Screen Layout\nOr manually specify via text/variable",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1462); each choice id is the stage layout UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_stagescreenlayoutid', label: 'Manually Specify Stage Screen Layout ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/feedbacks.ts, \"Update ... choices\" blocks at the end of the GetFeedbacks function); the source default recorded here is the static one."
+        },
+        {
+          "id": "stagescreenlayout_id_text",
+          "type": "textinput",
+          "label": "Stage Layout Id",
+          "description": "Enter Stage Screen Layout Name or Index or UUID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.stagescreenlayout_id_dropdown == 'manually_specify_stagescreenlayoutid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 106
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "ActiveLook",
+      "name": "Active Look",
+      "options": [
+        {
+          "id": "active_look_dropdown",
+          "type": "dropdown",
+          "label": "Active Look",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1326); each choice id is the look NAME (not the UUID), the label is the name. The last entry is always the placeholder { id: 'manually_specify_lookid', label: 'Manually Specify Look ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/feedbacks.ts, \"Update ... choices\" blocks at the end of the GetFeedbacks function); the source default recorded here is the static one."
+        },
+        {
+          "id": "active_look_text",
+          "type": "textinput",
+          "label": "Active Look",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.active_look_dropdown == 'manually_specify_lookid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 210
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "PropActive",
+      "name": "Prop Active",
+      "options": [
+        {
+          "id": "prop_id_dropdown",
+          "type": "dropdown",
+          "label": "Prop",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:1357); each choice id is the prop UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_propid', label: 'Manually Specify Prop ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/feedbacks.ts, \"Update ... choices\" blocks at the end of the GetFeedbacks function); the source default recorded here is the static one."
+        },
+        {
+          "id": "prop_id_text",
+          "type": "textinput",
+          "label": "Prop ID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.prop_id_dropdown == 'manually_specify_propid'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 301
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "TransportPlaying",
+      "name": "Transport Playing",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "description": "Which layer to check if transport is playing",
+          "default": "presentation",
+          "choices": [
+            {
+              "id": "presentation",
+              "label": "Presentation"
+            },
+            {
+              "id": "audio",
+              "label": "Audio"
+            },
+            {
+              "id": "announcement",
+              "label": "Announcement"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 349
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "TimerState",
+      "name": "Timer State",
+      "options": [
+        {
+          "id": "timer_id_dropdown",
+          "type": "dropdown",
+          "label": "Timer",
+          "default": "",
+          "valueType": "string",
+          "choicesNote": "Rebuilt at runtime from the data ProPresenter reports (src/main.ts:670); each choice id is the timer UUID, the label is the name. The last entry is always the placeholder { id: 'manually_specify_timerid', label: 'Manually Specify Timer ID Below' }; selecting it makes the matching text field be used instead. Until ProPresenter has reported its data the list holds only the placeholder. At runtime the module sets the dropdown default to the id of the first choice (src/feedbacks.ts, \"Update ... choices\" blocks at the end of the GetFeedbacks function); the source default recorded here is the static one."
+        },
+        {
+          "id": "timer_id_text",
+          "type": "textinput",
+          "label": "Timer ID",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.timer_id_dropdown == 'manually_specify_timerid'"
+        },
+        {
+          "id": "timer_state",
+          "type": "dropdown",
+          "label": "Timer State",
+          "description": "Tip: Overruning = overrun and still running. Overran = overrun and stopped.",
+          "default": "running",
+          "choices": [
+            {
+              "id": "running",
+              "label": "Running"
+            },
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            },
+            {
+              "id": "overrunning",
+              "label": "Overrunning"
+            },
+            {
+              "id": "overran",
+              "label": "Overran"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 376
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "Capture",
+      "name": "Active Capture",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 438
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Complete list: 28 actions (src/actions.ts, one object typed by the ActionId enum at the end of the file) and 9 boolean feedbacks (src/feedbacks.ts GetFeedbacks). Variables, presets and the MIDI button-pusher are not catalogued.",
+    "Protocol: the module uses the open ProPresenter network API (README and companion/HELP.md: ProPresenter 7.9 and later; the old renewedvision-propresenter module is for older versions) through a ProPresenter object from the npm package renewedvision-propresenter created with host, port and timeout (src/main.ts:290; config fields host and port, default port 1025, src/config.ts:68-79). The transport inside that package was not read. Optionally it opens a MIDI port (default virtual port name \"CompanionProPresenterMIDI\") to push Companion buttons from ProPresenter (config.ts:91-128). Not run against ProPresenter.",
+    "Built on @companion-module/base ~1.10.0: options do not support expressions. Text inputs with useVariables resolve $(...) variables.",
+    "Option definitions are shared objects (the `options` table in src/utils.ts); several actions reuse the same option id (for example index, cue_index, timeline_operation, group_id_dropdown, audio_item_id, media_item_id) with one isVisible rule that covers every action using it. visibleWhen records that function source as written; it is informational and not evaluated.",
+    "Dynamic dropdowns (looks, macros, props, video inputs, timers, stage screens, stage layouts, messages, clear groups, groups) are filled at runtime, see choicesNote on each option. Their ids are mostly UUIDs, but look and group choices use the NAME as id. The static first/only entry in the source (id manually_specify_*) is a placeholder that is always kept as the last choice. The Companion option values for the text fields beside them accept a name, an index or a UUID (tooltips).",
+    "Source oddities kept as written: message_id_text has default \"TODO: not yet implemented\" (src/utils.ts); timer_id_dropdown has the static default \"manually_specify_timerid\" while the other dropdown placeholders default to \"\" (the module replaces defaults at runtime, see choicesNote); the clear-layer dropdown labels video_input as \"Video_input\" in the action and \"Video Input\" in the Layer feedback.",
+    "In the source the runtime choice updates locate several dropdowns by array position (options[0], options[1], options[2], options[4]); reordering options in the source would silently break that. The group dropdown is found by id (src/actions.ts:1310-1313).",
+    "Tooltips of the source are recorded as option description. Actions also define `learn` callbacks (src/actions.ts:146, 218, 249, 383, 523, 571, 617) which are not catalogued."
+  ]
+}

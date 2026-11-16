@@ -1,0 +1,1051 @@
+{
+  "moduleId": "renewedvision-propresenter",
+  "name": "Renewed Vision ProPresenter (ProRemote protocol)",
+  "repo": "bitfocus/companion-module-renewedvision-propresenter",
+  "version": "3.0.2",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-10-06",
+  "lastCommitSha": "ade3d65",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "next",
+      "name": "Next Slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 106
+      }
+    },
+    {
+      "id": "last",
+      "name": "Previous Slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 117
+      }
+    },
+    {
+      "id": "slideNumber",
+      "name": "Specific Slide",
+      "options": [
+        {
+          "id": "slide",
+          "type": "textinput",
+          "label": "Slide Number",
+          "description": "(Supports variable)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^[+-]?\\d+$/"
+        },
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "Presentation Path",
+          "description": "See the README for more information (Supports variable)",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^$|^\\d+$|^\\d+(\\.\\d+)*:\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 128
+      }
+    },
+    {
+      "id": "slideLabel",
+      "name": "Specific Slide With Label",
+      "options": [
+        {
+          "id": "playlistName",
+          "type": "textinput",
+          "label": "Playlist Name",
+          "description": "Find the first playlist with that matches this playlist name (Supports variable)",
+          "useVariables": true
+        },
+        {
+          "id": "presentationName",
+          "type": "textinput",
+          "label": "Presentation Name",
+          "description": "Find the first presentation (in above playlist) that matches this presentation name (Supports variable or text with wildcard char *)",
+          "useVariables": true
+        },
+        {
+          "id": "slideLabel",
+          "type": "textinput",
+          "label": "Slide With Label",
+          "description": "Find the first slide (in above presentation) with matching *Slide Label* and trigger that slide (Supports variable)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 200
+      }
+    },
+    {
+      "id": "groupSlide",
+      "name": "Specific Slide In A Group",
+      "options": [
+        {
+          "id": "groupName",
+          "type": "textinput",
+          "label": "Group(s) Name",
+          "description": "Specify the Name of the Group with the slide you want to trigger (Supports variable or multiple group names separated by |)",
+          "useVariables": true
+        },
+        {
+          "id": "slideNumber",
+          "type": "textinput",
+          "label": "Slide Number (Within Group)",
+          "description": "Which slide in the group? (Supports variable)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "presentationPath",
+          "type": "textinput",
+          "label": "Presentation Path (Leave Blank for Current)",
+          "description": "Leave this blank to target the current presentation (Supports variable)",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^$|^\\d+$|^\\d+(\\.\\d+)*:\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 247
+      }
+    },
+    {
+      "id": "clearall",
+      "name": "Clear All",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 306
+      }
+    },
+    {
+      "id": "clearslide",
+      "name": "Clear Slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 316
+      }
+    },
+    {
+      "id": "clearprops",
+      "name": "Clear Props",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 326
+      }
+    },
+    {
+      "id": "clearaudio",
+      "name": "Clear Audio",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 336
+      }
+    },
+    {
+      "id": "clearbackground",
+      "name": "Clear Background",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 346
+      }
+    },
+    {
+      "id": "cleartelestrator",
+      "name": "Clear Telestrator",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 356
+      }
+    },
+    {
+      "id": "cleartologo",
+      "name": "Clear to Logo",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 366
+      }
+    },
+    {
+      "id": "clearAnnouncements",
+      "name": "Clear Announcements",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 376
+      }
+    },
+    {
+      "id": "clearMessages",
+      "name": "Clear Messages",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 386
+      }
+    },
+    {
+      "id": "stageDisplayLayout",
+      "name": "Pro6 Stage Display Layout",
+      "options": [
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Pro6 Stage Display Index",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 396
+      }
+    },
+    {
+      "id": "pro7StageDisplayLayout",
+      "name": "Pro7 Stage Display Layout",
+      "options": [
+        {
+          "id": "pro7StageScreenUUID",
+          "type": "dropdown",
+          "label": "Pro7 Stage Display Screen",
+          "description": "Choose which stage display screen you want to update layout",
+          "default": "",
+          "choicesNote": "Filled at runtime from this.instance.currentState.internal.pro7StageScreens",
+          "valueType": "string"
+        },
+        {
+          "id": "pro7StageLayoutUUID",
+          "type": "dropdown",
+          "label": "Pro7 Stage Display Layout",
+          "description": "Choose the new stage display layout to apply",
+          "default": "",
+          "choicesNote": "Filled at runtime from this.instance.currentState.internal.pro7StageLayouts",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 415
+      }
+    },
+    {
+      "id": "pro7SetLook",
+      "name": "Pro7 Set Look",
+      "options": [
+        {
+          "id": "pro7LookUUID",
+          "type": "dropdown",
+          "label": "Look",
+          "description": "Choose which Look to make live",
+          "default": "",
+          "choicesNote": "Filled at runtime from this.instance.currentState.internal.pro7Looks",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 449
+      }
+    },
+    {
+      "id": "pro7TriggerMacro",
+      "name": "Pro7 Trigger Macro",
+      "options": [
+        {
+          "id": "pro7MacroUUID",
+          "type": "dropdown",
+          "label": "Macro",
+          "description": "Choose which Macro to trigger",
+          "default": "",
+          "choicesNote": "Filled at runtime from this.instance.currentState.internal.pro7Macros",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 472
+      }
+    },
+    {
+      "id": "stageDisplayMessage",
+      "name": "Stage Display Message",
+      "options": [
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "Message",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 495
+      }
+    },
+    {
+      "id": "stageDisplayHideMessage",
+      "name": "Stage Display Hide Message",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 515
+      }
+    },
+    {
+      "id": "clockStart",
+      "name": "Start Clock",
+      "options": [
+        {
+          "id": "clockIndex",
+          "type": "textinput",
+          "label": "Clock Number",
+          "description": "Zero based index of countdown clock - first one is 0, second one is 1 and so on...",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 525
+      }
+    },
+    {
+      "id": "clockStop",
+      "name": "Stop Clock",
+      "options": [
+        {
+          "id": "clockIndex",
+          "type": "textinput",
+          "label": "Clock Number",
+          "description": "Zero based index of countdown clock - first one is 0, second one is 1 and so on...",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 546
+      }
+    },
+    {
+      "id": "clockReset",
+      "name": "Reset Clock",
+      "options": [
+        {
+          "id": "clockIndex",
+          "type": "textinput",
+          "label": "Clock Number",
+          "description": "Zero based index of countdown clock - first one is 0, second one is 1 and so on...",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 567
+      }
+    },
+    {
+      "id": "clockUpdate",
+      "name": "Update Clock",
+      "options": [
+        {
+          "id": "clockName",
+          "type": "textinput",
+          "label": "New Name For Clock",
+          "description": "If this does not match the existing clock name, the clock name will be updated/renamed. Enter the existing clock name to leave it unchanged.",
+          "default": "Timer"
+        },
+        {
+          "id": "clockIndex",
+          "type": "textinput",
+          "label": "Clock Number",
+          "description": "Zero based index of countdown clock - first one is 0, second one is 1 and so on...",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "clockTime",
+          "type": "textinput",
+          "label": "Countdown Duration, Elapsed Start Time or Countdown To Time",
+          "description": "New duration (or time) for countdown clocks. Also used as optional starting time for elapsed time clocks. Formatted as HH:MM:SS - but you can also use other (shorthand) formats, see the README for more information",
+          "default": "00:05:00",
+          "regex": "/^[-|+]?\\d*:?\\d*:?\\d*$/"
+        },
+        {
+          "id": "clockOverRun",
+          "type": "dropdown",
+          "label": "Over Run",
+          "default": "false",
+          "choices": [
+            {
+              "id": "false",
+              "label": "False"
+            },
+            {
+              "id": "true",
+              "label": "True"
+            }
+          ]
+        },
+        {
+          "id": "clockType",
+          "type": "dropdown",
+          "label": "Clock Type",
+          "description": "If the clock specified by the Clock Number is not of this type it will be UPDATED/CONVERTED this type.",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Countdown Timer"
+            },
+            {
+              "id": "1",
+              "label": "Countdown To Time"
+            },
+            {
+              "id": "2",
+              "label": "Elapsed Time"
+            }
+          ]
+        },
+        {
+          "id": "clockTimePeriodFormat",
+          "type": "dropdown",
+          "label": "Clock Time Format",
+          "description": "Only Required for Countdown To Time Clock - otherwise this is ignored.",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "AM"
+            },
+            {
+              "id": "1",
+              "label": "PM"
+            },
+            {
+              "id": "2",
+              "label": "24Hr (Pro7 Only)"
+            }
+          ]
+        },
+        {
+          "id": "clockElapsedTime",
+          "type": "textinput",
+          "label": "Elapsed End Time",
+          "description": "Only Required for Elapsed Time Clock - otherwise this is ignored.",
+          "default": "00:10:00",
+          "regex": "/^[-|+]?\\d*:?\\d*:?\\d*$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 588
+      }
+    },
+    {
+      "id": "messageSend",
+      "name": "Show Message",
+      "options": [
+        {
+          "id": "messageIndex",
+          "type": "textinput",
+          "label": "Message Index",
+          "description": "Zero based index of message to show - first one is 0, second one is 1 and so on...(Supports variable)",
+          "default": "0",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "messageKeys",
+          "type": "textinput",
+          "label": "Comma Separated List Of Message Token Names",
+          "description": "Comma separated, list of message token names used in the message.  Associated values are given below. Use double commas (,,) to insert an actual comma in a token name. (WARNING! - A simple typo here could crash and burn ProPresenter)",
+          "default": ""
+        },
+        {
+          "id": "messageValues",
+          "type": "textinput",
+          "label": "Comma Separated List Of Message Token Values",
+          "description": "Comma separated, list of values for each message token above. Use double commas (,,) to insert an actual comma in a token value. You can optionally use a single variable. (Supports variable. WARNING! - A simple typo here could crash and burn ProPresenter)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 736
+      }
+    },
+    {
+      "id": "messageHide",
+      "name": "Hide Message",
+      "options": [
+        {
+          "id": "messageIndex",
+          "type": "textinput",
+          "label": "Message Index",
+          "description": "Zero based index of message to hide - first one is 0, second one is 1 and so on...(Supports variable)",
+          "default": "0",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 800
+      }
+    },
+    {
+      "id": "audioStartCue",
+      "name": "Audio Start Cue",
+      "options": [
+        {
+          "id": "audioChildPath",
+          "type": "textinput",
+          "label": "Audio Item Playlist Path",
+          "description": "PresentationPath format - See the README for more information",
+          "default": "",
+          "regex": "/^$|^\\d+$|^\\d+(\\.\\d+)*:\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 828
+      }
+    },
+    {
+      "id": "audioPlayPause",
+      "name": "Audio Play/Pause",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 848
+      }
+    },
+    {
+      "id": "timelinePlayPause",
+      "name": "Timeline Play/Pause",
+      "options": [
+        {
+          "id": "presentationPath",
+          "type": "textinput",
+          "label": "Presentation Path",
+          "description": "PresentationPath format - See the README for more information",
+          "default": "",
+          "regex": "/^$|^\\d+$|^\\d+(\\.\\d+)*:\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 858
+      }
+    },
+    {
+      "id": "timelineRewind",
+      "name": "Timeline Rewind",
+      "options": [
+        {
+          "id": "presentationPath",
+          "type": "textinput",
+          "label": "Presentation Path",
+          "description": "PresentationPath format - See the README for more information",
+          "default": "",
+          "regex": "/^$|^\\d+$|^\\d+(\\.\\d+)*:\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 878
+      }
+    },
+    {
+      "id": "enableFollowerControl",
+      "name": "Enable Follower Control",
+      "options": [
+        {
+          "id": "enableFollowerControl",
+          "type": "dropdown",
+          "label": "Enable Follower Control",
+          "default": "false",
+          "choices": [
+            {
+              "id": "no",
+              "label": "No"
+            },
+            {
+              "id": "yes",
+              "label": "Yes"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 898
+      }
+    },
+    {
+      "id": "nwSpecificSlide",
+      "name": "Specific Slide (Network Link)",
+      "options": [
+        {
+          "id": "playlistName",
+          "type": "textinput",
+          "label": "Playlist Name",
+          "description": "Name of the PlayList that contains the presentation with the slide you want to trigger (Case Sensitive)"
+        },
+        {
+          "id": "presentationName",
+          "type": "textinput",
+          "label": "Presentation Name",
+          "description": "Name of the presentation with the slide you want to trigger (Case Sensitive)"
+        },
+        {
+          "id": "slideIndex",
+          "type": "textinput",
+          "label": "Slide Index",
+          "description": "Index of the slide you want to trigger (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 917
+      }
+    },
+    {
+      "id": "nwPropTrigger",
+      "name": "Prop Trigger (Network Link)",
+      "options": [
+        {
+          "id": "propIndex",
+          "type": "textinput",
+          "label": "Prop Index",
+          "description": "Index of the Prop you want to trigger (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "propName",
+          "type": "textinput",
+          "label": "Prop Name",
+          "description": "Name of the Prop you want to trigger (Case Sensitive)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 976
+      }
+    },
+    {
+      "id": "nwPropClear",
+      "name": "Prop Clear (Network Link)",
+      "options": [
+        {
+          "id": "propIndex",
+          "type": "textinput",
+          "label": "Prop Index",
+          "description": "Index of the Prop you want to clear (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "propName",
+          "type": "textinput",
+          "label": "Prop Name",
+          "description": "Name of the Prop you want to clear (Case Sensitive)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1016
+      }
+    },
+    {
+      "id": "nwMessageClear",
+      "name": "Message Clear (Network Link)",
+      "options": [
+        {
+          "id": "messageIndex",
+          "type": "textinput",
+          "label": "Message Index",
+          "description": "Index of the Message you want to clear (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "messageName",
+          "type": "textinput",
+          "label": "Message Name",
+          "description": "Name of the Message you want to clear (Case Sensitive)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1056
+      }
+    },
+    {
+      "id": "nwTriggerMedia",
+      "name": "Trigger Media (Network Link)",
+      "options": [
+        {
+          "id": "playlistName",
+          "type": "textinput",
+          "label": "Media Playlist Name",
+          "description": "Name of the Media PlayList that contains the media file you want to trigger (Case Sensitive)"
+        },
+        {
+          "id": "mediaIndex",
+          "type": "textinput",
+          "label": "Media Index",
+          "description": "Index of the media file you want to trigger (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "mediaName",
+          "type": "textinput",
+          "label": "Media Name",
+          "description": "Name of the media file you want to trigger (Case Sensitive)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1096
+      }
+    },
+    {
+      "id": "nwTriggerAudio",
+      "name": "Trigger Audio (Network Link)",
+      "options": [
+        {
+          "id": "playlistName",
+          "type": "textinput",
+          "label": "Audio Playlist Name",
+          "description": "Name of the Audio PlayList that contains the audio file you want to trigger (Case Sensitive)"
+        },
+        {
+          "id": "audioIndex",
+          "type": "textinput",
+          "label": "Audio Index",
+          "description": "Index of the audio file you want to trigger (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "audioName",
+          "type": "textinput",
+          "label": "Audio Name",
+          "description": "Name of the audio file you want to trigger (Case Sensitive)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1147
+      }
+    },
+    {
+      "id": "nwVideoInput",
+      "name": "Trigger Video Input (Network Link)",
+      "options": [
+        {
+          "id": "videoInputIndex",
+          "type": "textinput",
+          "label": "Video Index",
+          "description": "Index of the video input you want to trigger (1-based. Supports variable)",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "videoInputName",
+          "type": "textinput",
+          "label": "Video Input Name",
+          "description": "Name of the video input you want to trigger (Case Sensitive)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1198
+      }
+    },
+    {
+      "id": "newRandomNumber",
+      "name": "New Random Number",
+      "options": [
+        {
+          "id": "randomLimit",
+          "type": "textinput",
+          "label": "New Random Number Between 1 And:",
+          "description": "Updates the module variable current_random_number with a new random number up to the limit your enter. (Supports variable)",
+          "default": "10",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1238
+      }
+    },
+    {
+      "id": "nwCustom",
+      "name": "Custom Action (Network Link - Support Use Only)",
+      "options": [
+        {
+          "id": "endpointPath",
+          "type": "textinput",
+          "label": "Endpoint Path",
+          "description": "REST Endpoint path (must start with /)"
+        },
+        {
+          "id": "jsonData",
+          "type": "textinput",
+          "label": "JSON Data",
+          "description": "JSON Data (no single quotes, no trailing commas)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1258
+      }
+    },
+    {
+      "id": "customAction",
+      "name": "Custom Action (Support Use Only)",
+      "options": [
+        {
+          "id": "customAction",
+          "type": "textinput",
+          "label": "Custom Action",
+          "description": "Advanced use only. Must be a valid JSON action message that ProPresenter understands. An invalid message or even one little mistake can lead to crashes and data loss.",
+          "default": "{\"action\":\"customAction\",\"customProperty\":\"customValue\"}"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1282
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "stagedisplay_active",
+      "name": "Change colors based on active stage display",
+      "description": "If the specified stage display is active, change colors of the bank",
+      "options": [
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 39219
+        },
+        {
+          "id": "index",
+          "type": "textinput",
+          "label": "Stage Display Index",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1135
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "pro7_stagelayout_active",
+      "name": "Change colors based on the active layout for one of Pro7's stage screens",
+      "description": "If the specified stage layout is active on the specified stage screen, change colors of the bank",
+      "options": [
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 39219
+        },
+        {
+          "id": "pro7StageScreenUUID",
+          "type": "dropdown",
+          "label": "Pro7 Stage Display Screen",
+          "description": "Choose which stage display screen you want to monitor",
+          "choicesNote": "Filled at runtime from this.currentState.internal.pro7StageScreens",
+          "valueType": "string"
+        },
+        {
+          "id": "pro7StageLayoutUUID",
+          "type": "dropdown",
+          "label": "Pro7 Stage Display Layout",
+          "description": "Choose the stage display layout to trigger above color change",
+          "choicesNote": "Filled at runtime from this.currentState.internal.pro7StageLayouts",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1169
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "active_look",
+      "name": "Change colors based on active look",
+      "description": "If the specified look display is active, change colors of the bank",
+      "options": [
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 39219
+        },
+        {
+          "id": "look",
+          "type": "dropdown",
+          "label": "Look",
+          "description": "Choose the Look to trigger above color change",
+          "choicesNote": "Filled at runtime from this.currentState.internal.pro7Looks",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1234
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "propresenter_module_connected",
+      "name": "Change colors based on Propresenter module being connected",
+      "description": "Propresenter module being connected, change colors of the bank",
+      "options": [
+        {
+          "id": "cfg",
+          "type": "colorpicker",
+          "label": "Connected Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "cbg",
+          "type": "colorpicker",
+          "label": "Connected Background color",
+          "default": 39219
+        },
+        {
+          "id": "dfg",
+          "type": "colorpicker",
+          "label": "Disconnected Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "dbg",
+          "type": "colorpicker",
+          "label": "Disconnected Background color",
+          "default": 13369344
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1269
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "propresenter_follower_connected",
+      "name": "Change colors based on Propresenter follower being connected",
+      "description": "Propresenter follower being connected, change colors of the bank",
+      "options": [
+        {
+          "id": "fcfg",
+          "type": "colorpicker",
+          "label": "Connected & Controlled Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "fcbg",
+          "type": "colorpicker",
+          "label": "Connected & Controlled Background color",
+          "default": 39219
+        },
+        {
+          "id": "fcdfg",
+          "type": "colorpicker",
+          "label": "Connected & Control Disabled Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "fcdbg",
+          "type": "colorpicker",
+          "label": "Connected & Control Disabled Background color",
+          "default": 16737802
+        },
+        {
+          "id": "fdfg",
+          "type": "colorpicker",
+          "label": "Disconnected Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "fdbg",
+          "type": "colorpicker",
+          "label": "Disconnected Background color",
+          "default": 13369344
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1308
+      },
+      "feedbackType": "advanced"
+    }
+  ],
+  "notes": [
+    "Complete list: 41 actions (actions.js, one object returned by GetActions, keys come from the ActionId table at the top of the file) and 5 advanced feedbacks (index.js init_feedbacks, registered with feedbacks[<id>] = {...}). Nothing is generated per model or conditionally registered. Variables and presets are not catalogued.",
+    "Protocol: the main actions send JSON over the ProPresenter remote-control WebSocket (ws://<host>:<port>/remote, default port 20652, index.js:941); the stage display connection is ws://<host>:<sdport>/stagedisplay (index.js:1017); an optional follower ProPresenter uses the same /remote protocol (index.js:1086). The nw* actions (\"Network Link\") use HTTP requests built from the same host/port (actions.js:52-60) and are described in the source as beta functionality.",
+    "Built on @companion-module/base ~1.4.3: options do not support expressions. Option regex values written as Regex.NUMBER / Regex.SIGNED_NUMBER are recorded with the values these constants have in @companion-module/base 1.15.0 and 2.2.1 (/^\\d+$/ and /^[+-]?\\d+$/); the 1.4.x dist itself was not inspected.",
+    "Pro7 dropdowns (Stage Display Screen, Stage Display Layout, Look, Macro) take their choices from internal state (id = UUID string, label = name) and start as the placeholder entry { id: \"0\", label: \"Connect to Pro7 to Update\" }. The lists are refreshed and the action/feedback definitions are re-registered whenever ProPresenter reports stage layouts, stage screens, looks or macros (index.js:1957-2017). They are therefore recorded with choicesNote and valueType string, not as closed lists. The source defaults of the three feedback dropdowns are the first list item (this.currentState.internal.<list>?.[0]?.id) and are not recorded.",
+    "Source oddities kept as written: enableFollowerControl has default \"false\" but its choices are \"no\" and \"yes\"; Pro7 action dropdowns have default \"\" (empty string). Tooltips of the source are recorded as option description.",
+    "Specific Slide (slideNumber) treats a leading + or - in \"Slide Number\" as a relative jump (actions.js:157-161); presentation paths use the format \"<playlist index>:<item index>\" or a bare item index (regex /^$|^\\d+$|^\\d+(\\.\\d+)*:\\d+$/).",
+    "Possible defect seen when reading, not run: the nw* actions and newRandomNumber use this.config and this.updateVariable inside module-level arrow functions of actions.js (for example actions.js:56, 59 and 1255), where this is the exports object of that file and not the module instance. Whether this works at runtime was not checked.",
+    "Custom Action (customAction) sends any JSON message to ProPresenter; Custom Action (Network Link) (nwCustom) sends an arbitrary endpoint path with a JSON body. The source warns that wrong messages can crash ProPresenter."
+  ]
+}

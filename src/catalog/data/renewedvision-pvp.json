@@ -1,0 +1,675 @@
+{
+  "moduleId": "renewedvision-pvp",
+  "name": "Renewed Vision PVP",
+  "repo": "bitfocus/companion-module-renewedvision-pvp",
+  "version": "2.0.0",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-10-20",
+  "lastCommitSha": "97fda12",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "clearLayer",
+      "name": "Clear Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 6
+      }
+    },
+    {
+      "id": "muteLayer",
+      "name": "Mute Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 22
+      }
+    },
+    {
+      "id": "unmuteLayer",
+      "name": "Unmute Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 38
+      }
+    },
+    {
+      "id": "selectLayer",
+      "name": "Select Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target Layer?",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 54
+      }
+    },
+    {
+      "id": "hideLayer",
+      "name": "Hide Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 78
+      }
+    },
+    {
+      "id": "unhideLayer",
+      "name": "Unhide Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 94
+      }
+    },
+    {
+      "id": "selectPL",
+      "name": "Select Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 110
+      }
+    },
+    {
+      "id": "triggerCue",
+      "name": "Trigger Cue",
+      "options": [
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 126
+      }
+    },
+    {
+      "id": "triggerPL",
+      "name": "Trigger Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 142
+      }
+    },
+    {
+      "id": "triggerCuePL",
+      "name": "Trigger Cue in Playlist",
+      "options": [
+        {
+          "id": "pl",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "0"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 158
+      }
+    },
+    {
+      "id": "triggerCuePLLay",
+      "name": "Trigger Cue in Playlist on Layer",
+      "options": [
+        {
+          "id": "pl",
+          "type": "textinput",
+          "label": "Playlist ID",
+          "default": "0"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue ID",
+          "default": "0"
+        },
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 181
+      }
+    },
+    {
+      "id": "selectTargetSet",
+      "name": "Layer Target Set",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "ts",
+          "type": "textinput",
+          "label": "Target Set",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 211
+      }
+    },
+    {
+      "id": "layerPreset",
+      "name": "Layer Preset",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "lpn",
+          "type": "textinput",
+          "label": "Preset Name",
+          "default": "Preset 1"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 234
+      }
+    },
+    {
+      "id": "layerEffectPreset",
+      "name": "Layer Effect Preset",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "epn",
+          "type": "textinput",
+          "label": "Effect Preset Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 257
+      }
+    },
+    {
+      "id": "opacity",
+      "name": "Layer Opacity",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "opacity",
+          "type": "textinput",
+          "label": "Opacity (%)",
+          "default": "100"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 284
+      }
+    },
+    {
+      "id": "trackMatte",
+      "name": "Track Matte",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "1"
+        },
+        {
+          "id": "trackMatte",
+          "type": "dropdown",
+          "label": "Track Matte",
+          "default": "Alpha Matte",
+          "choices": [
+            {
+              "id": "Alpha Matte",
+              "label": "Alpha Matte"
+            },
+            {
+              "id": "Luma Matte",
+              "label": "Luma Matte"
+            },
+            {
+              "id": "White Matte",
+              "label": "White Matte"
+            }
+          ]
+        },
+        {
+          "id": "invert",
+          "type": "checkbox",
+          "label": "Invert Matte",
+          "description": "Check to invert the track matte",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 337
+      }
+    },
+    {
+      "id": "blendMode",
+      "name": "Layer Blend Mode",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "blendMode",
+          "type": "dropdown",
+          "label": "Blend Mode",
+          "default": "Normal",
+          "choices": [
+            {
+              "id": "Normal",
+              "label": "Normal"
+            },
+            {
+              "id": "Dissolve",
+              "label": "Dissolve"
+            },
+            {
+              "id": "Darken",
+              "label": "Darken"
+            },
+            {
+              "id": "Multiply",
+              "label": "Multiply"
+            },
+            {
+              "id": "Color Burn",
+              "label": "Color Burn"
+            },
+            {
+              "id": "Linear Burn",
+              "label": "Linear Burn"
+            },
+            {
+              "id": "Darker Color",
+              "label": "Darker Color"
+            },
+            {
+              "id": "Lighten",
+              "label": "Lighten"
+            },
+            {
+              "id": "Screen",
+              "label": "Screen"
+            },
+            {
+              "id": "Color Dodge",
+              "label": "Color Dodge"
+            },
+            {
+              "id": "Linear Dodge",
+              "label": "Linear Dodge"
+            },
+            {
+              "id": "Lighter Color",
+              "label": "Lighter Color"
+            },
+            {
+              "id": "Overlay",
+              "label": "Overlay"
+            },
+            {
+              "id": "Soft Light",
+              "label": "Soft Light"
+            },
+            {
+              "id": "Hard Light",
+              "label": "Hard Light"
+            },
+            {
+              "id": "Vivid Light",
+              "label": "Vivid Light"
+            },
+            {
+              "id": "Linear Light",
+              "label": "Linear Light"
+            },
+            {
+              "id": "Pin Light",
+              "label": "Pin Light"
+            },
+            {
+              "id": "Hard Mix",
+              "label": "Hard Mix"
+            },
+            {
+              "id": "Difference",
+              "label": "Difference"
+            },
+            {
+              "id": "Exclusion",
+              "label": "Exclusion"
+            },
+            {
+              "id": "Subtract",
+              "label": "Subtract"
+            },
+            {
+              "id": "Divide",
+              "label": "Divide"
+            },
+            {
+              "id": "Hue",
+              "label": "Hue"
+            },
+            {
+              "id": "Saturation",
+              "label": "Saturation"
+            },
+            {
+              "id": "Color",
+              "label": "Color"
+            },
+            {
+              "id": "Luminosity",
+              "label": "Luminosity"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 386
+      }
+    },
+    {
+      "id": "clearWs",
+      "name": "Clear Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 438
+      }
+    },
+    {
+      "id": "hideWs",
+      "name": "Hide Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 446
+      }
+    },
+    {
+      "id": "unhideWs",
+      "name": "Unhide Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 454
+      }
+    },
+    {
+      "id": "muteWs",
+      "name": "Mute Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 462
+      }
+    },
+    {
+      "id": "unmuteWs",
+      "name": "Unmute Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 470
+      }
+    },
+    {
+      "id": "workspaceEffectPreset",
+      "name": "Workspace Effect Preset",
+      "options": [
+        {
+          "id": "epn",
+          "type": "textinput",
+          "label": "Effect Preset Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 478
+      }
+    },
+    {
+      "id": "pauseLayer",
+      "name": "Pause Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 498
+      }
+    },
+    {
+      "id": "playLayer",
+      "name": "Play Layer",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 514
+      }
+    },
+    {
+      "id": "goToLayerOffset",
+      "name": "Go to Layer Offset (Seconds)",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "offset",
+          "type": "textinput",
+          "label": "Offset (+/- seconds)",
+          "default": "-10",
+          "regex": "/^-?\\d+(.\\d+)?$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 530
+      }
+    },
+    {
+      "id": "skipLayerSeconds",
+      "name": "Skip Media in Layer (Seconds)",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "sec",
+          "type": "textinput",
+          "label": "Seconds (+/- seconds)",
+          "default": "15.0",
+          "regex": "/^-?\\d+(.\\d+)?$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 562
+      }
+    },
+    {
+      "id": "layerTransitionDuration",
+      "name": "Layer Transition Duration (Seconds)",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Layer ID",
+          "default": "0"
+        },
+        {
+          "id": "sec",
+          "type": "textinput",
+          "label": "Seconds (0-5 seconds)",
+          "default": "1.0",
+          "regex": "/^\\d+(.\\d+)?$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 591
+      }
+    },
+    {
+      "id": "workspaceTransitionDuration",
+      "name": "Workspace Transition Duration (Seconds)",
+      "options": [
+        {
+          "id": "sec",
+          "type": "textinput",
+          "label": "Seconds (0-5 seconds)",
+          "default": "1.0",
+          "regex": "/^\\d+(.\\d+)?$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 620
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 29 actions (src/actions.js, each assigned as actions.<id> = {...} in initActions). The module registers no feedbacks: src/feedbacks.js builds an empty object and calls setFeedbackDefinitions with it (src/feedbacks.js:6-11). Variables (src/variables.js) and presets (src/presets.js) are not catalogued.",
+    "Protocol: HTTP POST to http(s)://<host>:<port>/api/0<command> with an \"Authorization: Bearer <token>\" header, sent to the primary PVP and to the optional backup PVP (src/api.js:51-94, config fields host, port, https, auth and the *_backup variants in src/config.js). Ports are only accepted when above 1024 and up to 65535 (src/api.js:11-13). Not run against PVP.",
+    "Built on @companion-module/base ~1.4.1: options do not support expressions. No option sets useVariables, but every textinput option is passed through parseVariablesInString in its callback, so $(...) variables work in practice (except where noted); they are recorded here exactly as the source declares them.",
+    "IDs (Layer ID, Playlist ID, Cue ID) are free text: a name, a UUID or a numeric index. checkId throws when a numeric index is below the minimum: Layer and Cue 0, Playlist -1 (-1 means \"Video Input\"; src/api.js:100-157). Defaults are the source value \"0\" and are kept.",
+    "Possible defects seen when reading, not run: in the relative branch of opacity (actions.js:318-319) and in goToLayerOffset (551, 555) and skipLayerSeconds (583) the callbacks use a variable `opt` that is not declared in those callbacks; layerEffectPreset uses `pt.idx` (279) which is not declared either. workspaceTransitionDuration calls parseVariablesInString on action.options.idx, which that action has no option for (632). These would raise errors at runtime if the code path is reached; this was not checked against a running module.",
+    "opacity: the second option declares regex: self.REGEX_SIGNED_NUMBER (actions.js:298). That name is defined nowhere in the module repository nor in @companion-module/base 1.15.0 (checked in a local copy; the 1.4.x dist itself was not inspected), so no regex is recorded. A leading + or - makes the value relative (read current opacity, then add), otherwise it is absolute; values are clamped to 0-100 and sent as a fraction (src/api.js:158-162).",
+    "Duration options (layerTransitionDuration, workspaceTransitionDuration) are clamped to 0-5 seconds by the module (actions.js:614, 637). goToLayerOffset: a leading \"-\" means seconds from the end, otherwise from the start. skipLayerSeconds: the sign gives the direction. A comment says the /layerBlend/ endpoint used by trackMatte works but is not documented by the vendor (actions.js:366-367)."
+  ]
+}
