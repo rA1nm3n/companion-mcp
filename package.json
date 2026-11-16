@@ -47,7 +47,7 @@
     "bundle": "npm run build && node scripts/build-mcpb.mjs"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/node": "^26.6.6",
     "@types/ws": "^8.18.2",
     "prettier": "^3.3.0",
     "typescript": "^5.6.0",
