@@ -1,0 +1,725 @@
+{
+  "moduleId": "tslproducts-usp3",
+  "name": "tslproducts-usp3",
+  "repo": "bitfocus/companion-module-tslproducts-usp3",
+  "version": "1.1.1",
+  "baseVersion": "^1.14.0",
+  "lastCommit": "2026-11-05",
+  "lastCommitSha": "38358c5",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "setGPO",
+      "name": "Set GPO On/Off",
+      "options": [
+        {
+          "id": "gpo",
+          "type": "dropdown",
+          "label": "GPO Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "GPO 1"
+            },
+            {
+              "id": "02",
+              "label": "GPO 2"
+            },
+            {
+              "id": "03",
+              "label": "GPO 3"
+            },
+            {
+              "id": "04",
+              "label": "GPO 4"
+            },
+            {
+              "id": "05",
+              "label": "GPO 5"
+            },
+            {
+              "id": "06",
+              "label": "GPO 6"
+            },
+            {
+              "id": "07",
+              "label": "GPO 7"
+            },
+            {
+              "id": "08",
+              "label": "GPO 8"
+            },
+            {
+              "id": "09",
+              "label": "GPO 9"
+            },
+            {
+              "id": "10",
+              "label": "GPO 10"
+            },
+            {
+              "id": "11",
+              "label": "GPO 11"
+            },
+            {
+              "id": "12",
+              "label": "GPO 12"
+            },
+            {
+              "id": "13",
+              "label": "GPO 13"
+            },
+            {
+              "id": "14",
+              "label": "GPO 14"
+            },
+            {
+              "id": "15",
+              "label": "GPO 15"
+            },
+            {
+              "id": "16",
+              "label": "GPO 16"
+            }
+          ],
+          "default": "01"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "GPO State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 9
+      },
+      "availability": "Registered only when the config model is 'usp3' (the default)"
+    },
+    {
+      "id": "setGPOAll",
+      "name": "Set All GPO On/Off",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "GPO State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 35
+      },
+      "availability": "Registered only when the config model is 'usp3' (the default)"
+    },
+    {
+      "id": "pressKey",
+      "name": "Press Key",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Key Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "KEY 1"
+            },
+            {
+              "id": "02",
+              "label": "KEY 2"
+            },
+            {
+              "id": "03",
+              "label": "KEY 3"
+            },
+            {
+              "id": "04",
+              "label": "KEY 4"
+            },
+            {
+              "id": "05",
+              "label": "KEY 5"
+            },
+            {
+              "id": "06",
+              "label": "KEY 6"
+            },
+            {
+              "id": "07",
+              "label": "KEY 7"
+            },
+            {
+              "id": "08",
+              "label": "KEY 8"
+            },
+            {
+              "id": "09",
+              "label": "KEY 9"
+            },
+            {
+              "id": "10",
+              "label": "KEY 10"
+            },
+            {
+              "id": "11",
+              "label": "KEY 11"
+            },
+            {
+              "id": "12",
+              "label": "KEY 12"
+            },
+            {
+              "id": "13",
+              "label": "KEY 13"
+            },
+            {
+              "id": "14",
+              "label": "KEY 14"
+            },
+            {
+              "id": "15",
+              "label": "KEY 15"
+            },
+            {
+              "id": "16",
+              "label": "KEY 16"
+            }
+          ],
+          "default": "01"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 56
+      },
+      "availability": "Registered only when the config model is 'usp3' and use_as_surface is false (src/actions.js, src/feedbacks.js)"
+    },
+    {
+      "id": "setKeyText",
+      "name": "Set Key Text",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Key Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "KEY 1"
+            },
+            {
+              "id": "02",
+              "label": "KEY 2"
+            },
+            {
+              "id": "03",
+              "label": "KEY 3"
+            },
+            {
+              "id": "04",
+              "label": "KEY 4"
+            },
+            {
+              "id": "05",
+              "label": "KEY 5"
+            },
+            {
+              "id": "06",
+              "label": "KEY 6"
+            },
+            {
+              "id": "07",
+              "label": "KEY 7"
+            },
+            {
+              "id": "08",
+              "label": "KEY 8"
+            },
+            {
+              "id": "09",
+              "label": "KEY 9"
+            },
+            {
+              "id": "10",
+              "label": "KEY 10"
+            },
+            {
+              "id": "11",
+              "label": "KEY 11"
+            },
+            {
+              "id": "12",
+              "label": "KEY 12"
+            },
+            {
+              "id": "13",
+              "label": "KEY 13"
+            },
+            {
+              "id": "14",
+              "label": "KEY 14"
+            },
+            {
+              "id": "15",
+              "label": "KEY 15"
+            },
+            {
+              "id": "16",
+              "label": "KEY 16"
+            }
+          ],
+          "default": "01"
+        },
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Text",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 72
+      },
+      "availability": "Registered only when the config model is 'usp3' and use_as_surface is false (src/actions.js, src/feedbacks.js)"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "gpiState",
+      "name": "GPI Number is in X State",
+      "description": "Show feedback for GPI State",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "dropdown",
+          "label": "GPI Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "GPI 1"
+            },
+            {
+              "id": "02",
+              "label": "GPI 2"
+            },
+            {
+              "id": "03",
+              "label": "GPI 3"
+            },
+            {
+              "id": "04",
+              "label": "GPI 4"
+            },
+            {
+              "id": "05",
+              "label": "GPI 5"
+            },
+            {
+              "id": "06",
+              "label": "GPI 6"
+            },
+            {
+              "id": "07",
+              "label": "GPI 7"
+            },
+            {
+              "id": "08",
+              "label": "GPI 8"
+            },
+            {
+              "id": "09",
+              "label": "GPI 9"
+            },
+            {
+              "id": "10",
+              "label": "GPI 10"
+            },
+            {
+              "id": "11",
+              "label": "GPI 11"
+            },
+            {
+              "id": "12",
+              "label": "GPI 12"
+            },
+            {
+              "id": "13",
+              "label": "GPI 13"
+            },
+            {
+              "id": "14",
+              "label": "GPI 14"
+            },
+            {
+              "id": "15",
+              "label": "GPI 15"
+            },
+            {
+              "id": "16",
+              "label": "GPI 16"
+            }
+          ],
+          "default": "01"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 10
+      },
+      "feedbackType": "boolean",
+      "availability": "Registered only when the config model is 'usp3' (the default)"
+    },
+    {
+      "id": "gpoState",
+      "name": "GPO Number is in X State",
+      "description": "Show feedback for GPO State",
+      "options": [
+        {
+          "id": "gpo",
+          "type": "dropdown",
+          "label": "GPO Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "GPO 1"
+            },
+            {
+              "id": "02",
+              "label": "GPO 2"
+            },
+            {
+              "id": "03",
+              "label": "GPO 3"
+            },
+            {
+              "id": "04",
+              "label": "GPO 4"
+            },
+            {
+              "id": "05",
+              "label": "GPO 5"
+            },
+            {
+              "id": "06",
+              "label": "GPO 6"
+            },
+            {
+              "id": "07",
+              "label": "GPO 7"
+            },
+            {
+              "id": "08",
+              "label": "GPO 8"
+            },
+            {
+              "id": "09",
+              "label": "GPO 9"
+            },
+            {
+              "id": "10",
+              "label": "GPO 10"
+            },
+            {
+              "id": "11",
+              "label": "GPO 11"
+            },
+            {
+              "id": "12",
+              "label": "GPO 12"
+            },
+            {
+              "id": "13",
+              "label": "GPO 13"
+            },
+            {
+              "id": "14",
+              "label": "GPO 14"
+            },
+            {
+              "id": "15",
+              "label": "GPO 15"
+            },
+            {
+              "id": "16",
+              "label": "GPO 16"
+            }
+          ],
+          "default": "01"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 51
+      },
+      "feedbackType": "boolean",
+      "availability": "Registered only when the config model is 'usp3' (the default)"
+    },
+    {
+      "id": "memState",
+      "name": "Mem Number is in X State",
+      "description": "Show feedback for Mem State",
+      "options": [
+        {
+          "id": "mem",
+          "type": "dropdown",
+          "label": "Mem Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "MEM 1"
+            },
+            {
+              "id": "02",
+              "label": "MEM 2"
+            },
+            {
+              "id": "03",
+              "label": "MEM 3"
+            },
+            {
+              "id": "04",
+              "label": "MEM 4"
+            },
+            {
+              "id": "05",
+              "label": "MEM 5"
+            },
+            {
+              "id": "06",
+              "label": "MEM 6"
+            },
+            {
+              "id": "07",
+              "label": "MEM 7"
+            },
+            {
+              "id": "08",
+              "label": "MEM 8"
+            },
+            {
+              "id": "09",
+              "label": "MEM 9"
+            },
+            {
+              "id": "10",
+              "label": "MEM 10"
+            },
+            {
+              "id": "11",
+              "label": "MEM 11"
+            },
+            {
+              "id": "12",
+              "label": "MEM 12"
+            },
+            {
+              "id": "13",
+              "label": "MEM 13"
+            },
+            {
+              "id": "14",
+              "label": "MEM 14"
+            },
+            {
+              "id": "15",
+              "label": "MEM 15"
+            },
+            {
+              "id": "16",
+              "label": "MEM 16"
+            }
+          ],
+          "default": "01"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 92
+      },
+      "feedbackType": "boolean",
+      "availability": "Registered only when the config model is 'usp3' (the default)"
+    },
+    {
+      "id": "keyState",
+      "name": "Key Number is in X State",
+      "description": "Show feedback for Key State",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Key Number",
+          "choices": [
+            {
+              "id": "01",
+              "label": "KEY 1"
+            },
+            {
+              "id": "02",
+              "label": "KEY 2"
+            },
+            {
+              "id": "03",
+              "label": "KEY 3"
+            },
+            {
+              "id": "04",
+              "label": "KEY 4"
+            },
+            {
+              "id": "05",
+              "label": "KEY 5"
+            },
+            {
+              "id": "06",
+              "label": "KEY 6"
+            },
+            {
+              "id": "07",
+              "label": "KEY 7"
+            },
+            {
+              "id": "08",
+              "label": "KEY 8"
+            },
+            {
+              "id": "09",
+              "label": "KEY 9"
+            },
+            {
+              "id": "10",
+              "label": "KEY 10"
+            },
+            {
+              "id": "11",
+              "label": "KEY 11"
+            },
+            {
+              "id": "12",
+              "label": "KEY 12"
+            },
+            {
+              "id": "13",
+              "label": "KEY 13"
+            },
+            {
+              "id": "14",
+              "label": "KEY 14"
+            },
+            {
+              "id": "15",
+              "label": "KEY 15"
+            },
+            {
+              "id": "16",
+              "label": "KEY 16"
+            }
+          ],
+          "default": "01"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Pressed"
+            },
+            {
+              "id": "0",
+              "label": "Not Pressed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 134
+      },
+      "feedbackType": "boolean",
+      "availability": "Registered only when the config model is 'usp3' and use_as_surface is false (src/actions.js, src/feedbacks.js)"
+    }
+  ],
+  "notes": [
+    "Complete list: 4 actions (setGPO, setGPOAll, pressKey, setKeyText; src/actions.js) and 4 boolean feedbacks (gpiState, gpoState, memState, keyState; src/feedbacks.js). Definitions are plain object assignments inside if-blocks, no definitions are generated in loops.",
+    "Registration is conditional (config in src/config.js): all actions and feedbacks exist only when the model is \"usp3\" (default \"usp3\"; the other choice \"usp_legacy\", DNF Controls USP-8/USP-16, registers no actions and no feedbacks). pressKey, setKeyText and keyState additionally need \"Use as a Satellite Surface\" (use_as_surface, default true) to be false. Each entry carries this in availability.",
+    "The module talks to the panel over TCP (TCPHelper to host_usp; port_usp defaults to 50001 in src/usp.js when unset) with short text commands: GPO_<nn>:<0|1> (GPO_00 for all outputs), KYP_<nn>:1 for a key press and TXT_<nn>:<font>_<text> for key text.",
+    "The GPI, GPO, MEM and KEY dropdowns are closed lists of 16 entries with zero-padded string ids \"01\" to \"16\" (src/constants.js GPI_LIST, GPO_LIST, MEM_LIST, KEY_LIST); the state dropdowns use the strings \"1\" and \"0\". The module defaults for the list dropdowns are the first entry (\"01\").",
+    "setKeyText: the text is passed through variable parsing; the callback replaces the literal two-character sequence \\n with a space and every underscore with a space, because both interfere with the protocol, and sends a single space for empty text. The font size is the config value font_size (\"auto\", \"0\", \"1\", \"2\"; default \"auto\"): with auto the size is 2 for fewer than 4 characters, 1 for fewer than 8, otherwise 0. The text field has no useVariables flag in the definition although the callback resolves variables.",
+    "Built on @companion-module/base ^1.14.0: options do not support expressions."
+  ]
+}

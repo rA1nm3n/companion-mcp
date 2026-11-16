@@ -1,0 +1,39 @@
+{
+  "moduleId": "vizrt-tcp-engine-trio",
+  "name": "vizRT TCP Engine Trio",
+  "repo": "bitfocus/companion-module-vizrt-tcp-engine-trio",
+  "version": "2.0.0",
+  "baseVersion": "~1.11.3",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "e4b638a",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "send",
+      "name": "Send Command",
+      "options": [
+        {
+          "id": "id_send",
+          "type": "textinput",
+          "label": "Command",
+          "description": "Type your command here",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 106
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 1 action (send, index.js) and no feedbacks (the module registers no feedbacks and defines no variables or presets).",
+    "TCP client (TCPHelper) to a Viz Engine or Viz Trio: config \"Target Machine\" (default \"127.0.0.1\"), \"Target Port\" (number, default 6100) and \"Connect with\" (engine or trio, default engine). The connection mode changes the framing: for \"engine\" each command is sent as \"vizsend \" + command + NUL (\\0); for \"trio\" the command is sent as is followed by CRLF. The command text is split at every \";\" and each part is trimmed and sent as its own message, so a literal semicolon cannot be sent. The bytes are encoded as latin1.",
+    "The \"Command\" option declares useVariables: { local: true } (an object, not a boolean); the catalog records useVariables: true. The callback resolves variables with context.parseVariablesInString.",
+    "The repository ships \"vizRT External Commands.txt\" as a command reference; the module does not validate command text. Received data is ignored.",
+    "Built on @companion-module/base ~1.11.3: options do not support expressions."
+  ]
+}
