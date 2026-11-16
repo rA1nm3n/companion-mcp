@@ -1,0 +1,5578 @@
+{
+  "moduleId": "resolume-arena",
+  "name": "Resolume Arena / Avenue",
+  "repo": "bitfocus/companion-module-resolume-arena",
+  "version": "3.13.0-beta.4",
+  "baseVersion": "~1.10.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "193e843",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "REST/WebSocket actions are registered in src/actions/<area>/<area>Actions.ts, one file per action; the registry key (for example triggerClip) differs from the factory name (connectClip) in some cases. The catalog uses the registry key.",
+    "Layer, column, clip, deck and layer group positions are text inputs with useVariables and Regex.NUMBER, not dropdowns; indices are 1-based.",
+    "Actions starting with osc work over OSC only; the other actions need the REST/WebSocket connection and fall back to OSC only where the source implements it (for example triggerClip, selectClip).",
+    "Effect actions come in five scopes (layer, clip, clipList, group, composition); the effect and parameter dropdowns are filled from the running composition and are listed as dynamic choices.",
+    "layerActions.ts also registers bypassLayerGroup (imported from the layer-group folder); the same key is registered in layerGroupActions.ts with the same factory.",
+    "Built on @companion-module/base ~1.10.0: no expressions; variables only through useVariables text inputs.",
+    "Effect feedbacks (effectBypassed<Scope> boolean, effectParameter<Scope> advanced, five scopes like the effect actions) are built with the same option helpers as the effect actions (buildScopedEffectOptions, buildParamNameOptions in src/actions/effect/effect-action-options.ts); their option lists are therefore the scoped effect fields, plus the parameter picker (collection, paramChoice_*, paramName) for the parameter feedbacks. Effect dropdown choices are dynamic (ids '<scope>:<layer>:<column>:<group>:<effect index>' plus '__manual__'), see src/domain/effects/effect-utils.ts buildEffectChoices.",
+    "Registry cross-check: all 107 action keys and all 64 feedback keys registered in the get*Actions/get*Feedbacks files of src/actions and src/feedbacks are in this file (compared by script on 2026-11-16; option ids, types, labels, defaults, choice ids, limits, useVariables and regex of the 97 non-effect actions and feedbacks agree with the source). Variables, presets and the connection settings are not catalogued. 'complete' means every registered action and feedback is listed; dynamic dropdown contents remain choicesNote only.",
+    "Connection settings (src/config-fields.ts): host (default 127.0.0.1), REST/WebSocket on or off (useRest, default on) with Resolume WebAPI port (default 8080), optional SSL, OSC send port (default 7000), optional OSC listener (useOscListener, default off) with receive port (default 7001). API feedbacks are only registered with the REST connection; oscProgressBar and oscActiveColumn only with the OSC listener (src/index.ts setupFeedback).",
+    "Product scope: the manifest names Arena only ('Resolume Arena 6 & 7 module'); Avenue appears only in comments of the generated REST types (src/domain/api.ts), so Avenue is not documented as supported. There is no module for Resolume Wire in the surveyed sources. Community modules exist outside the bitfocus organization and are not catalogued here: chabad360/companion-module-resolume-ws (id resolume-ws, Arena over WebSockets, base ~1.8.0, last commit 2024-06-03), ElytaM/companion-module-resolume-arena-osc-unofficial (id arena-osc, Arena over OSC only, base ^2.1.2, version 2.1.9, last commit 2026-10-10) and VideoBridgeSolutions/companion-module-resolume-redundant (MAIN + BACKUP Arena redundancy; only a README was present in the inspected clone, so no module source to read)."
+  ],
+  "actions": [
+    {
+      "id": "selectClip",
+      "name": "Select Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip/actions/select-clip.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "triggerClip",
+      "name": "Trigger Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip/actions/connect-clip.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "clipSpeedChange",
+      "name": "Clip Speed Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+ (not in OSC)"
+            },
+            {
+              "id": "subtract",
+              "label": "- (not in OSC)"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip/actions/clip-speed-change.ts",
+        "line": 18
+      }
+    },
+    {
+      "id": "clipOpacityChange",
+      "name": "Clip Opacity Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip/actions/clip-opacity-change.ts",
+        "line": 18
+      }
+    },
+    {
+      "id": "clipVolumeChange",
+      "name": "Clip Volume Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in db (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip/actions/clip-volume-change.ts",
+        "line": 18
+      }
+    },
+    {
+      "id": "updateClipThumbnail",
+      "name": "Update Clip Thumbnail",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "layerColumn",
+          "choices": [
+            {
+              "id": "layerColumn",
+              "label": "Layer / Column"
+            },
+            {
+              "id": "selected",
+              "label": "Selected clip"
+            }
+          ]
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.target === 'layerColumn'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.target === 'layerColumn'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip/actions/update-clip-thumbnail.ts",
+        "line": 13
+      }
+    },
+    {
+      "id": "connectColumn",
+      "name": "Connect Column",
+      "options": [
+        {
+          "id": "lookupMode",
+          "type": "dropdown",
+          "label": "Lookup mode",
+          "default": "byIndex",
+          "choices": [
+            {
+              "id": "byIndex",
+              "label": "By index"
+            },
+            {
+              "id": "byName",
+              "label": "By name"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ],
+          "visibleWhen": "(options) => options.lookupMode === 'byIndex'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.lookupMode === 'byIndex'"
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Column name",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.lookupMode === 'byName'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/column/actions/connectColumn.ts",
+        "line": 32
+      }
+    },
+    {
+      "id": "selectColumn",
+      "name": "Select Column",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/column/actions/selectColumn.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "compNextCol",
+      "name": "Composition Next Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/composition/actions/comp-next-col.ts",
+        "line": 9
+      }
+    },
+    {
+      "id": "compPrevCol",
+      "name": "Composition Previous Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/composition/actions/comp-prev-col.ts",
+        "line": 9
+      }
+    },
+    {
+      "id": "clearAll",
+      "name": "Clear All Layers",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/composition/actions/clear-all-layers.ts",
+        "line": 12
+      }
+    },
+    {
+      "id": "disconnectAll",
+      "name": "Disconnect All Clips",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/composition/actions/disconnect-all.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "tempoTap",
+      "name": "Tap Tempo",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/composition/actions/tempo-tap.ts",
+        "line": 12
+      }
+    },
+    {
+      "id": "resyncTap",
+      "name": "Resync Tempo",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/composition/actions/tempo-resync.ts",
+        "line": 12
+      }
+    },
+    {
+      "id": "compositionMasterChange",
+      "name": "Composition Master Change",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/composition/actions/composition-master-change.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "compositionOpacityChange",
+      "name": "Composition Opacity Change",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/composition/actions/composition-opacity-change.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "compositionVolumeChange",
+      "name": "Composition Volume Change",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in db (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/composition/actions/composition-volume-change.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "compositionSpeedChange",
+      "name": "Composition Speed Change",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/composition/actions/composition-speed-change.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "selectDeck",
+      "name": "Select Deck",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/deck/actions/select-deck.ts",
+        "line": 13
+      }
+    },
+    {
+      "id": "selectNextDeck",
+      "name": "Select Next Deck",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/deck/actions/select-next-deck.ts",
+        "line": 13
+      }
+    },
+    {
+      "id": "selectPreviousDeck",
+      "name": "Select Previous Deck",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/deck/actions/select-previous-deck.ts",
+        "line": 13
+      }
+    },
+    {
+      "id": "bypassLayerGroup",
+      "name": "Bypass Layer Group",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/bypass-layer-group.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "bypassLayer",
+      "name": "Bypass Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/bypass-layer.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "clearLayer",
+      "name": "Clear Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/clear-layer.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "selectLayer",
+      "name": "Select Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/select-layer.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "soloLayer",
+      "name": "Solo Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "solo",
+          "type": "dropdown",
+          "label": "Solo",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/solo-layer.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "layerNextCol",
+      "name": "Layer Next Column",
+      "options": [
+        {
+          "id": "layerN",
+          "type": "textinput",
+          "label": "Layer Number",
+          "default": "1",
+          "useVariables": true,
+          "required": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/layer-next-col.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "layerPrewCol",
+      "name": "Layer Previous Column",
+      "options": [
+        {
+          "id": "layerN",
+          "type": "textinput",
+          "label": "Layer Number",
+          "default": "1",
+          "useVariables": true,
+          "required": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/layer-prev-col.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "layerMasterChange",
+      "name": "Layer Master Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/layer-master-change.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "layerOpacityChange",
+      "name": "Layer Opacity Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/layer-opacity-change.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "layerVolumeChange",
+      "name": "Layer Volume Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in db (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/layer-volume-change.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "layerTransitionDurationChange",
+      "name": "Layer Transition Duration Change",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in seconds (e.g. 1 or 0.1)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer/actions/layer-transition-duration-change.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "clearLayerGroup",
+      "name": "Clear Layer Group",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/clear-layer-group.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "grpNextCol",
+      "name": "Layer Group Next Column",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group Number",
+          "default": "1",
+          "useVariables": true,
+          "required": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "lastColumn",
+          "type": "textinput",
+          "label": "Last Column",
+          "default": "4",
+          "useVariables": true,
+          "required": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/layer-group-next-col.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "grpPrevCol",
+      "name": "Layer Group Previous Column",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group Number",
+          "default": "1",
+          "useVariables": true,
+          "required": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "lastColumn",
+          "type": "textinput",
+          "label": "Last Column",
+          "default": "4",
+          "useVariables": true,
+          "required": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/layer-group-prev-col.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "selectLayerGroup",
+      "name": "Select Layer Group",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/select-layer-group.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "soloLayerGroup",
+      "name": "Solo Layer Group",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "solo",
+          "type": "dropdown",
+          "label": "Solo",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/solo-layer-group.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "connectLayerGroupColumn",
+      "name": "Connect Layer Group Column",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/connect-layer-group-column.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "selectLayerGroupColumn",
+      "name": "Select Layer Group Column",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/select-layer-group-column.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "layerGroupMasterChange",
+      "name": "Layer Group Master Change",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/layer-group-master-change.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "layerGroupOpacityChange",
+      "name": "Layer Group Opacity Change",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/layer-group-opacity-change.ts",
+        "line": 17
+      }
+    },
+    {
+      "id": "layerGroupVolumeChange",
+      "name": "Layer Group Volume Change",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in db (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/layer-group-volume-change.ts",
+        "line": 17
+      }
+    },
+    {
+      "id": "layerGroupSpeedChange",
+      "name": "Layer Group Speed Change",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "+"
+            },
+            {
+              "id": "subtract",
+              "label": "-"
+            },
+            {
+              "id": "set",
+              "label": "="
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value in percentage (e.g. 100 or 10)",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/layer-group/actions/layer-group-speed-change.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "oscTriggerColumn",
+      "name": "OSC: Trigger Column",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 54
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscNextColumn",
+      "name": "OSC: Next Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 74
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscPrevColumn",
+      "name": "OSC: Previous Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 83
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClearAllLayers",
+      "name": "OSC: Clear All Layers (Stop All)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 92
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSelectColumn",
+      "name": "OSC: Select Column",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 100
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscConnectClip",
+      "name": "OSC: Connect Clip (Play)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 123
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClearLayer",
+      "name": "OSC: Clear Layer (Stop)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 136
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscLayerNextClip",
+      "name": "OSC: Layer Next Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 147
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscLayerPrevClip",
+      "name": "OSC: Layer Previous Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 158
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipPauseResume",
+      "name": "OSC: Clip Pause / Resume",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "pause",
+          "choices": [
+            {
+              "id": "backward",
+              "label": "Play Backward (0)"
+            },
+            {
+              "id": "pause",
+              "label": "Pause (1)"
+            },
+            {
+              "id": "forward",
+              "label": "Play Forward (2)"
+            },
+            {
+              "id": "toggle",
+              "label": "Play / Pause Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 173
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipSpeed",
+      "name": "OSC: Set Clip Speed",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "speed",
+          "type": "textinput",
+          "label": "Speed % (100 = normal, 200 = double)",
+          "default": "100",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 213
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipOpacity",
+      "name": "OSC: Set Clip Opacity",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Opacity (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 240
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipVolume",
+      "name": "OSC: Set Clip Volume",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Volume (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 267
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSelectClip",
+      "name": "OSC: Select Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 294
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipGoToPosition",
+      "name": "OSC: Clip Go to Position (Normalized)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "position",
+          "type": "textinput",
+          "label": "Position (0.0 - 1.0)",
+          "default": "0.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 307
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipGoToTime",
+      "name": "OSC: Clip Go to Time (Seconds)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time (seconds)",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 334
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipJogTime",
+      "name": "OSC: Clip Jog Time (±Seconds)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Jog Time (seconds, negative = backward)",
+          "default": "5",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 368
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipGoToSecondsFromEnd",
+      "name": "OSC: Clip Go to Seconds from End",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "seconds",
+          "type": "textinput",
+          "label": "Seconds from End",
+          "default": "10",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 404
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipRestartMedia",
+      "name": "OSC: Restart Clip on Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 439
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscClipDirection",
+      "name": "OSC: Clip Direction (specific clip)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "pause",
+          "choices": [
+            {
+              "id": "backward",
+              "label": "Play Backward"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "forward",
+              "label": "Play Forward"
+            },
+            {
+              "id": "toggle",
+              "label": "Play / Pause Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 456
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscCompositionDirection",
+      "name": "OSC: Composition Direction",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "forward",
+          "choices": [
+            {
+              "id": "backward",
+              "label": "Play Backward"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "forward",
+              "label": "Play Forward"
+            },
+            {
+              "id": "toggle",
+              "label": "Play / Pause Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 494
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupDirection",
+      "name": "OSC: Group Direction",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "forward",
+          "choices": [
+            {
+              "id": "backward",
+              "label": "Play Backward"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "forward",
+              "label": "Play Forward"
+            },
+            {
+              "id": "toggle",
+              "label": "Play / Pause Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 525
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetMasterOpacity",
+      "name": "OSC: Set Composition Opacity",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Opacity (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 569
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetMasterVolume",
+      "name": "OSC: Set Composition Volume",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Volume (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 588
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetCompositionMaster",
+      "name": "OSC: Set Composition Master",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Master (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 607
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetCompositionSpeed",
+      "name": "OSC: Set Composition Speed",
+      "options": [
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Speed (0.0 - 1.0 normalized)",
+          "default": "0.5",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 626
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetCompositionTempo",
+      "name": "OSC: Set Composition Tempo",
+      "options": [
+        {
+          "id": "tempo",
+          "type": "textinput",
+          "label": "BPM",
+          "default": "120",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 645
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscTempoTap",
+      "name": "OSC: Tempo Tap",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 664
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscTempoResync",
+      "name": "OSC: Tempo Resync",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 672
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetLayerOpacity",
+      "name": "OSC: Set Layer Opacity",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Opacity (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 684
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetLayerVolume",
+      "name": "OSC: Set Layer Volume",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Volume (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 705
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetLayerMaster",
+      "name": "OSC: Set Layer Master",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Master (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 726
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscBypassLayer",
+      "name": "OSC: Bypass Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Bypass On"
+            },
+            {
+              "id": "off",
+              "label": "Bypass Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 747
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSoloLayer",
+      "name": "OSC: Solo Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "solo",
+          "type": "dropdown",
+          "label": "Solo",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Solo On"
+            },
+            {
+              "id": "off",
+              "label": "Solo Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 783
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSelectLayer",
+      "name": "OSC: Select Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 819
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscLayerTransitionDuration",
+      "name": "OSC: Layer Transition Duration",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Duration (0.0 - 1.0 normalized)",
+          "default": "0.5",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 830
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSetLayerSpeed",
+      "name": "OSC: Set Layer Speed",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Speed (0.0 - 1.0 normalized)",
+          "default": "0.5",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 852
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscNextDeck",
+      "name": "OSC: Next Deck",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 878
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscPrevDeck",
+      "name": "OSC: Previous Deck",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 886
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSelectDeck",
+      "name": "OSC: Select Deck",
+      "options": [
+        {
+          "id": "deck",
+          "type": "textinput",
+          "label": "Deck",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 894
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupTriggerColumn",
+      "name": "OSC: Group Trigger Column",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 916
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupNextColumn",
+      "name": "OSC: Group Next Column",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "lastColumn",
+          "type": "textinput",
+          "label": "Last Column (total columns)",
+          "default": "10",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 945
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupPrevColumn",
+      "name": "OSC: Group Previous Column",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "lastColumn",
+          "type": "textinput",
+          "label": "Last Column (total columns)",
+          "default": "10",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 974
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupClear",
+      "name": "OSC: Group Clear (Disconnect Layers)",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1003
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupBypass",
+      "name": "OSC: Group Bypass",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Bypass On"
+            },
+            {
+              "id": "off",
+              "label": "Bypass Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1023
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupSetMaster",
+      "name": "OSC: Group Set Master",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Master (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1065
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupSetOpacity",
+      "name": "OSC: Group Set Opacity",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Opacity (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1092
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupSetVolume",
+      "name": "OSC: Group Set Volume",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Volume (0.0 - 1.0)",
+          "default": "1.0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1119
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupSetSpeed",
+      "name": "OSC: Group Set Speed",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Speed (0.0 - 1.0 normalized)",
+          "default": "0.5",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1146
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscGroupSolo",
+      "name": "OSC: Group Solo",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "solo",
+          "type": "dropdown",
+          "label": "Solo",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Solo On"
+            },
+            {
+              "id": "off",
+              "label": "Solo Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1173
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSelectGroup",
+      "name": "OSC: Select Group",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1203
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscSelectGroupColumn",
+      "name": "OSC: Select Group Column",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1222
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscCustomCommand",
+      "name": "OSC: Custom OSC Command",
+      "options": [
+        {
+          "id": "customPath",
+          "type": "textinput",
+          "label": "Custom OSC Path",
+          "description": "e.g. /composition/layers/1/clips/1/connect",
+          "default": "/composition/tempo",
+          "useVariables": true
+        },
+        {
+          "id": "relativeType",
+          "type": "dropdown",
+          "label": "Relative Modifier",
+          "description": "Prepend +, -, or * for relative adjustments",
+          "default": "n",
+          "choices": [
+            {
+              "id": "n",
+              "label": "None"
+            },
+            {
+              "id": "+",
+              "label": "+ (Add)"
+            },
+            {
+              "id": "-",
+              "label": "- (Subtract)"
+            },
+            {
+              "id": "*",
+              "label": "* (Multiply)"
+            }
+          ]
+        },
+        {
+          "id": "oscType",
+          "type": "dropdown",
+          "label": "Value Type",
+          "description": "Type of OSC argument to send",
+          "default": "f",
+          "choices": [
+            {
+              "id": "n",
+              "label": "None (trigger)"
+            },
+            {
+              "id": "i",
+              "label": "Integer"
+            },
+            {
+              "id": "f",
+              "label": "Float"
+            },
+            {
+              "id": "s",
+              "label": "String"
+            }
+          ]
+        },
+        {
+          "id": "customValue",
+          "type": "textinput",
+          "label": "Value",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1254
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "oscReQueryClip",
+      "name": "OSC: Re-Query Active Clip Info",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/osc-transport/oscTransportActions.ts",
+        "line": 1311
+      },
+      "availability": "OSC only: no REST/WebSocket connection required (src/actions/osc-transport/oscTransportActions.ts header)"
+    },
+    {
+      "id": "effectBypassLayer",
+      "name": "Bypass Effect (Layer)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-bypass.ts",
+        "line": 14
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:8"
+    },
+    {
+      "id": "effectParameterSetLayer",
+      "name": "Set Effect Parameter (Layer)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set — write a fixed value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase by — add delta to current value"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease by — subtract delta from current value"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle — flip boolean on/off"
+            }
+          ]
+        },
+        {
+          "id": "valueChoice_params",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the params collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'params'"
+        },
+        {
+          "id": "valueChoice_mixer",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the mixer collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'mixer'"
+        },
+        {
+          "id": "valueChoice_effect",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the effect collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'effect'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (number, true/false, or text — supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.mode !== 'toggle'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-parameter-set.ts",
+        "line": 23
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:13"
+    },
+    {
+      "id": "effectBypassClip",
+      "name": "Bypass Effect (Clip)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-bypass.ts",
+        "line": 14
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:9"
+    },
+    {
+      "id": "effectParameterSetClip",
+      "name": "Set Effect Parameter (Clip)",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set — write a fixed value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase by — add delta to current value"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease by — subtract delta from current value"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle — flip boolean on/off"
+            }
+          ]
+        },
+        {
+          "id": "valueChoice_params",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the params collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'params'"
+        },
+        {
+          "id": "valueChoice_mixer",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the mixer collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'mixer'"
+        },
+        {
+          "id": "valueChoice_effect",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the effect collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'effect'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (number, true/false, or text — supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.mode !== 'toggle'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-parameter-set.ts",
+        "line": 23
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:14"
+    },
+    {
+      "id": "effectBypassClipList",
+      "name": "Bypass Effect (Clip — from list)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-bypass.ts",
+        "line": 14
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:10"
+    },
+    {
+      "id": "effectParameterSetClipList",
+      "name": "Set Effect Parameter (Clip — from list)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set — write a fixed value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase by — add delta to current value"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease by — subtract delta from current value"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle — flip boolean on/off"
+            }
+          ]
+        },
+        {
+          "id": "valueChoice_params",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the params collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'params'"
+        },
+        {
+          "id": "valueChoice_mixer",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the mixer collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'mixer'"
+        },
+        {
+          "id": "valueChoice_effect",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the effect collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'effect'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (number, true/false, or text — supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.mode !== 'toggle'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-parameter-set.ts",
+        "line": 23
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:15"
+    },
+    {
+      "id": "effectBypassGroup",
+      "name": "Bypass Effect (Layer Group)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-bypass.ts",
+        "line": 14
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:11"
+    },
+    {
+      "id": "effectParameterSetGroup",
+      "name": "Set Effect Parameter (Layer Group)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set — write a fixed value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase by — add delta to current value"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease by — subtract delta from current value"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle — flip boolean on/off"
+            }
+          ]
+        },
+        {
+          "id": "valueChoice_params",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the params collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'params'"
+        },
+        {
+          "id": "valueChoice_mixer",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the mixer collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'mixer'"
+        },
+        {
+          "id": "valueChoice_effect",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the effect collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'effect'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (number, true/false, or text — supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.mode !== 'toggle'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-parameter-set.ts",
+        "line": 23
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:16"
+    },
+    {
+      "id": "effectBypassComposition",
+      "name": "Bypass Effect (Composition)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "bypass",
+          "type": "dropdown",
+          "label": "Bypass",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-bypass.ts",
+        "line": 14
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:12"
+    },
+    {
+      "id": "effectParameterSetComposition",
+      "name": "Set Effect Parameter (Composition)",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set — write a fixed value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase by — add delta to current value"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease by — subtract delta from current value"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle — flip boolean on/off"
+            }
+          ]
+        },
+        {
+          "id": "valueChoice_params",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the params collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'params'"
+        },
+        {
+          "id": "valueChoice_mixer",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the mixer collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'mixer'"
+        },
+        {
+          "id": "valueChoice_effect",
+          "type": "dropdown",
+          "label": "Value — known options",
+          "default": "__manual_value__",
+          "choicesNote": "Known values of the effect collection plus '__manual_value__'",
+          "visibleWhen": "options.mode === 'set' && options.collection === 'effect'"
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (number, true/false, or text — supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.mode !== 'toggle'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/effect/actions/effect-parameter-set.ts",
+        "line": 23
+      },
+      "description": "Registered in src/actions/effect/effectActions.ts:17"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "connectedClip",
+      "name": "Connected Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "color_connected",
+          "type": "colorpicker",
+          "label": "Connected",
+          "default": "rgb(0, 255, 0)"
+        },
+        {
+          "id": "color_connected_selected",
+          "type": "colorpicker",
+          "label": "Connected & Selected",
+          "default": "rgb(0,255,255)"
+        },
+        {
+          "id": "color_connected_preview",
+          "type": "colorpicker",
+          "label": "Connected & previewing",
+          "default": "rgb(255, 255, 0)"
+        },
+        {
+          "id": "color_preview",
+          "type": "colorpicker",
+          "label": "previewing",
+          "default": "rgb(255, 0, 0)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/connectedClip.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selectedClip",
+      "name": "Selected Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/selectedClip.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "clipInfo",
+      "name": "Clip Info",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "showThumb",
+          "type": "checkbox",
+          "label": "Show Thumbnail",
+          "default": false
+        },
+        {
+          "id": "showName",
+          "type": "checkbox",
+          "label": "Show Name",
+          "default": true
+        },
+        {
+          "id": "showText",
+          "type": "checkbox",
+          "label": "Show Text",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/clipInfo.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "clipSpeed",
+      "name": "Clip Speed",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/clipSpeed.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "clipTransportPosition",
+      "name": "Clip Transport Position",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "view",
+          "type": "dropdown",
+          "label": "Visualisation",
+          "default": "timestamp",
+          "choices": [
+            {
+              "id": "timestamp",
+              "label": "hh:mm:ss"
+            },
+            {
+              "id": "timestampFrame",
+              "label": "hh:mm:ss:ff - including frames"
+            },
+            {
+              "id": "timestamp_noHours",
+              "label": "mm:ss"
+            },
+            {
+              "id": "timestampFrame_noHours",
+              "label": "mm:ss:ff - including frames"
+            },
+            {
+              "id": "fullSeconds",
+              "label": "10000s"
+            },
+            {
+              "id": "frames",
+              "label": "ff - frames"
+            },
+            {
+              "id": "seconds",
+              "label": "ss - seconds"
+            },
+            {
+              "id": "minutes",
+              "label": "mm - minutes"
+            },
+            {
+              "id": "hours",
+              "label": "hh - hours"
+            },
+            {
+              "id": "direction",
+              "label": "-/+ - timeRemaining or clipTime"
+            }
+          ]
+        },
+        {
+          "id": "timeRemaining",
+          "type": "checkbox",
+          "label": "Remaining Time",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/clipTransportPosition.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "clipOpacity",
+      "name": "Clip Opacity",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/clipOpacity.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "clipVolume",
+      "name": "Clip Volume",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/clip/feedbacks/clipVolume.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "columnSelected",
+      "name": "Column Selected",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/columnSelected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "columnConnected",
+      "name": "Column Connected",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/columnConnected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "columnName",
+      "name": "Column Name",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/columnName.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selectedColumnName",
+      "name": "Selected Column Name",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/selectedColumnName.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "connectedColumnName",
+      "name": "Connected Column Name",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/connectedColumnName.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "nextSelectedColumnName",
+      "name": "Next Selected Column Name",
+      "options": [
+        {
+          "id": "next",
+          "type": "number",
+          "label": "Next",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/nextSelectedColumnName.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "nextConnectedColumnName",
+      "name": "Next Connected Column Name",
+      "options": [
+        {
+          "id": "next",
+          "type": "number",
+          "label": "Next",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/nextConnectedColumnName.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "previousSelectedColumnName",
+      "name": "Previous Selected Column Name",
+      "options": [
+        {
+          "id": "previous",
+          "type": "number",
+          "label": "Previous",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/previousSelectedColumnName.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "previousConnectedColumnName",
+      "name": "Previous Connected Column Name",
+      "options": [
+        {
+          "id": "previous",
+          "type": "number",
+          "label": "Previous",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/column/feedbacks/previousConnectedColumnName.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "tempo",
+      "name": "Tempo",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/composition/feedbacks/tempo.ts",
+        "line": 4
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "compositionOpacity",
+      "name": "Composition Opacity",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/composition/feedbacks/compositionOpacity.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "compositionVolume",
+      "name": "Composition Volume",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/composition/feedbacks/compositionVolume.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "compositionMaster",
+      "name": "Composition Master",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/composition/feedbacks/compositionMaster.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "compositionSpeed",
+      "name": "Composition Speed",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/composition/feedbacks/compositionSpeed.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "deckSelected",
+      "name": "Deck Selected",
+      "options": [
+        {
+          "id": "deck",
+          "type": "textinput",
+          "label": "Deck",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/deck/feedbacks/deckSelected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "deckName",
+      "name": "Deck Name",
+      "options": [
+        {
+          "id": "deck",
+          "type": "textinput",
+          "label": "Deck",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/deck/feedbacks/deckName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selectedDeckName",
+      "name": "Selected Deck Name",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/deck/feedbacks/selectedDeckName.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "nextDeckName",
+      "name": "Next Deck Name",
+      "options": [
+        {
+          "id": "next",
+          "type": "number",
+          "label": "Next",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/deck/feedbacks/nextDeckName.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "previousDeckName",
+      "name": "Previous Deck Name",
+      "options": [
+        {
+          "id": "previous",
+          "type": "number",
+          "label": "Previous",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/deck/feedbacks/previousDeckName.ts",
+        "line": 5
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerBypassed",
+      "name": "Layer Bypassed",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerBypassed.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerSolo",
+      "name": "Layer Solo",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerSolo.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerActive",
+      "name": "Layer Active",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerActive.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerSelected",
+      "name": "Layer Selected",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerSelected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerMaster",
+      "name": "Layer Master",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerMaster.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerOpacity",
+      "name": "Layer Opacity",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerOpacity.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerVolume",
+      "name": "Layer Volume",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerVolume.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerTransitionDuration",
+      "name": "Layer Transition Duration",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerTransitionDuration.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerTransportPosition",
+      "name": "Layer Active Clip Transport Position",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "view",
+          "type": "dropdown",
+          "label": "Visualisation",
+          "default": "timestamp",
+          "choices": [
+            {
+              "id": "timestamp",
+              "label": "hh:mm:ss"
+            },
+            {
+              "id": "timestampFrame",
+              "label": "hh:mm:ss:ff - including frames"
+            },
+            {
+              "id": "timestamp_noHours",
+              "label": "mm:ss"
+            },
+            {
+              "id": "timestampFrame_noHours",
+              "label": "mm:ss:ff - including frames"
+            },
+            {
+              "id": "fullSeconds",
+              "label": "10000s"
+            },
+            {
+              "id": "frames",
+              "label": "ff - frames"
+            },
+            {
+              "id": "seconds",
+              "label": "ss - seconds"
+            },
+            {
+              "id": "minutes",
+              "label": "mm - minutes"
+            },
+            {
+              "id": "hours",
+              "label": "hh - hours"
+            },
+            {
+              "id": "direction",
+              "label": "-/+ - timeRemaining or clipTime"
+            }
+          ]
+        },
+        {
+          "id": "timeRemaining",
+          "type": "checkbox",
+          "label": "Remaining Time",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer/feedbacks/layerTransportPosition.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerGroupBypassed",
+      "name": "Layer Group Bypassed",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupBypassed.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerGroupSolo",
+      "name": "Layer Group Solo",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupSolo.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerGroupActive",
+      "name": "Layer Group Active",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupActive.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerGroupSelected",
+      "name": "Layer Group Selected",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupSelected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerGroupMaster",
+      "name": "Layer Group Master",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupMaster.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerGroupOpacity",
+      "name": "Layer Group Opacity",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupOpacity.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerGroupVolume",
+      "name": "Layer Group Volume",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupVolume.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerGroupSpeed",
+      "name": "Layer Group Speed",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupSpeed.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "layerGroupColumnsSelected",
+      "name": "Layer Group Column Selected",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupColumnsSelected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerGroupColumnsConnected",
+      "name": "Layer Group Column Connected",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupColumnsConnected.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "layerGroupColumnName",
+      "name": "Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/layerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selectedLayerGroupColumnName",
+      "name": "Selected Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/selectedLayerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "connectedLayerGroupColumnName",
+      "name": "Connected Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/connectedLayerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "nextSelectedLayerGroupColumnName",
+      "name": "Next Selected Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "next",
+          "type": "number",
+          "label": "Next",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/nextSelectedLayerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "nextConnectedLayerGroupColumnName",
+      "name": "Next Connected Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "next",
+          "type": "number",
+          "label": "Next",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/nextConnectedLayerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "previousSelectedLayerGroupColumnName",
+      "name": "Previous Selected Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "previous",
+          "type": "number",
+          "label": "Previous",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/previousSelectedLayerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "previousConnectedLayerGroupColumnName",
+      "name": "Previous Connected Layer Group Column Name",
+      "options": [
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "previous",
+          "type": "number",
+          "label": "Previous",
+          "default": 1,
+          "min": 1,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/layer-group/feedbacks/previousConnectedLayerGroupColumnName.ts",
+        "line": 6
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "oscProgressBar",
+      "name": "OSC: Progress Bar",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "hideWhenNotRunning",
+          "type": "checkbox",
+          "label": "Hide when not running",
+          "default": true
+        },
+        {
+          "id": "orangeSeconds",
+          "type": "textinput",
+          "label": "Change to orange at remaining seconds",
+          "default": "30",
+          "useVariables": true
+        },
+        {
+          "id": "redSeconds",
+          "type": "textinput",
+          "label": "Change to red at remaining seconds",
+          "default": "10",
+          "useVariables": true
+        },
+        {
+          "id": "runningColor",
+          "type": "colorpicker",
+          "label": "Running color (green)",
+          "default": 51200
+        },
+        {
+          "id": "warningColor",
+          "type": "colorpicker",
+          "label": "Warning color (orange)",
+          "default": 16747520
+        },
+        {
+          "id": "criticalColor",
+          "type": "colorpicker",
+          "label": "Critical color (red)",
+          "default": 16711680
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/osc-transport/oscTransportFeedbacks.ts",
+        "line": 15
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "oscActiveColumn",
+      "name": "OSC: Active Column",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "bg_active",
+          "type": "colorpicker",
+          "label": "Background: Active",
+          "default": 51200
+        },
+        {
+          "id": "text_active",
+          "type": "colorpicker",
+          "label": "Text: Active",
+          "default": 16777215
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/osc-transport/oscTransportFeedbacks.ts",
+        "line": 121
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedLayer",
+      "name": "Effect Bypassed (Layer)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:8",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterLayer",
+      "name": "Effect Parameter Value (Layer)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:13",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedClip",
+      "name": "Effect Bypassed (Clip)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:9",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterClip",
+      "name": "Effect Parameter Value (Clip)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:14",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedClipList",
+      "name": "Effect Bypassed (Clip — from list)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:10",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterClipList",
+      "name": "Effect Parameter Value (Clip — from list)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:15",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedGroup",
+      "name": "Effect Bypassed (Layer Group)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:11",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterGroup",
+      "name": "Effect Parameter Value (Layer Group)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:16",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "layerGroup",
+          "type": "textinput",
+          "label": "Layer Group (1-based)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "effectBypassedComposition",
+      "name": "Effect Bypassed (Composition)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:12",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectBypassed.ts",
+        "line": 14
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "effectParameterComposition",
+      "name": "Effect Parameter Value (Composition)",
+      "description": "Registered in src/feedbacks/effect/effectFeedbacks.ts:17",
+      "options": [
+        {
+          "id": "effectChoice",
+          "type": "dropdown",
+          "label": "Effect — select from loaded effects or choose Manual to enter an index",
+          "default": "__manual__",
+          "choicesNote": "Fixed id '__manual__' plus the effects loaded from the composition, ids prefixed '<scope>:' (src/actions/effect/effect-action-options.ts:15-27)"
+        },
+        {
+          "id": "effectIdx",
+          "type": "textinput",
+          "label": "Effect index (1-based, left to right in the effect chain)",
+          "default": "1",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "visibleWhen": "options.effectChoice === '__manual__'"
+        },
+        {
+          "id": "collection",
+          "type": "dropdown",
+          "label": "Collection",
+          "default": "params",
+          "choices": [
+            {
+              "id": "params",
+              "label": "params — effect controls (most common)"
+            },
+            {
+              "id": "mixer",
+              "label": "mixer — mix/blend parameters"
+            },
+            {
+              "id": "effect",
+              "label": "effect — effect-level flags"
+            }
+          ]
+        },
+        {
+          "id": "paramChoice_params",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the params collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'params'"
+        },
+        {
+          "id": "paramChoice_mixer",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the mixer collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'mixer'"
+        },
+        {
+          "id": "paramChoice_effect",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "__manual_param__",
+          "choicesNote": "Parameters of the effect collection of the effect, loaded from the composition, plus '__manual_param__'",
+          "visibleWhen": "options.collection === 'effect'"
+        },
+        {
+          "id": "paramName",
+          "type": "textinput",
+          "label": "Parameter name (manual, supports variables)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "options.collection === 'params' && options.paramChoice_params === '__manual_param__' || options.collection === 'mixer' && options.paramChoice_mixer === '__manual_param__' || options.collection === 'effect' && options.paramChoice_effect === '__manual_param__'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/effect/feedbacks/effectParameter.ts",
+        "line": 13
+      },
+      "availability": "Only registered when the REST/WebSocket API connection is enabled (src/index.ts setupFeedback: getApiFeedbacks only with restApi)",
+      "feedbackType": "advanced"
+    }
+  ]
+}

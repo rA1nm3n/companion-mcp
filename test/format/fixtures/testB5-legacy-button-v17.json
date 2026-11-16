@@ -1,0 +1,76 @@
+{
+  "version": 17,
+  "type": "page",
+  "companionBuild": "5.1.3+handgeschrieben",
+  "page": {
+    "name": "HANDTEST",
+    "controls": {
+      "0": {
+        "0": {
+          "type": "button",
+          "options": {
+            "stepProgression": "auto",
+            "rotaryActions": false
+          },
+          "style": {
+            "text": "LEGACY",
+            "size": "18",
+            "color": 16777215,
+            "bgcolor": 255,
+            "show_topbar": "default",
+            "alignment": "center:center",
+            "pngalignment": "center:center",
+            "png64": null,
+            "latch": false
+          },
+          "feedbacks": [],
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "id": "acLegacy00000000000001",
+                    "definitionId": "custom_variable_set_value",
+                    "connectionId": "internal",
+                    "type": "action",
+                    "options": {
+                      "name": {
+                        "isExpression": false,
+                        "value": "mytest"
+                      },
+                      "create": {
+                        "isExpression": false,
+                        "value": true
+                      },
+                      "value": {
+                        "isExpression": false,
+                        "value": "7"
+                      }
+                    },
+                    "children": {}
+                  }
+                ],
+                "up": []
+              },
+              "options": {
+                "runWhileHeld": []
+              }
+            }
+          },
+          "localVariables": []
+        }
+      }
+    },
+    "gridSize": {
+      "minColumn": 0,
+      "maxColumn": 7,
+      "minRow": 0,
+      "maxRow": 3
+    }
+  },
+  "instances": {},
+  "connectionCollections": [],
+  "oldPageNumber": 1,
+  "imageLibrary": [],
+  "imageLibraryCollections": []
+}

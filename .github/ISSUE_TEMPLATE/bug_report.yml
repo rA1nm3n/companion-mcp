@@ -1,0 +1,45 @@
+name: Bug report
+description: Something does not work as documented
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report security vulnerabilities here. See SECURITY.md.
+  - type: input
+    id: companion-version
+    attributes:
+      label: Bitfocus Companion version
+      placeholder: '5.0.3'
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: companion-mcp version or commit
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: Node.js version
+      placeholder: '22.x'
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Include the tool call, the expected result and the actual result.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or output
+      description: Remove IP addresses, tokens and customer data first.
+      render: shell

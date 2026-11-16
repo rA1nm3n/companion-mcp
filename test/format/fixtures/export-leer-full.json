@@ -1,0 +1,77 @@
+{
+  "version": 12,
+  "type": "full",
+  "companionBuild": "5.1.3+1-unknown-93ea3fa61c",
+  "pages": {
+    "1": {
+      "id": "PVKAY9OVGeyfwFDff72AF",
+      "name": "PAGE",
+      "controls": {
+        "0": {
+          "0": {
+            "type": "pageup"
+          }
+        },
+        "1": {
+          "0": {
+            "type": "pagenum"
+          }
+        },
+        "2": {
+          "0": {
+            "type": "pagedown"
+          }
+        }
+      },
+      "gridSize": {
+        "minColumn": 0,
+        "maxColumn": 7,
+        "minRow": 0,
+        "maxRow": 3
+      },
+      "pageVariables": []
+    }
+  },
+  "triggers": {},
+  "triggerCollections": [],
+  "custom_variables": {},
+  "customVariablesCollections": [],
+  "expressionVariables": {},
+  "expressionVariablesCollections": [],
+  "instances": {},
+  "connectionCollections": [],
+  "surfaces": {},
+  "surfaceGroups": {},
+  "surfacesRemote": {},
+  "surfaceInstances": {
+    "jEiRYIgTL2JqyUOs_nQJm": {
+      "moduleInstanceType": "surface",
+      "moduleId": "elgato-stream-deck",
+      "moduleVersionId": "builtin",
+      "updatePolicy": "stable",
+      "sortOrder": 1,
+      "label": "elgato-stream-deck",
+      "isFirstInit": true,
+      "config": {},
+      "secrets": {},
+      "lastUpgradeIndex": -1,
+      "enabled": true
+    },
+    "xX8ABIlutIVfxmSnRMddI": {
+      "moduleInstanceType": "surface",
+      "moduleId": "xkeys",
+      "moduleVersionId": "builtin",
+      "updatePolicy": "stable",
+      "sortOrder": 2,
+      "label": "xkeys",
+      "isFirstInit": true,
+      "config": {},
+      "secrets": {},
+      "lastUpgradeIndex": -1,
+      "enabled": true
+    }
+  },
+  "surfaceInstanceCollections": [],
+  "imageLibrary": [],
+  "imageLibraryCollections": []
+}

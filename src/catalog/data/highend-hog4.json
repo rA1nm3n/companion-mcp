@@ -1,0 +1,761 @@
+{
+  "moduleId": "highend-hog4",
+  "name": "High End Systems Hog 4",
+  "repo": "bitfocus/companion-module-highend-hog4",
+  "version": "2.0.1",
+  "baseVersion": "~1.10",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "729e6bc",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 10 actions and no feedbacks (src/actions.js registers one setActionDefinitions call; no setFeedbackDefinitions call exists in the module).",
+    "The module sends OSC to the console (host, port 7000 by default; the console needs OSC In enabled, see src/index.js getConfigFields). The manifest lists only the product \"Hog 4\"; operation with HogPC or Hog 4 OS is not stated in the module source and was not verified.",
+    "Dropdown ids are strings, including the numeric-looking ones (playback type 0/1/2, press/release 1/0). The actions pass them through parseFloat (action) or into the OSC path (type), so keep the string form.",
+    "The masterKey action reuses the option id \"type\" (Key choices: choose, go, pause, goback, flash) and builds /hog/hardware/<type>/<mId>; the hardwareKey action reuses \"type\" for the key list. The Master Number 0 means the grand master (field tooltip).",
+    "The H Key Number has min 1 and no max. The \"range\" flags of the number fields in src/setup.js are UI slider hints and are not recorded.",
+    "Built on @companion-module/base ~1.10: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "qlGoCue",
+      "name": "Go on Cue in Cuelist",
+      "options": [
+        {
+          "id": "qlId",
+          "type": "number",
+          "label": "Cuelist",
+          "default": 1,
+          "min": 1,
+          "max": 32768,
+          "required": true
+        },
+        {
+          "id": "qId",
+          "type": "number",
+          "label": "Cue",
+          "default": 1,
+          "min": 1,
+          "max": 32768,
+          "required": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 13
+      }
+    },
+    {
+      "id": "go",
+      "name": "Go on Cuelist, Scene, or Macro",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Cuelist"
+            },
+            {
+              "id": "1",
+              "label": "Scene"
+            },
+            {
+              "id": "2",
+              "label": "Macro"
+            }
+          ]
+        },
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "required": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 24
+      }
+    },
+    {
+      "id": "halt",
+      "name": "Halt Cuelist, Scene, or Macro",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Cuelist"
+            },
+            {
+              "id": "1",
+              "label": "Scene"
+            },
+            {
+              "id": "2",
+              "label": "Macro"
+            }
+          ]
+        },
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "required": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 35
+      }
+    },
+    {
+      "id": "release",
+      "name": "Release Cuelist, Scene, or Macro",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Cuelist"
+            },
+            {
+              "id": "1",
+              "label": "Scene"
+            },
+            {
+              "id": "2",
+              "label": "Macro"
+            }
+          ]
+        },
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "required": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 46
+      }
+    },
+    {
+      "id": "resume",
+      "name": "Resume Cuelist, Scene, or Macro",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Cuelist"
+            },
+            {
+              "id": "1",
+              "label": "Scene"
+            },
+            {
+              "id": "2",
+              "label": "Macro"
+            }
+          ]
+        },
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "required": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 57
+      }
+    },
+    {
+      "id": "masterKey",
+      "name": "Master Key",
+      "options": [
+        {
+          "id": "mId",
+          "type": "number",
+          "label": "Master Number",
+          "default": 1,
+          "min": 0,
+          "max": 90,
+          "required": true,
+          "description": "0 = GM, 1-90"
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Key",
+          "default": "go",
+          "choices": [
+            {
+              "id": "choose",
+              "label": "Choose"
+            },
+            {
+              "id": "go",
+              "label": "Go"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "goback",
+              "label": "Back"
+            },
+            {
+              "id": "flash",
+              "label": "Flash"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 68
+      }
+    },
+    {
+      "id": "masterFader",
+      "name": "Master Fader Level",
+      "options": [
+        {
+          "id": "mId",
+          "type": "number",
+          "label": "Master Number",
+          "default": 1,
+          "min": 0,
+          "max": 90,
+          "required": true,
+          "description": "0 = GM, 1-90"
+        },
+        {
+          "id": "level",
+          "type": "number",
+          "label": "Fader Level",
+          "default": 255,
+          "min": 0,
+          "max": 255,
+          "required": true,
+          "description": "0-255"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 79
+      }
+    },
+    {
+      "id": "hardwareKey",
+      "name": "Hardware Key",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Key",
+          "default": "pig",
+          "choices": [
+            {
+              "id": "zero",
+              "label": "0"
+            },
+            {
+              "id": "one",
+              "label": "1"
+            },
+            {
+              "id": "two",
+              "label": "2"
+            },
+            {
+              "id": "three",
+              "label": "3"
+            },
+            {
+              "id": "four",
+              "label": "4"
+            },
+            {
+              "id": "five",
+              "label": "5"
+            },
+            {
+              "id": "six",
+              "label": "6"
+            },
+            {
+              "id": "seven",
+              "label": "7"
+            },
+            {
+              "id": "eight",
+              "label": "8"
+            },
+            {
+              "id": "nine",
+              "label": "9"
+            },
+            {
+              "id": "period",
+              "label": "."
+            },
+            {
+              "id": "at",
+              "label": "@"
+            },
+            {
+              "id": "minus",
+              "label": "-"
+            },
+            {
+              "id": "plus",
+              "label": "+"
+            },
+            {
+              "id": "slash",
+              "label": "/"
+            },
+            {
+              "id": "thru",
+              "label": "Thru"
+            },
+            {
+              "id": "full",
+              "label": "Full"
+            },
+            {
+              "id": "backspace",
+              "label": "Backspace"
+            },
+            {
+              "id": "enter",
+              "label": "Enter"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "all",
+              "label": "All"
+            },
+            {
+              "id": "next",
+              "label": "Next"
+            },
+            {
+              "id": "highlight",
+              "label": "Highlight"
+            },
+            {
+              "id": "blind",
+              "label": "Blind"
+            },
+            {
+              "id": "clear",
+              "label": "Clear"
+            },
+            {
+              "id": "up",
+              "label": "Up"
+            },
+            {
+              "id": "down",
+              "label": "Down"
+            },
+            {
+              "id": "left",
+              "label": "Left"
+            },
+            {
+              "id": "right",
+              "label": "Right"
+            },
+            {
+              "id": "live",
+              "label": "Live"
+            },
+            {
+              "id": "scene",
+              "label": "Scene"
+            },
+            {
+              "id": "cue",
+              "label": "Cue"
+            },
+            {
+              "id": "macro",
+              "label": "Macro"
+            },
+            {
+              "id": "list",
+              "label": "List"
+            },
+            {
+              "id": "page",
+              "label": "Page"
+            },
+            {
+              "id": "delete",
+              "label": "Delete"
+            },
+            {
+              "id": "move",
+              "label": "Move"
+            },
+            {
+              "id": "copy",
+              "label": "Copy"
+            },
+            {
+              "id": "update",
+              "label": "Update"
+            },
+            {
+              "id": "merge",
+              "label": "Merge"
+            },
+            {
+              "id": "record",
+              "label": "Record"
+            },
+            {
+              "id": "setup",
+              "label": "Setup"
+            },
+            {
+              "id": "goto",
+              "label": "Goto"
+            },
+            {
+              "id": "set",
+              "label": "Set"
+            },
+            {
+              "id": "pig",
+              "label": "Pig"
+            },
+            {
+              "id": "fan",
+              "label": "Fan"
+            },
+            {
+              "id": "open",
+              "label": "Open"
+            },
+            {
+              "id": "intensity",
+              "label": "Intensity"
+            },
+            {
+              "id": "position",
+              "label": "Position"
+            },
+            {
+              "id": "colour",
+              "label": "Colour"
+            },
+            {
+              "id": "beam",
+              "label": "Beam"
+            },
+            {
+              "id": "effect",
+              "label": "Effect"
+            },
+            {
+              "id": "time",
+              "label": "Time"
+            },
+            {
+              "id": "group",
+              "label": "Group"
+            },
+            {
+              "id": "fixture",
+              "label": "Fixture"
+            },
+            {
+              "id": "maingo",
+              "label": "Main Play"
+            },
+            {
+              "id": "mainhalt",
+              "label": "Main Halt"
+            },
+            {
+              "id": "mainback",
+              "label": "Main Back"
+            },
+            {
+              "id": "mainchoose",
+              "label": "Center Choose"
+            },
+            {
+              "id": "skipfwd",
+              "label": "Skip Forward"
+            },
+            {
+              "id": "skipback",
+              "label": "Skip Back"
+            },
+            {
+              "id": "assert",
+              "label": "Assert"
+            },
+            {
+              "id": "release",
+              "label": "Release"
+            },
+            {
+              "id": "restore",
+              "label": "Restore"
+            },
+            {
+              "id": "rate",
+              "label": "Rate"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 90
+      }
+    },
+    {
+      "id": "hKey",
+      "name": "H Key",
+      "options": [
+        {
+          "id": "hId",
+          "type": "number",
+          "label": "H Key Number",
+          "default": 1,
+          "min": 1,
+          "required": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Press"
+            },
+            {
+              "id": "0",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 101
+      }
+    },
+    {
+      "id": "midiNote",
+      "name": "MIDI Note",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Note On"
+            },
+            {
+              "id": "off",
+              "label": "Note Off"
+            }
+          ]
+        },
+        {
+          "id": "cId",
+          "type": "number",
+          "label": "Channel #",
+          "default": 1,
+          "min": 1,
+          "max": 16,
+          "required": true
+        },
+        {
+          "id": "nId",
+          "type": "number",
+          "label": "Note #",
+          "default": 1,
+          "min": 1,
+          "max": 128,
+          "required": true
+        },
+        {
+          "id": "velocity",
+          "type": "number",
+          "label": "Velocity (0 is treated as a Note Off)",
+          "default": 127,
+          "min": 0,
+          "max": 127,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 112
+      }
+    }
+  ],
+  "feedbacks": []
+}

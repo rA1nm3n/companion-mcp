@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest a tool or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to configure in Companion?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Tool name, inputs, outputs and side effects, if you have an idea.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: write
+    attributes:
+      label: Does it change Companion configuration?
+      options:
+        - 'No (read-only)'
+        - 'Yes (write)'
+    validations:
+      required: true
