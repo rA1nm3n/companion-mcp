@@ -1,0 +1,333 @@
+{
+  "moduleId": "leonreucher-vstopowerpoint",
+  "name": "Leon Reucher PowerPoint Remote (VSTO WebSocket)",
+  "repo": "bitfocus/companion-module-leonreucher-vstopowerpoint",
+  "version": "1.1.0",
+  "baseVersion": "~1.10.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "dcdce30",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "startPresentation",
+      "name": "Begin Presentation",
+      "description": "Switch to the presentation mode",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 3
+      }
+    },
+    {
+      "id": "endPresentation",
+      "name": "End Presentation",
+      "description": "Exit the presentation mode",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 15
+      }
+    },
+    {
+      "id": "nextSlide",
+      "name": "Next slide",
+      "description": "Switch to the next slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 27
+      }
+    },
+    {
+      "id": "previousSlide",
+      "name": "Previous slide",
+      "description": "Switch to the previous slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 39
+      }
+    },
+    {
+      "id": "firstSlide",
+      "name": "First slide",
+      "description": "Switch to the first slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 51
+      }
+    },
+    {
+      "id": "lastSlide",
+      "name": "Last slide",
+      "description": "Switch to the last slide",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 63
+      }
+    },
+    {
+      "id": "goToSlide",
+      "name": "Go to slide",
+      "description": "Switch to a specific slide",
+      "options": [
+        {
+          "id": "targetSlide",
+          "type": "number",
+          "label": "Slide number",
+          "default": 1,
+          "min": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 75
+      }
+    },
+    {
+      "id": "openPresentation",
+      "name": "Open presentation",
+      "description": "Switch to a specific presentation",
+      "options": [
+        {
+          "id": "targetPath",
+          "type": "textinput",
+          "label": "Path to presentation",
+          "required": true
+        },
+        {
+          "id": "closeOthers",
+          "type": "checkbox",
+          "label": "Close all other files",
+          "default": true,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 96
+      }
+    },
+    {
+      "id": "closeAll",
+      "name": "Close all presentations",
+      "description": "Close all currently opened presentations",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 124
+      }
+    },
+    {
+      "id": "blackout",
+      "name": "Control Blackout",
+      "description": "Blackout/Whiteout/Show presentation",
+      "options": [
+        {
+          "id": "targetAction",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "blackout",
+          "choices": [
+            {
+              "id": "blackout",
+              "label": "Black Out"
+            },
+            {
+              "id": "whiteout",
+              "label": "White Out"
+            },
+            {
+              "id": "showPresentation",
+              "label": "Continue Presentation"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 137
+      }
+    },
+    {
+      "id": "hideUnhideSlide",
+      "name": "Hide/Unhide Slide",
+      "description": "Hide a specific slide inside the slidedeck",
+      "options": [
+        {
+          "id": "slideId",
+          "type": "number",
+          "label": "Slide ID (starting at 1)",
+          "default": 1,
+          "min": 1,
+          "required": true
+        },
+        {
+          "id": "targetAction",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "hideSlide",
+          "choices": [
+            {
+              "id": "hideSlide",
+              "label": "Hide"
+            },
+            {
+              "id": "unhideSlide",
+              "label": "Unhide"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 161
+      }
+    },
+    {
+      "id": "unhideAllSlides",
+      "name": "Unhide all slides",
+      "description": "Unhide all slides inside the slidedeck",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 193
+      }
+    },
+    {
+      "id": "toggleLaserPointer",
+      "name": "Control Laser Pointer",
+      "description": "Show/Hide the laser pointer",
+      "options": [
+        {
+          "id": "targetAction",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "showLaserPointer",
+          "choices": [
+            {
+              "id": "showLaserPointer",
+              "label": "Show"
+            },
+            {
+              "id": "hideLaserPointer",
+              "label": "Hide"
+            },
+            {
+              "id": "toggleLaserPointer",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 205
+      }
+    },
+    {
+      "id": "eraseDrawings",
+      "name": "Erase drawings",
+      "description": "Erase drawings on the active slide made by the presenter",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 229
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "presentationActive",
+      "name": "Presentation active",
+      "description": "Active, if the presentation mode is currently active",
+      "options": [],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 5
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "slideReached",
+      "name": "Slide reached",
+      "description": "Active, if the selected slide is currently shown",
+      "options": [
+        {
+          "id": "targetSlide",
+          "type": "number",
+          "label": "Slide number",
+          "default": 1,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 14
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "currentSlidePosition",
+      "name": "Slide position",
+      "description": "Displays the current slide and total slide count in different formats",
+      "options": [
+        {
+          "id": "displayFormat",
+          "type": "dropdown",
+          "label": "Format",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Slide x/y"
+            },
+            {
+              "id": 1,
+              "label": "x/y"
+            },
+            {
+              "id": 2,
+              "label": "%"
+            },
+            {
+              "id": 3,
+              "label": "Current Slide"
+            },
+            {
+              "id": 4,
+              "label": "Total Slide Count"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 31
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "presentationName",
+      "name": "Presentation name",
+      "description": "Shows the filename of the currently active presentation",
+      "options": [],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 66
+      },
+      "feedbackType": "advanced"
+    }
+  ],
+  "notes": [
+    "Complete list: 14 actions (actions.js setupActions) and 4 feedbacks (feedbacks.js setupFeedbacks, 2 boolean and 2 advanced). Variables (variables.js) are not catalogued; the module has no presets file.",
+    "Protocol: WebSocket client to ws://<targetIp>:<targetPort>/ws (index.js, initWebSocket), with ping/pong every 3 s and optional reconnect after 5 s (config field reconnect). It needs the matching Office add-in running inside PowerPoint (config.js info text). Actions send JSON such as { action: \"next\" }, { slideShowActive: true }, { currentSlide: <n> } (actions.js). The add-in was not inspected.",
+    "Built on @companion-module/base ~1.10.0: options do not support expressions. No option sets useVariables.",
+    "Source oddities kept as written: the config field targetPort is type number with the string default \"80\" and regex Regex.PORT (config.js); slideReached compares with loose equality (feedbacks.js:28) and currentSlidePosition has numeric choice ids 0 to 4 with numeric default 0, and returns nothing for other values (feedbacks.js:31-63). The blackout, hideUnhideSlide and toggleLaserPointer dropdowns send the chosen id as the \"action\" value to the add-in; the Hide/Unhide action option \"slideId\" is sent as slideId.",
+    "openPresentation sends a file path as typed to the add-in (path on the machine running PowerPoint) and closeOthers; both options are marked required, and closeOthers is a checkbox that defaults to true."
+  ]
+}

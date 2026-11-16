@@ -1,0 +1,222 @@
+{
+  "moduleId": "horinetech-keynote",
+  "name": "HorineTech Keynote",
+  "repo": "horinezachary/companion-module-horinetech-keynote",
+  "version": "0.1.1",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "9ae7f67",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "next",
+      "name": "Next",
+      "description": "Advance the slideshow (next build or slide)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 25
+      }
+    },
+    {
+      "id": "previous",
+      "name": "Previous",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 31
+      }
+    },
+    {
+      "id": "first",
+      "name": "First slide",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 36
+      }
+    },
+    {
+      "id": "last",
+      "name": "Last slide",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 41
+      }
+    },
+    {
+      "id": "goto",
+      "name": "Go to slide",
+      "options": [
+        {
+          "id": "slide",
+          "type": "number",
+          "label": "Slide number",
+          "default": 1,
+          "min": 1,
+          "max": 10000,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 46
+      }
+    },
+    {
+      "id": "start",
+      "name": "Start slideshow",
+      "options": [
+        {
+          "id": "from",
+          "type": "dropdown",
+          "label": "Start from",
+          "default": "beginning",
+          "choices": [
+            {
+              "id": "beginning",
+              "label": "The beginning"
+            },
+            {
+              "id": "current",
+              "label": "The current slide"
+            },
+            {
+              "id": "slide",
+              "label": "A slide number"
+            }
+          ]
+        },
+        {
+          "id": "slide",
+          "type": "number",
+          "label": "Slide number",
+          "default": 1,
+          "min": 1,
+          "max": 10000,
+          "integer": true,
+          "visibleWhen": "$(options:from) == 'slide'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 68
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Stop slideshow",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 104
+      }
+    },
+    {
+      "id": "refresh",
+      "name": "Refresh state",
+      "description": "Ask the app to resend the current slide state",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 109
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "connected",
+      "name": "Connected to the Mac app",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 22
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "playing",
+      "name": "Slideshow is playing",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 29
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "current_slide",
+      "name": "Current slide is",
+      "options": [
+        {
+          "id": "slide",
+          "type": "number",
+          "label": "Slide number",
+          "default": 1,
+          "min": 1,
+          "max": 10000
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 36
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "slide_has_label",
+      "name": "Current slide has label",
+      "description": "True while the slide on screen carries this [LABEL] in its notes",
+      "options": [
+        {
+          "id": "label",
+          "type": "textinput",
+          "label": "Label, e.g. CAM1",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 43
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "label_fired",
+      "name": "Label fired",
+      "description": "True for a moment after the app fires this label. Use it as a Trigger condition to run actions when a slide with the label is shown. Leave the label empty to match any label.",
+      "options": [
+        {
+          "id": "label",
+          "type": "textinput",
+          "label": "Label, e.g. CAM1 (empty for any)",
+          "default": ""
+        },
+        {
+          "id": "hold",
+          "type": "number",
+          "label": "Stay true for (seconds)",
+          "default": 1,
+          "min": 0.1,
+          "max": 60,
+          "step": 0.1
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 51
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Complete list: 8 actions (src/actions.ts UpdateActions) and 5 boolean feedbacks (src/feedbacks.ts UpdateFeedbacks). Variables (src/variables.ts) and presets (src/presets.ts) are not catalogued.",
+    "Third-party module (not in the bitfocus organization). It does not talk to Keynote directly: it is a line-based JSON TCP client (net.createConnection, src/client.ts:99) to the separate \"Keynote Companion\" Mac menu-bar app, default port 7878 (src/protocol.ts), optional shared token (config field token). Commands are { cmd: next|previous|first|last|goto|start|stop|refresh }; the app sends state, trigger, heartbeat and error lines. The Mac app was not inspected.",
+    "Built on @companion-module/base ~2.1.3: option values can be expressions. The source says slide numbers may arrive as strings when they come from an expression and converts them with toSlideNumber (src/actions.ts:18-21): only whole numbers >= 1 are sent, otherwise the action logs a warning (goto) or does nothing (start from \"slide\").",
+    "package.json says 0.1.1 while companion/manifest.json still says version 0.0.0.",
+    "start: the slide option is only shown when from is \"slide\" (isVisibleExpression). Any other value of \"from\" than \"current\" or \"slide\" is sent as \"beginning\" (src/actions.ts:100). label_fired: leave the label empty to match any label; hold is capped at MAX_HOLD_SECONDS = 60 (src/feedbacks.ts:18). Feedback colours are not catalogued (defaultStyle).",
+    "The max of 10000 on the slide number options is the module limit, not a Keynote limit."
+  ]
+}
