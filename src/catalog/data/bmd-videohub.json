@@ -1,0 +1,667 @@
+{
+  "moduleId": "bmd-videohub",
+  "name": "Blackmagic Design Videohub",
+  "repo": "bitfocus/companion-module-bmd-videohub",
+  "version": "3.2.1",
+  "baseVersion": "~2.0.4",
+  "lastCommit": "2026-10-29",
+  "lastCommitSha": "2c2e723",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Input, output and serial dropdowns use 1-based numeric ids (getInputChoices(state, true), src/actions.ts:123 and src/feedback.ts:70); id 1 is the first port. The module subtracts 1 when talking to the device.",
+    "The dropdowns have no allowInvalidValues; whether Companion accepts expressions for the numeric ids is handled by the generic expression rule for API 2.x modules (not tested against a running instance).",
+    "Port counts and labels depend on the connected Videohub model; the catalog therefore lists the choices as dynamic."
+  ],
+  "actions": [
+    {
+      "id": "rename_destination",
+      "name": "Video: Rename destination",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "label",
+          "type": "textinput",
+          "label": "New label",
+          "default": "Dest name",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 126
+      }
+    },
+    {
+      "id": "rename_source",
+      "name": "Video: Rename source",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Video inputs of the connected Videohub: numeric ids, 1-based (input.id + 1, getInputChoices(state, true) in src/choices.ts:38); labels from the device",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "label",
+          "type": "textinput",
+          "label": "New label",
+          "default": "Src name",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 152
+      }
+    },
+    {
+      "id": "rename_serial",
+      "name": "Serial: Rename port",
+      "options": [
+        {
+          "id": "serial",
+          "type": "dropdown",
+          "label": "Serial Port",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "label",
+          "type": "textinput",
+          "label": "New label",
+          "default": "Serial name",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 180
+      }
+    },
+    {
+      "id": "route",
+      "name": "Video: Route source to destination",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Video inputs of the connected Videohub: numeric ids, 1-based (input.id + 1, getInputChoices(state, true) in src/choices.ts:38); labels from the device",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 207
+      }
+    },
+    {
+      "id": "route_routed",
+      "name": "Video: Route source to destination, based on another destination",
+      "options": [
+        {
+          "id": "source_routed_to_destination",
+          "type": "dropdown",
+          "label": "Destination to take routed source from",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 239
+      }
+    },
+    {
+      "id": "route_to_previous",
+      "name": "Video: Return to previous route",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 273
+      }
+    },
+    {
+      "id": "route_serial",
+      "name": "Serial: Route port",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 306
+      }
+    },
+    {
+      "id": "select_destination",
+      "name": "Video: Select destination",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 338
+      }
+    },
+    {
+      "id": "select_destination_step",
+      "name": "Video: Step selected destination",
+      "options": [
+        {
+          "id": "offset",
+          "type": "number",
+          "label": "Offset (negative steps down)",
+          "default": 1,
+          "min": -999,
+          "max": 999
+        },
+        {
+          "id": "wrap",
+          "type": "checkbox",
+          "label": "Wrap around at the ends",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 366
+      }
+    },
+    {
+      "id": "route_source",
+      "name": "Video: Route source to selected destination",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Video inputs of the connected Videohub: numeric ids, 1-based (input.id + 1, getInputChoices(state, true) in src/choices.ts:38); labels from the device",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 410
+      }
+    },
+    {
+      "id": "route_source_step",
+      "name": "Video: Step source routed to destination",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": "selected",
+          "choicesNote": "Fixed ids \"selected\" plus Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)"
+        },
+        {
+          "id": "offset",
+          "type": "number",
+          "label": "Offset (negative steps down)",
+          "default": 1,
+          "min": -999,
+          "max": 999
+        },
+        {
+          "id": "wrap",
+          "type": "checkbox",
+          "label": "Wrap around at the ends",
+          "default": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 448
+      }
+    },
+    {
+      "id": "take",
+      "name": "Video: Take queued route",
+      "options": [
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Ignore Lock",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 517
+      }
+    },
+    {
+      "id": "clear",
+      "name": "Video: Clear queued route",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 542
+      }
+    },
+    {
+      "id": "load_route_from_file",
+      "name": "Route File: Load file",
+      "options": [
+        {
+          "id": "source_file",
+          "type": "textinput",
+          "label": "Source File",
+          "default": "C:\\VideoHub.txt",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 554
+      }
+    },
+    {
+      "id": "store_route_in_file",
+      "name": "Route File: Save file",
+      "options": [
+        {
+          "id": "destination_file",
+          "type": "textinput",
+          "label": "Destination File",
+          "default": "C:\\VideoHub.txt",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 608
+      }
+    },
+    {
+      "id": "lock_output",
+      "name": "Lock: Change destination lock state",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "lock_state",
+          "type": "dropdown",
+          "label": "Lock State",
+          "default": "T",
+          "choicesNote": "Fixed lock actions: 'T' (Toggle), 'U' (Unlock), 'O' (Lock) (src/choices.ts:30-32)",
+          "allowInvalidValues": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Force",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 644
+      }
+    },
+    {
+      "id": "lock_serial",
+      "name": "Lock: Change serial port lock state",
+      "options": [
+        {
+          "id": "serial",
+          "type": "dropdown",
+          "label": "Port",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "lock_state",
+          "type": "dropdown",
+          "label": "Lock State",
+          "default": "T",
+          "choicesNote": "Fixed lock actions: 'T' (Toggle), 'U' (Unlock), 'O' (Lock) (src/choices.ts:30-32)",
+          "allowInvalidValues": true
+        },
+        {
+          "id": "ignore_lock",
+          "type": "checkbox",
+          "label": "Force",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 691
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "input_bg",
+      "name": "Video: Destination has specific source routed",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Video inputs of the connected Videohub: numeric ids, 1-based (input.id + 1, getInputChoices(state, true) in src/choices.ts:38); labels from the device",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 73
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "serial_bg",
+      "name": "Serial: Destination has specific source routed",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 101
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "selected_destination",
+      "name": "Video: specified destination is selected",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 129
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "selected_source",
+      "name": "Video: Specified source is routed to selected destination",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Video inputs of the connected Videohub: numeric ids, 1-based (input.id + 1, getInputChoices(state, true) in src/choices.ts:38); labels from the device",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 151
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "take",
+      "name": "Video: If there is a route queued",
+      "options": [],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 172
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "take_tally_source",
+      "name": "Video: If the Specified source is queued for a take",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Video inputs of the connected Videohub: numeric ids, 1-based (input.id + 1, getInputChoices(state, true) in src/choices.ts:38); labels from the device",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 185
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "take_tally_dest",
+      "name": "Video: If the specified destination is queued for a take",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 209
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "lock_output",
+      "name": "Lock: If destination is locked",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": 1,
+          "choicesNote": "Video outputs of the connected Videohub: numeric ids, 1-based (output.outputId + 1, src/choices.ts:44)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 230
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "lock_serial",
+      "name": "Lock: If serial port is locked",
+      "options": [
+        {
+          "id": "serial",
+          "type": "dropdown",
+          "label": "Port",
+          "default": 1,
+          "choicesNote": "Serial ports of the connected Videohub: numeric ids, 1-based (serial.id + 1, src/choices.ts:50)",
+          "valueType": "number",
+          "min": 1,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 254
+      },
+      "feedbackType": "boolean"
+    }
+  ]
+}

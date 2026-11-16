@@ -1,0 +1,282 @@
+{
+  "version": 12,
+  "type": "page",
+  "companionBuild": "5.1.3+handgeschrieben",
+  "page": {
+    "name": "HANDTEST",
+    "controls": {
+      "0": {
+        "0": {
+          "type": "button-layered",
+          "style": {
+            "layers": [
+              {
+                "id": "canvas",
+                "name": "Canvas",
+                "usage": "auto",
+                "type": "canvas",
+                "decoration": {
+                  "isExpression": false,
+                  "value": "default"
+                },
+                "showStatusIcons": {
+                  "isExpression": false,
+                  "value": "default"
+                }
+              },
+              {
+                "id": "box0",
+                "name": "Background",
+                "usage": "auto",
+                "type": "box",
+                "pinnedProperties": ["color"],
+                "enabled": {
+                  "isExpression": false,
+                  "value": true
+                },
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100
+                },
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 65280
+                },
+                "cornerRadius": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "borderWidth": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "borderColor": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "borderPosition": {
+                  "isExpression": false,
+                  "value": "inside"
+                }
+              },
+              {
+                "id": "text0",
+                "name": "Text",
+                "usage": "auto",
+                "type": "text",
+                "pinnedProperties": [
+                  "text",
+                  "fontsize",
+                  "fontsizeAllowShrink",
+                  "color",
+                  "halign",
+                  "valign"
+                ],
+                "enabled": {
+                  "isExpression": false,
+                  "value": true
+                },
+                "opacity": {
+                  "isExpression": false,
+                  "value": 100
+                },
+                "x": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "y": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "width": {
+                  "isExpression": false,
+                  "value": 100
+                },
+                "height": {
+                  "isExpression": false,
+                  "value": 100
+                },
+                "rotation": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "text": {
+                  "isExpression": false,
+                  "value": "HELLO"
+                },
+                "color": {
+                  "isExpression": false,
+                  "value": 0
+                },
+                "halign": {
+                  "isExpression": false,
+                  "value": "center"
+                },
+                "valign": {
+                  "isExpression": false,
+                  "value": "center"
+                },
+                "fontsize": {
+                  "isExpression": false,
+                  "value": 44
+                },
+                "fontsizeAllowShrink": {
+                  "isExpression": false,
+                  "value": false
+                },
+                "font": {
+                  "isExpression": false,
+                  "value": "companion-sans"
+                },
+                "weight": {
+                  "isExpression": false,
+                  "value": "normal"
+                },
+                "styles": {
+                  "isExpression": false,
+                  "value": []
+                },
+                "outlineColor": {
+                  "isExpression": false,
+                  "value": 4278190080
+                }
+              }
+            ]
+          },
+          "options": {
+            "stepProgression": "auto",
+            "stepExpression": "",
+            "rotaryActions": false,
+            "canModifyStyleInApis": false,
+            "notes": "handgeschrieben"
+          },
+          "feedbacks": [
+            {
+              "id": "fbTest0000000000000001",
+              "definitionId": "variable_value",
+              "connectionId": "internal",
+              "type": "feedback",
+              "options": {
+                "variable": {
+                  "isExpression": false,
+                  "value": "custom:mytest"
+                },
+                "op": {
+                  "isExpression": false,
+                  "value": "eq"
+                },
+                "value": {
+                  "isExpression": false,
+                  "value": "42"
+                }
+              },
+              "isInverted": {
+                "isExpression": false,
+                "value": false
+              },
+              "styleOverrides": [
+                {
+                  "overrideId": "ovTest00000000000001",
+                  "elementId": "box0",
+                  "elementProperty": "color",
+                  "override": {
+                    "isExpression": false,
+                    "value": 16711680
+                  }
+                }
+              ],
+              "children": {}
+            }
+          ],
+          "steps": {
+            "0": {
+              "action_sets": {
+                "down": [
+                  {
+                    "id": "acTest0000000000000001",
+                    "definitionId": "custom_variable_set_value",
+                    "connectionId": "internal",
+                    "type": "action",
+                    "options": {
+                      "name": {
+                        "isExpression": false,
+                        "value": "mytest"
+                      },
+                      "create": {
+                        "isExpression": false,
+                        "value": true
+                      },
+                      "value": {
+                        "isExpression": false,
+                        "value": "42"
+                      }
+                    },
+                    "children": {}
+                  },
+                  {
+                    "id": "acTest0000000000000002",
+                    "definitionId": "get",
+                    "connectionId": "connTest1",
+                    "type": "action",
+                    "options": {
+                      "url": {
+                        "isExpression": false,
+                        "value": "http://192.0.2.10/x"
+                      }
+                    },
+                    "children": {}
+                  }
+                ],
+                "up": []
+              },
+              "options": {
+                "runWhileHeld": []
+              }
+            }
+          },
+          "localVariables": []
+        }
+      }
+    },
+    "gridSize": {
+      "minColumn": 0,
+      "maxColumn": 7,
+      "minRow": 0,
+      "maxRow": 3
+    }
+  },
+  "instances": {
+    "connTest1": {
+      "label": "testverbindung",
+      "moduleId": "generic-http",
+      "enabled": false,
+      "isFirstInit": false,
+      "config": {},
+      "lastUpgradeIndex": 5
+    }
+  },
+  "connectionCollections": [],
+  "oldPageNumber": 1,
+  "imageLibrary": [],
+  "imageLibraryCollections": []
+}

@@ -1,0 +1,413 @@
+{
+  "moduleId": "birddog-ptz",
+  "name": "BirdDog PTZ",
+  "repo": "bitfocus/companion-module-birddog-ptz",
+  "version": "3.6.2",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "94d414c",
+  "status": "read",
+  "coverage": "partial",
+  "notes": [
+    "Partial catalog. Actions and feedbacks are built at runtime from models.js and filtered by camera model and firmware major (utils.js:114-133, getModelActions); choices and ranges therefore depend on the connected camera. The catalog lists the actions with the widest ranges and records the model dependence in notes. Focus, exposure, white balance, audio, NDI and the remaining actions are not catalogued.",
+    "Zoom and pan/tilt speed default and range values were not verified per camera model; panSpeed/tiltSpeed record the 0..255 advanced-mode range.",
+    "Built on @companion-module/base ~1.12.1 (legacy style, options as arrays): no expressions; only the preset number text inputs use variables.",
+    "Preset recall and save are text inputs with useVariables, checked at run time for an integer in the model range."
+  ],
+  "actions": [
+    {
+      "id": "standby",
+      "name": "VISCA - Standby",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "On/Standby",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Cam On"
+            },
+            {
+              "id": "standby",
+              "label": "Standby"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 28
+      },
+      "availability": "Firmware major 4 and 5 only (models.js:284-296); registered via getModelActions"
+    },
+    {
+      "id": "freeze",
+      "name": "VISCA - Freeze",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "On",
+          "choices": [
+            {
+              "id": "On",
+              "label": "On"
+            },
+            {
+              "id": "Off",
+              "label": "Off"
+            },
+            {
+              "id": "Toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 54
+      },
+      "availability": "Firmware major 4 and 5 only (models.js:271-283)"
+    },
+    {
+      "id": "pt",
+      "name": "PTZ - Pan/Tilt",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "up",
+          "choices": [
+            {
+              "id": "left",
+              "label": "Left"
+            },
+            {
+              "id": "right",
+              "label": "Right"
+            },
+            {
+              "id": "up",
+              "label": "Up"
+            },
+            {
+              "id": "down",
+              "label": "Down"
+            },
+            {
+              "id": "up_left",
+              "label": "Up Left"
+            },
+            {
+              "id": "up_right",
+              "label": "Up Right"
+            },
+            {
+              "id": "down_left",
+              "label": "Down Left"
+            },
+            {
+              "id": "down_right",
+              "label": "Down Right"
+            },
+            {
+              "id": "stop",
+              "label": "P/T Stop"
+            },
+            {
+              "id": "home",
+              "label": "P/T Home"
+            },
+            {
+              "id": "direct",
+              "label": "Direct"
+            }
+          ]
+        },
+        {
+          "id": "posPan",
+          "type": "dropdown",
+          "label": "Pan Position",
+          "choicesNote": "Fixed position strings (hex) of the camera model, e.g. POS_PAN_P100 or POS_PAN_P200 in src choices.js; model dependent",
+          "visibleWhen": "options.val === 'direct'"
+        },
+        {
+          "id": "posTilt",
+          "type": "dropdown",
+          "label": "Tilt Position",
+          "choicesNote": "Fixed position strings (hex) of the camera model (POS_TILT in choices.js); model dependent",
+          "visibleWhen": "options.val === 'direct'"
+        },
+        {
+          "id": "override",
+          "type": "checkbox",
+          "label": "Speed Override",
+          "default": false,
+          "visibleWhen": "options.val !== 'direct'"
+        },
+        {
+          "id": "panSpeed",
+          "type": "number",
+          "label": "Pan Speed",
+          "default": 11,
+          "min": 0,
+          "max": 255,
+          "visibleWhen": "options.override === true || options.val === 'direct'",
+          "description": "Range and default depend on the speed mode and model: 0-21 (default 11) in standard speed mode, 0-255 (default 255) in advanced mode (actions.js:589-597); the widest range is recorded here."
+        },
+        {
+          "id": "tiltSpeed",
+          "type": "number",
+          "label": "Tilt Speed",
+          "default": 9,
+          "min": 0,
+          "max": 255,
+          "visibleWhen": "options.override === true || options.val === 'direct'",
+          "description": "Standard speed mode: max 18, default 9; advanced mode: 255 (actions.js:595, 600). Note: the model override at actions.js:596-598 assigns the tilt range max to panSpeedMax (apparent source quirk), so the tilt max is not overridden."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 602
+      },
+      "availability": "Cameras P100, P110, P120, P200A2A3, P200A4A5, A200GEN1/2, A300GEN1/2, P240, P400, P4K, X1, X1Ultra, X4Ultra, X5Ultra, MAX; firmware major 4, 5, 6, 0 (models.js:732-770)"
+    },
+    {
+      "id": "panSpeed",
+      "name": "PTZ - Pan Speed",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "up",
+          "choices": [
+            {
+              "id": "up",
+              "label": "Up"
+            },
+            {
+              "id": "down",
+              "label": "Down"
+            },
+            {
+              "id": "value",
+              "label": "Value"
+            }
+          ],
+          "choicesNote": "Model dependent: the code uses MODEL_ACTIONS.panSpeed.choices (UP_DOWN_VALUE in choices.js:81-85 or SPEED_CHANGES)"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Speed",
+          "default": 11,
+          "min": 0,
+          "max": 255,
+          "visibleWhen": "options.type === 'value'"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 773
+      },
+      "availability": "Same camera list as pt, firmware major 4, 5, 6, 0 (models.js:820-)",
+      "optionsComplete": false
+    },
+    {
+      "id": "preset",
+      "name": "PTZ - Preset",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset Mode",
+          "default": "Birddog",
+          "choices": [
+            {
+              "id": "Camera",
+              "label": "Camera"
+            },
+            {
+              "id": "Birddog",
+              "label": "PTZ Only"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 816
+      },
+      "availability": "Registered when the model defines a preset action (models.js:874-)"
+    },
+    {
+      "id": "recallPset",
+      "name": "PTZ - Recall Preset",
+      "options": [
+        {
+          "id": "val",
+          "type": "textinput",
+          "label": "Preset Number (1 to 64)",
+          "default": "1",
+          "useVariables": true,
+          "valueType": "numeric",
+          "min": 1,
+          "max": 64,
+          "integer": true,
+          "description": "Variables are resolved first; must be an integer in 1..64 or the action logs an error and does nothing (actions.js:896-913)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 885
+      },
+      "availability": "All cameras, firmware major 4, 5, 6, 0 (models.js:906-918)"
+    },
+    {
+      "id": "savePset",
+      "name": "PTZ - Save Preset",
+      "options": [
+        {
+          "id": "val",
+          "type": "textinput",
+          "label": "Preset Number (1 to 128)",
+          "default": "1",
+          "useVariables": true,
+          "valueType": "numeric",
+          "min": 1,
+          "max": 128,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 924
+      },
+      "availability": "All cameras, firmware major 4, 5, 6, 0 (models.js:920-931)"
+    },
+    {
+      "id": "zoom",
+      "name": "PTZ - Zoom",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "in",
+          "choices": [
+            {
+              "id": "in",
+              "label": "Zoom In"
+            },
+            {
+              "id": "out",
+              "label": "Zoom Out"
+            },
+            {
+              "id": "direct",
+              "label": "Zoom Direct"
+            },
+            {
+              "id": "stop",
+              "label": "Zoom Stop"
+            }
+          ]
+        },
+        {
+          "id": "posZoom",
+          "type": "dropdown",
+          "label": "Zoom Position",
+          "choicesNote": "Fixed position strings (hex) of the camera model (POS_ZOOM_* in choices.js); model dependent",
+          "visibleWhen": "options.val === 'direct'"
+        },
+        {
+          "id": "override",
+          "type": "checkbox",
+          "label": "Speed Overide",
+          "default": false,
+          "visibleWhen": "options.val !== 'direct'"
+        },
+        {
+          "id": "speed",
+          "type": "number",
+          "label": "Speed",
+          "default": 4,
+          "min": 0,
+          "max": 7,
+          "visibleWhen": "options.override === true",
+          "description": "Range 0-7 with default 4 from MODEL_ACTIONS.zoomSpeed.range (models.js:1087, single entry)."
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 1005
+      },
+      "availability": "All cameras, firmware major 4, 5, 6, 0 (models.js:1030-)",
+      "optionsComplete": false
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "standby_status",
+      "name": "VISCA - Standby",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "On/Standby",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Cam On"
+            },
+            {
+              "id": "standby",
+              "label": "Standby"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 17
+      },
+      "availability": "Firmware major 4 and 5 only"
+    },
+    {
+      "id": "freeze_status",
+      "name": "VISCA - Freeze",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "On / Off",
+          "default": "On",
+          "choices": [
+            {
+              "id": "On",
+              "label": "On"
+            },
+            {
+              "id": "Off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 41
+      },
+      "availability": "Firmware major 4 and 5 only"
+    }
+  ]
+}

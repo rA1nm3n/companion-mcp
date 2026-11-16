@@ -1,0 +1,870 @@
+{
+  "moduleId": "analogway-livepremier",
+  "name": "Analog Way LivePremier (Aquilon, REST, legacy)",
+  "repo": "bitfocus/companion-module-analogway-livepremier",
+  "version": "2.0.1",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "bb0db17",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Action ids are REST paths with {placeholders} that are replaced by options of the same name (livepremier.js actioncb); they are not plain identifiers.",
+    "Fire-and-forget over HTTP POST: the module has no feedbacks (companion/HELP.md).",
+    "The module marks itself as kept for compatibility only and points to analogway-awj as the replacement (getConfigFields in livepremier.js).",
+    "Built on @companion-module/base 1.x: no expressions.",
+    "Memory ids and source ids are plain number fields with fixed bounds; they are not checked against the device."
+  ],
+  "actions": [
+    {
+      "id": "/api/tpp/v1/screens/{screenId}/load-memory",
+      "name": "Recall Memory to Screen",
+      "options": [
+        {
+          "id": "memoryId",
+          "type": "number",
+          "label": "Memory",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "required": true
+        },
+        {
+          "id": "screenId",
+          "type": "number",
+          "label": "Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Upper bound is self.maxScreens = 24 (livepremier.js:14)",
+          "max": 24
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Recall to",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 232
+      }
+    },
+    {
+      "id": "/api/tpp/v1/auxiliary-screens/{auxId}/load-memory",
+      "name": "Recall Memory to Aux-Screen",
+      "options": [
+        {
+          "id": "memoryId",
+          "type": "number",
+          "label": "Memory",
+          "default": 1,
+          "min": 1,
+          "max": 1000,
+          "required": true
+        },
+        {
+          "id": "auxId",
+          "type": "number",
+          "label": "Aux-Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Upper bound is self.maxAuxScreens = 20 (livepremier.js:15)",
+          "max": 20
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Recall to",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 266
+      }
+    },
+    {
+      "id": "/api/tpp/v1/load-master-memory",
+      "name": "Recall Master-Memory",
+      "options": [
+        {
+          "id": "memoryId",
+          "type": "number",
+          "label": "Memory",
+          "default": 1,
+          "min": 1,
+          "max": 500,
+          "required": true
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Recall to",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 300
+      }
+    },
+    {
+      "id": "/api/tpp/v1/multiviewers/{mvwId}/load-memory",
+      "name": "Recall Multiviewer-Memory",
+      "options": [
+        {
+          "id": "memoryId",
+          "type": "number",
+          "label": "Memory",
+          "default": 1,
+          "min": 1,
+          "max": 50,
+          "required": true
+        },
+        {
+          "id": "mvwId",
+          "type": "number",
+          "label": "Multiviewer",
+          "default": 1,
+          "min": 1,
+          "max": 2,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 325
+      }
+    },
+    {
+      "id": "/api/tpp/v1/screens/{screenId}/layers/{layerId}/presets/{target}/source",
+      "name": "Set Screen Layer Source",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "number",
+          "label": "Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Upper bound is self.maxScreens = 24 (livepremier.js:14)",
+          "max": 24
+        },
+        {
+          "id": "layerId",
+          "type": "number",
+          "label": "Layer",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "required": true
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Set in",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            }
+          ]
+        },
+        {
+          "id": "sourceType",
+          "type": "dropdown",
+          "label": "Source Type",
+          "default": "input",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "input",
+              "label": "Input"
+            },
+            {
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "id": "screen",
+              "label": "Screen"
+            },
+            {
+              "id": "color",
+              "label": "Color"
+            }
+          ]
+        },
+        {
+          "id": "sourceId",
+          "type": "number",
+          "label": "Source ID",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 349
+      }
+    },
+    {
+      "id": "/api/tpp/v1/auxiliary-screens/{auxId}/layers/{layerId}/presets/{target}/source",
+      "name": "Set Aux-Screen Layer Source",
+      "options": [
+        {
+          "id": "auxId",
+          "type": "number",
+          "label": "Aux-Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Source uses self.maxScreens = 24 as upper bound (module quirk, the device has 20 aux screens)",
+          "max": 24
+        },
+        {
+          "id": "layerId",
+          "type": "number",
+          "label": "Layer",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "required": true
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Set in",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            }
+          ]
+        },
+        {
+          "id": "sourceType",
+          "type": "dropdown",
+          "label": "Source Type",
+          "default": "input",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "input",
+              "label": "Input"
+            },
+            {
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "id": "screen",
+              "label": "Screen"
+            }
+          ]
+        },
+        {
+          "id": "sourceId",
+          "type": "number",
+          "label": "Source ID",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 405
+      }
+    },
+    {
+      "id": "/api/tpp/v1/screens/{screenId}/background-layer/presets/{target}/source",
+      "name": "Set Native Background",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "number",
+          "label": "Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Upper bound is self.maxScreens = 24 (livepremier.js:14)",
+          "max": 24
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Set in",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            }
+          ]
+        },
+        {
+          "id": "sourceType",
+          "type": "dropdown",
+          "label": "Source Type",
+          "default": "background-set",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "background-set",
+              "label": "Background-Set"
+            }
+          ]
+        },
+        {
+          "id": "sourceId",
+          "type": "number",
+          "label": "Background-Set Number",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 461
+      }
+    },
+    {
+      "id": "/api/tpp/v1/multiviewers/{mvwId}/widgets/{widgetId}/source",
+      "name": "Set Multiviewer Widget Source",
+      "options": [
+        {
+          "id": "mvwId",
+          "type": "number",
+          "label": "Multiviewer",
+          "default": 1,
+          "min": 1,
+          "max": 2,
+          "required": true
+        },
+        {
+          "id": "widgetId",
+          "type": "number",
+          "label": "Widget",
+          "default": 1,
+          "min": 1,
+          "max": 24,
+          "required": true
+        },
+        {
+          "id": "sourceType",
+          "type": "dropdown",
+          "label": "Source Type",
+          "default": "input",
+          "choices": [
+            {
+              "id": "none",
+              "label": "None"
+            },
+            {
+              "id": "input",
+              "label": "Input"
+            },
+            {
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "id": "screen-program",
+              "label": "Screen Program"
+            },
+            {
+              "id": "screen-preview",
+              "label": "Screen Preview"
+            },
+            {
+              "id": "auxiliary-screen",
+              "label": "Aux-Screen"
+            },
+            {
+              "id": "timer",
+              "label": "Timer"
+            }
+          ]
+        },
+        {
+          "id": "sourceId",
+          "type": "number",
+          "label": "Source ID",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 505
+      }
+    },
+    {
+      "id": "/api/tpp/v1/screens/{screenId}/take",
+      "name": "Take Single Screen",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "number",
+          "label": "Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Upper bound is self.maxScreens = 24 (livepremier.js:14)",
+          "max": 24
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 553
+      }
+    },
+    {
+      "id": "/api/tpp/v1/auxiliary-screens/{auxId}/take",
+      "name": "Take Single Aux-Screen",
+      "options": [
+        {
+          "id": "auxId",
+          "type": "number",
+          "label": "Aux-Screen",
+          "default": 1,
+          "min": 1,
+          "required": true,
+          "description": "Upper bound is self.maxAuxScreens = 20 (livepremier.js:15)",
+          "max": 20
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 568
+      }
+    },
+    {
+      "id": "/api/tpp/v1/take",
+      "name": "Take all Screens and Aux-Screens",
+      "options": [],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 583
+      }
+    },
+    {
+      "id": "multitake",
+      "name": "Take multiple Screens and Aux-Screens",
+      "options": [
+        {
+          "id": "s1",
+          "type": "checkbox",
+          "label": "Screen 1",
+          "default": false
+        },
+        {
+          "id": "s2",
+          "type": "checkbox",
+          "label": "Screen 2",
+          "default": false
+        },
+        {
+          "id": "s3",
+          "type": "checkbox",
+          "label": "Screen 3",
+          "default": false
+        },
+        {
+          "id": "s4",
+          "type": "checkbox",
+          "label": "Screen 4",
+          "default": false
+        },
+        {
+          "id": "s5",
+          "type": "checkbox",
+          "label": "Screen 5",
+          "default": false
+        },
+        {
+          "id": "s6",
+          "type": "checkbox",
+          "label": "Screen 6",
+          "default": false
+        },
+        {
+          "id": "s7",
+          "type": "checkbox",
+          "label": "Screen 7",
+          "default": false
+        },
+        {
+          "id": "s8",
+          "type": "checkbox",
+          "label": "Screen 8",
+          "default": false
+        },
+        {
+          "id": "s9",
+          "type": "checkbox",
+          "label": "Screen 9",
+          "default": false
+        },
+        {
+          "id": "s10",
+          "type": "checkbox",
+          "label": "Screen 10",
+          "default": false
+        },
+        {
+          "id": "s11",
+          "type": "checkbox",
+          "label": "Screen 11",
+          "default": false
+        },
+        {
+          "id": "s12",
+          "type": "checkbox",
+          "label": "Screen 12",
+          "default": false
+        },
+        {
+          "id": "s13",
+          "type": "checkbox",
+          "label": "Screen 13",
+          "default": false
+        },
+        {
+          "id": "s14",
+          "type": "checkbox",
+          "label": "Screen 14",
+          "default": false
+        },
+        {
+          "id": "s15",
+          "type": "checkbox",
+          "label": "Screen 15",
+          "default": false
+        },
+        {
+          "id": "s16",
+          "type": "checkbox",
+          "label": "Screen 16",
+          "default": false
+        },
+        {
+          "id": "s17",
+          "type": "checkbox",
+          "label": "Screen 17",
+          "default": false
+        },
+        {
+          "id": "s18",
+          "type": "checkbox",
+          "label": "Screen 18",
+          "default": false
+        },
+        {
+          "id": "s19",
+          "type": "checkbox",
+          "label": "Screen 19",
+          "default": false
+        },
+        {
+          "id": "s20",
+          "type": "checkbox",
+          "label": "Screen 20",
+          "default": false
+        },
+        {
+          "id": "s21",
+          "type": "checkbox",
+          "label": "Screen 21",
+          "default": false
+        },
+        {
+          "id": "s22",
+          "type": "checkbox",
+          "label": "Screen 22",
+          "default": false
+        },
+        {
+          "id": "s23",
+          "type": "checkbox",
+          "label": "Screen 23",
+          "default": false
+        },
+        {
+          "id": "s24",
+          "type": "checkbox",
+          "label": "Screen 24",
+          "default": false
+        },
+        {
+          "id": "a1",
+          "type": "checkbox",
+          "label": "Aux-Screen 1",
+          "default": false
+        },
+        {
+          "id": "a2",
+          "type": "checkbox",
+          "label": "Aux-Screen 2",
+          "default": false
+        },
+        {
+          "id": "a3",
+          "type": "checkbox",
+          "label": "Aux-Screen 3",
+          "default": false
+        },
+        {
+          "id": "a4",
+          "type": "checkbox",
+          "label": "Aux-Screen 4",
+          "default": false
+        },
+        {
+          "id": "a5",
+          "type": "checkbox",
+          "label": "Aux-Screen 5",
+          "default": false
+        },
+        {
+          "id": "a6",
+          "type": "checkbox",
+          "label": "Aux-Screen 6",
+          "default": false
+        },
+        {
+          "id": "a7",
+          "type": "checkbox",
+          "label": "Aux-Screen 7",
+          "default": false
+        },
+        {
+          "id": "a8",
+          "type": "checkbox",
+          "label": "Aux-Screen 8",
+          "default": false
+        },
+        {
+          "id": "a9",
+          "type": "checkbox",
+          "label": "Aux-Screen 9",
+          "default": false
+        },
+        {
+          "id": "a10",
+          "type": "checkbox",
+          "label": "Aux-Screen 10",
+          "default": false
+        },
+        {
+          "id": "a11",
+          "type": "checkbox",
+          "label": "Aux-Screen 11",
+          "default": false
+        },
+        {
+          "id": "a12",
+          "type": "checkbox",
+          "label": "Aux-Screen 12",
+          "default": false
+        },
+        {
+          "id": "a13",
+          "type": "checkbox",
+          "label": "Aux-Screen 13",
+          "default": false
+        },
+        {
+          "id": "a14",
+          "type": "checkbox",
+          "label": "Aux-Screen 14",
+          "default": false
+        },
+        {
+          "id": "a15",
+          "type": "checkbox",
+          "label": "Aux-Screen 15",
+          "default": false
+        },
+        {
+          "id": "a16",
+          "type": "checkbox",
+          "label": "Aux-Screen 16",
+          "default": false
+        },
+        {
+          "id": "a17",
+          "type": "checkbox",
+          "label": "Aux-Screen 17",
+          "default": false
+        },
+        {
+          "id": "a18",
+          "type": "checkbox",
+          "label": "Aux-Screen 18",
+          "default": false
+        },
+        {
+          "id": "a19",
+          "type": "checkbox",
+          "label": "Aux-Screen 19",
+          "default": false
+        },
+        {
+          "id": "a20",
+          "type": "checkbox",
+          "label": "Aux-Screen 20",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 587
+      },
+      "description": "One checkbox per screen (s1..s24) and aux screen (a1..a20); options are sent as the JSON body"
+    },
+    {
+      "id": "audiorouteblock",
+      "name": "Route audio block",
+      "options": [
+        {
+          "id": "out",
+          "type": "dropdown",
+          "label": "First Output Channel",
+          "default": "dante/channels/1",
+          "choicesNote": "Ids 'dante/channels/1..64', 'outputs/1..24/channels/1..8', 'multiviewers/1..2/channels/1..8' (livepremier.js:37-76)",
+          "valueType": "string",
+          "valuePattern": "^(dante/channels/\\d+|outputs/\\d+/channels/\\d+|multiviewers/\\d+/channels/\\d+)$"
+        },
+        {
+          "id": "in",
+          "type": "dropdown",
+          "label": "First Input Channel",
+          "description": "Tip: Source None virtually expands to the block size",
+          "default": "\"sourceType\":\"none\"",
+          "choices": [
+            {
+              "id": "\"sourceType\":\"none\"",
+              "label": "None"
+            }
+          ],
+          "valueType": "string",
+          "valuePattern": "^\"sourceType\":\"(none|dante|input)\"(,\"sourceId\":\\d+)?(,\"channelId\":\\d+)?$",
+          "choicesNote": "JSON fragment ids such as \"sourceType\":\"none\" or \"sourceType\":\"dante\",\"channelId\":N (livepremier.js:37-76)"
+        },
+        {
+          "id": "blocksize",
+          "type": "number",
+          "label": "Block Size",
+          "default": 8,
+          "min": 1,
+          "description": "Upper bound is the length of the output channel list (64 dante + 24*8 output + 2*8 multiviewer channels, livepremier.js:37-76)",
+          "max": 272
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 591
+      }
+    },
+    {
+      "id": "audioroute",
+      "name": "Route audio channel(s)",
+      "options": [
+        {
+          "id": "out",
+          "type": "dropdown",
+          "label": "(first) output channel",
+          "default": "dante/channels/1",
+          "choicesNote": "Ids 'dante/channels/1..64', 'outputs/1..24/channels/1..8', 'multiviewers/1..2/channels/1..8' (livepremier.js:37-76)",
+          "valueType": "string",
+          "valuePattern": "^(dante/channels/\\d+|outputs/\\d+/channels/\\d+|multiviewers/\\d+/channels/\\d+)$"
+        },
+        {
+          "id": "in",
+          "type": "multidropdown",
+          "label": "input channel(s)",
+          "default": "\"sourceType\":\"none\"",
+          "choices": [
+            {
+              "id": "\"sourceType\":\"none\"",
+              "label": "None"
+            }
+          ],
+          "valueType": "string",
+          "valuePattern": "^\"sourceType\":\"(none|dante|input)\"(,\"sourceId\":\\d+)?(,\"channelId\":\\d+)?$",
+          "choicesNote": "JSON fragment ids such as \"sourceType\":\"none\" or \"sourceType\":\"input\",\"sourceId\":N,\"channelId\":C (livepremier.js:37-76)"
+        }
+      ],
+      "provenance": {
+        "file": "livepremier.js",
+        "line": 623
+      }
+    }
+  ],
+  "feedbacks": []
+}

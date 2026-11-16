@@ -1,0 +1,1175 @@
+{
+  "moduleId": "obsidiancontrol-onyx-osc",
+  "name": "Obsidian Control Systems ONYX (OSC)",
+  "repo": "bitfocus/companion-module-obsidiancontrol-onyx-osc",
+  "version": "1.0.0",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "bfded01",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 5 actions (src/actions.ts) and 2 boolean feedbacks (src/feedbacks.ts). The module talks OSC to ONYX (the \"Mx\" address space, e.g. /Mx/button/<n>, /Mx/fader/<n>). Bitfocus also lists the telnet-based module obsidiancontrol-onyx, catalogued separately with a different action set.",
+    "The button dropdowns of generic_button (123 names) and generic_button_led (94 names with LED or text feedback) are built from the closed table in src/buttons.ts at startup (getButtonActionChoices, getButtonLedFeedbackChoices); the catalog lists them in source order. The OSC address of each button is not catalogued.",
+    "The playback numbers (1-20) map to OSC base addresses through getPlaybackBaseAddressNum (src/index.ts); the \"Down\" button (id 4) is offered by the playback feedback but, according to the label and a source comment, never provides feedback.",
+    "playback_level_relative reads the current level from the variable playback_NN_level at run time; without a known level it starts from 0.",
+    "The module has no expression support: it is built on @companion-module/base ~1.4.3.",
+    "Variables and presets are not catalogued."
+  ],
+  "actions": [
+    {
+      "id": "playback_level",
+      "name": "Main Playback Level",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Playback Number",
+          "default": 1,
+          "min": 1,
+          "max": 20
+        },
+        {
+          "id": "level",
+          "type": "number",
+          "label": "Level",
+          "default": 100,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "playback_level_relative",
+      "name": "Main Playback Level Increment/Decrement",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Playback Number",
+          "default": 1,
+          "min": 1,
+          "max": 20
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "inc",
+          "choices": [
+            {
+              "id": "inc",
+              "label": "Increase"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease"
+            }
+          ]
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Amount",
+          "default": 5,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 38
+      }
+    },
+    {
+      "id": "playback_button",
+      "name": "Main Playback Button",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Playback Number",
+          "default": 1,
+          "min": 1,
+          "max": 20
+        },
+        {
+          "id": "button",
+          "type": "dropdown",
+          "label": "Button",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Up Up"
+            },
+            {
+              "id": "2",
+              "label": "Up"
+            },
+            {
+              "id": "4",
+              "label": "Down"
+            },
+            {
+              "id": "5",
+              "label": "Down Down"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "press",
+          "choices": [
+            {
+              "id": "press",
+              "label": "Press"
+            },
+            {
+              "id": "release",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 93
+      }
+    },
+    {
+      "id": "generic_button",
+      "name": "Generic Button",
+      "options": [
+        {
+          "id": "button",
+          "type": "dropdown",
+          "label": "Button",
+          "default": "SELECT",
+          "choices": [
+            {
+              "id": "SELECT",
+              "label": "SELECT"
+            },
+            {
+              "id": "RELEASE",
+              "label": "RELEASE"
+            },
+            {
+              "id": "BEAT",
+              "label": "BEAT"
+            },
+            {
+              "id": "SNAP",
+              "label": "SNAP"
+            },
+            {
+              "id": "||/Back",
+              "label": "||/Back"
+            },
+            {
+              "id": "GO",
+              "label": "GO"
+            },
+            {
+              "id": "View",
+              "label": "View"
+            },
+            {
+              "id": "Bank Page Up",
+              "label": "Bank Page Up"
+            },
+            {
+              "id": "Bank Page Down",
+              "label": "Bank Page Down"
+            },
+            {
+              "id": "Playback Bank 1",
+              "label": "Playback Bank 1"
+            },
+            {
+              "id": "Playback Bank 2",
+              "label": "Playback Bank 2"
+            },
+            {
+              "id": "Playback Bank 3",
+              "label": "Playback Bank 3"
+            },
+            {
+              "id": "Playback Bank 4",
+              "label": "Playback Bank 4"
+            },
+            {
+              "id": "Playback Bank 5",
+              "label": "Playback Bank 5"
+            },
+            {
+              "id": "Bank Scroll Up",
+              "label": "Bank Scroll Up"
+            },
+            {
+              "id": "Bank Scroll Down",
+              "label": "Bank Scroll Down"
+            },
+            {
+              "id": "Bank Page Scroll Up",
+              "label": "Bank Page Scroll Up"
+            },
+            {
+              "id": "Bank Page Scroll Down",
+              "label": "Bank Page Scroll Down"
+            },
+            {
+              "id": "Fader Swap",
+              "label": "Fader Swap"
+            },
+            {
+              "id": "VIEW 1",
+              "label": "VIEW 1"
+            },
+            {
+              "id": "VIEW 2",
+              "label": "VIEW 2"
+            },
+            {
+              "id": "VIEW 3",
+              "label": "VIEW 3"
+            },
+            {
+              "id": "VIEW 4",
+              "label": "VIEW 4"
+            },
+            {
+              "id": "VIEW 5",
+              "label": "VIEW 5"
+            },
+            {
+              "id": "VIEW 6",
+              "label": "VIEW 6"
+            },
+            {
+              "id": "VIEW 7",
+              "label": "VIEW 7"
+            },
+            {
+              "id": "VIEW 8",
+              "label": "VIEW 8"
+            },
+            {
+              "id": "VIEW 9",
+              "label": "VIEW 9"
+            },
+            {
+              "id": "VIEW 10",
+              "label": "VIEW 10"
+            },
+            {
+              "id": "VIEW 11",
+              "label": "VIEW 11"
+            },
+            {
+              "id": "VIEW 12",
+              "label": "VIEW 12"
+            },
+            {
+              "id": "VIEW 13",
+              "label": "VIEW 13"
+            },
+            {
+              "id": "VIEW 14",
+              "label": "VIEW 14"
+            },
+            {
+              "id": "VIEW 15",
+              "label": "VIEW 15"
+            },
+            {
+              "id": "VIEW 16",
+              "label": "VIEW 16"
+            },
+            {
+              "id": "MACRO",
+              "label": "MACRO"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "PREVIEW"
+            },
+            {
+              "id": "MENU",
+              "label": "MENU"
+            },
+            {
+              "id": "FADE",
+              "label": "FADE"
+            },
+            {
+              "id": "DELAY",
+              "label": "DELAY"
+            },
+            {
+              "id": "SNAPSHOT",
+              "label": "SNAPSHOT"
+            },
+            {
+              "id": "BANK",
+              "label": "BANK"
+            },
+            {
+              "id": "EDIT",
+              "label": "EDIT"
+            },
+            {
+              "id": "UNDO",
+              "label": "UNDO"
+            },
+            {
+              "id": "CLEAR",
+              "label": "CLEAR"
+            },
+            {
+              "id": "COPY",
+              "label": "COPY"
+            },
+            {
+              "id": "MOVE",
+              "label": "MOVE"
+            },
+            {
+              "id": "DELETE",
+              "label": "DELETE"
+            },
+            {
+              "id": "RECORD",
+              "label": "RECORD"
+            },
+            {
+              "id": "UPDATE",
+              "label": "UPDATE"
+            },
+            {
+              "id": "LOAD",
+              "label": "LOAD"
+            },
+            {
+              "id": "GROUP",
+              "label": "GROUP"
+            },
+            {
+              "id": "CUE",
+              "label": "CUE"
+            },
+            {
+              "id": "0",
+              "label": "0"
+            },
+            {
+              "id": "1",
+              "label": "1"
+            },
+            {
+              "id": "2",
+              "label": "2"
+            },
+            {
+              "id": "3",
+              "label": "3"
+            },
+            {
+              "id": "4",
+              "label": "4"
+            },
+            {
+              "id": "5",
+              "label": "5"
+            },
+            {
+              "id": "6",
+              "label": "6"
+            },
+            {
+              "id": "7",
+              "label": "7"
+            },
+            {
+              "id": "8",
+              "label": "8"
+            },
+            {
+              "id": "9",
+              "label": "9"
+            },
+            {
+              "id": "-",
+              "label": "-"
+            },
+            {
+              "id": "+",
+              "label": "+"
+            },
+            {
+              "id": ".",
+              "label": "."
+            },
+            {
+              "id": "Enter",
+              "label": "Enter"
+            },
+            {
+              "id": "/",
+              "label": "/"
+            },
+            {
+              "id": "Backspace",
+              "label": "Backspace"
+            },
+            {
+              "id": "@",
+              "label": "@"
+            },
+            {
+              "id": "Full",
+              "label": "Full"
+            },
+            {
+              "id": "Through",
+              "label": "Through"
+            },
+            {
+              "id": "F1",
+              "label": "F1"
+            },
+            {
+              "id": "F2",
+              "label": "F2"
+            },
+            {
+              "id": "F3",
+              "label": "F3"
+            },
+            {
+              "id": "F4",
+              "label": "F4"
+            },
+            {
+              "id": "F5",
+              "label": "F5"
+            },
+            {
+              "id": "F6",
+              "label": "F6"
+            },
+            {
+              "id": "F7",
+              "label": "F7"
+            },
+            {
+              "id": "F8",
+              "label": "F8"
+            },
+            {
+              "id": "F9",
+              "label": "F9"
+            },
+            {
+              "id": "F10",
+              "label": "F10"
+            },
+            {
+              "id": "F11",
+              "label": "F11"
+            },
+            {
+              "id": "F12",
+              "label": "F12"
+            },
+            {
+              "id": "PF Group 1",
+              "label": "PF Group 1"
+            },
+            {
+              "id": "PF Group 2",
+              "label": "PF Group 2"
+            },
+            {
+              "id": "PF Group 3",
+              "label": "PF Group 3"
+            },
+            {
+              "id": "PF Group 4",
+              "label": "PF Group 4"
+            },
+            {
+              "id": "PF Group 5",
+              "label": "PF Group 5"
+            },
+            {
+              "id": "PF Group Scroll Up",
+              "label": "PF Group Scroll Up"
+            },
+            {
+              "id": "PF Group Scroll Down",
+              "label": "PF Group Scroll Down"
+            },
+            {
+              "id": "Last",
+              "label": "Last"
+            },
+            {
+              "id": "Next",
+              "label": "Next"
+            },
+            {
+              "id": "Swap Programmer",
+              "label": "Swap Programmer"
+            },
+            {
+              "id": "HIGHLIGHT",
+              "label": "HIGHLIGHT"
+            },
+            {
+              "id": "CV",
+              "label": "CV"
+            },
+            {
+              "id": "Link",
+              "label": "Link"
+            },
+            {
+              "id": "Base Channel Group 1",
+              "label": "Base Channel Group 1"
+            },
+            {
+              "id": "Base Channel Group 2",
+              "label": "Base Channel Group 2"
+            },
+            {
+              "id": "Base Channel Group 3",
+              "label": "Base Channel Group 3"
+            },
+            {
+              "id": "Base Channel Group 4",
+              "label": "Base Channel Group 4"
+            },
+            {
+              "id": "Base Channel Group 5",
+              "label": "Base Channel Group 5"
+            },
+            {
+              "id": "Effect Channel Group 1",
+              "label": "Effect Channel Group 1"
+            },
+            {
+              "id": "Effect Channel Group 2",
+              "label": "Effect Channel Group 2"
+            },
+            {
+              "id": "Effect Channel Group 3",
+              "label": "Effect Channel Group 3"
+            },
+            {
+              "id": "Effect Channel Group 4",
+              "label": "Effect Channel Group 4"
+            },
+            {
+              "id": "Effect Channel Group 5",
+              "label": "Effect Channel Group 5"
+            },
+            {
+              "id": "Base Channel 1",
+              "label": "Base Channel 1"
+            },
+            {
+              "id": "Base Channel 2",
+              "label": "Base Channel 2"
+            },
+            {
+              "id": "Base Channel 3",
+              "label": "Base Channel 3"
+            },
+            {
+              "id": "Base Channel 4",
+              "label": "Base Channel 4"
+            },
+            {
+              "id": "Effect Channel 1",
+              "label": "Effect Channel 1"
+            },
+            {
+              "id": "Effect Channel 2",
+              "label": "Effect Channel 2"
+            },
+            {
+              "id": "Effect Channel 3",
+              "label": "Effect Channel 3"
+            },
+            {
+              "id": "Effect Channel 4",
+              "label": "Effect Channel 4"
+            },
+            {
+              "id": "TRACKFUNC P/T",
+              "label": "TRACKFUNC P/T"
+            },
+            {
+              "id": "MODE",
+              "label": "MODE"
+            },
+            {
+              "id": "NAVIGATE UP",
+              "label": "NAVIGATE UP"
+            },
+            {
+              "id": "NAVIGATE LEFT",
+              "label": "NAVIGATE LEFT"
+            },
+            {
+              "id": "NAVIGATE DOWN",
+              "label": "NAVIGATE DOWN"
+            },
+            {
+              "id": "NAVIGATE RIGHT",
+              "label": "NAVIGATE RIGHT"
+            },
+            {
+              "id": "Device Space ID Down",
+              "label": "Device Space ID Down"
+            },
+            {
+              "id": "Device Space ID Up",
+              "label": "Device Space ID Up"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "press",
+          "choices": [
+            {
+              "id": "press",
+              "label": "Press"
+            },
+            {
+              "id": "release",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 141
+      }
+    },
+    {
+      "id": "playback_page_button",
+      "name": "Playback Page Button",
+      "options": [
+        {
+          "id": "pagenum",
+          "type": "number",
+          "label": "Page Number",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "buttonnum",
+          "type": "number",
+          "label": "Button Number",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "Go",
+          "choices": [
+            {
+              "id": "Go",
+              "label": "Go"
+            },
+            {
+              "id": "Pause",
+              "label": "Pause"
+            },
+            {
+              "id": "Release",
+              "label": "Release"
+            },
+            {
+              "id": "Select",
+              "label": "Select"
+            },
+            {
+              "id": "SnapGo",
+              "label": "SnapGo"
+            },
+            {
+              "id": "Toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "Back",
+              "label": "Back"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 174
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "playback_button_led",
+      "name": "Main Playback Button LED",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Playback Number",
+          "default": 1,
+          "min": 1,
+          "max": 20
+        },
+        {
+          "id": "button",
+          "type": "dropdown",
+          "label": "Button",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Up Up"
+            },
+            {
+              "id": "2",
+              "label": "Up"
+            },
+            {
+              "id": "4",
+              "label": "Down (does not provide feedback)"
+            },
+            {
+              "id": "5",
+              "label": "Down Down"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "generic_button_led",
+      "name": "Generic Button LED",
+      "options": [
+        {
+          "id": "button",
+          "type": "dropdown",
+          "label": "Button",
+          "default": "SELECT",
+          "choices": [
+            {
+              "id": "SELECT",
+              "label": "SELECT"
+            },
+            {
+              "id": "RELEASE",
+              "label": "RELEASE"
+            },
+            {
+              "id": "BEAT",
+              "label": "BEAT"
+            },
+            {
+              "id": "SNAP",
+              "label": "SNAP"
+            },
+            {
+              "id": "||/Back",
+              "label": "||/Back"
+            },
+            {
+              "id": "GO",
+              "label": "GO"
+            },
+            {
+              "id": "View",
+              "label": "View"
+            },
+            {
+              "id": "Bank Page Up",
+              "label": "Bank Page Up"
+            },
+            {
+              "id": "Bank Page Down",
+              "label": "Bank Page Down"
+            },
+            {
+              "id": "Playback Bank 1",
+              "label": "Playback Bank 1"
+            },
+            {
+              "id": "Playback Bank 2",
+              "label": "Playback Bank 2"
+            },
+            {
+              "id": "Playback Bank 3",
+              "label": "Playback Bank 3"
+            },
+            {
+              "id": "Playback Bank 4",
+              "label": "Playback Bank 4"
+            },
+            {
+              "id": "Playback Bank 5",
+              "label": "Playback Bank 5"
+            },
+            {
+              "id": "VIEW 1",
+              "label": "VIEW 1"
+            },
+            {
+              "id": "VIEW 2",
+              "label": "VIEW 2"
+            },
+            {
+              "id": "VIEW 3",
+              "label": "VIEW 3"
+            },
+            {
+              "id": "VIEW 4",
+              "label": "VIEW 4"
+            },
+            {
+              "id": "VIEW 5",
+              "label": "VIEW 5"
+            },
+            {
+              "id": "VIEW 6",
+              "label": "VIEW 6"
+            },
+            {
+              "id": "VIEW 7",
+              "label": "VIEW 7"
+            },
+            {
+              "id": "VIEW 8",
+              "label": "VIEW 8"
+            },
+            {
+              "id": "VIEW 9",
+              "label": "VIEW 9"
+            },
+            {
+              "id": "VIEW 10",
+              "label": "VIEW 10"
+            },
+            {
+              "id": "VIEW 11",
+              "label": "VIEW 11"
+            },
+            {
+              "id": "VIEW 12",
+              "label": "VIEW 12"
+            },
+            {
+              "id": "VIEW 13",
+              "label": "VIEW 13"
+            },
+            {
+              "id": "VIEW 14",
+              "label": "VIEW 14"
+            },
+            {
+              "id": "VIEW 15",
+              "label": "VIEW 15"
+            },
+            {
+              "id": "VIEW 16",
+              "label": "VIEW 16"
+            },
+            {
+              "id": "MACRO",
+              "label": "MACRO"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "PREVIEW"
+            },
+            {
+              "id": "MENU",
+              "label": "MENU"
+            },
+            {
+              "id": "FADE",
+              "label": "FADE"
+            },
+            {
+              "id": "DELAY",
+              "label": "DELAY"
+            },
+            {
+              "id": "SNAPSHOT",
+              "label": "SNAPSHOT"
+            },
+            {
+              "id": "BANK",
+              "label": "BANK"
+            },
+            {
+              "id": "EDIT",
+              "label": "EDIT"
+            },
+            {
+              "id": "UNDO",
+              "label": "UNDO"
+            },
+            {
+              "id": "CLEAR",
+              "label": "CLEAR"
+            },
+            {
+              "id": "COPY",
+              "label": "COPY"
+            },
+            {
+              "id": "MOVE",
+              "label": "MOVE"
+            },
+            {
+              "id": "DELETE",
+              "label": "DELETE"
+            },
+            {
+              "id": "RECORD",
+              "label": "RECORD"
+            },
+            {
+              "id": "UPDATE",
+              "label": "UPDATE"
+            },
+            {
+              "id": "LOAD",
+              "label": "LOAD"
+            },
+            {
+              "id": "GROUP",
+              "label": "GROUP"
+            },
+            {
+              "id": "CUE",
+              "label": "CUE"
+            },
+            {
+              "id": "F1",
+              "label": "F1"
+            },
+            {
+              "id": "F2",
+              "label": "F2"
+            },
+            {
+              "id": "F3",
+              "label": "F3"
+            },
+            {
+              "id": "F4",
+              "label": "F4"
+            },
+            {
+              "id": "F5",
+              "label": "F5"
+            },
+            {
+              "id": "F6",
+              "label": "F6"
+            },
+            {
+              "id": "F7",
+              "label": "F7"
+            },
+            {
+              "id": "F8",
+              "label": "F8"
+            },
+            {
+              "id": "F9",
+              "label": "F9"
+            },
+            {
+              "id": "F10",
+              "label": "F10"
+            },
+            {
+              "id": "F11",
+              "label": "F11"
+            },
+            {
+              "id": "F12",
+              "label": "F12"
+            },
+            {
+              "id": "PF Group 1",
+              "label": "PF Group 1"
+            },
+            {
+              "id": "PF Group 2",
+              "label": "PF Group 2"
+            },
+            {
+              "id": "PF Group 3",
+              "label": "PF Group 3"
+            },
+            {
+              "id": "PF Group 4",
+              "label": "PF Group 4"
+            },
+            {
+              "id": "PF Group 5",
+              "label": "PF Group 5"
+            },
+            {
+              "id": "Last",
+              "label": "Last"
+            },
+            {
+              "id": "Next",
+              "label": "Next"
+            },
+            {
+              "id": "Swap Programmer",
+              "label": "Swap Programmer"
+            },
+            {
+              "id": "HIGHLIGHT",
+              "label": "HIGHLIGHT"
+            },
+            {
+              "id": "CV",
+              "label": "CV"
+            },
+            {
+              "id": "Base Channel Group 1",
+              "label": "Base Channel Group 1"
+            },
+            {
+              "id": "Base Channel Group 2",
+              "label": "Base Channel Group 2"
+            },
+            {
+              "id": "Base Channel Group 3",
+              "label": "Base Channel Group 3"
+            },
+            {
+              "id": "Base Channel Group 4",
+              "label": "Base Channel Group 4"
+            },
+            {
+              "id": "Base Channel Group 5",
+              "label": "Base Channel Group 5"
+            },
+            {
+              "id": "Effect Channel Group 1",
+              "label": "Effect Channel Group 1"
+            },
+            {
+              "id": "Effect Channel Group 2",
+              "label": "Effect Channel Group 2"
+            },
+            {
+              "id": "Effect Channel Group 3",
+              "label": "Effect Channel Group 3"
+            },
+            {
+              "id": "Effect Channel Group 4",
+              "label": "Effect Channel Group 4"
+            },
+            {
+              "id": "Effect Channel Group 5",
+              "label": "Effect Channel Group 5"
+            },
+            {
+              "id": "Base Channel 1",
+              "label": "Base Channel 1"
+            },
+            {
+              "id": "Base Channel 2",
+              "label": "Base Channel 2"
+            },
+            {
+              "id": "Base Channel 3",
+              "label": "Base Channel 3"
+            },
+            {
+              "id": "Base Channel 4",
+              "label": "Base Channel 4"
+            },
+            {
+              "id": "Effect Channel 1",
+              "label": "Effect Channel 1"
+            },
+            {
+              "id": "Effect Channel 2",
+              "label": "Effect Channel 2"
+            },
+            {
+              "id": "Effect Channel 3",
+              "label": "Effect Channel 3"
+            },
+            {
+              "id": "Effect Channel 4",
+              "label": "Effect Channel 4"
+            },
+            {
+              "id": "TRACKFUNC P/T",
+              "label": "TRACKFUNC P/T"
+            },
+            {
+              "id": "MODE",
+              "label": "MODE"
+            },
+            {
+              "id": "NAVIGATE UP",
+              "label": "NAVIGATE UP"
+            },
+            {
+              "id": "NAVIGATE LEFT",
+              "label": "NAVIGATE LEFT"
+            },
+            {
+              "id": "NAVIGATE DOWN",
+              "label": "NAVIGATE DOWN"
+            },
+            {
+              "id": "NAVIGATE RIGHT",
+              "label": "NAVIGATE RIGHT"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 49
+      }
+    }
+  ]
+}

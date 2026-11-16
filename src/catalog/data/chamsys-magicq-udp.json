@@ -1,0 +1,219 @@
+{
+  "moduleId": "chamsys-magicq-udp",
+  "name": "ChamSys MagicQ (UDP)",
+  "repo": "bitfocus/companion-module-chamsys-magicq-udp",
+  "version": "2.1.0",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "d960f9c",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "pb",
+      "name": "Set the playback fader level",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback fader (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "pbVal",
+          "type": "textinput",
+          "label": "Fader value (0-100 %)",
+          "default": "",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 83
+      }
+    },
+    {
+      "id": "intensityCh",
+      "name": "Set the Intensity channel level",
+      "options": [
+        {
+          "id": "intensityChId",
+          "type": "textinput",
+          "label": "Intensity Channel (1-32769)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "intensityChVal",
+          "type": "textinput",
+          "label": "Fader value (0-100 %)",
+          "default": "",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 109
+      }
+    },
+    {
+      "id": "pbGo",
+      "name": "Go on Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 135
+      }
+    },
+    {
+      "id": "pbActivate",
+      "name": "Activate Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 152
+      }
+    },
+    {
+      "id": "pbPage",
+      "name": "Playback Page",
+      "options": [
+        {
+          "id": "pageId",
+          "type": "textinput",
+          "label": "Page Number",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 169
+      }
+    },
+    {
+      "id": "pbStop",
+      "name": "Stop Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 186
+      }
+    },
+    {
+      "id": "pbFf",
+      "name": "Fast Forward Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 203
+      }
+    },
+    {
+      "id": "pbFb",
+      "name": "Fast Back Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 220
+      }
+    },
+    {
+      "id": "pbRelease",
+      "name": "Release Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 237
+      }
+    },
+    {
+      "id": "pbJump",
+      "name": "Playback Jump to Cue",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-202)",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue Number",
+          "default": "1",
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "cueDec",
+          "type": "textinput",
+          "label": "Cue Nr Decimal",
+          "default": "0",
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 254
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "The module has no feedbacks: it only sends UDP text commands (for example '<pb>,<value>L') to the console's UDP port; no reply is read.",
+    "Option values are resolved with parseVariablesInString in every callback, but the text inputs do not set useVariables in the source, so the field flag is not recorded.",
+    "Numbers are text inputs with regex Regex.NUMBER (resolved constant, informational). The ranges in the labels (playback 1-202, intensity channel 1-32769) are label text only and not enforced by the module.",
+    "The module is separate from chamsys-magicq-osc (OSC), has no presets or variables catalogued, and is CommonJS on @companion-module/base ~1.4.3 (no expressions).",
+    "ChamSys QuickQ has its own module (chamsys-quickq) and is not covered here."
+  ]
+}

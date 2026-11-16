@@ -1,0 +1,1066 @@
+{
+  "moduleId": "bmd-hyperdeck",
+  "name": "Blackmagic Design HyperDeck",
+  "repo": "bitfocus/companion-module-bmd-hyperdeck",
+  "version": "3.2.0",
+  "baseVersion": "~2.0.4",
+  "lastCommit": "2026-10-08",
+  "lastCommitSha": "8f17fe9",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Actions and feedbacks are registered conditionally per HyperDeck model (for example the Duplicator 4K has no transport actions); the catalog lists the union.",
+    "The dynamicRange action in src/actions/video.ts is inside a comment block (\"Not currently implemented\") and is NOT listed.",
+    "Timecode fields validate against TIMECODE_REGEX (src/util.ts:43); the regex field is informational.",
+    "Slot and clip ids depend on the connected device; clip names are fetched by the fetchClips action."
+  ],
+  "actions": [
+    {
+      "id": "rec",
+      "name": "Record",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 23
+      }
+    },
+    {
+      "id": "recordStopToggle",
+      "name": "Record/Stop Toggle",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 31
+      }
+    },
+    {
+      "id": "spill",
+      "name": "Spill",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot",
+          "default": "next",
+          "choicesNote": "Fixed ids 'next' and 'same' plus the slot ids of the selected model (numbers)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 48
+      }
+    },
+    {
+      "id": "recAppend",
+      "name": "Append Record",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 87
+      }
+    },
+    {
+      "id": "recName",
+      "name": "Record (with name)",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Filename (without extension)",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^.+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 100
+      }
+    },
+    {
+      "id": "recTimestamp",
+      "name": "Record (with name and current date/time)",
+      "options": [
+        {
+          "id": "prefix",
+          "type": "textinput",
+          "label": "Filename (optional)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 120
+      }
+    },
+    {
+      "id": "recCustom",
+      "name": "Record (with custom reel)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/record.ts",
+        "line": 145
+      }
+    },
+    {
+      "id": "play",
+      "name": "Play",
+      "options": [
+        {
+          "id": "speed",
+          "type": "number",
+          "label": "Speed %",
+          "default": 100,
+          "description": "Percent. The limit is model dependent (maxShuttle 100 or 1600 in src/models.ts); +-1600 is the widest range.",
+          "min": -1600,
+          "max": 1600
+        },
+        {
+          "id": "loop",
+          "type": "checkbox",
+          "label": "Loop clip",
+          "default": false
+        },
+        {
+          "id": "single",
+          "type": "checkbox",
+          "label": "Single clip playback",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/playback.ts",
+        "line": 26
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/playback.ts",
+        "line": 61
+      }
+    },
+    {
+      "id": "playrangeSet",
+      "name": "Play range - set (in/out)",
+      "options": [
+        {
+          "id": "in",
+          "type": "textinput",
+          "label": "In (timecode hh:mm:ss:ff)",
+          "default": "00:00:00:00",
+          "useVariables": true,
+          "regex": "/^(0*[0-9]|1[0-9]|2[0-4]):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9])$/"
+        },
+        {
+          "id": "out",
+          "type": "textinput",
+          "label": "Out (timecode hh:mm:ss:ff)",
+          "default": "00:00:10:00",
+          "useVariables": true,
+          "regex": "/^(0*[0-9]|1[0-9]|2[0-4]):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9])$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/playback.ts",
+        "line": 71
+      }
+    },
+    {
+      "id": "playrangeClear",
+      "name": "Play range - clear",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/playback.ts",
+        "line": 101
+      }
+    },
+    {
+      "id": "playStopToggle",
+      "name": "Play/Stop Toggle",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/playback.ts",
+        "line": 110
+      }
+    },
+    {
+      "id": "goto",
+      "name": "Goto (TC)",
+      "options": [
+        {
+          "id": "tc",
+          "type": "textinput",
+          "label": "Timecode hh:mm:ss:ff",
+          "default": "00:00:01:00",
+          "useVariables": true,
+          "regex": "/^(0*[0-9]|1[0-9]|2[0-4]):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9])$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/navigation.ts",
+        "line": 57
+      }
+    },
+    {
+      "id": "gotoN",
+      "name": "Goto Clip (n)",
+      "options": [
+        {
+          "id": "clip",
+          "type": "number",
+          "label": "Clip Number",
+          "default": 1,
+          "min": 1,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/navigation.ts",
+        "line": 75
+      }
+    },
+    {
+      "id": "gotoName",
+      "name": "Goto Clip (name)",
+      "options": [
+        {
+          "id": "clip",
+          "type": "dropdown",
+          "label": "Clip Name",
+          "default": "",
+          "choicesNote": "Dynamic list (source: clipChoices); depends on device or model",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/navigation.ts",
+        "line": 94
+      }
+    },
+    {
+      "id": "goFwd",
+      "name": "Go forward (n) clips",
+      "options": [
+        {
+          "id": "clip",
+          "type": "number",
+          "label": "Number of clips",
+          "default": 1,
+          "min": 1,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/navigation.ts",
+        "line": 122
+      }
+    },
+    {
+      "id": "goRew",
+      "name": "Go backward (n) clips",
+      "options": [
+        {
+          "id": "clip",
+          "type": "number",
+          "label": "Number of clips",
+          "default": 1,
+          "min": 1,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/navigation.ts",
+        "line": 141
+      }
+    },
+    {
+      "id": "goStartEnd",
+      "name": "Go to (start|end) of clip",
+      "options": [
+        {
+          "id": "startEnd",
+          "type": "dropdown",
+          "label": "Go to",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "end",
+              "label": "End"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/navigation.ts",
+        "line": 160
+      }
+    },
+    {
+      "id": "jogFwd",
+      "name": "Jog forward (TC) duration",
+      "options": [
+        {
+          "id": "jogFwdTc",
+          "type": "textinput",
+          "label": "Timecode hh:mm:ss:ff",
+          "default": "00:00:00:01",
+          "useVariables": true,
+          "regex": "/^(0*[0-9]|1[0-9]|2[0-4]):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9])$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/shuttle.ts",
+        "line": 24
+      }
+    },
+    {
+      "id": "jogRew",
+      "name": "Jog backward (TC) duration",
+      "options": [
+        {
+          "id": "jogRewTc",
+          "type": "textinput",
+          "label": "Timecode hh:mm:ss:ff",
+          "default": "00:00:00:01",
+          "useVariables": true,
+          "regex": "/^(0*[0-9]|1[0-9]|2[0-4]):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9])$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/shuttle.ts",
+        "line": 42
+      }
+    },
+    {
+      "id": "shuttle",
+      "name": "Shuttle with speed",
+      "options": [
+        {
+          "id": "speed",
+          "type": "number",
+          "label": "Speed %",
+          "default": 100,
+          "description": "Percent. The limit is model dependent (maxShuttle 100 or 1600 in src/models.ts); +-1600 is the widest range.",
+          "min": -1600,
+          "max": 1600
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/shuttle.ts",
+        "line": 60
+      }
+    },
+    {
+      "id": "select",
+      "name": "Select slot or format",
+      "options": [
+        {
+          "id": "slot",
+          "type": "dropdown",
+          "label": "Slot",
+          "default": 1,
+          "choicesNote": "Fixed id 'unchanged' plus the slot ids of the selected model (numbers)"
+        },
+        {
+          "id": "format",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "unchanged",
+          "choicesNote": "Fixed id 'unchanged' plus the video formats of the selected model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/slot.ts",
+        "line": 21
+      }
+    },
+    {
+      "id": "videoSrc",
+      "name": "Video source",
+      "options": [
+        {
+          "id": "videoSrc",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Dynamic list (source: modelChoices.VideoInputs); depends on device or model",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/video.ts",
+        "line": 19
+      }
+    },
+    {
+      "id": "preview",
+      "name": "Preview",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Set preview/output mode",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Preview"
+            },
+            {
+              "id": "false",
+              "label": "Output"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/video.ts",
+        "line": 41
+      }
+    },
+    {
+      "id": "audioSrc",
+      "name": "Audio source",
+      "options": [
+        {
+          "id": "audioSrc",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Dynamic list (source: modelChoices.AudioInputs); depends on device or model",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 29
+      }
+    },
+    {
+      "id": "audioChannels",
+      "name": "Audio channels",
+      "options": [
+        {
+          "id": "audioCodec",
+          "type": "dropdown",
+          "label": "Codec",
+          "default": "PCM",
+          "choices": [
+            {
+              "id": "PCM",
+              "label": "PCM"
+            },
+            {
+              "id": "AAC",
+              "label": "AAC (2 channels only)"
+            }
+          ]
+        },
+        {
+          "id": "audioChannels",
+          "type": "dropdown",
+          "label": "Channels",
+          "default": "2",
+          "choices": [
+            {
+              "id": "2",
+              "label": "2 Channels"
+            },
+            {
+              "id": "4",
+              "label": "4 Channels"
+            },
+            {
+              "id": "8",
+              "label": "8 Channels"
+            },
+            {
+              "id": "16",
+              "label": "16 Channels"
+            },
+            {
+              "id": "cycle",
+              "label": "Cycle"
+            }
+          ],
+          "visibleWhen": "$(options:audioCodec) == 'PCM'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/audio.ts",
+        "line": 50
+      }
+    },
+    {
+      "id": "timecodeInput",
+      "name": "Set timecode input",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "preset",
+          "choices": [
+            {
+              "id": "external",
+              "label": "External"
+            },
+            {
+              "id": "embedded",
+              "label": "Embedded"
+            },
+            {
+              "id": "preset",
+              "label": "Preset"
+            },
+            {
+              "id": "clip",
+              "label": "Clip"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/configuration.ts",
+        "line": 18
+      }
+    },
+    {
+      "id": "timecodePreset",
+      "name": "Set timecode preset",
+      "options": [
+        {
+          "id": "timecode",
+          "type": "textinput",
+          "label": "Timecode hh:mm:ss:ff",
+          "default": "00:00:00:00",
+          "useVariables": true,
+          "regex": "/^(0*[0-9]|1[0-9]|2[0-4]):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9]|60):(0*[0-9]|[1-5][0-9])$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/configuration.ts",
+        "line": 39
+      }
+    },
+    {
+      "id": "remote",
+      "name": "Remote Control (enable/disable)",
+      "options": [
+        {
+          "id": "remoteEnable",
+          "type": "dropdown",
+          "label": "Enable/Disable",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Enable"
+            },
+            {
+              "id": "false",
+              "label": "Disable"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/remote.ts",
+        "line": 14
+      }
+    },
+    {
+      "id": "fileFormat",
+      "name": "File format",
+      "options": [
+        {
+          "id": "fileFormat",
+          "type": "dropdown",
+          "label": "Format",
+          "choicesNote": "Dynamic list (source: modelChoices.FileFormats); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/format.ts",
+        "line": 20
+      }
+    },
+    {
+      "id": "formatPrepare",
+      "name": "Format drive/card (prepare)",
+      "options": [
+        {
+          "id": "filesystem",
+          "type": "dropdown",
+          "label": "Filesystem",
+          "default": "HFS+",
+          "choices": [
+            {
+              "id": "HFS+",
+              "label": "HFS+"
+            },
+            {
+              "id": "exFAT",
+              "label": "exFAT"
+            }
+          ]
+        },
+        {
+          "id": "timeout",
+          "type": "number",
+          "label": "Confirmation timeout (sec)",
+          "default": 10,
+          "min": 0,
+          "max": 600
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/format.ts",
+        "line": 39
+      }
+    },
+    {
+      "id": "formatConfirm",
+      "name": "Format drive/card (confirm)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/format.ts",
+        "line": 78
+      }
+    },
+    {
+      "id": "fetchClips",
+      "name": "Fetch Clips",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/clips.ts",
+        "line": 10
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "transport_status",
+      "name": "Transport status",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Transport Status",
+          "default": "preview",
+          "choices": [
+            {
+              "id": "preview",
+              "label": "Preview"
+            },
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            },
+            {
+              "id": "play",
+              "label": "Playing"
+            },
+            {
+              "id": "forward",
+              "label": "Forward"
+            },
+            {
+              "id": "rewind",
+              "label": "Rewind"
+            },
+            {
+              "id": "jog",
+              "label": "Jog"
+            },
+            {
+              "id": "shuttle",
+              "label": "Shuttle"
+            },
+            {
+              "id": "record",
+              "label": "Record"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transport.ts",
+        "line": 21
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "transport_clip",
+      "name": "Active clip",
+      "options": [
+        {
+          "id": "clipID",
+          "type": "number",
+          "label": "Clip Id",
+          "default": 1,
+          "min": 1,
+          "max": 999
+        },
+        {
+          "id": "slotID",
+          "type": "dropdown",
+          "label": "Slot Id",
+          "default": "either",
+          "choicesNote": "Fixed ids \"either\" plus dynamic list (modelChoices.Slots); depends on device or model",
+          "regex": "/^.+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transport.ts",
+        "line": 43
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "transport_clip_name",
+      "name": "Active Clip (name)",
+      "options": [
+        {
+          "id": "clipName",
+          "type": "dropdown",
+          "label": "Clip Name",
+          "default": "",
+          "choicesNote": "Dynamic list (source: clipChoices); depends on device or model",
+          "allowCustom": true
+        },
+        {
+          "id": "slotID",
+          "type": "dropdown",
+          "label": "Slot Id",
+          "default": "either",
+          "choicesNote": "Fixed ids \"either\" plus dynamic list (modelChoices.Slots); depends on device or model",
+          "regex": "/^.+$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transport.ts",
+        "line": 76
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "transport_slot",
+      "name": "Active slot",
+      "options": [
+        {
+          "id": "setting",
+          "type": "number",
+          "label": "Slot Id",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transport.ts",
+        "line": 110
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "transport_loop",
+      "name": "Loop playback",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Loop",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Enable"
+            },
+            {
+              "id": "false",
+              "label": "Disable"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transport.ts",
+        "line": 132
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "transport_singleClip",
+      "name": "Single clip playback",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Single clip",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Enable"
+            },
+            {
+              "id": "false",
+              "label": "Disable"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/transport.ts",
+        "line": 154
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "slot_status",
+      "name": "Slot/disk status",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Disk Status",
+          "default": "empty",
+          "choices": [
+            {
+              "id": "empty",
+              "label": "Empty"
+            },
+            {
+              "id": "error",
+              "label": "Error"
+            },
+            {
+              "id": "mounted",
+              "label": "Mounted"
+            },
+            {
+              "id": "mounting",
+              "label": "Mounting"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "slotId",
+          "type": "number",
+          "label": "Slot Id",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/slot.ts",
+        "line": 11
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "video_input",
+      "name": "Video input",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Dynamic list (source: modelChoices.VideoInputs); depends on device or model",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/video.ts",
+        "line": 15
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "video_format",
+      "name": "Active video format",
+      "options": [
+        {
+          "id": "format",
+          "type": "dropdown",
+          "label": "Format",
+          "choicesNote": "Dynamic list (source: modelChoices.VideoFormats); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/video.ts",
+        "line": 37
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "audio_input",
+      "name": "Audio input",
+      "options": [
+        {
+          "id": "setting",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Dynamic list (source: modelChoices.AudioInputs); depends on device or model",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 18
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "audio_channels",
+      "name": "Audio channels",
+      "options": [
+        {
+          "id": "audioCodec",
+          "type": "dropdown",
+          "label": "Codec",
+          "default": "PCM",
+          "choices": [
+            {
+              "id": "PCM",
+              "label": "PCM"
+            },
+            {
+              "id": "AAC",
+              "label": "AAC (2 channels only)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "audioChannels",
+          "type": "dropdown",
+          "label": "Channels",
+          "description": "Only valid when codec is PCM",
+          "default": "2",
+          "choices": [
+            {
+              "id": "2",
+              "label": "2 Channels"
+            },
+            {
+              "id": "4",
+              "label": "4 Channels"
+            },
+            {
+              "id": "8",
+              "label": "8 Channels"
+            },
+            {
+              "id": "16",
+              "label": "16 Channels"
+            },
+            {
+              "id": "cycle",
+              "label": "Cycle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/audio.ts",
+        "line": 42
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "timecode_input",
+      "name": "Timecode input",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "preset",
+          "choices": [
+            {
+              "id": "external",
+              "label": "External"
+            },
+            {
+              "id": "embedded",
+              "label": "Embedded"
+            },
+            {
+              "id": "preset",
+              "label": "Preset"
+            },
+            {
+              "id": "clip",
+              "label": "Clip"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/configuration.ts",
+        "line": 11
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "remote_status",
+      "name": "Remote Status",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Enabled"
+            },
+            {
+              "id": "false",
+              "label": "Disabled"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks/remote.ts",
+        "line": 11
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "format_ready",
+      "name": "Format prepared",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks/format.ts",
+        "line": 10
+      },
+      "feedbackType": "boolean"
+    }
+  ]
+}

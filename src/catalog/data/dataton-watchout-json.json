@@ -1,0 +1,484 @@
+{
+  "moduleId": "dataton-watchout-json",
+  "name": "Dataton WATCHOUT 7 (JSON API)",
+  "repo": "bitfocus/companion-module-dataton-watchout-json",
+  "version": "2.7.0",
+  "baseVersion": "~1.11.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "5f18949",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "HTTP API plus server-sent events for WATCHOUT 7 (default port 3019). Timeline, cue and cue-group choices are filled from the connected show and are not enumerable offline.",
+    "Source quirks: jump_to_time.time is a number field with the string default \"1000\"; send_inputs.input_value is a textinput that also carries min/max/step.",
+    "Built on @companion-module/base 1.x: no expressions."
+  ],
+  "actions": [
+    {
+      "id": "timeline_action",
+      "name": "Timeline Action",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "0",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data, default \"0\"); filled from the device (main.js)"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 57
+      }
+    },
+    {
+      "id": "timeline_toggle",
+      "name": "Timeline Toggle",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "0",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data, default \"0\"); filled from the device (main.js)"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 96
+      }
+    },
+    {
+      "id": "timeline_condition_start",
+      "name": "Only play timeline if",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "The following timeline will play",
+          "default": "0",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data, default \"0\"); filled from the device (main.js)"
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "when the following condition is met",
+          "default": "pause",
+          "choices": [
+            {
+              "id": "run",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 134
+      }
+    },
+    {
+      "id": "timeline_condition_start_extra",
+      "name": "Only play timeline if other timeline condition is met",
+      "options": [
+        {
+          "id": "timeline1",
+          "type": "dropdown",
+          "label": "The following timeline will play",
+          "default": "0",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data, default \"0\"); filled from the device (main.js)"
+        },
+        {
+          "id": "timeline2",
+          "type": "dropdown",
+          "label": "When this timeline",
+          "default": "0",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data, default \"0\"); filled from the device (main.js)"
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "has this state",
+          "default": "pause",
+          "choices": [
+            {
+              "id": "run",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 179
+      }
+    },
+    {
+      "id": "jump_to_time",
+      "name": "Jump to Time",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "default": "0",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data, default \"0\"); filled from the device (main.js)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (ms)",
+          "default": "1000",
+          "min": 0,
+          "max": 1000000
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 231
+      }
+    },
+    {
+      "id": "jump_to_cue",
+      "name": "Jump to Cue",
+      "options": [
+        {
+          "id": "cue",
+          "type": "dropdown",
+          "label": "Cue",
+          "default": "0",
+          "choicesNote": "Cues of the connected show; ids \"<timelineId>/<cueKey>\" (actions.js:24-47)"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 283
+      }
+    },
+    {
+      "id": "set_group_state_by_name",
+      "name": "Set group state by with variant",
+      "options": [
+        {
+          "id": "cue_group",
+          "type": "dropdown",
+          "label": "Cue Group",
+          "choicesNote": "Cue groups (cue sets) of the connected show"
+        },
+        {
+          "id": "variant_name",
+          "type": "textinput",
+          "label": "Variant Name",
+          "description": "The name of the variant to be used",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 326
+      }
+    },
+    {
+      "id": "reset_all_cue_groups_by_name",
+      "name": "Reset all cue groups by Name",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 379
+      }
+    },
+    {
+      "id": "show_information",
+      "name": "Show information",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 410
+      }
+    },
+    {
+      "id": "shutdown_node",
+      "name": "shutdown node",
+      "options": [
+        {
+          "id": "ip",
+          "type": "textinput",
+          "label": "IP Address node",
+          "useVariables": true,
+          "regex": "/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 439
+      }
+    },
+    {
+      "id": "restart_services",
+      "name": "Restart Services",
+      "options": [
+        {
+          "id": "ip",
+          "type": "textinput",
+          "label": "IP Address node",
+          "useVariables": true,
+          "regex": "/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 467
+      }
+    },
+    {
+      "id": "send_inputs",
+      "name": "Send Input Value",
+      "options": [
+        {
+          "id": "input_key",
+          "type": "textinput",
+          "label": "Input Key",
+          "description": "The key of the input variable. You must manually set the Key field in the variable properties in Watchout Producer for this to work.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "input_value",
+          "type": "textinput",
+          "label": "Input Value",
+          "description": "The value to send to the input variable",
+          "default": 0,
+          "min": -999999,
+          "max": 999999,
+          "step": 0.01,
+          "useVariables": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration (ms)",
+          "description": "Interpolation duration in milliseconds. 0 = instant change.",
+          "default": 0,
+          "min": 0,
+          "max": 60000,
+          "step": 100
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 495
+      }
+    },
+    {
+      "id": "send_multiple_inputs",
+      "name": "Send Multiple Inputs",
+      "options": [
+        {
+          "id": "inputs_json",
+          "type": "textinput",
+          "label": "JSON Input Data",
+          "description": "JSON array of input objects with key, value, and optional duration (ms) properties. You must manually set the Key field in the variable properties in Watchout Producer for this to work.",
+          "default": "[{\"key\": \"InputName\", \"value\": 0.5, \"duration\": 1000}]",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 574
+      }
+    },
+    {
+      "id": "load_show_json",
+      "name": "Load Show from JSON",
+      "options": [
+        {
+          "id": "show_json",
+          "type": "textinput",
+          "label": "JSON Show Data",
+          "description": "JSON show data to load",
+          "default": "{}",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 618
+      }
+    },
+    {
+      "id": "load_show_file",
+      "name": "Load Show from File",
+      "options": [
+        {
+          "id": "show_file_path",
+          "type": "textinput",
+          "label": "Show File Path",
+          "description": "Path to the .watch file on the Watchout system",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "show_name",
+          "type": "textinput",
+          "label": "Show Name (Optional)",
+          "description": "Optional show name to set when loading",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 665
+      }
+    },
+    {
+      "id": "set_multiple_cue_groups",
+      "name": "Set Multiple Cue Groups",
+      "options": [
+        {
+          "id": "cue_groups_json",
+          "type": "textinput",
+          "label": "Cue Groups JSON",
+          "description": "JSON object with group names as keys and variant names as values",
+          "default": "{\"GroupName1\": \"VariantName1\", \"GroupName2\": \"VariantName2\"}",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 729
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "timeLineState",
+      "name": "Timeline State",
+      "options": [
+        {
+          "id": "timeline",
+          "type": "dropdown",
+          "label": "Timeline",
+          "choicesNote": "Timelines of the connected WATCHOUT 7 show (ids are keys from the show data); filled from the device"
+        },
+        {
+          "id": "playbackStatus",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "stop",
+          "choices": [
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "run",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 12
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "cueSetActive",
+      "name": "Cue Set State",
+      "options": [
+        {
+          "id": "cueSet",
+          "type": "dropdown",
+          "label": "Cue Set",
+          "choicesNote": "Cue groups (cue sets) of the connected show"
+        },
+        {
+          "id": "variant_name",
+          "type": "textinput",
+          "label": "Variant Name",
+          "description": "The name of the variant to be used",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 61
+      },
+      "feedbackType": "boolean"
+    }
+  ]
+}

@@ -1,0 +1,2239 @@
+{
+  "moduleId": "analogway-awj",
+  "name": "Analog Way AWJ (LivePremier/Aquilon, Midra, Alta 4K)",
+  "repo": "bitfocus/companion-module-analogway-awj",
+  "version": "2.5.0",
+  "baseVersion": "~1.9.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "4df8677",
+  "status": "verified-sample",
+  "coverage": "partial",
+  "notes": [
+    "Recommended module for Aquilon (the older analogway-livepremier module is REST fire-and-forget and marked as legacy). The module picks the platform at connect time: device name prefix NLC = Aquilon, firmware major >= 4 uses the livepremier4 code path, otherwise livepremier (src/connection.ts:141-153).",
+    "All screen, layer, memory and source choices come from the connected device or the LivePremier simulator; without a connection the module offers only emulated entries. Screen ids are device keys such as S1 and A1.",
+    "Option sets were taken from the generic definitions in src/awjdevice/actions.ts and, where Aquilon overrides them, from src/livepremier/actions.ts (select source, test patterns, audio routing, GPO). Aquilon firmware >= 4 (src/livepremier4/actions.ts) changes audio routing (one pair of choice lists per linked device), the GPO range and keying/select-layer details, which are not modelled here.",
+    "Several actions generate extra option ids per screen at runtime (for example layerS1); these entries are marked optionsComplete=false.",
+    "Built on @companion-module/base 1.x (~1.9.0): no expressions; variables only in textinputs with useVariables."
+  ],
+  "actions": [
+    {
+      "id": "deviceScreenMemory",
+      "name": "Recall Screen Memory",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screen",
+          "default": ["sel"],
+          "choices": [
+            {
+              "id": "sel",
+              "label": "Selected"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Screen Memory",
+          "choicesNote": "Screen memories of the connected device (ids from device state)"
+        },
+        {
+          "id": "selectScreens",
+          "type": "checkbox",
+          "label": "Select screens after load",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 131
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceLayerMemory",
+      "name": "Recall Layer Memory",
+      "options": [
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Method",
+          "default": "spec",
+          "choices": [
+            {
+              "id": "spec",
+              "label": "Use Specified Layers"
+            },
+            {
+              "id": "sel",
+              "label": "Use Selected Layers"
+            }
+          ]
+        },
+        {
+          "id": "screen",
+          "type": "multidropdown",
+          "label": "Screen / Aux",
+          "default": [
+            {
+              "ref": "this.choices.getScreenAuxChoices()[0]?.id"
+            }
+          ],
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)",
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.method === 'spec'\n\t\t\t\t\t}"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "pvw",
+          "choicesNote": "Fixed ids \"sel\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)",
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.method === 'spec'\n\t\t\t\t\t}"
+        },
+        {
+          "id": "layer",
+          "type": "multidropdown",
+          "label": "Layer",
+          "default": ["1"],
+          "choicesNote": "Layer ids of the connected device ('1'.. plus 'NATIVE' background layer)",
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.method === 'spec'\n\t\t\t\t\t}"
+        },
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Layer Memory",
+          "choicesNote": "Layer memories of the connected device (ids from device state)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 175
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceAuxMemory",
+      "name": "Recall Aux Memory",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Auxscreen",
+          "default": ["sel"],
+          "choicesNote": "Fixed ids \"sel\" plus Aux screen ids 'A<n>' of the connected device"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Aux Memory",
+          "choicesNote": "Aux memories of the connected device (ids from device state)"
+        },
+        {
+          "id": "selectScreens",
+          "type": "checkbox",
+          "label": "Select screens after load",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 276
+      },
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/actions.ts actionsToUse); available on other platforms handled by this module"
+    },
+    {
+      "id": "deviceMasterMemory",
+      "name": "Recall Master Memory",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Master Memory",
+          "choicesNote": "Master memories of the connected device (ids from device state)"
+        },
+        {
+          "id": "selectScreens",
+          "type": "checkbox",
+          "label": "Select screens after load",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 318
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceMultiviewerMemory",
+      "name": "Recall Multiviewer Memory",
+      "options": [
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Memory",
+          "choicesNote": "Multiviewer memories of the connected device (ids from device state)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 353
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceTakeScreen",
+      "name": "Take Screen",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["sel"],
+          "choicesNote": "Fixed ids \"all\", \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 416
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceCutScreen",
+      "name": "Cut Screen",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["sel"],
+          "choicesNote": "Fixed ids \"all\", \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 442
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceTbar",
+      "name": "Set T-Bar Position",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["all"],
+          "choicesNote": "Fixed ids \"all\", \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "position",
+          "type": "textinput",
+          "label": "Position",
+          "description": "Enter position as a numeric string. Can be floating point or integer number. Variables can be used. 100% is in relation to maximum value.",
+          "default": "0",
+          "useVariables": true,
+          "regex": "^\\d+(\\.\\d+)?$|^\\$\\(\\w+:\\w+\\)$"
+        },
+        {
+          "id": "maximum",
+          "type": "textinput",
+          "label": "Maximum value",
+          "description": "Enter maximum as a numeric string. Can be floating point or integer number. Variables can be used.",
+          "default": "100",
+          "useVariables": true,
+          "regex": "^\\d+(\\.\\d+)?$|^\\$\\(\\w+:\\w+\\)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 479
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceTakeTime",
+      "name": "Set Transition Time",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["all"],
+          "choicesNote": "Fixed ids \"all\", \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (seconds)",
+          "default": 1,
+          "min": 0,
+          "max": 300,
+          "step": 0.1
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 542
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceSelectSource",
+      "name": "Select Layer Source",
+      "description": "Aquilon variant (src/livepremier/actions.ts:216-340). One extra multidropdown option 'layer<ScreenId>' (for example layerS1, layerA1) exists per screen/aux; these dynamic option ids are not listed.",
+      "options": [
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Method",
+          "default": "spec",
+          "choices": [
+            {
+              "id": "spec",
+              "label": "Target specified layers"
+            },
+            {
+              "id": "sel",
+              "label": "Target selected layers"
+            }
+          ]
+        },
+        {
+          "id": "screen",
+          "type": "multidropdown",
+          "label": "Screen / Aux",
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)",
+          "visibleWhen": "options.method === 'spec'"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "pvw",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            }
+          ],
+          "visibleWhen": "options.method === 'spec'"
+        },
+        {
+          "id": "sourceLayer",
+          "type": "dropdown",
+          "label": "Screen Layer Source",
+          "default": "keep",
+          "choicesNote": "Fixed id 'keep' (Don't change source) plus the source ids of the connected device"
+        },
+        {
+          "id": "sourceNative",
+          "type": "dropdown",
+          "label": "Screen Background Source",
+          "default": "keep",
+          "choicesNote": "Fixed id 'keep' plus background sources (e.g. 'NATIVE_1'..'NATIVE_4', none) of the connected device"
+        },
+        {
+          "id": "sourceBack",
+          "type": "dropdown",
+          "label": "Aux Layer Source",
+          "default": "keep",
+          "choicesNote": "Fixed id 'keep' plus the aux source ids of the connected device"
+        }
+      ],
+      "optionsComplete": false,
+      "provenance": {
+        "file": "src/livepremier/actions.ts",
+        "line": 216
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceInputKeying",
+      "name": "Set Input Keying",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Live input ids of the connected device ('IN_<n>')"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "DISABLE",
+          "choices": [
+            {
+              "id": "DISABLE",
+              "label": "Keying Disabled"
+            },
+            {
+              "id": "CHROMA",
+              "label": "Chroma Key"
+            },
+            {
+              "id": "LUMA",
+              "label": "Luma Key"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 645
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceInputFreeze",
+      "name": "Set Input Freeze",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Live input ids of the connected device ('IN_<n>')"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 2,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze"
+            },
+            {
+              "id": 0,
+              "label": "Unfreeze"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 698
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceLayerFreeze",
+      "name": "Set Layer Freeze",
+      "options": [
+        {
+          "id": "screen",
+          "type": "multidropdown",
+          "label": "Screen",
+          "default": [
+            {
+              "ref": "this.choices.getScreenChoices()[0]?.id"
+            }
+          ],
+          "choicesNote": "Screen ids 'S<n>' of the connected device (aux screens excluded)"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 2,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze"
+            },
+            {
+              "id": 0,
+              "label": "Unfreeze"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 741
+      },
+      "optionsComplete": false,
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/actions.ts actionsToUse); available on other platforms handled by this module",
+      "description": "Per-screen layer options with dynamic ids (layer<ScreenId>) exist in addition to the listed options."
+    },
+    {
+      "id": "deviceScreenFreeze",
+      "name": "Set Screen Freeze",
+      "options": [
+        {
+          "id": "screen",
+          "type": "multidropdown",
+          "label": "Screen",
+          "default": [
+            {
+              "ref": "this.choices.getScreenAuxChoices()[0]?.id"
+            }
+          ],
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 2,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze"
+            },
+            {
+              "id": 0,
+              "label": "Unfreeze"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 811
+      },
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/actions.ts actionsToUse); available on other platforms handled by this module"
+    },
+    {
+      "id": "devicePositionSize",
+      "name": "Set Position and Size",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen / Aux",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "layersel",
+          "type": "dropdown",
+          "label": "Layer",
+          "description": "When using \"selected layer\" and screen or preset are not using \"Selected\", you can narrow the selection",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus dynamic list (Array.from({length: this.constants.maxLayers}, (_i, e:number) => {return {id: e+1, label: `Layer ${e+1}`}})); depends on device or model",
+          "visibleWhen": "(options) => {return options.screen === 'sel'}"
+        },
+        {
+          "id": "parameters",
+          "type": "multidropdown",
+          "label": "Act on",
+          "default": ["x", "y", "w", "h"],
+          "choices": [
+            {
+              "id": "x",
+              "label": "X Position"
+            },
+            {
+              "id": "y",
+              "label": "Y Position"
+            },
+            {
+              "id": "w",
+              "label": "Width"
+            },
+            {
+              "id": "h",
+              "label": "Height"
+            }
+          ]
+        },
+        {
+          "id": "x",
+          "type": "textinput",
+          "label": "X position in screen (pixels)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('x')}"
+        },
+        {
+          "id": "y",
+          "type": "textinput",
+          "label": "Y position in screen (pixels)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('y')}"
+        },
+        {
+          "id": "w",
+          "type": "textinput",
+          "label": "Width (pixels)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('w')}"
+        },
+        {
+          "id": "h",
+          "type": "textinput",
+          "label": "Height (pixels)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('h')}"
+        },
+        {
+          "id": "xAnchor",
+          "type": "textinput",
+          "label": "Anchor X position",
+          "default": "lx + 0.5 * lw",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('x') || options.parameters.includes('w') || options.parameters.includes('h')}"
+        },
+        {
+          "id": "yAnchor",
+          "type": "textinput",
+          "label": "Anchor Y position",
+          "default": "ly + 0.5 * lh",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('y') || options.parameters.includes('w') || options.parameters.includes('h')}"
+        },
+        {
+          "id": "ar",
+          "type": "textinput",
+          "label": "Aspect Ratio",
+          "description": "use \"keep\" to keep the aspect ratio, use notations like 16/9, 4/3, 1.678 to set to a specific ratio, use nothing or any other word to change aspect ratio",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => {return options.parameters.includes('h') && !options.parameters.includes('w') || !options.parameters.includes('h') && options.parameters.includes('w')}"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1081
+      },
+      "optionsComplete": false,
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)",
+      "description": "Per-screen layer options with dynamic ids (layer<ScreenId>) exist in addition to the listed options."
+    },
+    {
+      "id": "deviceCopyProgram",
+      "name": "Copy Program to Preview",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["sel"],
+          "choicesNote": "Fixed ids \"all\", \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1408
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "devicePresetToggle",
+      "name": "Set Preset Toggle",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1443
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "remoteMultiviewerSelectWidget",
+      "name": "Multiviewer Widget Selection",
+      "options": [
+        {
+          "id": "widget",
+          "type": "dropdown",
+          "label": "Widget",
+          "choicesNote": "Multiviewer widgets of the connected device"
+        },
+        {
+          "id": "sel",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "selectExclusive",
+          "choices": [
+            {
+              "id": "selectExclusive",
+              "label": "Select exclusive"
+            },
+            {
+              "id": "deselect",
+              "label": "Deselect"
+            },
+            {
+              "id": "select",
+              "label": "Select"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1470
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceMultiviewerSource",
+      "name": "Select Source in Multiviewer Widget",
+      "options": [
+        {
+          "id": "widget",
+          "type": "dropdown",
+          "label": "Widget",
+          "default": "sel",
+          "choicesNote": "Fixed ids \"sel\" plus Multiviewer widgets of the connected device"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "choicesNote": "Sources selectable in a multiviewer widget (from device state)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1517
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "selectScreen",
+      "name": "Screen Selection",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "sel",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 2,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Deselect"
+            },
+            {
+              "id": 1,
+              "label": "Select"
+            },
+            {
+              "id": 2,
+              "label": "Select exclusive"
+            },
+            {
+              "id": 3,
+              "label": "Toggle"
+            },
+            {
+              "id": 4,
+              "label": "Intelligent PRESS action"
+            },
+            {
+              "id": 5,
+              "label": "Intelligent RELEASE action"
+            },
+            {
+              "id": 6,
+              "label": "Intelligent reset action"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1547
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "lockScreen",
+      "name": "Lock Screen",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screen",
+          "description": "If you choose \"All\" and \"Toggle\", the behavior is exactly like in WebRCS, if you choose multiple screens they will be toggled individually",
+          "default": ["all"],
+          "choicesNote": "Fixed ids \"all\", \"sel\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "PROGRAM",
+          "choices": [
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "lock",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "unlock",
+              "label": "Unlock"
+            },
+            {
+              "id": "lock",
+              "label": "Lock"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1671
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "selectPreset",
+      "name": "Select Preset",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "tgl",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            },
+            {
+              "id": "tgl",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1803
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "selectLayer",
+      "name": "Select Layer",
+      "options": [
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Method",
+          "default": "spec",
+          "choices": [
+            {
+              "id": "spec",
+              "label": "Select layers of specified screens"
+            },
+            {
+              "id": "sel",
+              "label": "Select layers of selected screens and preset"
+            },
+            {
+              "id": "spectgl",
+              "label": "Toggle layers of specified screens"
+            },
+            {
+              "id": "seltgl",
+              "label": "Toggle layers of selected screens and preset"
+            }
+          ]
+        },
+        {
+          "id": "screen",
+          "type": "multidropdown",
+          "label": "Screen / Aux",
+          "default": [
+            {
+              "ref": "this.choices.getScreenAuxChoices()[0]?.id"
+            }
+          ],
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)",
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.method.startsWith('spec')\n\t\t\t\t\t}"
+        },
+        {
+          "id": "layersel",
+          "type": "multidropdown",
+          "label": "Layer",
+          "description": "Choose all the layers you want to be selected, every other layer on any screen will be deselected. This action does not change the preset, if you want a specific preset, add the according action.",
+          "default": ["1"],
+          "choicesNote": "Layer ids of the connected device ('1'..'48' plus 'NATIVE' background layer)",
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.method.startsWith('sel')\n\t\t\t\t\t}"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1866
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "remoteSync",
+      "name": "Sync selection",
+      "options": [
+        {
+          "id": "sync",
+          "type": "dropdown",
+          "label": "Sync",
+          "default": 2,
+          "choices": [
+            {
+              "id": 1,
+              "label": "turn sync on"
+            },
+            {
+              "id": 0,
+              "label": "turn sync off"
+            },
+            {
+              "id": 2,
+              "label": "toggle sync"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 1981
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceStreamControl",
+      "name": "Stream Control",
+      "options": [
+        {
+          "id": "stream",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Start Stream"
+            },
+            {
+              "id": "off",
+              "label": "Stop Stream"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle Stream on/off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2059
+      },
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/actions.ts actionsToUse); available on other platforms handled by this module"
+    },
+    {
+      "id": "deviceStreamAudioMute",
+      "name": "Stream Audio Mute",
+      "options": [
+        {
+          "id": "stream",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Unmute"
+            },
+            {
+              "id": "off",
+              "label": "Mute"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2100
+      },
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/actions.ts actionsToUse); available on other platforms handled by this module"
+    },
+    {
+      "id": "deviceTimerSetup",
+      "name": "Timer Setup",
+      "options": [
+        {
+          "id": "timer",
+          "type": "dropdown",
+          "label": "Timer",
+          "choicesNote": "Timers of the connected device"
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Timer Type",
+          "default": "COUNTDOWN",
+          "choices": [
+            {
+              "id": "CURRENTTIME",
+              "label": "Current time"
+            },
+            {
+              "id": "COUNTDOWN",
+              "label": "Count down"
+            },
+            {
+              "id": "STOPWATCH",
+              "label": "Count up"
+            }
+          ]
+        },
+        {
+          "id": "currentTimeMode",
+          "type": "dropdown",
+          "label": "Time Display",
+          "default": "24H",
+          "choices": [
+            {
+              "id": "24H",
+              "label": "24 hours"
+            },
+            {
+              "id": "12H_AM_PM",
+              "label": "12 hours"
+            }
+          ],
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.type === 'CURRENTTIME'\n\t\t\t\t\t}"
+        },
+        {
+          "id": "unitMode",
+          "type": "dropdown",
+          "label": "Time Display",
+          "default": "IN_MINUTES",
+          "choices": [
+            {
+              "id": "IN_SECONDS",
+              "label": "In seconds"
+            },
+            {
+              "id": "IN_MINUTES",
+              "label": "In minutes"
+            },
+            {
+              "id": "IN_HOURS",
+              "label": "In hours"
+            }
+          ],
+          "visibleWhen": "(options) => {\n\t\t\t\t\t\treturn options.type != 'CURRENTTIME'\n\t\t\t\t\t}"
+        },
+        {
+          "id": "fg_color",
+          "type": "colorpicker",
+          "label": "Text color"
+        },
+        {
+          "id": "bg_color",
+          "type": "colorpicker",
+          "label": "Background color"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2231
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceTimerAdjust",
+      "name": "Timer Adjust Time",
+      "options": [
+        {
+          "id": "timer",
+          "type": "dropdown",
+          "label": "Timer",
+          "choicesNote": "Timers of the connected device"
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Time"
+            },
+            {
+              "id": "add",
+              "label": "Add Time"
+            },
+            {
+              "id": "sub",
+              "label": "Subtract Time"
+            }
+          ]
+        },
+        {
+          "id": "time",
+          "type": "textinput",
+          "label": "Time",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2308
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceTimerTransport",
+      "name": "Timer Transport",
+      "options": [
+        {
+          "id": "timer",
+          "type": "dropdown",
+          "label": "Timer",
+          "choicesNote": "Timers of the connected device"
+        },
+        {
+          "id": "cmd",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "start",
+          "choices": [
+            {
+              "id": "start",
+              "label": "Start"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "tgl_start_pause",
+              "label": "Toggle Start/Pause"
+            },
+            {
+              "id": "tgl_start_stop",
+              "label": "Toggle Start/Stop"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2370
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "cstawjcmd",
+      "name": "Send custom AWJ replace command",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "path",
+          "useVariables": true
+        },
+        {
+          "id": "valuetype",
+          "type": "dropdown",
+          "label": "value is of type",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Text"
+            },
+            {
+              "id": "2",
+              "label": "Number"
+            },
+            {
+              "id": "3",
+              "label": "Boolean"
+            },
+            {
+              "id": "4",
+              "label": "Object"
+            }
+          ]
+        },
+        {
+          "id": "textValue",
+          "type": "textinput",
+          "label": "value",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.valuetype === '1'"
+        },
+        {
+          "id": "numericValue",
+          "type": "number",
+          "label": "value",
+          "default": 0,
+          "min": -32768,
+          "max": 32768,
+          "visibleWhen": "(options) => options.valuetype === '2'"
+        },
+        {
+          "id": "booleanValue",
+          "type": "checkbox",
+          "label": "value",
+          "default": false,
+          "visibleWhen": "(options) => options.valuetype === '3'"
+        },
+        {
+          "id": "objectValue",
+          "type": "textinput",
+          "label": "value",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.valuetype === '4'"
+        },
+        {
+          "id": "xUpdate",
+          "type": "checkbox",
+          "label": "append global Update",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2613
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "cstawjgetcmd",
+      "name": "Send custom AWJ get command",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "Path to get",
+          "useVariables": true
+        },
+        {
+          "id": "variableValue",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "Variable to store value"
+        },
+        {
+          "id": "variableType",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "Variable to store type"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2745
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "devicePower",
+      "name": "Device Power",
+      "options": [
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Power",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Switch on (Wake on LAN)"
+            },
+            {
+              "id": "off",
+              "label": "Switch to Power off"
+            },
+            {
+              "id": "reboot",
+              "label": "Reboot"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/actions.ts",
+        "line": 2821
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceAudioRouteBlock",
+      "name": "Route Audio (Block)",
+      "options": [
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "default": "1",
+          "choices": [],
+          "visibleWhen": "() => {return false}"
+        },
+        {
+          "id": "out1",
+          "type": "dropdown",
+          "label": "First Output Channel",
+          "choicesNote": "Audio output channels of the connected device"
+        },
+        {
+          "id": "in1",
+          "type": "dropdown",
+          "label": "First Input Channel",
+          "description": "If you choose \"No Source\" the whole Block will be unrouted",
+          "default": "NONE",
+          "choicesNote": "Audio input channels of the connected device"
+        },
+        {
+          "id": "blocksize",
+          "type": "number",
+          "label": "Block Size",
+          "min": 1,
+          "description": "(max from audioInputChoices.length)"
+        }
+      ],
+      "provenance": {
+        "file": "src/livepremier/actions.ts",
+        "line": 464
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceAudioRouteChannels",
+      "name": "Route Audio (Channels)",
+      "options": [
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "default": 1,
+          "choices": [],
+          "visibleWhen": "() => {return false}"
+        },
+        {
+          "id": "out1",
+          "type": "dropdown",
+          "label": "(first) output channel",
+          "choicesNote": "Audio output channels of the connected device"
+        },
+        {
+          "id": "in1",
+          "type": "multidropdown",
+          "label": "input channel(s)",
+          "default": ["NONE"],
+          "choicesNote": "Audio input channels of the connected device"
+        }
+      ],
+      "provenance": {
+        "file": "src/livepremier/actions.ts",
+        "line": 548
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceGPO",
+      "name": "Set GPO",
+      "options": [
+        {
+          "id": "gpo",
+          "type": "number",
+          "label": "GPO",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "step": 1
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 2,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Turn off"
+            },
+            {
+              "id": 1,
+              "label": "Turn on"
+            },
+            {
+              "id": 2,
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/livepremier/actions.ts",
+        "line": 840
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    },
+    {
+      "id": "deviceTestpatterns",
+      "name": "Set Testpattern",
+      "description": "Aquilon variant (src/livepremier/actions.ts:688-836); the visible option depends on the selected group.",
+      "optionsComplete": true,
+      "options": [
+        {
+          "id": "group",
+          "type": "dropdown",
+          "label": "Group",
+          "default": "outputList",
+          "choices": [
+            {
+              "id": "all",
+              "label": "All"
+            },
+            {
+              "id": "screenList",
+              "label": "Screen Canvas"
+            },
+            {
+              "id": "outputList",
+              "label": "Output Group"
+            },
+            {
+              "id": "inputList",
+              "label": "Input Group"
+            }
+          ]
+        },
+        {
+          "id": "screenList",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)",
+          "visibleWhen": "options.group === 'screenList'"
+        },
+        {
+          "id": "outputList",
+          "type": "dropdown",
+          "label": "Output",
+          "choicesNote": "Outputs of the connected device",
+          "visibleWhen": "options.group === 'outputList'"
+        },
+        {
+          "id": "inputList",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Live input ids of the connected device ('IN_<n>')",
+          "visibleWhen": "options.group === 'inputList'"
+        },
+        {
+          "id": "patall",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            }
+          ],
+          "visibleWhen": "options.group === 'all'"
+        },
+        {
+          "id": "screenListPat",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": "NONE",
+          "choicesNote": "Screen canvas patterns, e.g. 'NONE' (Off), 'GEOMETRIC', 'SMPTE', 'CROSSHATCH' (src/livepremier/actions.ts:741-760)"
+        },
+        {
+          "id": "inputListPat",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": "NO_PATTERN",
+          "choicesNote": "Input patterns, e.g. 'NO_PATTERN' (Off), 'COLOR', 'SMPTE', 'GRID_16_16' (src/livepremier/actions.ts:767-792)"
+        },
+        {
+          "id": "outputListPat",
+          "type": "dropdown",
+          "label": "Pattern",
+          "default": "NO_PATTERN",
+          "choicesNote": "Output patterns, e.g. 'NO_PATTERN' (Off), 'COLOR', 'SMPTE', 'GRID_16_16' (src/livepremier/actions.ts:798-835)"
+        }
+      ],
+      "provenance": {
+        "file": "src/livepremier/actions.ts",
+        "line": 688
+      },
+      "availability": "Aquilon: registered (src/livepremier/actions.ts:41-78 and src/livepremier4/actions.ts:41-78, identical lists)"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "syncselection",
+      "name": "Synchronization of the selection",
+      "options": [],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 85
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "presetToggle",
+      "name": "Preset Toggle",
+      "options": [],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 119
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceMasterMemory",
+      "name": "Master Memory",
+      "options": [
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Screen Memory",
+          "choicesNote": "Master memories of the connected device (ids from device state)"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 139
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceScreenMemory",
+      "name": "Screen Memory",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["all"],
+          "choices": [
+            {
+              "id": "all",
+              "label": "Any"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Screen Memory",
+          "choicesNote": "Screen memories of the connected device (ids from device state)"
+        },
+        {
+          "id": "unmodified",
+          "type": "dropdown",
+          "label": "is Modified",
+          "default": 2,
+          "choices": [
+            {
+              "id": 0,
+              "label": "only if unmodified"
+            },
+            {
+              "id": 1,
+              "label": "only if modified"
+            },
+            {
+              "id": 2,
+              "label": "don't care unmodified or modified"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 182
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceAuxMemory",
+      "name": "Aux Memory",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Aux Screens",
+          "default": ["all"],
+          "choicesNote": "Fixed ids \"all\" plus Aux screen ids 'A<n>' of the connected device",
+          "regex": "/^S([1-9]|[1-3][0-9]|4[0-8])$/"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "memory",
+          "type": "dropdown",
+          "label": "Aux Memory",
+          "choicesNote": "Aux memories of the connected device (ids from device state)"
+        },
+        {
+          "id": "unmodified",
+          "type": "dropdown",
+          "label": "is Modified",
+          "default": 2,
+          "choices": [
+            {
+              "id": 0,
+              "label": "only if unmodified"
+            },
+            {
+              "id": 1,
+              "label": "only if modified"
+            },
+            {
+              "id": 2,
+              "label": "don't care unmodified or modified"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 276
+      },
+      "feedbackType": "boolean",
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/feedback.ts feedbacksToUse)"
+    },
+    {
+      "id": "deviceSourceTally",
+      "name": "Source Tally",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": ["all"],
+          "choicesNote": "Fixed ids \"all\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)",
+          "regex": "/^(S|A)([1-9]|[1-3][0-9]|4[0-8])$/"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "pgm",
+          "choicesNote": "preset ids 'pgm' (Program) and 'pvw' (Preview) (src/awjdevice/choices.ts:26-29)"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "NONE",
+          "choicesNote": "Fixed ids  plus dynamic list (this.choices.getSourceChoices(), this.choices.choicesBackgroundSources); depends on device or model"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 361
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceTake",
+      "name": "Transition active",
+      "options": [
+        {
+          "id": "screens",
+          "type": "multidropdown",
+          "label": "Screens / Auxscreens",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)",
+          "regex": "/^(S|A)([1-9]|[1-3][0-9]|4[0-8])$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 486
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "liveScreenSelection",
+      "name": "Screen Selection",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen / Auxscreen",
+          "choicesNote": "Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 517
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "liveScreenLock",
+      "name": "Screen Lock",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "description": "\"All\" resembels the state of the lock-all button in WebRCS.",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "PROGRAM",
+          "choices": [
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 545
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "livePresetSelection",
+      "name": "Preset Selection",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "PROGRAM",
+          "choices": [
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 584
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "remoteLayerSelection",
+      "name": "Layer Selection",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen / Auxscreen",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        },
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "all",
+          "choicesNote": "Fixed ids \"all\" plus Layer ids of the connected device ('1'..'48' plus 'NATIVE' background layer)"
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Selected Preset",
+          "default": "all",
+          "choices": [
+            {
+              "id": "all",
+              "label": "Any"
+            },
+            {
+              "id": "PROGRAM",
+              "label": "Program"
+            },
+            {
+              "id": "PREVIEW",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 626
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "remoteWidgetSelection",
+      "name": "Widget Selection",
+      "options": [
+        {
+          "id": "widget",
+          "type": "dropdown",
+          "label": "Widget",
+          "choicesNote": "Multiviewer widgets of the connected device"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 704
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceInputFreeze",
+      "name": "Input Freeze",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "choicesNote": "Live input ids of the connected device ('IN_<n>')"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 740
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceLayerFreeze",
+      "name": "Layer Freeze",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Fixed ids \"any\" plus Screen ids 'S<n>' of the connected device (aux screens excluded)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 778
+      },
+      "feedbackType": "boolean",
+      "optionsComplete": false,
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/feedback.ts feedbacksToUse)"
+    },
+    {
+      "id": "deviceScreenFreeze",
+      "name": "Screen Freeze",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Fixed ids \"any\" plus Screen and aux screen ids of the connected device: 'S<n>' screens and 'A<n>' aux screens (keys of device state screenList, src/livepremier/choices.ts:21-61)"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 863
+      },
+      "feedbackType": "boolean",
+      "availability": "Not registered for Aquilon (commented out in src/livepremier/feedback.ts feedbacksToUse)"
+    },
+    {
+      "id": "timerState",
+      "name": "Timer State",
+      "options": [
+        {
+          "id": "timer",
+          "type": "dropdown",
+          "label": "Timer",
+          "choicesNote": "Timers of the connected device"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "RUNNING",
+          "choices": [
+            {
+              "id": "RUNNING",
+              "label": "Running"
+            },
+            {
+              "id": "PAUSED",
+              "label": "Paused"
+            },
+            {
+              "id": "IDLE",
+              "label": "Stopped"
+            },
+            {
+              "id": "ELAPSED",
+              "label": "Elapsed"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 905
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceGpioOut",
+      "name": "GPO State",
+      "options": [
+        {
+          "id": "gpo",
+          "type": "number",
+          "label": "GPO",
+          "description": "GPO number 1-8 for device #1, 9-16 for #2, 17-24 for #3, 25-32 for #4 (max from this.choices.getLinkedDevicesChoices().length * 8)",
+          "default": 1,
+          "min": 1
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "GPO is off"
+            },
+            {
+              "id": 1,
+              "label": "GPO is on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 949
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceGpioIn",
+      "name": "GPI State",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "number",
+          "label": "GPI",
+          "default": 1,
+          "min": 1,
+          "max": 8
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "GPI is off"
+            },
+            {
+              "id": 1,
+              "label": "GPI is on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 991
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    },
+    {
+      "id": "deviceCustom",
+      "name": "Custom Feedback",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "path",
+          "description": "AWJ path of property to watch for, enter a path to exactly one property with no wildcards.\nPGM/PVW can be used for the presets and will be replaced dynamically. (regex from `/${regexAWJpath}/`)",
+          "default": ""
+        },
+        {
+          "id": "valuetype",
+          "type": "dropdown",
+          "label": "Evaluate value as type",
+          "default": "t",
+          "choices": [
+            {
+              "id": "t",
+              "label": "Text"
+            },
+            {
+              "id": "n",
+              "label": "Number"
+            },
+            {
+              "id": "b",
+              "label": "Boolean"
+            },
+            {
+              "id": "o",
+              "label": "Object"
+            }
+          ]
+        },
+        {
+          "id": "actionst",
+          "type": "dropdown",
+          "label": "Check",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Text equals"
+            },
+            {
+              "id": "2",
+              "label": "Text containes"
+            },
+            {
+              "id": "3",
+              "label": "Text length is"
+            },
+            {
+              "id": "4",
+              "label": "Text matches regular expression"
+            }
+          ],
+          "visibleWhen": "(thisOptions) => { return thisOptions.valuetype === 't' }"
+        },
+        {
+          "id": "textValue",
+          "type": "textinput",
+          "label": "value",
+          "default": "",
+          "visibleWhen": "(thisOptions) => { return thisOptions.valuetype === 't' }"
+        },
+        {
+          "id": "actionsn",
+          "type": "dropdown",
+          "label": "Check",
+          "default": "==",
+          "choices": [
+            {
+              "id": "==",
+              "label": "Number equals"
+            },
+            {
+              "id": ">",
+              "label": "Number is greater than"
+            },
+            {
+              "id": "...",
+              "label": "Number is in range between value and value2"
+            },
+            {
+              "id": "%",
+              "label": "Number modulo value is value2"
+            }
+          ],
+          "visibleWhen": "(thisOptions) => { return thisOptions.valuetype === 'n' }"
+        },
+        {
+          "id": "numericValue",
+          "type": "number",
+          "label": "value1",
+          "default": 0,
+          "visibleWhen": "(thisOptions) => { return thisOptions.valuetype === 'n' }",
+          "description": "(min from Number.MIN_VALUE; max from Number.MAX_VALUE)"
+        },
+        {
+          "id": "numericValue2",
+          "type": "number",
+          "label": "value 2",
+          "default": 0,
+          "visibleWhen": "(thisOptions) => { return thisOptions.valuetype === 'n' && (thisOptions.actionsn === '...' || thisOptions.actionsn === '%') }",
+          "description": "(min from Number.MIN_VALUE; max from Number.MAX_VALUE)"
+        },
+        {
+          "id": "invert",
+          "type": "checkbox",
+          "label": "Invert feedback result",
+          "default": false
+        },
+        {
+          "id": "variable",
+          "type": "textinput",
+          "label": "Custom Name of Variable to use",
+          "description": "Can be left empty, if filled this will be the name of the variable with the value of the feedback.\nOnly letters, numbers, underscore and minus is allowed.",
+          "default": "",
+          "regex": "/^[A-Za-z0-9_-]*$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/awjdevice/feedback.ts",
+        "line": 1042
+      },
+      "feedbackType": "boolean",
+      "availability": "Aquilon: registered (src/livepremier/feedback.ts:28-49)"
+    }
+  ]
+}

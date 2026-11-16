@@ -1,0 +1,513 @@
+{
+  "moduleId": "luminex-gigacore",
+  "name": "Luminex GigaCore",
+  "repo": "bitfocus/companion-module-luminex-gigacore",
+  "version": "2.0.1",
+  "baseVersion": "~2.0.3",
+  "lastCommit": "2026-10-29",
+  "lastCommitSha": "4ff8ba6",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Port, group, trunk and profile numbers are number fields with device-dependent upper bounds (number of ports, groups, trunks, profiles of the connected switch); they are not enumerable offline.",
+    "The set_variable action evaluates its expression field with eval() (src/actions.ts), so treat its content as code."
+  ],
+  "actions": [
+    {
+      "id": "identify",
+      "name": "Identify",
+      "options": [
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Identify duration (seconds)",
+          "default": 9,
+          "min": 0,
+          "max": 30000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 32
+      }
+    },
+    {
+      "id": "reboot",
+      "name": "Reboot",
+      "options": [
+        {
+          "id": "wait",
+          "type": "number",
+          "label": "Reboot delay (milliseconds)",
+          "default": 0,
+          "min": 0,
+          "max": 30000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 49
+      }
+    },
+    {
+      "id": "reset",
+      "name": "Reset",
+      "options": [
+        {
+          "id": "keep_ip_settings",
+          "type": "checkbox",
+          "label": "Keep IP Settings",
+          "default": true
+        },
+        {
+          "id": "keep_user_profiles",
+          "type": "checkbox",
+          "label": "Keep User Profiles",
+          "default": true
+        },
+        {
+          "id": "wait",
+          "type": "number",
+          "label": "Reboot delay (milliseconds)",
+          "default": 0,
+          "min": 0,
+          "max": 30000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 66
+      }
+    },
+    {
+      "id": "recall_profile",
+      "name": "Recall configuration from profile",
+      "options": [
+        {
+          "id": "profile",
+          "type": "number",
+          "label": "Profile",
+          "description": "1-based profile number (max from device.getNrProfiles())",
+          "default": 1,
+          "min": 1
+        },
+        {
+          "id": "keep_ip_settings",
+          "type": "checkbox",
+          "label": "Keep Ip Settings",
+          "default": true
+        },
+        {
+          "id": "wait",
+          "type": "number",
+          "label": "Reboot delay (milliseconds)",
+          "default": 0,
+          "min": 0,
+          "max": 30000
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 98
+      }
+    },
+    {
+      "id": "save_profile",
+      "name": "Save current configuration to profile",
+      "options": [
+        {
+          "id": "profile",
+          "type": "number",
+          "label": "Profile number",
+          "description": "1-based profile number (max from device.getNrProfiles())",
+          "default": 1,
+          "min": 1
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Profile name",
+          "description": "The name that the new profile should get",
+          "default": "Profile",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 132
+      }
+    },
+    {
+      "id": "set_port_to_group",
+      "name": "Change the group of a port",
+      "options": [
+        {
+          "id": "port",
+          "type": "number",
+          "label": "port",
+          "description": "1-based port number (max from max_ports)",
+          "default": 1,
+          "min": 1
+        },
+        {
+          "id": "group",
+          "type": "number",
+          "label": "Group ID",
+          "default": 1,
+          "min": 1,
+          "description": "(max from device.getMaxGroups())"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 163
+      }
+    },
+    {
+      "id": "set_port_to_trunk",
+      "name": "Set a port to be a member of a trunk",
+      "options": [
+        {
+          "id": "port",
+          "type": "number",
+          "label": "port",
+          "description": "1-based port number (max from max_ports)",
+          "default": 1,
+          "min": 1
+        },
+        {
+          "id": "trunk",
+          "type": "number",
+          "label": "Trunk ID",
+          "default": 1,
+          "min": 1,
+          "description": "(max from device.getMaxTrunks())"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 191
+      }
+    },
+    {
+      "id": "set_port_to_group_variables",
+      "name": "Change the group of a port based on variable values",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 219
+      }
+    },
+    {
+      "id": "set_variable",
+      "name": "Change the value of one of the internal 'select' variables",
+      "options": [
+        {
+          "id": "variable",
+          "type": "dropdown",
+          "label": "Variable",
+          "default": "selected_port",
+          "choices": [
+            {
+              "id": "selected_port",
+              "label": "Selected Port"
+            },
+            {
+              "id": "selected_group",
+              "label": "Selected Group"
+            }
+          ]
+        },
+        {
+          "id": "expression",
+          "type": "textinput",
+          "label": "Expression",
+          "default": "$(gigacore:selected_group) + 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 231
+      }
+    },
+    {
+      "id": "increment_port_group_or_trunk",
+      "name": "Increment the group or trunk of a port",
+      "options": [
+        {
+          "id": "port",
+          "type": "number",
+          "label": "port",
+          "description": "1-based port number (max from max_ports)",
+          "default": 1,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 276
+      }
+    },
+    {
+      "id": "toggle_poe",
+      "name": "Toggle PoE on a port",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port number",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        },
+        {
+          "id": "enabled",
+          "type": "dropdown",
+          "label": "PoE",
+          "default": "true",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Enable"
+            },
+            {
+              "id": "false",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 295
+      }
+    },
+    {
+      "id": "toggle_link",
+      "name": "Toggle Link on a port",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port number",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        },
+        {
+          "id": "enabled",
+          "type": "dropdown",
+          "label": "Link",
+          "default": "true",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Enable"
+            },
+            {
+              "id": "false",
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 339
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "poe_enabled",
+      "name": "PoE Enabled",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 29
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "poe_sourcing",
+      "name": "PoE Sourcing",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 59
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "port_state",
+      "name": "Link State",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 90
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "port_disabled",
+      "name": "Port Disabled",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 121
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "port_color",
+      "name": "Port Color",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 152
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "group_color",
+      "name": "Group Color",
+      "options": [
+        {
+          "id": "id",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "description": "(max from device.getMaxGroups())"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 181
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selected_port_color",
+      "name": "Selected Port Color",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 209
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selected_group_color",
+      "name": "Selected Group Color",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 228
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "port_protected",
+      "name": "Port Protected",
+      "options": [
+        {
+          "id": "port_nr",
+          "type": "number",
+          "label": "Port",
+          "default": 1,
+          "min": 1,
+          "description": "(max from max_ports)"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 251
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "selected_port_protected",
+      "name": "Selected Port Protected",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 278
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "profile_protected",
+      "name": "Profile Protected",
+      "options": [
+        {
+          "id": "profile",
+          "type": "number",
+          "label": "Profile",
+          "default": 1,
+          "min": 1,
+          "description": "(max from device.getNrProfiles())"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 292
+      },
+      "feedbackType": "advanced"
+    }
+  ]
+}

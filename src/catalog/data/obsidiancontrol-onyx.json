@@ -1,0 +1,202 @@
+{
+  "moduleId": "obsidiancontrol-onyx",
+  "name": "Obsidian Control Systems ONYX (telnet)",
+  "repo": "bitfocus/companion-module-obsidiancontrol-onyx",
+  "version": "2.0.1",
+  "baseVersion": "~1.14.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "f1bcc33",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 11 actions (src/actions.js) and 1 boolean feedback (src/feedbacks.js). Bitfocus lists two ONYX modules: this one (telnet to ONYX or ONYX Manager, module id obsidiancontrol-onyx) and the OSC-based obsidiancontrol-onyx-osc, which is catalogued separately and has a different action set.",
+    "The module sends ONYX telnet commands: GQL, GTQ, PQL, RQL, SQL, GSC, CLRCLR, RAO, RAQL, RAQLDF, RAQLO (src/actions.js). Cuelist, cue and schedule numbers are text inputs with variables allowed; their defaults are the number 1 as written in the source.",
+    "goToCue and goSchedule contain a static-text hint (option id \"info\", visible depending on the \"usingManager\" config at definition time). Static texts carry no value and are not catalogued as options. Point cues such as 1.8 are not supported when connected through ONYX Manager (hint text in src/actions.js:32-33).",
+    "goSchedule works only when the module is configured for ONYX Manager (hint in src/actions.js:121-122); the active-cuelist feedback relies on polling that the module starts only with ONYX Manager (src/telnet/client.js:51).",
+    "Built on @companion-module/base ~1.14.1: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "goCuelist",
+      "name": "Go Cuelist",
+      "options": [
+        {
+          "id": "cuelist",
+          "type": "textinput",
+          "label": "Cuelist Number",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 7
+      }
+    },
+    {
+      "id": "goToCue",
+      "name": "Go to Cue in Cuelist",
+      "options": [
+        {
+          "id": "cuelist",
+          "type": "textinput",
+          "label": "Cuelist Number",
+          "default": 1,
+          "useVariables": true
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue Number",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 23
+      }
+    },
+    {
+      "id": "pauseCuelist",
+      "name": "Pause/Go Back Cuelist",
+      "options": [
+        {
+          "id": "cuelist",
+          "type": "textinput",
+          "label": "Cuelist Number",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 55
+      }
+    },
+    {
+      "id": "releaseCuelist",
+      "name": "Release Cuelist",
+      "options": [
+        {
+          "id": "cuelist",
+          "type": "textinput",
+          "label": "Cuelist Number",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 71
+      }
+    },
+    {
+      "id": "setCuelistLevel",
+      "name": "Set Cuelist Level",
+      "options": [
+        {
+          "id": "cuelist",
+          "type": "textinput",
+          "label": "Cuelist Number",
+          "default": 1,
+          "useVariables": true
+        },
+        {
+          "id": "level",
+          "type": "number",
+          "label": "Fader Level",
+          "default": 255,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 87
+      }
+    },
+    {
+      "id": "goSchedule",
+      "name": "Go Schedule (ONYX Manager)",
+      "options": [
+        {
+          "id": "schedule",
+          "type": "textinput",
+          "label": "Schedule Number",
+          "default": 1,
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 112
+      }
+    },
+    {
+      "id": "clearProgrammer",
+      "name": "Clear Programmer",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 138
+      }
+    },
+    {
+      "id": "releaseOverrides",
+      "name": "Release All Overrides",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 146
+      }
+    },
+    {
+      "id": "releaseCuelists",
+      "name": "Release All Cuelists",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 153
+      }
+    },
+    {
+      "id": "releaseCuelistsDimFirst",
+      "name": "Release All Cuelists Dimmer First",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 161
+      }
+    },
+    {
+      "id": "releaseAll",
+      "name": "Release All Cuelists and Overrides",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 169
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "ActiveCuelist",
+      "name": "Active Cuelist",
+      "options": [
+        {
+          "id": "cuelist",
+          "type": "number",
+          "label": "Cuelist",
+          "default": 1,
+          "min": 1
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 5
+      }
+    }
+  ]
+}

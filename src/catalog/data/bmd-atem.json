@@ -1,0 +1,1127 @@
+{
+  "moduleId": "bmd-atem",
+  "name": "Blackmagic Design ATEM",
+  "repo": "bitfocus/companion-module-bmd-atem",
+  "version": "4.5.0-2",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "5f7714e",
+  "status": "verified-sample",
+  "coverage": "partial",
+  "notes": [
+    "Partial catalog: program/preview, cut/auto, T-bar, transition style/rate/preview, fade to black, downstream keyers, macros, aux/output, recording and stream start/stop. Upstream keyers, DVE, SuperSource, media player, audio (classic and Fairlight), camera control, multiview, timecode and display clock actions are not catalogued; use the source tree (src/actions/*, src/options/*).",
+    "Options are built with factory functions in src/options/*.ts that depend on the connected model (number of M/Es, DSKs, macros, outputs); the catalog records the factory result with dynamic choices as notes.",
+    "ME and DSK pickers are 1-based numeric ids. With a single M/E or DSK the picker is hidden and the value is ignored (resolveMixEffectIndex, src/options/mixEffect.ts:33; resolveDownstreamKeyerIndex, src/options/downstreamKeyer.ts:31).",
+    "Source pickers use allowInvalidValues, so any non-negative integer up to 32767 is forwarded (parseSourceId, src/options/sources.ts); expressions returning a source number are accepted.",
+    "Dropdowns with disableAutoExpression (on/off/toggle, fade easing, macro action) do not accept expressions in the UI.",
+    "dskAuto uses the option id 'downstreamKeyerId' while dskOnAir, dskTie, dskRate and dskSource use 'key'.",
+    "Built on @companion-module/base ~2.1.3: expressions are supported for option values (see docs/catalog.md)."
+  ],
+  "actions": [
+    {
+      "id": "program",
+      "name": "ME: Set Program input",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('me' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/programPreview.ts",
+        "line": 50
+      }
+    },
+    {
+      "id": "preview",
+      "name": "ME: Set Preview input",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('me' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/programPreview.ts",
+        "line": 73
+      }
+    },
+    {
+      "id": "cut",
+      "name": "ME: Perform CUT transition",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/programPreview.ts",
+        "line": 96
+      }
+    },
+    {
+      "id": "auto",
+      "name": "ME: Perform AUTO transition",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/programPreview.ts",
+        "line": 105
+      }
+    },
+    {
+      "id": "tBar",
+      "name": "ME: Set TBar position",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "position",
+          "type": "number",
+          "label": "Position",
+          "default": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "integer": true,
+          "description": "Position of the TBar, from 0 (fully in preview) to 100 (fully in program)"
+        },
+        {
+          "id": "fadeDuration",
+          "type": "number",
+          "label": "Fade Duration (ms)",
+          "default": 0,
+          "min": 0,
+          "max": 60000,
+          "step": 10,
+          "integer": true
+        },
+        {
+          "id": "fadeAlgorithm",
+          "type": "dropdown",
+          "label": "Fade Easing",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "quadratic",
+              "label": "Quadratic"
+            },
+            {
+              "id": "cubic",
+              "label": "Cubic"
+            },
+            {
+              "id": "quartic",
+              "label": "Quartic"
+            },
+            {
+              "id": "quintic",
+              "label": "Quintic"
+            },
+            {
+              "id": "sinusoidal",
+              "label": "Sinusoidal"
+            },
+            {
+              "id": "exponential",
+              "label": "Exponential"
+            },
+            {
+              "id": "circular",
+              "label": "Circular"
+            },
+            {
+              "id": "elastic",
+              "label": "Elastic"
+            },
+            {
+              "id": "back",
+              "label": "Back"
+            },
+            {
+              "id": "bounce",
+              "label": "Bounce"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "fadeCurve",
+          "type": "dropdown",
+          "label": "Fade Curve",
+          "default": "ease-in",
+          "choices": [
+            {
+              "id": "ease-in",
+              "label": "Ease-in"
+            },
+            {
+              "id": "ease-out",
+              "label": "Ease-out"
+            },
+            {
+              "id": "ease-in-out",
+              "label": "Ease-in-out"
+            }
+          ],
+          "disableAutoExpression": true,
+          "visibleWhen": "fadeAlgorithm != null && fadeAlgorithm != 'linear'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/programPreview.ts",
+        "line": 115
+      }
+    },
+    {
+      "id": "previewTransition",
+      "name": "Transition: Preview",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/transition.ts",
+        "line": 106
+      }
+    },
+    {
+      "id": "transitionStyle",
+      "name": "Transition: Set style/pattern",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "style",
+          "type": "dropdown",
+          "label": "Transition Style",
+          "default": "mix",
+          "choices": [
+            {
+              "id": "mix",
+              "label": "Mix"
+            },
+            {
+              "id": "dip",
+              "label": "Dip"
+            },
+            {
+              "id": "wipe",
+              "label": "Wipe"
+            },
+            {
+              "id": "dve",
+              "label": "DVE"
+            },
+            {
+              "id": "sting",
+              "label": "Sting"
+            }
+          ],
+          "allowInvalidValues": true
+        }
+      ],
+      "description": "The Sting entry is only offered on models with media clips (model.media.clips > 0, source line 135).",
+      "provenance": {
+        "file": "src/actions/mixeffect/transition.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "transitionRate",
+      "name": "Transition: Change rate",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "style",
+          "type": "dropdown",
+          "label": "Transition Style",
+          "default": "mix",
+          "choices": [
+            {
+              "id": "mix",
+              "label": "Mix"
+            },
+            {
+              "id": "dip",
+              "label": "Dip"
+            },
+            {
+              "id": "wipe",
+              "label": "Wipe"
+            },
+            {
+              "id": "dve",
+              "label": "DVE"
+            }
+          ],
+          "allowInvalidValues": true
+        },
+        {
+          "id": "rate",
+          "type": "number",
+          "label": "Transition Rate",
+          "default": 25,
+          "min": 1,
+          "max": 250,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/transition.ts",
+        "line": 160
+      }
+    },
+    {
+      "id": "fadeToBlackAuto",
+      "name": "Fade to black: Run AUTO Transition",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/fadeToBlack.ts",
+        "line": 29
+      }
+    },
+    {
+      "id": "fadeToBlackRate",
+      "name": "Fade to black: Change rate",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "rate",
+          "type": "number",
+          "label": "Rate",
+          "default": 25,
+          "min": 1,
+          "max": 250,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mixeffect/fadeToBlack.ts",
+        "line": 38
+      }
+    },
+    {
+      "id": "dskSource",
+      "name": "Downstream key: Set inputs",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "fill",
+          "label": "Fill Source",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('me' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        },
+        {
+          "id": "cut",
+          "label": "Key Source",
+          "default": 0,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('key' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/downstreamKeyer.ts",
+        "line": 96
+      }
+    },
+    {
+      "id": "dskRate",
+      "name": "Downstream key: Set Rate",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "rate",
+          "type": "number",
+          "label": "Rate",
+          "default": 25,
+          "min": 1,
+          "max": 250,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/downstreamKeyer.ts",
+        "line": 124
+      }
+    },
+    {
+      "id": "dskAuto",
+      "name": "Downstream key: Run AUTO Transition",
+      "options": [
+        {
+          "id": "downstreamKeyerId",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "onair",
+          "type": "dropdown",
+          "label": "On Air",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On Air"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "description": "The DSK picker of this action is named 'downstreamKeyerId', not 'key' as in the other DSK actions; the callback uses options.downstreamKeyerId - 1 directly (source line 255).",
+      "provenance": {
+        "file": "src/actions/downstreamKeyer.ts",
+        "line": 239
+      }
+    },
+    {
+      "id": "dskOnAir",
+      "name": "Downstream key: Set OnAir",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "onair",
+          "type": "dropdown",
+          "label": "On Air",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On Air"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/downstreamKeyer.ts",
+        "line": 258
+      }
+    },
+    {
+      "id": "dskTie",
+      "name": "Downstream key: Set Tied",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/downstreamKeyer.ts",
+        "line": 292
+      }
+    },
+    {
+      "id": "macrorun",
+      "name": "Macro: Run",
+      "options": [
+        {
+          "id": "macro",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": 1,
+          "choicesNote": "Macro numbers 1..model.macros (src/options/macro.ts:6-24); label is the macro name if used",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "run",
+          "choices": [
+            {
+              "id": "run",
+              "label": "Run"
+            },
+            {
+              "id": "runContinue",
+              "label": "Run/Continue"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 61
+      }
+    },
+    {
+      "id": "macrocontinue",
+      "name": "Macro: Continue",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 89
+      }
+    },
+    {
+      "id": "macrostop",
+      "name": "Macro: Stop",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 96
+      }
+    },
+    {
+      "id": "macroloop",
+      "name": "Macro: Loop",
+      "options": [
+        {
+          "id": "loop",
+          "type": "dropdown",
+          "label": "Loop",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "macrorecord",
+      "name": "Macro: Start recording",
+      "options": [
+        {
+          "id": "macro",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": 1,
+          "choicesNote": "Macro numbers 1..model.macros (src/options/macro.ts:6-24); label is the macro name if used",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "description",
+          "type": "textinput",
+          "label": "Description",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 121
+      }
+    },
+    {
+      "id": "macrostoprecord",
+      "name": "Macro: Stop recording",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 144
+      }
+    },
+    {
+      "id": "macrodelete",
+      "name": "Macro: Delete",
+      "options": [
+        {
+          "id": "macro",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": 1,
+          "choicesNote": "Macro numbers 1..model.macros (src/options/macro.ts:6-24); label is the macro name if used",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/macro.ts",
+        "line": 151
+      }
+    },
+    {
+      "id": "aux",
+      "name": "Aux/Output: Set source",
+      "options": [
+        {
+          "id": "aux",
+          "type": "dropdown",
+          "label": "Aux/Output",
+          "default": 1,
+          "choicesNote": "Outputs of the model: numeric ids output.id + 1 with the output name as label (src/options/aux-outputs.ts:7-18)",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('aux' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/aux-outputs.ts",
+        "line": 29
+      }
+    },
+    {
+      "id": "recordStartStop",
+      "name": "Recording: Start or Stop",
+      "options": [
+        {
+          "id": "record",
+          "type": "dropdown",
+          "label": "Record",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/recording.ts",
+        "line": 44
+      },
+      "availability": "Only registered when the model supports recording."
+    },
+    {
+      "id": "streamStartStop",
+      "name": "Stream: Start or Stop",
+      "options": [
+        {
+          "id": "stream",
+          "type": "dropdown",
+          "label": "Stream",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "true",
+              "label": "On"
+            },
+            {
+              "id": "false",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/streaming.ts",
+        "line": 35
+      },
+      "availability": "Only registered when the model supports streaming."
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "program",
+      "name": "ME: One ME program source",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('me' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/mixeffect/programPreview.ts",
+        "line": 9
+      }
+    },
+    {
+      "id": "preview",
+      "name": "ME: One ME preview source",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "mixeffect",
+          "type": "dropdown",
+          "label": "M/E",
+          "default": 1,
+          "choicesNote": "M/E numbers 1..model.MEs (src/options/mixEffect.ts:13-27); hidden on single-M/E models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('me' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/mixeffect/programPreview.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "dskOnAir",
+      "name": "Downstream key: OnAir",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/downstreamKeyer.ts",
+        "line": 10
+      }
+    },
+    {
+      "id": "dskTie",
+      "name": "Downstream key: Tied",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/downstreamKeyer.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "dsk_source",
+      "name": "Downstream key: Fill source",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "DSK",
+          "default": 1,
+          "choicesNote": "DSK numbers 1..model.DSKs (src/options/downstreamKeyer.ts:11-25); hidden on single-DSK models, where any value is accepted (allowInvalidValues) and ignored",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "fill",
+          "label": "Fill Source",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('me' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/downstreamKeyer.ts",
+        "line": 22
+      }
+    },
+    {
+      "id": "aux",
+      "name": "Aux/Output: Source",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "aux",
+          "type": "dropdown",
+          "label": "Aux/Output",
+          "default": 1,
+          "choicesNote": "Outputs of the model: numeric ids output.id + 1",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "input",
+          "label": "Input",
+          "default": 1,
+          "type": "dropdown",
+          "allowInvalidValues": true,
+          "choicesNote": "Video sources of the connected model ('aux' list); numeric ids such as 1, 3010, 4010 (src/options/sources.ts GetSourcesListForType); unlisted valid source ids are accepted (allowInvalidValues)",
+          "valueType": "number",
+          "integer": true,
+          "min": 0,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/aux-outputs.ts",
+        "line": 9
+      }
+    },
+    {
+      "id": "macro",
+      "name": "Macro: State",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "macroIndex",
+          "type": "dropdown",
+          "label": "Macro",
+          "default": 1,
+          "choicesNote": "Macro numbers 1..model.macros (src/options/macro.ts:6-24); label is the macro name if used",
+          "valueType": "number",
+          "integer": true,
+          "min": 1
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "isWaiting",
+          "choices": [
+            {
+              "id": "isRunning",
+              "label": "Is Running"
+            },
+            {
+              "id": "isWaiting",
+              "label": "Is Waiting"
+            },
+            {
+              "id": "isRecording",
+              "label": "Is Recording"
+            },
+            {
+              "id": "isUsed",
+              "label": "Is Used"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/macro.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "macroloop",
+      "name": "Macro: Looping",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "loop",
+          "type": "checkbox",
+          "label": "Looping",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback/macro.ts",
+        "line": 23
+      }
+    },
+    {
+      "id": "macroRecording",
+      "name": "Macro: Recording active",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedback/macro.ts",
+        "line": 29
+      }
+    }
+  ]
+}

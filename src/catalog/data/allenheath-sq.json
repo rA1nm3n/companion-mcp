@@ -1,0 +1,3070 @@
+{
+  "moduleId": "allenheath-sq",
+  "name": "Allen & Heath SQ",
+  "repo": "bitfocus/companion-module-allenheath-sq",
+  "version": "4.0.0-rc1",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-10-29",
+  "lastCommitSha": "45ec612",
+  "status": "read",
+  "coverage": "complete",
+  "notes": [
+    "TypeScript module for SQ-5, SQ-6 and SQ-7 (config model dropdown, src/mixer/models.ts) over the Allen & Heath MIDI protocol (TCP). All 45 actions of src/actions/actions.ts (getActions) and all 11 feedbacks of src/feedbacks/ are catalogued; the module has no per-model difference in action ids.",
+    "The strip counts are the same for all three models: 48 input channels, 12 mixes, 12 groups, 8 FX returns, 4 FX sends, 3 matrices, 8 DCAs, 8 mute groups; only the soft key count (8 on SQ-5, 16 on SQ-6 and SQ-7) differs, so the soft key option states the maximum of 16 (the largest) and the description names the per-model limit. 300 scenes on all models.",
+    "Strip selection options are number fields (min 1, max = count, 1-based). Mix selections (source or sink) are dropdowns whose first entry has the id \"LR\" and whose other entries are the numbers 1..12 with the labels \"MIX 1\"..\"MIX 12\"; the multi-selection of mix sinks adds \"LR\" the same way (src/choices.ts).",
+    "The level dropdown (90 entries) and the pan/balance dropdown (43 entries) are not listed because of their length; choicesNote documents the id scheme. Both and the fade dropdown set disableAutoExpression, so they cannot be driven by an expression.",
+    "The two actions fxrlev_to_grp and fxrpan_to_grp are gutted: they only show a static text and log a warning when run (they exist so that old configurations still load).",
+    "mute_aux is the action id for mixes (the label is \"Mute Mix\"); the feedbacks mute_* reuse the same ids as the mute actions.",
+    "Built on @companion-module/base ~2.1.3 (2.x): option values support expressions except where disableAutoExpression is set; the module documents expression formats in expressionDescription (for example \"an integer between 1 and 48\").",
+    "Not catalogued: config fields, variables, presets and the upgrade scripts."
+  ],
+  "actions": [
+    {
+      "id": "mute_input",
+      "name": "Mute Input",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Input Channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 205
+      }
+    },
+    {
+      "id": "mute_lr",
+      "name": "Mute LR",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 219
+      }
+    },
+    {
+      "id": "mute_aux",
+      "name": "Mute Mix",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Mix",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 232
+      }
+    },
+    {
+      "id": "mute_group",
+      "name": "Mute Group",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 245
+      }
+    },
+    {
+      "id": "mute_matrix",
+      "name": "Mute Matrix",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 258
+      }
+    },
+    {
+      "id": "mute_fx_send",
+      "name": "Mute FX Send",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "FX Send",
+          "default": 1,
+          "min": 1,
+          "max": 4,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 271
+      }
+    },
+    {
+      "id": "mute_fx_return",
+      "name": "Mute FX Return",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "FX Return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 284
+      }
+    },
+    {
+      "id": "mute_dca",
+      "name": "Mute DCA",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "DCA",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 297
+      }
+    },
+    {
+      "id": "mute_mutegroup",
+      "name": "Mute MuteGroup",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "MuteGroup",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Mute",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/mute.ts",
+        "line": 310
+      }
+    },
+    {
+      "id": "key_soft",
+      "name": "Press Softkey",
+      "options": [
+        {
+          "id": "key",
+          "type": "number",
+          "label": "Soft Key",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "press",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "press",
+              "label": "Press"
+            },
+            {
+              "id": "release",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/softkey.ts",
+        "line": 118
+      },
+      "description": "The maximum of the soft key number is the number of soft keys of the selected model: 8 on the SQ-5, 16 on the SQ-6 and SQ-7 (src/mixer/models.ts)."
+    },
+    {
+      "id": "ch_to_mix",
+      "name": "Assign channel to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Input Channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Mix",
+          "default": [],
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 135
+      }
+    },
+    {
+      "id": "ch_to_grp",
+      "name": "Assign channel to group",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Input Channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Group",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "GROUP 1"
+            },
+            {
+              "id": 2,
+              "label": "GROUP 2"
+            },
+            {
+              "id": 3,
+              "label": "GROUP 3"
+            },
+            {
+              "id": 4,
+              "label": "GROUP 4"
+            },
+            {
+              "id": 5,
+              "label": "GROUP 5"
+            },
+            {
+              "id": 6,
+              "label": "GROUP 6"
+            },
+            {
+              "id": 7,
+              "label": "GROUP 7"
+            },
+            {
+              "id": 8,
+              "label": "GROUP 8"
+            },
+            {
+              "id": 9,
+              "label": "GROUP 9"
+            },
+            {
+              "id": 10,
+              "label": "GROUP 10"
+            },
+            {
+              "id": 11,
+              "label": "GROUP 11"
+            },
+            {
+              "id": 12,
+              "label": "GROUP 12"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 111
+      }
+    },
+    {
+      "id": "grp_to_mix",
+      "name": "Assign group to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Mix",
+          "default": [],
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 139
+      }
+    },
+    {
+      "id": "fxr_to_mix",
+      "name": "Assign FX return to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "FX Return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Mix",
+          "default": [],
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 143
+      }
+    },
+    {
+      "id": "fxr_to_grp",
+      "name": "Assign FX Return to group",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "FX Return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Group",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "GROUP 1"
+            },
+            {
+              "id": 2,
+              "label": "GROUP 2"
+            },
+            {
+              "id": 3,
+              "label": "GROUP 3"
+            },
+            {
+              "id": 4,
+              "label": "GROUP 4"
+            },
+            {
+              "id": 5,
+              "label": "GROUP 5"
+            },
+            {
+              "id": 6,
+              "label": "GROUP 6"
+            },
+            {
+              "id": 7,
+              "label": "GROUP 7"
+            },
+            {
+              "id": 8,
+              "label": "GROUP 8"
+            },
+            {
+              "id": 9,
+              "label": "GROUP 9"
+            },
+            {
+              "id": 10,
+              "label": "GROUP 10"
+            },
+            {
+              "id": 11,
+              "label": "GROUP 11"
+            },
+            {
+              "id": 12,
+              "label": "GROUP 12"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 115
+      }
+    },
+    {
+      "id": "ch_to_fxs",
+      "name": "Assign channel to FX Send",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Input Channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "FX Send",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "FX SEND 1"
+            },
+            {
+              "id": 2,
+              "label": "FX SEND 2"
+            },
+            {
+              "id": 3,
+              "label": "FX SEND 3"
+            },
+            {
+              "id": 4,
+              "label": "FX SEND 4"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 119
+      }
+    },
+    {
+      "id": "grp_to_fxs",
+      "name": "Assign group to FX send",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "FX Send",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "FX SEND 1"
+            },
+            {
+              "id": 2,
+              "label": "FX SEND 2"
+            },
+            {
+              "id": 3,
+              "label": "FX SEND 3"
+            },
+            {
+              "id": 4,
+              "label": "FX SEND 4"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 127
+      }
+    },
+    {
+      "id": "fxr_to_fxs",
+      "name": "Assign FX return to FX send",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "FX Return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "FX Send",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "FX SEND 1"
+            },
+            {
+              "id": 2,
+              "label": "FX SEND 2"
+            },
+            {
+              "id": 3,
+              "label": "FX SEND 3"
+            },
+            {
+              "id": 4,
+              "label": "FX SEND 4"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "mix_to_mtx",
+      "name": "Assign mix to matrix",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Matrix",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "MATRIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MATRIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MATRIX 3"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 147
+      }
+    },
+    {
+      "id": "grp_to_mtx",
+      "name": "Assign group to matrix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sinks",
+          "type": "multidropdown",
+          "label": "Matrix",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "MATRIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MATRIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MATRIX 3"
+            }
+          ]
+        },
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "active",
+          "choices": [
+            {
+              "id": "active",
+              "label": "Active"
+            },
+            {
+              "id": "inactive",
+              "label": "Inactive"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/assign.ts",
+        "line": 123
+      }
+    },
+    {
+      "id": "chlev_to_mix",
+      "name": "Fader channel level to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Input channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 318
+      }
+    },
+    {
+      "id": "grplev_to_mix",
+      "name": "Fader group level to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 325
+      }
+    },
+    {
+      "id": "fxrlev_to_mix",
+      "name": "Fader FX return level to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "FX return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 332
+      }
+    },
+    {
+      "id": "fxrlev_to_grp",
+      "name": "Fader FX return level to group",
+      "options": [
+        {
+          "id": "invalid",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Invalid operation!"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 339
+      },
+      "description": "Gutted action: it only shows a static text (\"FX returns can only be assigned to groups, not have their levels set in them.\") and logs a warning when run; do not use it."
+    },
+    {
+      "id": "chlev_to_fxs",
+      "name": "Fader channel level to FX send",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Input channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "FX Send",
+          "default": 1,
+          "min": 1,
+          "max": 4,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 353
+      }
+    },
+    {
+      "id": "grplev_to_fxs",
+      "name": "Fader group level to FX send",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "FX Send",
+          "default": 1,
+          "min": 1,
+          "max": 4,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 360
+      }
+    },
+    {
+      "id": "fxrlev_to_fxs",
+      "name": "Fader FX return level to FX send",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "FX return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "FX Send",
+          "default": 1,
+          "min": 1,
+          "max": 4,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 367
+      }
+    },
+    {
+      "id": "mixlev_to_mtx",
+      "name": "Fader mix level to matrix",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 374
+      }
+    },
+    {
+      "id": "grplev_to_mtx",
+      "name": "Fader group level to matrix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/level.ts",
+        "line": 381
+      }
+    },
+    {
+      "id": "chpan_to_mix",
+      "name": "Pan/Bal channel level to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Input channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/pan-balance.ts",
+        "line": 269
+      }
+    },
+    {
+      "id": "grppan_to_mix",
+      "name": "Pan/Bal group level to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/pan-balance.ts",
+        "line": 298
+      }
+    },
+    {
+      "id": "fxrpan_to_mix",
+      "name": "Pan/Bal FX return level to mix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "FX return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/pan-balance.ts",
+        "line": 327
+      }
+    },
+    {
+      "id": "fxrpan_to_grp",
+      "name": "Pan/Bal FX return level to group",
+      "options": [
+        {
+          "id": "invalid",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Invalid operation!"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/pan-balance.ts",
+        "line": 356
+      },
+      "description": "Gutted action: it only shows a static text (\"FX returns can only be assigned to groups, not have their pan/balance set in them.\") and logs a warning when run; do not use it."
+    },
+    {
+      "id": "mixpan_to_mtx",
+      "name": "Pan/Bal mix level to matrix",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/pan-balance.ts",
+        "line": 370
+      }
+    },
+    {
+      "id": "grppan_to_mtx",
+      "name": "Pan/Bal group level to matrix",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "sink",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/pan-balance.ts",
+        "line": 400
+      }
+    },
+    {
+      "id": "lr_level_output",
+      "name": "LR fader level to output",
+      "options": [
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/level.ts",
+        "line": 225
+      }
+    },
+    {
+      "id": "mix_level_output",
+      "name": "Mix fader level to output",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Mix",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/level.ts",
+        "line": 238
+      }
+    },
+    {
+      "id": "fxsend_level_output",
+      "name": "FX Send fader level to output",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "FX Send",
+          "default": 1,
+          "min": 1,
+          "max": 4,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/level.ts",
+        "line": 250
+      }
+    },
+    {
+      "id": "matrix_level_output",
+      "name": "Matrix fader level to output",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/level.ts",
+        "line": 262
+      }
+    },
+    {
+      "id": "dca_level_output",
+      "name": "DCA fader level to output",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "DCA",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choicesNote": "90 choices (src/actions/fading.ts LevelOption): 1000 = \"Last dB value\" (accepted but does nothing in the callback), the step values \"step+0.1\", \"step+1\", \"step+3\", \"step+6\", \"step-0.1\", \"step-1\", \"step-3\", \"step-6\" (relative fades), \"-inf\" (label \"-∞ dB\"), -85 to -40 dB in steps of 5, -39 to -10 dB in steps of 1, and -9.5 to +10 dB in steps of 0.5; numeric ids are numbers"
+        },
+        {
+          "id": "fade",
+          "type": "dropdown",
+          "label": "Fading",
+          "default": 0,
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "1s"
+            },
+            {
+              "id": 2,
+              "label": "2s"
+            },
+            {
+              "id": 3,
+              "label": "3s"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/level.ts",
+        "line": 274
+      }
+    },
+    {
+      "id": "lr_panbalance_output",
+      "name": "LR Pan/Bal to output",
+      "options": [
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/pan-balance.ts",
+        "line": 206
+      }
+    },
+    {
+      "id": "mix_panbalance_output",
+      "name": "Mix Pan/Bal to output",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Mix",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/pan-balance.ts",
+        "line": 227
+      }
+    },
+    {
+      "id": "matrix_panbalance_output",
+      "name": "Matrix Pan/Bal to output",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        },
+        {
+          "id": "leveldb",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "CTR",
+          "disableAutoExpression": true,
+          "choicesNote": "43 choices (src/actions/panning.ts PanLevelOption): 998 = \"Step Right\", 999 = \"Step Left\", then the strings \"L100\", \"L95\", ..., \"L5\", \"CTR\", \"R5\", ..., \"R100\" (steps of 5)"
+        },
+        {
+          "id": "showvar",
+          "type": "textinput",
+          "label": "Instance variable containing pan/balance level (click Learn to refresh)",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/output/pan-balance.ts",
+        "line": 257
+      }
+    },
+    {
+      "id": "scene_recall",
+      "name": "Recall scene",
+      "options": [
+        {
+          "id": "scene",
+          "type": "number",
+          "label": "Scene nr.",
+          "default": 1,
+          "min": 1,
+          "max": 300,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/scene.ts",
+        "line": 69
+      }
+    },
+    {
+      "id": "scene_step",
+      "name": "Scene step",
+      "options": [
+        {
+          "id": "scene",
+          "type": "number",
+          "label": "Scene +/-",
+          "default": 1,
+          "min": -299,
+          "max": 299,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/scene.ts",
+        "line": 92
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "mute_lr",
+      "name": "Mute LR",
+      "description": "Change color",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 109
+      }
+    },
+    {
+      "id": "mute_input",
+      "name": "Mute Input Channel",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Input Channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 115
+      }
+    },
+    {
+      "id": "mute_aux",
+      "name": "Mute Mix",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Mix",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 119
+      }
+    },
+    {
+      "id": "mute_group",
+      "name": "Mute Group",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Group",
+          "default": 1,
+          "min": 1,
+          "max": 12,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 123
+      }
+    },
+    {
+      "id": "mute_matrix",
+      "name": "Mute Matrix",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "Matrix",
+          "default": 1,
+          "min": 1,
+          "max": 3,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 127
+      }
+    },
+    {
+      "id": "mute_dca",
+      "name": "Mute DCA",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "DCA",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "mute_fx_return",
+      "name": "Mute FX Return",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "FX Return",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 135
+      }
+    },
+    {
+      "id": "mute_fx_send",
+      "name": "Mute FX Send",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "FX Send",
+          "default": 1,
+          "min": 1,
+          "max": 4,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 139
+      }
+    },
+    {
+      "id": "mute_mutegroup",
+      "name": "Mute MuteGroup",
+      "description": "Change color",
+      "options": [
+        {
+          "id": "n",
+          "type": "number",
+          "label": "MuteGroup",
+          "default": 1,
+          "min": 1,
+          "max": 8,
+          "integer": true
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks/mute.ts",
+        "line": 143
+      }
+    },
+    {
+      "id": "input_level_in_mix",
+      "name": "Level of Input Channel in Mix",
+      "description": "Internal feedback for the mute-with-level presets; returns the text \"$(<label>:level_<MSB>.<LSB>)\" that refers to the level variable.",
+      "options": [
+        {
+          "id": "inputChannel",
+          "type": "number",
+          "label": "Input Channel",
+          "default": 1,
+          "min": 1,
+          "max": 48,
+          "integer": true
+        },
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/inputchannel-level-in-mix.ts",
+        "line": 55
+      }
+    },
+    {
+      "id": "mix_description",
+      "name": "Mix description",
+      "description": "Internal feedback for the mute-with-level presets; returns \"LR\" or \"Mix <n>\".",
+      "options": [
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Mix",
+          "default": 1,
+          "choices": [
+            {
+              "id": "LR",
+              "label": "LR"
+            },
+            {
+              "id": 1,
+              "label": "MIX 1"
+            },
+            {
+              "id": 2,
+              "label": "MIX 2"
+            },
+            {
+              "id": 3,
+              "label": "MIX 3"
+            },
+            {
+              "id": 4,
+              "label": "MIX 4"
+            },
+            {
+              "id": 5,
+              "label": "MIX 5"
+            },
+            {
+              "id": 6,
+              "label": "MIX 6"
+            },
+            {
+              "id": 7,
+              "label": "MIX 7"
+            },
+            {
+              "id": 8,
+              "label": "MIX 8"
+            },
+            {
+              "id": 9,
+              "label": "MIX 9"
+            },
+            {
+              "id": 10,
+              "label": "MIX 10"
+            },
+            {
+              "id": 11,
+              "label": "MIX 11"
+            },
+            {
+              "id": 12,
+              "label": "MIX 12"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "value",
+      "provenance": {
+        "file": "src/feedbacks/inputchannel-level-in-mix.ts",
+        "line": 88
+      }
+    }
+  ]
+}

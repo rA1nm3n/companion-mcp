@@ -1,0 +1,1317 @@
+{
+  "moduleId": "internal",
+  "name": "Companion internal (core)",
+  "repo": "bitfocus/companion",
+  "version": "5.1.3",
+  "baseVersion": "n/a (built into Companion)",
+  "lastCommit": "2026-11-12",
+  "lastCommitSha": "93ea3fa",
+  "status": "read",
+  "coverage": "partial",
+  "optionsSupportExpressions": true,
+  "notes": [
+    "Companion core actions and feedbacks (module id internal), read from companion/lib/Internal/*.ts of Companion v5.1.3 (commit 93ea3fa). Only the most important entries are catalogued: button press/release/rotate, step control, abort (panic), custom, local and page variables, triggers, surface and page control, lockout, wait and logic blocks, instance control and recorder basics.",
+    "Internal definitions use label instead of name and declare optionsSupportExpressions per definition; the per-entry value takes precedence over the module default (true). Entries with false do not accept expressions.",
+    "Internal option types such as internal:page, internal:variable, internal:custom_variable, internal:surface_serial and expression are recorded as type 'other' with the raw type in rawType.",
+    "The location option defaults to '$(this:page)/$(this:row)/$(this:column)' and accepts an expression such as 'this' (shared-lib/lib/ControlLocation.ts:3-12).",
+    "Not tested against a running instance; the source of v5.1.3 is the only evidence."
+  ],
+  "actions": [
+    {
+      "id": "button_pressrelease",
+      "name": "Button: Trigger press and release",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "force",
+          "type": "checkbox",
+          "label": "Force press if already pressed",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Hold duration (ms)",
+          "description": "How long to hold the button down before releasing it. 0 releases immediately (max from Number.MAX_SAFE_INTEGER)",
+          "default": 0,
+          "min": 0
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 146
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "button_press",
+      "name": "Button: Trigger press",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "force",
+          "type": "checkbox",
+          "label": "Force press if already pressed",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 171
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "button_release",
+      "name": "Button: Trigger release",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "force",
+          "type": "checkbox",
+          "label": "Force release even if currently pressed",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 187
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "button_rotate",
+      "name": "Button: Trigger rotate",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "delta",
+          "type": "number",
+          "label": "Amount",
+          "description": "1 rotates one step clockwise (right), -1 one step counter-clockwise (left). Larger magnitudes rotate by that many steps. Tip: switch to an expression and use $(this:delta) to forward the amount of a physical rotation. (min from Number.MIN_SAFE_INTEGER; max from Number.MAX_SAFE_INTEGER)",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 204
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "panic_bank",
+      "name": "Actions: Abort button runs",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "In the format 1/0/0. You can also use this-run to abort just the current run of actions, or this-all-runs to abort all runs on the current button",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "unlatch",
+          "type": "checkbox",
+          "label": "Skip release actions?",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 277
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "panic_page",
+      "name": "Actions: Abort all button runs on a page",
+      "options": [
+        {
+          "id": "page",
+          "type": "other",
+          "rawType": "internal:page",
+          "label": "Page",
+          "default": 0
+        },
+        {
+          "id": "ignoreSelf",
+          "type": "checkbox",
+          "label": "Except this button",
+          "description": "When checked, actions on the current button will not be aborted",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "ignoreCurrent",
+          "type": "checkbox",
+          "label": "Ignore current run",
+          "description": "When checked, the current run will not be aborted",
+          "default": true,
+          "disableAutoExpression": true,
+          "visibleWhen": "{\"type\":\"expression\",\"fn\":\"!$(options:ignoreSelf)\"}"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 299
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "panic_trigger",
+      "name": "Actions: Abort trigger runs",
+      "options": [
+        {
+          "id": "trigger_id",
+          "type": "other",
+          "rawType": "internal:trigger",
+          "label": "Trigger",
+          "default": "self",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 334
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "panic",
+      "name": "Actions: Abort all button and trigger runs",
+      "options": [
+        {
+          "id": "ignoreCurrent",
+          "type": "checkbox",
+          "label": "Ignore current run",
+          "description": "When checked, the current run will not be aborted",
+          "default": true,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 349
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "bank_current_step",
+      "name": "Button: Set current step",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "step",
+          "type": "textinput",
+          "label": "Button Step",
+          "description": "eg 1, 2",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 365
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "bank_current_step_delta",
+      "name": "Button: Skip step",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Amount",
+          "description": "Negative to go backwards (min from Number.MIN_SAFE_INTEGER; max from Number.MAX_SAFE_INTEGER)",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 382
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "custom_variable_set_value",
+      "name": "Custom Variable: Set value",
+      "options": [
+        {
+          "id": "name",
+          "type": "other",
+          "rawType": "internal:custom_variable",
+          "label": "Custom variable"
+        },
+        {
+          "id": "create",
+          "type": "checkbox",
+          "label": "Create if not exists",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "description": "Supports $(this:current) for the current value of this variable.",
+          "default": "",
+          "allowInvalidValues": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/CustomVariables.ts",
+        "line": 49
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "custom_variable_reset_to_default",
+      "name": "Custom Variable: Reset to startup value",
+      "options": [
+        {
+          "id": "name",
+          "type": "other",
+          "rawType": "internal:custom_variable",
+          "label": "Custom variable"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/CustomVariables.ts",
+        "line": 72
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "custom_variable_sync_to_default",
+      "name": "Custom Variable: Write current value to startup value",
+      "options": [
+        {
+          "id": "name",
+          "type": "other",
+          "rawType": "internal:custom_variable",
+          "label": "Custom variable"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/CustomVariables.ts",
+        "line": 86
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "local_variable_set_value",
+      "name": "Local Variable: Set value",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Local variable",
+          "description": "The name of the local variable. Just the portion after the \"local:\" prefix. (regex from `/${LocalVariableNamePattern}/`)",
+          "default": ""
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "description": "Supports $(this:current) for the current value, and $(target:name) for local variables at the target location.",
+          "default": "",
+          "allowInvalidValues": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 252
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "page_variable_set_value",
+      "name": "Page Variable: Set value",
+      "options": [
+        {
+          "id": "page",
+          "type": "other",
+          "rawType": "internal:page",
+          "label": "Page",
+          "default": 0
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Page variable",
+          "description": "The name of the page variable. Just the portion after the \"page:\" prefix. (regex from `/${LocalVariableNamePattern}/`)",
+          "default": ""
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "description": "Supports $(this:current) for the current value, and $(target:name) for page variables on the target page.",
+          "default": "",
+          "allowInvalidValues": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 289
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "trigger_enabled",
+      "name": "Trigger: Enable or disable trigger",
+      "options": [
+        {
+          "id": "trigger_id",
+          "type": "other",
+          "rawType": "internal:trigger",
+          "label": "Trigger"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Triggers.ts",
+        "line": 66
+      },
+      "optionsSupportExpressions": false
+    },
+    {
+      "id": "trigger_collection_enabled",
+      "name": "Trigger: Enable or disable trigger collection",
+      "options": [
+        {
+          "id": "collection_id",
+          "type": "other",
+          "rawType": "internal:trigger_collection",
+          "label": "Collection"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Triggers.ts",
+        "line": 90
+      },
+      "optionsSupportExpressions": false
+    },
+    {
+      "id": "action_group",
+      "name": "Action Group",
+      "options": [
+        {
+          "id": "execution_mode",
+          "type": "dropdown",
+          "label": "Execution mode",
+          "default": "inherit",
+          "choices": [
+            {
+              "id": "inherit",
+              "label": "Inherit"
+            },
+            {
+              "id": "concurrent",
+              "label": "Concurrent"
+            },
+            {
+              "id": "sequential",
+              "label": "Sequential"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/BuildingBlocks.ts",
+        "line": 123
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "wait",
+      "name": "Wait",
+      "options": [
+        {
+          "id": "time",
+          "type": "other",
+          "rawType": "expression",
+          "label": "Time expression (ms)",
+          "default": "1000",
+          "allowInvalidValues": true,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/BuildingBlocks.ts",
+        "line": 155
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "logic_if",
+      "name": "Logic: If statement",
+      "options": [],
+      "provenance": {
+        "file": "companion/lib/Internal/BuildingBlocks.ts",
+        "line": 172
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "logic_while",
+      "name": "Logic: While loop",
+      "options": [],
+      "provenance": {
+        "file": "companion/lib/Internal/BuildingBlocks.ts",
+        "line": 201
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "exec",
+      "name": "System: Run shell command (local)",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "Command",
+          "useVariables": true,
+          "visibleWhen": "hideWhenDisabled"
+        },
+        {
+          "id": "cwd",
+          "type": "textinput",
+          "label": "Working Directory",
+          "description": "Optional. If not set, the command will be run with the current working directory of companion",
+          "useVariables": true,
+          "visibleWhen": "hideWhenDisabled"
+        },
+        {
+          "id": "timeout",
+          "type": "number",
+          "label": "Timeout (ms, between 500 and 20000)",
+          "default": 5000,
+          "min": 500,
+          "max": 20000,
+          "visibleWhen": "hideWhenDisabled"
+        },
+        {
+          "id": "targetVariable",
+          "type": "other",
+          "rawType": "internal:custom_variable",
+          "label": "Target Variable (stdout)",
+          "visibleWhen": "hideWhenDisabled"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/System.ts",
+        "line": 274
+      },
+      "optionsSupportExpressions": true,
+      "availability": "Only usable when shell command support is enabled (--enable-shell-command-support or COMPANION_ENABLE_SHELL_COMMAND_SUPPORT); otherwise the action shows only a static text (src/Internal/System.ts:278-)"
+    },
+    {
+      "id": "custom_log",
+      "name": "Write to companion log",
+      "options": [
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "Message",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/System.ts",
+        "line": 331
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "set_brightness",
+      "name": "Surface: Set to brightness",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        },
+        {
+          "id": "brightness",
+          "type": "number",
+          "label": "Brightness",
+          "default": 100,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 299
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "adjust_brightness",
+      "name": "Surface: Adjust brightness",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        },
+        {
+          "id": "brightness",
+          "type": "number",
+          "label": "Brightness adjustment",
+          "default": 0,
+          "min": -100,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 321
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "set_page",
+      "name": "Surface: Set to page",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        },
+        {
+          "id": "page",
+          "type": "other",
+          "rawType": "internal:page",
+          "label": "Page",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 341
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "set_page_byindex",
+      "name": "Surface: Set by index to page",
+      "options": [
+        {
+          "id": "surfaceIndex",
+          "type": "number",
+          "label": "Surface / group index",
+          "description": "Check the ID column in the surfaces tab",
+          "default": 0,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "page",
+          "type": "other",
+          "rawType": "internal:page",
+          "label": "Page",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 348
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "inc_page",
+      "name": "Surface: Increment page number",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 369
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "dec_page",
+      "name": "Surface: Decrement page number",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 376
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "lockout_device",
+      "name": "Surface: Lockout specified surface immediately.",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 384
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "unlockout_device",
+      "name": "Surface: Unlock specified surface immediately.",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": "self"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 391
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "lockout_all",
+      "name": "Surface: Lockout all immediately.",
+      "options": [],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 399
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "unlockout_all",
+      "name": "Surface: Unlock all immediately.",
+      "options": [],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 406
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "rescan",
+      "name": "Surface: Rescan USB for devices",
+      "options": [],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 414
+      },
+      "optionsSupportExpressions": true
+    },
+    {
+      "id": "instance_control",
+      "name": "Connection: Enable or disable connection",
+      "options": [
+        {
+          "id": "instance_id",
+          "type": "other",
+          "rawType": "internal:connection_id",
+          "label": "Connection"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Instance.ts",
+        "line": 160
+      },
+      "optionsSupportExpressions": false
+    },
+    {
+      "id": "connection_collection_enabled",
+      "name": "Connection: Enable or disable connection collection",
+      "options": [
+        {
+          "id": "collection_id",
+          "type": "other",
+          "rawType": "internal:connection_collection",
+          "label": "Collection"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Instance.ts",
+        "line": 185
+      },
+      "optionsSupportExpressions": false
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "bank_pushed",
+      "name": "Button: When pushed",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "latch_compatability",
+          "type": "checkbox",
+          "label": "Treat stepped as pressed? (latch compatibility)",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 416
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "bank_current_step",
+      "name": "Button: Check step",
+      "options": [
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Location",
+          "description": "eg 1/0/0 or $(this:page)/$(this:row)/$(this:column). \"this\" can also be used to reference the current control",
+          "default": "$(this:page)/$(this:row)/$(this:column)",
+          "useVariables": true
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "description": "Which Step? (max from Number.MAX_SAFE_INTEGER)",
+          "default": 1,
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Controls.ts",
+        "line": 438
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "variable_value",
+      "name": "Variable: Check value",
+      "options": [
+        {
+          "id": "variable",
+          "type": "other",
+          "rawType": "internal:variable",
+          "label": "Variable",
+          "description": "What variable to act on?",
+          "disableAutoExpression": true
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "eq",
+          "choices": [
+            {
+              "id": "eq",
+              "label": "="
+            },
+            {
+              "id": "ne",
+              "label": "!="
+            },
+            {
+              "id": "gt",
+              "label": ">"
+            },
+            {
+              "id": "lt",
+              "label": "<"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 92
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "variable_variable",
+      "name": "Variable: Compare two variables",
+      "options": [
+        {
+          "id": "variable",
+          "type": "other",
+          "rawType": "internal:variable",
+          "label": "Compare Variable",
+          "description": "What variable to act on?",
+          "disableAutoExpression": true
+        },
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "eq",
+          "choices": [
+            {
+              "id": "eq",
+              "label": "="
+            },
+            {
+              "id": "ne",
+              "label": "!="
+            },
+            {
+              "id": "gt",
+              "label": ">"
+            },
+            {
+              "id": "lt",
+              "label": "<"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "variable2",
+          "type": "other",
+          "rawType": "internal:variable",
+          "label": "Against Variable",
+          "description": "What variable to compare with?",
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 122
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "check_expression",
+      "name": "Variable: Check boolean expression",
+      "options": [
+        {
+          "id": "expression",
+          "type": "other",
+          "rawType": "expression",
+          "label": "Expression",
+          "default": "2 > 1",
+          "allowInvalidValues": true,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 153
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "expression_value",
+      "name": "Evaluate Expression",
+      "options": [
+        {
+          "id": "expression",
+          "type": "other",
+          "rawType": "expression",
+          "label": "Expression",
+          "default": "2 > 1",
+          "allowInvalidValues": true,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 175
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "value"
+    },
+    {
+      "id": "user_value",
+      "name": "User Value",
+      "options": [
+        {
+          "id": "persist_value",
+          "type": "checkbox",
+          "label": "Persist value",
+          "description": "If enabled, variable value will be saved and restored when Companion restarts.",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "startup_value",
+          "type": "other",
+          "rawType": "internal:variable_value",
+          "label": "Startup Value",
+          "default": "1",
+          "disableAutoExpression": true,
+          "visibleWhen": "{\"type\":\"expression\",\"fn\":\"!$(options:persist_value)\"}"
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Variables.ts",
+        "line": 193
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "value"
+    },
+    {
+      "id": "trigger_enabled",
+      "name": "Trigger: When enabled or disabled",
+      "options": [
+        {
+          "id": "trigger_id",
+          "type": "other",
+          "rawType": "internal:trigger",
+          "label": "Trigger"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "Yes"
+            },
+            {
+              "id": "false",
+              "label": "No"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Triggers.ts",
+        "line": 153
+      },
+      "optionsSupportExpressions": false,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "logic_operator",
+      "name": "Logic: Operation",
+      "options": [
+        {
+          "id": "operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "and",
+          "choices": [
+            {
+              "id": "and",
+              "label": "AND"
+            },
+            {
+              "id": "or",
+              "label": "OR"
+            },
+            {
+              "id": "xor",
+              "label": "XOR"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/BuildingBlocks.ts",
+        "line": 52
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "surface_on_page",
+      "name": "Surface: When on the selected page",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface / group",
+          "default": ""
+        },
+        {
+          "id": "page",
+          "type": "other",
+          "rawType": "internal:page",
+          "label": "Page",
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 702
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "surface_connected",
+      "name": "Surface: When connected",
+      "options": [
+        {
+          "id": "surfaceId",
+          "type": "other",
+          "rawType": "internal:surface_serial",
+          "label": "Surface",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Surface.ts",
+        "line": 732
+      },
+      "optionsSupportExpressions": true,
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "instance_status",
+      "name": "Connection: Check Status",
+      "options": [
+        {
+          "id": "instance_id",
+          "type": "other",
+          "rawType": "internal:connection_id",
+          "label": "Connection or All"
+        },
+        {
+          "id": "ok_fg",
+          "type": "colorpicker",
+          "label": "OK foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "ok_bg",
+          "type": "colorpicker",
+          "label": "OK background color",
+          "default": 51200
+        },
+        {
+          "id": "warning_fg",
+          "type": "colorpicker",
+          "label": "Warning foreground color",
+          "default": 0
+        },
+        {
+          "id": "warning_bg",
+          "type": "colorpicker",
+          "label": "Warning background color",
+          "default": 16776960
+        },
+        {
+          "id": "error_fg",
+          "type": "colorpicker",
+          "label": "Error foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "error_bg",
+          "type": "colorpicker",
+          "label": "Error background color",
+          "default": 13107200
+        },
+        {
+          "id": "disabled_fg",
+          "type": "colorpicker",
+          "label": "Disabled foreground color",
+          "default": 10066329
+        },
+        {
+          "id": "disabled_bg",
+          "type": "colorpicker",
+          "label": "Disabled background color",
+          "default": 4210752
+        }
+      ],
+      "provenance": {
+        "file": "companion/lib/Internal/Instance.ts",
+        "line": 214
+      },
+      "optionsSupportExpressions": false,
+      "feedbackType": "advanced"
+    }
+  ]
+}
