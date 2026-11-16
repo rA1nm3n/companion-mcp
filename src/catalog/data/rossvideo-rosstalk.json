@@ -1,0 +1,2185 @@
+{
+  "moduleId": "rossvideo-rosstalk",
+  "name": "RossTalk",
+  "repo": "bitfocus/companion-module-rossvideo-rosstalk",
+  "version": "3.0.0",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-11-11",
+  "lastCommitSha": "160094e",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "gpi",
+      "name": "Trigger GPI",
+      "description": "Named \"Fire salvo\" on the Ultrix model (a GPI is a salvo trigger there). Carbonite and Acuity send the number as two digits (src/commands.ts gpiCommand).",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite, acuity, ultrix, openGear (all models except the video server).",
+      "provenance": {
+        "file": "src/actions/index.ts",
+        "line": 114
+      }
+    },
+    {
+      "id": "gpiByName",
+      "name": "Trigger GPI by Name",
+      "description": "Only works on devices that accept named GPIs",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "textinput",
+          "label": "Name",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "parameter",
+          "type": "textinput",
+          "label": "Parameter",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "availability": "carbonite, acuity, ultrix, openGear (all models except the video server).",
+      "provenance": {
+        "file": "src/actions/index.ts",
+        "line": 120
+      }
+    },
+    {
+      "id": "custom",
+      "name": "Send a custom command",
+      "description": "Refer to RossTalk Guide",
+      "options": [
+        {
+          "id": "cmd",
+          "type": "textinput",
+          "label": "Command",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "availability": "All models.",
+      "provenance": {
+        "file": "src/actions/index.ts",
+        "line": 133
+      }
+    },
+    {
+      "id": "gpiOutput",
+      "name": "Set GPI output",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "number",
+          "label": "GPI",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "ON",
+          "choices": [
+            {
+              "id": "ON",
+              "label": "On"
+            },
+            {
+              "id": "OFF",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 67
+      }
+    },
+    {
+      "id": "cc",
+      "name": "Fire custom control",
+      "options": [
+        {
+          "id": "bank",
+          "type": "number",
+          "label": "CC Bank",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "cc",
+          "type": "number",
+          "label": "CC Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:52) and acuity (src/actions/acuity.ts:72); body in src/actions/shared.ts:31.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 52
+      }
+    },
+    {
+      "id": "loadset",
+      "name": "Load Set",
+      "options": [
+        {
+          "id": "location",
+          "type": "dropdown",
+          "label": "Load Location",
+          "default": "USB",
+          "choices": [
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "HD",
+              "label": "HD"
+            }
+          ],
+          "disableAutoExpression": true,
+          "description": "Acuity only."
+        },
+        {
+          "id": "set",
+          "type": "textinput",
+          "label": "Set name",
+          "default": "set1",
+          "useVariables": true
+        },
+        {
+          "id": "drive",
+          "type": "dropdown",
+          "label": "Drive (Ultra 60 only)",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "Default"
+            },
+            {
+              "id": "0",
+              "label": "Internal (0)"
+            },
+            {
+              "id": "1",
+              "label": "USB 1"
+            },
+            {
+              "id": "2",
+              "label": "USB 2"
+            },
+            {
+              "id": "3",
+              "label": "USB 3"
+            }
+          ],
+          "disableAutoExpression": true,
+          "description": "Carbonite only (Ultra 60 drives: 0 is internal, 1-3 are USB in detection order)."
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:53, options set and drive) and acuity (src/actions/acuity.ts:73, options location and set). The options of the other model are not offered.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 53
+      }
+    },
+    {
+      "id": "saveset",
+      "name": "Save Set",
+      "description": "Acuity: with setup number 0, the switcher matches the set name and overwrites it",
+      "options": [
+        {
+          "id": "location",
+          "type": "dropdown",
+          "label": "Save Location",
+          "default": "USB",
+          "choices": [
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "HD",
+              "label": "HD"
+            }
+          ],
+          "disableAutoExpression": true,
+          "description": "Acuity only."
+        },
+        {
+          "id": "setup",
+          "type": "number",
+          "label": "Setup number",
+          "default": 0,
+          "min": 0,
+          "max": 9999,
+          "integer": true,
+          "description": "Acuity only. With setup number 0, the switcher matches the set name and overwrites it."
+        },
+        {
+          "id": "set",
+          "type": "textinput",
+          "label": "Set name",
+          "default": "set1",
+          "useVariables": true
+        },
+        {
+          "id": "drive",
+          "type": "dropdown",
+          "label": "Drive (Ultra 60 only)",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "Default"
+            },
+            {
+              "id": "0",
+              "label": "Internal (0)"
+            },
+            {
+              "id": "1",
+              "label": "USB 1"
+            },
+            {
+              "id": "2",
+              "label": "USB 2"
+            },
+            {
+              "id": "3",
+              "label": "USB 3"
+            }
+          ],
+          "disableAutoExpression": true,
+          "description": "Carbonite only (Ultra 60 drives: 0 is internal, 1-3 are USB in detection order)."
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:58, options set and drive) and acuity (src/actions/acuity.ts:81, options location, setup and set).",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 58
+      }
+    },
+    {
+      "id": "cut",
+      "name": "Cut",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:63) and acuity (src/actions/acuity.ts:92); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 63
+      }
+    },
+    {
+      "id": "autotrans",
+      "name": "Auto Transition",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:64) and acuity (src/actions/acuity.ts:93); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 64
+      }
+    },
+    {
+      "id": "transRate",
+      "name": "Transition rate",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        },
+        {
+          "id": "rate",
+          "type": "number",
+          "label": "Rate (frames)",
+          "default": 30,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:65) and acuity (src/actions/acuity.ts:94); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 65
+      }
+    },
+    {
+      "id": "transType",
+      "name": "Transition type",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "DISS",
+          "choices": [
+            {
+              "id": "DISS",
+              "label": "Dissolve"
+            },
+            {
+              "id": "DVE",
+              "label": "DVE"
+            },
+            {
+              "id": "MEDIA",
+              "label": "Media Wipe"
+            },
+            {
+              "id": "WIPE",
+              "label": "Wipe"
+            },
+            {
+              "id": "SEQ",
+              "label": "Sequence"
+            }
+          ],
+          "description": "Carbonite offers DISS, DVE, MEDIA, WIPE; Acuity offers DISS, WIPE, DVE, SEQ (the validator cannot check this per model)."
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:66) and acuity (src/actions/acuity.ts:95); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 66
+      }
+    },
+    {
+      "id": "transIncl",
+      "name": "Next transition elements",
+      "description": "Replaces the current selection in the next transition area. The module logs a warning and sends nothing when no element is selected.",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        },
+        {
+          "id": "background",
+          "type": "checkbox",
+          "label": "Background",
+          "default": true
+        },
+        {
+          "id": "keys",
+          "type": "multidropdown",
+          "label": "Keys",
+          "default": [],
+          "choices": [
+            {
+              "id": 1,
+              "label": "Key 1"
+            },
+            {
+              "id": 2,
+              "label": "Key 2"
+            },
+            {
+              "id": 3,
+              "label": "Key 3"
+            },
+            {
+              "id": 4,
+              "label": "Key 4"
+            },
+            {
+              "id": 5,
+              "label": "Key 5"
+            },
+            {
+              "id": 6,
+              "label": "Key 6"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:67) and acuity (src/actions/acuity.ts:96); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 67
+      }
+    },
+    {
+      "id": "xpt",
+      "name": "XPT",
+      "description": "The destination default is the first entry of the destination list: ME:1:PGM on carbonite, MLE:1:PGM on acuity.",
+      "options": [
+        {
+          "id": "vidDest",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": "ME:1:PGM",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom). carbonite (VIDEO_DESTINATION_CHOICES, src/choices.ts:24-29, default ME:1:PGM): ME:m:PGM and ME:m:PST (m=1..4), ME:m:KEY:k (m,k=1..4), AUX:1..AUX:24, MME:1..MME:4. acuity (ACUITY_VIDEO_DESTINATION_CHOICES, src/choices.ts:100-107, default MLE:1:PGM): MLE:m:PGM and MLE:m:PST (m=1..4), MLE:m:KEY:k, MLE:m:KEY:k:KEYBUS:2 (m,k=1..4), AUX:bank:aux (bank 1..4, aux 1..8). Labels are \"<name> (<id>)\".",
+          "valueType": "string"
+        },
+        {
+          "id": "vidSource",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:20",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom); the lists are suggestions. carbonite (VIDEO_SOURCE_CHOICES, src/choices.ts:31-72): BK, BG, PGM, PV, CLN, CLIP, IN:1..IN:48, AUX:1..AUX:24, ME:m:PGM, ME:m:PV, ME:m:PST, ME:m:CLN, ME:m:BKGD, ME:m:MW, ME:m:MWA (m=1..4), ME:m:KEY:k:V and ME:m:KEY:k:A (k=1..4), MME:n:PGM, MME:n:PV, MME:n:PST, MME:n:BKGD, MME:n:CMB (n=1..4), MME:n:KEY:k:V and :A, MS:1..4, CK:1..4, CKA:1..4, SCN:1..4, SCNA:1..4, XP:1..4:V and XP:1..4:A (Graphite only). acuity (ACUITY_VIDEO_SOURCE_CHOICES, src/choices.ts:109-128): BK, BG:1..2, IN:1..IN:48, AUX:bank:aux (bank 1..4, aux 1..8), per ME m=1..4: MLE:m:PV, MLE:m:PGM, MLE:m:PGM:A..F, MLE:m:CLN:1, MLE:m:CLN:2, MLE:m:KEY:k (k=1..4), GS:1..4, MS:m:ch (m=1..4, ch=1..2), MVA:1..2, MVB:1..2.",
+          "valueType": "string"
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:68) and acuity (src/actions/acuity.ts:97); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 68
+      }
+    },
+    {
+      "id": "transKey",
+      "name": "Transition Keyer",
+      "description": "Acuity addresses keyers as ME:keyer with a bare ME number, e.g. KEYAUTO 1:4. openGear variant: options key and transT only.",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        },
+        {
+          "id": "key",
+          "type": "number",
+          "label": "Keyer",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "transD",
+          "type": "dropdown",
+          "label": "Transition On/Off Air",
+          "default": "TOGGLE",
+          "choices": [
+            {
+              "id": "TOGGLE",
+              "label": "Toggle Keyer"
+            },
+            {
+              "id": "ON",
+              "label": "Transition OnAir"
+            },
+            {
+              "id": "OFF",
+              "label": "Transition OffAir"
+            }
+          ]
+        },
+        {
+          "id": "transT",
+          "type": "dropdown",
+          "label": "Transition type",
+          "default": "CUT",
+          "choices": [
+            {
+              "id": "AUTO",
+              "label": "Auto Transition"
+            },
+            {
+              "id": "CUT",
+              "label": "Cut Transition"
+            }
+          ]
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:69) and acuity (src/actions/acuity.ts:99); body in src/actions/shared.ts. The openGear model registers a variant without the mle and transD options (src/actions/opengear.ts:11).",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 69
+      }
+    },
+    {
+      "id": "keyMode",
+      "name": "Key mode",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        },
+        {
+          "id": "key",
+          "type": "number",
+          "label": "Keyer",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "NORMAL",
+          "choices": [
+            {
+              "id": "NORMAL",
+              "label": "Normal (shaped/unshaped from key setup)"
+            },
+            {
+              "id": "ADDITIVE",
+              "label": "Additive"
+            },
+            {
+              "id": "FULL",
+              "label": "Full"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 70
+      }
+    },
+    {
+      "id": "keyShaped",
+      "name": "Shaped key",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "MLE",
+          "default": "ME:1",
+          "allowCustom": true,
+          "choicesNote": "Model dependent, free text allowed (allowCustom). carbonite: ME:1..ME:4, ME:P/P, MME:1..MME:4, MSC:1, MSC:2 (src/choices.ts:74-80), default ME:1, regex /^((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)$/ (HyperMax ids such as ME:PP or ME:1B also match). acuity: bare ME numbers 1..4 (src/choices.ts:83), default 1, regex Regex.NUMBER (/^\\d+$/). The catalog valuePattern is the union of both regular expressions.",
+          "valueType": "string",
+          "valuePattern": "^(?:(?:ME|MME|MSC):(?:[0-9]{1,2}|P\\/P)|ME:(?:[0-9]{1,2}|PP)(?:A|B|AB)?|\\d+)$",
+          "description": "Carbonite default ME:1; Acuity default 1 (first entry of the choice list)."
+        },
+        {
+          "id": "key",
+          "type": "number",
+          "label": "Keyer",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Shaped",
+          "default": "ON",
+          "choices": [
+            {
+              "id": "ON",
+              "label": "On"
+            },
+            {
+              "id": "OFF",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 100
+      }
+    },
+    {
+      "id": "ckInit",
+      "name": "Initialize chroma key",
+      "options": [
+        {
+          "id": "chromaKey",
+          "type": "number",
+          "label": "Chroma key engine",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 83
+      }
+    },
+    {
+      "id": "ftb",
+      "name": "Fade to black",
+      "description": "openGear: \"Not supported on the MDK-111A-K.\"",
+      "options": [],
+      "availability": "carbonite (src/actions/carbonite.ts:88) and acuity (src/actions/acuity.ts:109); body in src/actions/shared.ts. openGear registers it too (src/actions/opengear.ts:10).",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 88
+      }
+    },
+    {
+      "id": "MEM",
+      "name": "MEM",
+      "description": "Recall memory. Memory ID default: 11:ME:1 on carbonite, 11:1 on acuity. Regular expressions: carbonite /^[0-9]{2}(:((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)|:CK:[0-9]{1,2})+$/ ; acuity /^[0-9]{2}(:[0-9]{1,2})+$/. Bank and memory are one digit each.",
+      "options": [
+        {
+          "id": "memID",
+          "type": "textinput",
+          "label": "Memory ID",
+          "default": "11:ME:1",
+          "useVariables": true,
+          "description": "Tooltip: Bank and memory followed by one or more MEs, e.g. 19:ME:2:MME:1:CK:1 recalls bank 1 memory 9 on ME 2, MiniME 1 and Chroma Key 1 (carbonite) / e.g. 19:2:1 recalls bank 1 memory 9 on ME 2 and ME 1 (acuity)"
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:89) and acuity (src/actions/acuity.ts:110); body in src/actions/shared.ts. The default and the regular expression differ per model.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 89
+      }
+    },
+    {
+      "id": "memSave",
+      "name": "Save memory (MEMSAVE)",
+      "description": "Store memory. Memory ID default: 11:ME:1 on carbonite, 11:1 on acuity. Regular expressions: carbonite /^[0-9]{2}(:((ME|MME|MSC):([0-9]{1,2}|P\\/P)|ME:([0-9]{1,2}|PP)(A|B|AB)?)|:CK:[0-9]{1,2})+$/ ; acuity /^[0-9]{2}(:[0-9]{1,2})+$/. Bank and memory are one digit each.",
+      "options": [
+        {
+          "id": "memID",
+          "type": "textinput",
+          "label": "Memory ID",
+          "default": "11:ME:1",
+          "useVariables": true,
+          "description": "Tooltip: Bank and memory followed by one or more MEs, e.g. 19:ME:2:MME:1:CK:1 stores bank 1 memory 9 on ME 2, MiniME 1 and Chroma Key 1 (carbonite) / e.g. 23:1:2:4 stores bank 2 memory 3 on ME 1, 2 and 4 (acuity)"
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:96) and acuity (src/actions/acuity.ts:117); body in src/actions/shared.ts. The default and the regular expression differ per model.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 96
+      }
+    },
+    {
+      "id": "SEQI",
+      "name": "Load sequence (SEQI)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Sequencer",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "Layer",
+          "type": "number",
+          "label": "Sequence",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "SEQO",
+      "name": "Unload sequence (SEQO)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Sequencer",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 108
+      }
+    },
+    {
+      "id": "seqStep",
+      "name": "Sequencer: next / up / down",
+      "description": "NEXT runs the selected event and advances; UP and DOWN move the selection",
+      "options": [
+        {
+          "id": "step",
+          "type": "dropdown",
+          "label": "Step",
+          "default": "NEXT",
+          "choices": [
+            {
+              "id": "NEXT",
+              "label": "Run next event"
+            },
+            {
+              "id": "UP",
+              "label": "Move selection up"
+            },
+            {
+              "id": "DOWN",
+              "label": "Move selection down"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sequencer",
+          "type": "number",
+          "label": "Sequencer",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 113
+      }
+    },
+    {
+      "id": "seqFocus",
+      "name": "Sequencer: select event (FOCUS)",
+      "options": [
+        {
+          "id": "sequencer",
+          "type": "number",
+          "label": "Sequencer",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "event",
+          "type": "number",
+          "label": "Event",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 126
+      }
+    },
+    {
+      "id": "MVBOX",
+      "name": "Change multiviewer box",
+      "options": [
+        {
+          "id": "mvType",
+          "type": "dropdown",
+          "label": "MultiViewer type",
+          "default": "",
+          "choices": [
+            {
+              "id": "",
+              "label": "None"
+            },
+            {
+              "id": "VP",
+              "label": "Video Processor (VP)"
+            },
+            {
+              "id": "IO",
+              "label": "I/O (IO)"
+            },
+            {
+              "id": "OP",
+              "label": "Output (OP)"
+            }
+          ],
+          "disableAutoExpression": true,
+          "description": "Carbonite only. Tooltip: Newer software may need VP or IO, and some versions use OP for the shifted box."
+        },
+        {
+          "id": "mvID",
+          "type": "number",
+          "label": "Multiviewer Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "boxID",
+          "type": "number",
+          "label": "Box Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "vidSource",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:5",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom); the lists are suggestions. carbonite (VIDEO_SOURCE_CHOICES, src/choices.ts:31-72): BK, BG, PGM, PV, CLN, CLIP, IN:1..IN:48, AUX:1..AUX:24, ME:m:PGM, ME:m:PV, ME:m:PST, ME:m:CLN, ME:m:BKGD, ME:m:MW, ME:m:MWA (m=1..4), ME:m:KEY:k:V and ME:m:KEY:k:A (k=1..4), MME:n:PGM, MME:n:PV, MME:n:PST, MME:n:BKGD, MME:n:CMB (n=1..4), MME:n:KEY:k:V and :A, MS:1..4, CK:1..4, CKA:1..4, SCN:1..4, SCNA:1..4, XP:1..4:V and XP:1..4:A (Graphite only). acuity (ACUITY_VIDEO_SOURCE_CHOICES, src/choices.ts:109-128): BK, BG:1..2, IN:1..IN:48, AUX:bank:aux (bank 1..4, aux 1..8), per ME m=1..4: MLE:m:PV, MLE:m:PGM, MLE:m:PGM:A..F, MLE:m:CLN:1, MLE:m:CLN:2, MLE:m:KEY:k (k=1..4), GS:1..4, MS:m:ch (m=1..4, ch=1..2), MVA:1..2, MVB:1..2.",
+          "valueType": "string"
+        },
+        {
+          "id": "shift",
+          "type": "checkbox",
+          "label": "Shifted box",
+          "default": false,
+          "description": "Carbonite only."
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:131, all options) and acuity (src/actions/acuity.ts:124, options mvID, boxID and vidSource only).",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "clipLoad",
+      "name": "Clip player: load clip",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Clip name",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 159
+      }
+    },
+    {
+      "id": "clipTransport",
+      "name": "Clip player: control",
+      "options": [
+        {
+          "id": "transport",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "PLAY",
+          "choices": [
+            {
+              "id": "PLAY",
+              "label": "Play"
+            },
+            {
+              "id": "PAUSE",
+              "label": "Pause"
+            },
+            {
+              "id": "EJECT",
+              "label": "Eject"
+            },
+            {
+              "id": "LOOPON",
+              "label": "Loop on"
+            },
+            {
+              "id": "LOOPOFF",
+              "label": "Loop off"
+            }
+          ],
+          "disableAutoExpression": true
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 166
+      }
+    },
+    {
+      "id": "mediaStore",
+      "name": "Media-Store: load media",
+      "description": "On Mosaic, Media-Store channels are numbered 101-136",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "drive",
+          "type": "dropdown",
+          "label": "Drive",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Internal (0)"
+            },
+            {
+              "id": "1",
+              "label": "USB 1"
+            },
+            {
+              "id": "2",
+              "label": "USB 2"
+            },
+            {
+              "id": "3",
+              "label": "USB 3"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "mediaId",
+          "type": "textinput",
+          "label": "Media ID",
+          "default": "001",
+          "useVariables": true,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "availability": "carbonite only.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 179
+      }
+    },
+    {
+      "id": "mnem",
+      "name": "Set source name (MNEM)",
+      "description": "The module sends nothing when the new name is empty.",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom); the lists are suggestions. carbonite (VIDEO_SOURCE_CHOICES, src/choices.ts:31-72): BK, BG, PGM, PV, CLN, CLIP, IN:1..IN:48, AUX:1..AUX:24, ME:m:PGM, ME:m:PV, ME:m:PST, ME:m:CLN, ME:m:BKGD, ME:m:MW, ME:m:MWA (m=1..4), ME:m:KEY:k:V and ME:m:KEY:k:A (k=1..4), MME:n:PGM, MME:n:PV, MME:n:PST, MME:n:BKGD, MME:n:CMB (n=1..4), MME:n:KEY:k:V and :A, MS:1..4, CK:1..4, CKA:1..4, SCN:1..4, SCNA:1..4, XP:1..4:V and XP:1..4:A (Graphite only). acuity (ACUITY_VIDEO_SOURCE_CHOICES, src/choices.ts:109-128): BK, BG:1..2, IN:1..IN:48, AUX:bank:aux (bank 1..4, aux 1..8), per ME m=1..4: MLE:m:PV, MLE:m:PGM, MLE:m:PGM:A..F, MLE:m:CLN:1, MLE:m:CLN:2, MLE:m:KEY:k (k=1..4), GS:1..4, MS:m:ch (m=1..4, ch=1..2), MVA:1..2, MVB:1..2.",
+          "valueType": "string"
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "New name",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "availability": "carbonite (src/actions/carbonite.ts:189) and acuity (src/actions/acuity.ts:204); body in src/actions/shared.ts.",
+      "provenance": {
+        "file": "src/actions/carbonite.ts",
+        "line": 189
+      }
+    },
+    {
+      "id": "acuityMediaStore",
+      "name": "Media-Store: load media",
+      "description": "Choice labels: \"ME-Store on ME k (k)\" is how the source builds them (label of MLE_NUMBER_CHOICES entries). Store accepts free text (allowCustom).",
+      "options": [
+        {
+          "id": "store",
+          "type": "dropdown",
+          "label": "Store",
+          "default": "GS",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "GS",
+              "label": "Global-Store (GS)"
+            },
+            {
+              "id": "GSA",
+              "label": "Global-Store Audio (GSA)"
+            },
+            {
+              "id": "1",
+              "label": "ME-Store on ME 1 (1)"
+            },
+            {
+              "id": "2",
+              "label": "ME-Store on ME 2 (2)"
+            },
+            {
+              "id": "3",
+              "label": "ME-Store on ME 3 (3)"
+            },
+            {
+              "id": "4",
+              "label": "ME-Store on ME 4 (4)"
+            }
+          ]
+        },
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "mediaId",
+          "type": "number",
+          "label": "Media ID",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 134
+      }
+    },
+    {
+      "id": "msPlay",
+      "name": "Media-Store: play",
+      "options": [
+        {
+          "id": "store",
+          "type": "dropdown",
+          "label": "Store",
+          "default": "GS",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "GS",
+              "label": "Global-Store (GS)"
+            },
+            {
+              "id": "GSA",
+              "label": "Global-Store Audio (GSA)"
+            },
+            {
+              "id": "1",
+              "label": "ME-Store on ME 1 (1)"
+            },
+            {
+              "id": "2",
+              "label": "ME-Store on ME 2 (2)"
+            },
+            {
+              "id": "3",
+              "label": "ME-Store on ME 3 (3)"
+            },
+            {
+              "id": "4",
+              "label": "ME-Store on ME 4 (4)"
+            }
+          ]
+        },
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 144
+      }
+    },
+    {
+      "id": "captureMediaStore",
+      "name": "Capture to Media-Store",
+      "description": "Acuity only",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Capture to",
+          "default": "RAM",
+          "choices": [
+            {
+              "id": "RAM",
+              "label": "RAM"
+            },
+            {
+              "id": "DISK",
+              "label": "Disk"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Media-Store channel",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom); the list is a suggestion. acuity (ACUITY_VIDEO_SOURCE_CHOICES, src/choices.ts:109-128): BK, BG:1..2, IN:1..IN:48, AUX:bank:aux (bank 1..4, aux 1..8), per ME m=1..4: MLE:m:PV, MLE:m:PGM, MLE:m:PGM:A..F, MLE:m:CLN:1, MLE:m:CLN:2, MLE:m:KEY:k (k=1..4), GS:1..4, MS:m:ch (m=1..4, ch=1..2), MVA:1..2, MVB:1..2.",
+          "valueType": "string"
+        },
+        {
+          "id": "frames",
+          "type": "number",
+          "label": "Duration (frames)",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 149
+      }
+    },
+    {
+      "id": "captureMe",
+      "name": "Capture ME source",
+      "description": "Ultrix Acuity only",
+      "options": [
+        {
+          "id": "me",
+          "type": "number",
+          "label": "ME",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "source",
+          "type": "textinput",
+          "label": "ME source",
+          "default": "PGM",
+          "useVariables": true,
+          "description": "Tooltip: PGM for Program A, PGMB to PGMF for Programs B to F"
+        },
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Media-Store channel",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 171
+      }
+    },
+    {
+      "id": "videoServer",
+      "name": "Video server: play / pause / eject",
+      "description": "Sends a VTR/VDCP command to the server channel assigned to the source",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "PLAY",
+          "choices": [
+            {
+              "id": "PLAY",
+              "label": "Play"
+            },
+            {
+              "id": "PAUSE",
+              "label": "Pause"
+            },
+            {
+              "id": "EJECT",
+              "label": "Eject"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom); the list is a suggestion. acuity (ACUITY_VIDEO_SOURCE_CHOICES, src/choices.ts:109-128): BK, BG:1..2, IN:1..IN:48, AUX:bank:aux (bank 1..4, aux 1..8), per ME m=1..4: MLE:m:PV, MLE:m:PGM, MLE:m:PGM:A..F, MLE:m:CLN:1, MLE:m:CLN:2, MLE:m:KEY:k (k=1..4), GS:1..4, MS:m:ch (m=1..4, ch=1..2), MVA:1..2, MVB:1..2.",
+          "valueType": "string"
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 181
+      }
+    },
+    {
+      "id": "cueClip",
+      "name": "Video server: cue clip",
+      "description": "The module sends nothing when the clip name is empty.",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "allowCustom": true,
+          "choicesNote": "Free text allowed (allowCustom); the list is a suggestion. acuity (ACUITY_VIDEO_SOURCE_CHOICES, src/choices.ts:109-128): BK, BG:1..2, IN:1..IN:48, AUX:bank:aux (bank 1..4, aux 1..8), per ME m=1..4: MLE:m:PV, MLE:m:PGM, MLE:m:PGM:A..F, MLE:m:CLN:1, MLE:m:CLN:2, MLE:m:KEY:k (k=1..4), GS:1..4, MS:m:ch (m=1..4, ch=1..2), MVA:1..2, MVB:1..2.",
+          "valueType": "string"
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip name",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 194
+      }
+    },
+    {
+      "id": "userVar",
+      "name": "User variable",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Variable name",
+          "default": "A",
+          "useVariables": true
+        },
+        {
+          "id": "operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "=",
+          "choices": [
+            {
+              "id": "=",
+              "label": "Set to"
+            },
+            {
+              "id": "+",
+              "label": "Add"
+            },
+            {
+              "id": "-",
+              "label": "Subtract"
+            },
+            {
+              "id": "*",
+              "label": "Multiply by"
+            },
+            {
+              "id": "/",
+              "label": "Divide by"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -999999,
+          "max": 999999,
+          "integer": true
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 205
+      }
+    },
+    {
+      "id": "setVidMode",
+      "name": "Set video mode (disruptive)",
+      "description": "Changes the reference or operating video format of the switcher. This interrupts output. The format accepts free text (allowCustom).",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Set",
+          "default": "VID",
+          "choices": [
+            {
+              "id": "VID",
+              "label": "Operating video format"
+            },
+            {
+              "id": "REF",
+              "label": "Input reference format"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "format",
+          "type": "dropdown",
+          "label": "Format",
+          "default": "1080i 59.94",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "1080i 59.94",
+              "label": "1080i 59.94"
+            },
+            {
+              "id": "1080i 50",
+              "label": "1080i 50"
+            },
+            {
+              "id": "1080p 59.94",
+              "label": "1080p 59.94"
+            },
+            {
+              "id": "1080p 50",
+              "label": "1080p 50"
+            },
+            {
+              "id": "720p 59.94",
+              "label": "720p 59.94"
+            },
+            {
+              "id": "720p 50",
+              "label": "720p 50"
+            },
+            {
+              "id": "480i",
+              "label": "480i"
+            },
+            {
+              "id": "480i 16x9",
+              "label": "480i 16x9"
+            },
+            {
+              "id": "576i",
+              "label": "576i"
+            }
+          ]
+        }
+      ],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 223
+      }
+    },
+    {
+      "id": "resetAll",
+      "name": "Reset switcher (disruptive)",
+      "description": "Performs an ALL+ALL soft reset of the switcher",
+      "options": [],
+      "availability": "acuity only.",
+      "provenance": {
+        "file": "src/actions/acuity.ts",
+        "line": 242
+      }
+    },
+    {
+      "id": "TIMER",
+      "name": "Ultrix Timer",
+      "options": [
+        {
+          "id": "timerAction",
+          "type": "dropdown",
+          "label": "Action type",
+          "default": "RUN",
+          "choices": [
+            {
+              "id": "RUN",
+              "label": "Run Timer"
+            },
+            {
+              "id": "PAUSE",
+              "label": "Pause Timer"
+            },
+            {
+              "id": "STOP",
+              "label": "Stop Timer"
+            },
+            {
+              "id": "END",
+              "label": "End Timer"
+            }
+          ]
+        },
+        {
+          "id": "timerID",
+          "type": "number",
+          "label": "Timer Number",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "ultrix only.",
+      "provenance": {
+        "file": "src/actions/ultrix.ts",
+        "line": 12
+      }
+    },
+    {
+      "id": "routerXpt",
+      "name": "Router crosspoint",
+      "description": "Requests a source on a destination, on behalf of a user or panel ID",
+      "options": [
+        {
+          "id": "destination",
+          "type": "textinput",
+          "label": "Destination",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "source",
+          "type": "textinput",
+          "label": "Source",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "userId",
+          "type": "number",
+          "label": "User / panel ID",
+          "default": 1,
+          "min": 0,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "levels",
+          "type": "textinput",
+          "label": "Levels",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^$|^[0-9]+(-[0-9]+)?(,[0-9]+(-[0-9]+)?)*$/",
+          "description": "Tooltip: Optional. Comma separated levels and ranges, e.g. 1,6,10-13. Leave empty for all levels."
+        }
+      ],
+      "availability": "ultrix only.",
+      "provenance": {
+        "file": "src/actions/ultrix.ts",
+        "line": 25
+      }
+    },
+    {
+      "id": "logoLoad",
+      "name": "Load logo",
+      "description": "Loads a media file from the CompactFlash card into a Logo channel. File names are case sensitive.",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Logo channel",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "file",
+          "type": "textinput",
+          "label": "File path",
+          "default": "Logo/",
+          "useVariables": true,
+          "description": "Tooltip: Path on the CompactFlash card, e.g. Logo/Ross_LOGO.png"
+        }
+      ],
+      "availability": "openGear only.",
+      "provenance": {
+        "file": "src/actions/opengear.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "effectArm",
+      "name": "Arm effect on preset",
+      "options": [
+        {
+          "id": "effect",
+          "type": "number",
+          "label": "Effect number",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "armed",
+          "type": "checkbox",
+          "label": "Armed",
+          "default": true
+        }
+      ],
+      "availability": "openGear only.",
+      "provenance": {
+        "file": "src/actions/opengear.ts",
+        "line": 27
+      }
+    },
+    {
+      "id": "effectState",
+      "name": "Take effect on / off air",
+      "options": [
+        {
+          "id": "effect",
+          "type": "number",
+          "label": "Effect number",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        },
+        {
+          "id": "onAir",
+          "type": "checkbox",
+          "label": "On air",
+          "default": true
+        }
+      ],
+      "availability": "openGear only.",
+      "provenance": {
+        "file": "src/actions/opengear.ts",
+        "line": 35
+      }
+    },
+    {
+      "id": "serverCue",
+      "name": "Cue clip",
+      "description": "The module sends nothing when the clip is empty.",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip",
+          "default": "",
+          "useVariables": true,
+          "description": "Tooltip: Path relative to H:\\video\\, e.g. \\news\\crime-report for a clip in a subdirectory"
+        },
+        {
+          "id": "timecode",
+          "type": "textinput",
+          "label": "Start timecode",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^$|^[0-9]{2},[0-9]{2},[0-9]{2},[0-9]{2}$/",
+          "description": "Tooltip: Optional, as hh,mm,ss,ff, e.g. 00,00,15,00. Leave empty to start from the beginning."
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 39
+      }
+    },
+    {
+      "id": "serverPlay",
+      "name": "Play",
+      "description": "Plays the loaded clip, or loads and plays a clip if one is given",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        },
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip",
+          "default": "",
+          "useVariables": true,
+          "description": "Tooltip: Optional. Path relative to H:\\video\\, e.g. \\news\\crime-report for a clip in a subdirectory. Leave empty to play the clip already loaded."
+        },
+        {
+          "id": "timecode",
+          "type": "textinput",
+          "label": "Start timecode",
+          "default": "",
+          "useVariables": true,
+          "regex": "/^$|^[0-9]{2},[0-9]{2},[0-9]{2},[0-9]{2}$/",
+          "description": "Tooltip: Optional, as hh,mm,ss,ff, e.g. 00,00,15,00. Leave empty to start from the beginning. Only used when a clip is given."
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 47
+      }
+    },
+    {
+      "id": "serverStop",
+      "name": "Stop",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 57
+      }
+    },
+    {
+      "id": "serverEject",
+      "name": "Eject",
+      "description": "Unloads the clip from the channel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 62
+      }
+    },
+    {
+      "id": "serverGoto",
+      "name": "Go to timecode",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        },
+        {
+          "id": "timecode",
+          "type": "textinput",
+          "label": "Timecode",
+          "default": "00,00,00,00",
+          "useVariables": true,
+          "regex": "/^[0-9]{2},[0-9]{2},[0-9]{2},[0-9]{2}$/",
+          "description": "Tooltip: hh,mm,ss,ff"
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 68
+      }
+    },
+    {
+      "id": "serverJog",
+      "name": "Jog",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        },
+        {
+          "id": "frames",
+          "type": "number",
+          "label": "Frames",
+          "default": 1,
+          "min": -9999,
+          "max": 9999,
+          "integer": true,
+          "description": "Tooltip: Negative values jog backwards"
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 76
+      }
+    },
+    {
+      "id": "serverLoop",
+      "name": "Loop mode",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "loop",
+          "choices": [
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "loop",
+              "label": "Loop"
+            },
+            {
+              "id": "loop-to",
+              "label": "Loop to"
+            },
+            {
+              "id": "ping-pong",
+              "label": "Ping-pong"
+            },
+            {
+              "id": "ping-pong-to",
+              "label": "Ping-pong to"
+            }
+          ]
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 84
+      }
+    },
+    {
+      "id": "serverAngle",
+      "name": "Camera angle",
+      "description": "Selects the camera angle to play out from an ISO clip",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": "A",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "A",
+              "label": "Channel A"
+            },
+            {
+              "id": "B",
+              "label": "Channel B"
+            },
+            {
+              "id": "C",
+              "label": "Channel C"
+            },
+            {
+              "id": "D",
+              "label": "Channel D"
+            },
+            {
+              "id": "E",
+              "label": "Channel E"
+            },
+            {
+              "id": "F",
+              "label": "Channel F"
+            },
+            {
+              "id": "G",
+              "label": "Channel G"
+            },
+            {
+              "id": "H",
+              "label": "Channel H"
+            }
+          ]
+        },
+        {
+          "id": "angle",
+          "type": "number",
+          "label": "Angle",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "availability": "video server only.",
+      "provenance": {
+        "file": "src/actions/videoserver.ts",
+        "line": 98
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 51 distinct action ids and no feedbacks (the module registers no feedback definitions). The action set depends on the config option \"model\" (carbonite = Carbonite/Graphite, default; acuity = Acuity/Vision; ultrix; videoserver = Ross Video Server Mira/Tria/Kiva; opengear): GetActionDefinitions() in src/actions/index.ts picks one model file and adds gpi, gpiByName (not for videoserver) and custom for every model. Each entry carries an availability note naming the models and file:line; the definitions are rebuilt on every configUpdated (src/main.ts:35-37).",
+    "Merged entries: ids that several models register with different options are one entry here (cut, autotrans, transRate, transType, transIncl, xpt, transKey, ftb, loadset, saveset, MEM, memSave, MVBOX, mnem, cc, gpi). The option list is the union; options that exist on one model only say so in their description. Defaults that differ per model (mle, xpt vidDest, MEM memID) are given for the default model carbonite and the other value is stated in the description. The validator cannot check per model, so it accepts the union.",
+    "Provenance points to the carbonite registration where the id exists on carbonite (the shared helpers live in src/actions/shared.ts, the field helpers in src/actions/fields.ts), otherwise to the model file that registers it.",
+    "Field helpers (src/actions/fields.ts): numberField = number, asInteger, max 9999 (integer: true, max: 9999 in the catalog); textField = textinput with useVariables; videoField = dropdown with allowCustom (free text allowed, the choices are suggestions); dropdownField = dropdown with disableAutoExpression; expressionDropdownField = plain dropdown that may be switched to an expression (Companion skips the action when the expression result is not one of the choices); onOffField = expressionDropdownField with ON/OFF.",
+    "Large generated lists (source, destination and MLE dropdowns) are described in choicesNote instead of being enumerated; the lists come from src/choices.ts. Labels there have the form \"<name> (<id>)\". Regex.NUMBER is /^\\d+$/ (verified in @companion-module/base 2.2.1, the repo pins ~2.1.3).",
+    "Protocol: RossTalk text commands over TCP (config default port 7788, optional \"TCP Keep Alive\" single connection). Every command is a single line; see src/commands.ts for the command strings. Presets (src/presets.ts) and variables are not catalogued.",
+    "The option \"tooltip\" texts of the source are copied into the option description as \"Tooltip: ...\".",
+    "Built on @companion-module/base ~2.1.3: option values may be expressions except for options with disableAutoExpression (dropdownField fields, the multidropdown \"keys\" of transIncl)."
+  ]
+}

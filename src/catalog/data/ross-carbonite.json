@@ -1,0 +1,1129 @@
+{
+  "moduleId": "ross-carbonite",
+  "name": "Ross Carbonite",
+  "repo": "a2mSystemes/companion-module-ross-carbonite",
+  "version": "0.2.0",
+  "baseVersion": "~1.12.0",
+  "lastCommit": "2026-10-19",
+  "lastCommitSha": "8916061",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "gpi",
+      "name": "Trigger GPI",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "textinput",
+          "label": "Number (1-24)",
+          "default": "1",
+          "useVariables": true,
+          "description": "Callback accepts integers 1-24 (digits only); sent as GPI NN, zero padded to two digits."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 103
+      }
+    },
+    {
+      "id": "cc",
+      "name": "Fire custom control",
+      "options": [
+        {
+          "id": "bank",
+          "type": "textinput",
+          "label": "CC Bank (1-8)",
+          "default": "1",
+          "useVariables": true,
+          "description": "Callback accepts integers 1-8."
+        },
+        {
+          "id": "cc",
+          "type": "textinput",
+          "label": "CC Number (1-32)",
+          "default": "1",
+          "useVariables": true,
+          "description": "Callback accepts integers 1-32."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 120
+      }
+    },
+    {
+      "id": "cut",
+      "name": "Cut",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 145
+      }
+    },
+    {
+      "id": "autotrans",
+      "name": "Auto Transition",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 153
+      }
+    },
+    {
+      "id": "ftb",
+      "name": "Fade to black",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 161
+      }
+    },
+    {
+      "id": "xpt",
+      "name": "XPT",
+      "description": "Select a source on a bus",
+      "options": [
+        {
+          "id": "vidDest",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": "ME:1:PGM",
+          "choices": [
+            {
+              "id": "ME:1:PGM",
+              "label": "ME 1 Background (Program)"
+            },
+            {
+              "id": "ME:1:PST",
+              "label": "ME 1 Preview"
+            },
+            {
+              "id": "ME:1:KEY:1",
+              "label": "ME 1 Key 1"
+            },
+            {
+              "id": "ME:1:KEY:2",
+              "label": "ME 1 Key 2"
+            },
+            {
+              "id": "ME:1:KEY:3",
+              "label": "ME 1 Key 3"
+            },
+            {
+              "id": "ME:1:KEY:4",
+              "label": "ME 1 Key 4"
+            },
+            {
+              "id": "AUX:1",
+              "label": "Aux 1"
+            },
+            {
+              "id": "AUX:2",
+              "label": "Aux 2"
+            },
+            {
+              "id": "AUX:3",
+              "label": "Aux 3"
+            },
+            {
+              "id": "AUX:4",
+              "label": "Aux 4"
+            },
+            {
+              "id": "AUX:5",
+              "label": "Aux 5"
+            },
+            {
+              "id": "AUX:6",
+              "label": "Aux 6"
+            },
+            {
+              "id": "AUX:7",
+              "label": "Aux 7"
+            },
+            {
+              "id": "AUX:8",
+              "label": "Aux 8"
+            },
+            {
+              "id": "AUX:9",
+              "label": "Aux 9"
+            },
+            {
+              "id": "AUX:10",
+              "label": "Aux 10"
+            },
+            {
+              "id": "AUX:11",
+              "label": "Aux 11"
+            },
+            {
+              "id": "AUX:12",
+              "label": "Aux 12"
+            },
+            {
+              "id": "AUX:13",
+              "label": "Aux 13"
+            },
+            {
+              "id": "AUX:14",
+              "label": "Aux 14"
+            },
+            {
+              "id": "AUX:15",
+              "label": "Aux 15"
+            },
+            {
+              "id": "AUX:16",
+              "label": "Aux 16"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1 Background"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2 Background"
+            }
+          ],
+          "allowCustom": true,
+          "regex": "/^[A-Z]+(:[A-Z0-9]+)*$/",
+          "valuePattern": "^[A-Z]+(:[A-Z0-9]+)*$"
+        },
+        {
+          "id": "vidSource",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "choicesNote": "Closed list per model (model config option, default solo13), built from src/model.js getSources(): IN:1..IN:N (N=13 for solo13, 9 for solo), BK, BG, MS:1..MS:4, CLIP, PGM, PV, CLN, ME:1:PGM, ME:1:PV, ME:1:CLN, ME:1:BKGD, ME:1:PST, ME:1:KEY:k:V and ME:1:KEY:k:A (k=1..4), ME:1:MW, ME:1:MWA, MME:n:PGM, MME:n:PV, MME:n:BKGD, MME:n:PST (n=1..2), AUX:1..AUX:16, CK:1, CKA:1. Custom values matching the pattern are accepted (allowCustom).",
+          "valueType": "string",
+          "allowCustom": true,
+          "regex": "/^[A-Z]+(:[A-Z0-9]+)*$/",
+          "valuePattern": "^[A-Z]+(:[A-Z0-9]+)*$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 163
+      }
+    },
+    {
+      "id": "transKey",
+      "name": "Transition Keyer",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        },
+        {
+          "id": "key",
+          "type": "textinput",
+          "label": "Keyer",
+          "default": "1",
+          "useVariables": true,
+          "description": "Tooltip: 1-4 on the ME, 1-2 on a MiniME. The callback accepts only digits and 1-4 (rejects anything else with a warning); there is no separate MiniME limit in the callback."
+        },
+        {
+          "id": "transD",
+          "type": "dropdown",
+          "label": "Transition On/Off Air ",
+          "default": "TOGGLE",
+          "choices": [
+            {
+              "id": "TOGGLE",
+              "label": "Toggle Keyer"
+            },
+            {
+              "id": "ON",
+              "label": "Transition OnAir"
+            },
+            {
+              "id": "OFF",
+              "label": "Transition OffAir"
+            }
+          ]
+        },
+        {
+          "id": "transT",
+          "type": "dropdown",
+          "label": "Transition type",
+          "default": "CUT",
+          "choices": [
+            {
+              "id": "AUTO",
+              "label": "Auto Transition"
+            },
+            {
+              "id": "CUT",
+              "label": "Cut Transition "
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 185
+      }
+    },
+    {
+      "id": "keyMode",
+      "name": "Key Mode",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        },
+        {
+          "id": "key",
+          "type": "textinput",
+          "label": "Keyer",
+          "default": "1",
+          "useVariables": true,
+          "description": "Tooltip: 1-4 on the ME, 1-2 on a MiniME. The callback accepts only digits and 1-4 (rejects anything else with a warning); there is no separate MiniME limit in the callback."
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "NORMAL",
+          "choices": [
+            {
+              "id": "NORMAL",
+              "label": "Normal"
+            },
+            {
+              "id": "ADDITIVE",
+              "label": "Additive"
+            },
+            {
+              "id": "FULL",
+              "label": "Full"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 221
+      }
+    },
+    {
+      "id": "transIncl",
+      "name": "Next Transition: included elements",
+      "description": "Replaces the current selection of the next transition area",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        },
+        {
+          "id": "incl",
+          "type": "multidropdown",
+          "label": "Include",
+          "default": ["B"],
+          "choices": [
+            {
+              "id": "B",
+              "label": "Background"
+            },
+            {
+              "id": "1",
+              "label": "Key 1"
+            },
+            {
+              "id": "2",
+              "label": "Key 2"
+            },
+            {
+              "id": "3",
+              "label": "Key 3"
+            },
+            {
+              "id": "4",
+              "label": "Key 4"
+            }
+          ],
+          "description": "minSelection 1 (not representable in the catalog). Key ids are strings."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 245
+      }
+    },
+    {
+      "id": "transRate",
+      "name": "Transition Rate",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        },
+        {
+          "id": "rate",
+          "type": "textinput",
+          "label": "Rate (frames)",
+          "default": "15",
+          "useVariables": true,
+          "description": "Callback accepts integers 1-999."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 268
+      }
+    },
+    {
+      "id": "transType",
+      "name": "Transition Type",
+      "options": [
+        {
+          "id": "mle",
+          "type": "dropdown",
+          "label": "ME",
+          "default": "ME:1",
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            },
+            {
+              "id": "MSC:1",
+              "label": "MultiScreen 1"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "DISS",
+          "choices": [
+            {
+              "id": "DISS",
+              "label": "Dissolve"
+            },
+            {
+              "id": "WIPE",
+              "label": "Wipe"
+            },
+            {
+              "id": "DVE",
+              "label": "DVE"
+            },
+            {
+              "id": "MEDIA",
+              "label": "Media Wipe"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 286
+      }
+    },
+    {
+      "id": "MEM",
+      "name": "Recall Memory",
+      "options": [
+        {
+          "id": "bank",
+          "type": "textinput",
+          "label": "Bank (0-9)",
+          "default": "0",
+          "useVariables": true,
+          "description": "Callback accepts digits 0-9 only."
+        },
+        {
+          "id": "mem",
+          "type": "textinput",
+          "label": "Memory (0-9)",
+          "default": "0",
+          "useVariables": true,
+          "description": "Callback accepts digits 0-9 only."
+        },
+        {
+          "id": "mles",
+          "type": "multidropdown",
+          "label": "MEs",
+          "default": ["ME:1"],
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            }
+          ],
+          "description": "minSelection 1 (not representable in the catalog); the choices are ME_CHOICES without the ids starting with MSC."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 308
+      }
+    },
+    {
+      "id": "MEMSAVE",
+      "name": "Store Memory",
+      "options": [
+        {
+          "id": "bank",
+          "type": "textinput",
+          "label": "Bank (0-9)",
+          "default": "0",
+          "useVariables": true,
+          "description": "Callback accepts digits 0-9 only."
+        },
+        {
+          "id": "mem",
+          "type": "textinput",
+          "label": "Memory (0-9)",
+          "default": "0",
+          "useVariables": true,
+          "description": "Callback accepts digits 0-9 only."
+        },
+        {
+          "id": "mles",
+          "type": "multidropdown",
+          "label": "MEs",
+          "default": ["ME:1"],
+          "choices": [
+            {
+              "id": "ME:1",
+              "label": "ME 1"
+            },
+            {
+              "id": "MME:1",
+              "label": "MiniME 1"
+            },
+            {
+              "id": "MME:2",
+              "label": "MiniME 2"
+            }
+          ],
+          "description": "minSelection 1 (not representable in the catalog); the choices are ME_CHOICES without the ids starting with MSC."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 314
+      }
+    },
+    {
+      "id": "loadset",
+      "name": "Load Set",
+      "description": "Recalls a set from the USB drive of the switcher",
+      "options": [
+        {
+          "id": "set",
+          "type": "textinput",
+          "label": "Set name",
+          "default": "set1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 320
+      }
+    },
+    {
+      "id": "saveset",
+      "name": "Save Set",
+      "description": "Stores the switcher settings to a set on the USB drive of the switcher",
+      "options": [
+        {
+          "id": "set",
+          "type": "textinput",
+          "label": "Set name",
+          "default": "set1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 338
+      }
+    },
+    {
+      "id": "ms",
+      "name": "Load Media-Store",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Channel",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Media-Store 1"
+            },
+            {
+              "id": 2,
+              "label": "Media-Store 2"
+            },
+            {
+              "id": 3,
+              "label": "Media-Store 3"
+            },
+            {
+              "id": 4,
+              "label": "Media-Store 4"
+            }
+          ]
+        },
+        {
+          "id": "location",
+          "type": "dropdown",
+          "label": "Location",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Internal"
+            },
+            {
+              "id": 1,
+              "label": "USB"
+            }
+          ]
+        },
+        {
+          "id": "media",
+          "type": "textinput",
+          "label": "Media ID (0-999)",
+          "default": "1",
+          "useVariables": true,
+          "description": "Callback accepts integers 0-999, sent zero padded to three digits."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 356
+      }
+    },
+    {
+      "id": "mnem",
+      "name": "Set Source Name",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "choicesNote": "Closed list per model: the sources that have a tally (IN:1..IN:N with N=13 for solo13 and 9 for solo, and MS:1..MS:4), from src/actions.js:12 and src/model.js getSources().",
+          "valueType": "string"
+        },
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name (8 characters)",
+          "default": "",
+          "useVariables": true,
+          "description": "Truncated to 8 characters by the callback."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 391
+      }
+    },
+    {
+      "id": "clip",
+      "name": "Clip Player",
+      "options": [
+        {
+          "id": "cmd",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "CLIPPLAY",
+          "choices": [
+            {
+              "id": "CLIPPLAY",
+              "label": "Play"
+            },
+            {
+              "id": "CLIPPAUSE",
+              "label": "Pause"
+            },
+            {
+              "id": "CLIPEJECT",
+              "label": "Eject"
+            },
+            {
+              "id": "CLIPLOOPON",
+              "label": "Loop On"
+            },
+            {
+              "id": "CLIPLOOPOFF",
+              "label": "Loop Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 415
+      }
+    },
+    {
+      "id": "clipLoad",
+      "name": "Clip Player: Load Clip",
+      "options": [
+        {
+          "id": "clip",
+          "type": "textinput",
+          "label": "Clip name",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 437
+      }
+    },
+    {
+      "id": "ckInit",
+      "name": "Initialize Chroma Key",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 454
+      }
+    },
+    {
+      "id": "help",
+      "name": "List supported commands",
+      "description": "The answer of the switcher is written to the module log",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 456
+      }
+    },
+    {
+      "id": "custom",
+      "name": "Send a custom command",
+      "description": "Refer to RossTalk Guide",
+      "options": [
+        {
+          "id": "cmd",
+          "type": "textinput",
+          "label": "Command",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 458
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "tally",
+      "name": "Tally: source on Program / Preview",
+      "description": "Uses the tally sent by the switcher over TSL UMD for the source. Default style: white text on red.",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": 1,
+          "choicesNote": "Numeric TSL addresses of the sources that have a tally, per model: 1..N for IN:1..IN:N (N=13 for solo13, 9 for solo) and 101..104 for MS:1..MS:4 (src/model.js getSources(), src/feedbacks.js:8). Labels are the source labels.",
+          "valueType": "number"
+        },
+        {
+          "id": "tally",
+          "type": "dropdown",
+          "label": "Tally",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 15
+      }
+    },
+    {
+      "id": "busSource",
+      "name": "Bus: source selected",
+      "description": "Uses the source name sent by the switcher over TSL UMD for the bus. Default style: white text on red.",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": 37,
+          "choices": [
+            {
+              "id": 37,
+              "label": "ME 1 Background (Program)"
+            },
+            {
+              "id": 38,
+              "label": "ME 1 Preview"
+            },
+            {
+              "id": 39,
+              "label": "ME 1 Key 1"
+            },
+            {
+              "id": 40,
+              "label": "ME 1 Key 1 Alpha"
+            },
+            {
+              "id": 41,
+              "label": "ME 1 Key 2"
+            },
+            {
+              "id": 42,
+              "label": "ME 1 Key 2 Alpha"
+            },
+            {
+              "id": 43,
+              "label": "ME 1 Key 3"
+            },
+            {
+              "id": 44,
+              "label": "ME 1 Key 3 Alpha"
+            },
+            {
+              "id": 45,
+              "label": "ME 1 Key 4"
+            },
+            {
+              "id": 46,
+              "label": "ME 1 Key 4 Alpha"
+            },
+            {
+              "id": 67,
+              "label": "Aux 1"
+            },
+            {
+              "id": 68,
+              "label": "Aux 2"
+            },
+            {
+              "id": 69,
+              "label": "Aux 3"
+            },
+            {
+              "id": 70,
+              "label": "Aux 4"
+            },
+            {
+              "id": 71,
+              "label": "Aux 5"
+            },
+            {
+              "id": 72,
+              "label": "Aux 6"
+            },
+            {
+              "id": 73,
+              "label": "Aux 7"
+            },
+            {
+              "id": 74,
+              "label": "Aux 8"
+            },
+            {
+              "id": 75,
+              "label": "Aux 9"
+            },
+            {
+              "id": 76,
+              "label": "Aux 10"
+            },
+            {
+              "id": 77,
+              "label": "Aux 11"
+            },
+            {
+              "id": 78,
+              "label": "Aux 12"
+            },
+            {
+              "id": 79,
+              "label": "Aux 13"
+            },
+            {
+              "id": 80,
+              "label": "Aux 14"
+            },
+            {
+              "id": 81,
+              "label": "Aux 15"
+            },
+            {
+              "id": 82,
+              "label": "Aux 16"
+            },
+            {
+              "id": 87,
+              "label": "MiniME 1 Background"
+            },
+            {
+              "id": 88,
+              "label": "MiniME 1 Preview"
+            },
+            {
+              "id": 89,
+              "label": "MiniME 1 Key 1"
+            },
+            {
+              "id": 90,
+              "label": "MiniME 1 Key 2"
+            },
+            {
+              "id": 91,
+              "label": "MiniME 2 Background"
+            },
+            {
+              "id": 92,
+              "label": "MiniME 2 Preview"
+            },
+            {
+              "id": 93,
+              "label": "MiniME 2 Key 1"
+            },
+            {
+              "id": 94,
+              "label": "MiniME 2 Key 2"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "default": "IN:1",
+          "choicesNote": "Closed list per model (src/feedbacks.js:10, sources that have a TSL address): IN:1..IN:N (N=13 for solo13, 9 for solo), BK, BG, MS:1..MS:4, PGM, PV, CLN, ME:1:PGM, ME:1:PV, ME:1:CLN, ME:1:BKGD, ME:1:PST, ME:1:KEY:k:V and ME:1:KEY:k:A (k=1..4), MME:n:PGM, MME:n:BKGD, MME:n:PST (n=1..2), AUX:1..AUX:16. Sources without a TSL address (CLIP, ME:1:MW, ME:1:MWA, MME:n:PV, CK:1, CKA:1) are not offered.",
+          "valueType": "string"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 49
+      }
+    },
+    {
+      "id": "tslTally",
+      "name": "TSL: tally of an address",
+      "description": "Raw TSL UMD tally, for addresses that the other feedbacks do not cover. Default style: white text on red.",
+      "options": [
+        {
+          "id": "address",
+          "type": "number",
+          "label": "TSL address",
+          "default": 1,
+          "min": 0,
+          "max": 126
+        },
+        {
+          "id": "tally",
+          "type": "dropdown",
+          "label": "Tally",
+          "default": "tally2",
+          "choices": [
+            {
+              "id": "tally1",
+              "label": "Tally 1 (Preview)"
+            },
+            {
+              "id": "tally2",
+              "label": "Tally 2 (Program)"
+            },
+            {
+              "id": "tally3",
+              "label": "Tally 3"
+            },
+            {
+              "id": "tally4",
+              "label": "Tally 4"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 85
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 22 actions (src/actions.js) and 3 boolean feedbacks (src/feedbacks.js). Both are registered in a single call each (setActionDefinitions, setFeedbackDefinitions). The module README says it is a work in progress and NOT TESTED; the catalog was not tested against a device either.",
+    "Third-party module (repository outside the bitfocus organization, hosted on GitHub by a2mSystemes). The manifest repository field points to a different, self-hosted Git server.",
+    "Protocol: RossTalk over TCP (config default port 7788, one connection per command or a single connection with the \"TCP Keep Alive\" option), plus TSL UMD v3.1 feedback received over UDP or TCP (config port default 5727). Variables and presets are not catalogued.",
+    "Model dependency: the config option \"model\" (solo13 = Carbonite Black Solo 13 with 12 SDI + 1 HDMI, solo = Solo/109 with 6 SDI + 3 HDMI; default solo13) changes the number of inputs. Option lists that depend on it carry a choicesNote instead of a closed list (src/model.js getSources()). Actions and feedbacks are rebuilt on every configUpdated (main.js:24-30).",
+    "Text inputs with useVariables are range-checked by the callback, not by Companion: values that are not plain digits or out of range are dropped with a warning in the module log and no command is sent (src/rosstalk.js int()).",
+    "xpt: the dropdown field carries a regex (/^[A-Z]+(:[A-Z0-9]+)*$/) in addition to allowCustom; custom values that fail isToken() are dropped with a warning. The Destination list is the buses with a RossTalk destination (src/model.js getBuses()).",
+    "The multidropdown fields declare minSelection: 1, which the catalog schema cannot express; an empty selection sends nothing.",
+    "Labels are copied as written, including the trailing spaces in \"Transition On/Off Air \" and \"Cut Transition \".",
+    "Built on @companion-module/base ~1.12.0: options do not support expressions."
+  ]
+}

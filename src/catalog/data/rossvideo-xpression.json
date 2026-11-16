@@ -1,0 +1,424 @@
+{
+  "moduleId": "rossvideo-xpression",
+  "name": "Ross Xpression",
+  "repo": "bitfocus/companion-module-rossvideo-xpression",
+  "version": "2.1.0",
+  "baseVersion": "~1.11",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "055a1ea",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "CLRA",
+      "name": "Clear all framebuffers (CLRA)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 66
+      }
+    },
+    {
+      "id": "CLFB",
+      "name": "Clear framebuffer (CLFB)",
+      "options": [
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 73
+      }
+    },
+    {
+      "id": "CLFB_L",
+      "name": "Clear layer in framebuffer (CLFB)",
+      "options": [
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 0,
+          "min": -999,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 80
+      }
+    },
+    {
+      "id": "SWAP_A",
+      "name": "Load all cued items to all framebuffers (SWAP)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 87
+      }
+    },
+    {
+      "id": "SWAP",
+      "name": "Load cued items in framebuffer (SWAP)",
+      "options": [
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 94
+      }
+    },
+    {
+      "id": "SEQI",
+      "name": "Load take item to air on layer (SEQI)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 0,
+          "min": -999,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 101
+      }
+    },
+    {
+      "id": "TAKE",
+      "name": "Load take item to framebuffer layer (TAKE)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        },
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 0,
+          "min": -999,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 108
+      }
+    },
+    {
+      "id": "DOWN",
+      "name": "Move sequencer focus to next item (DOWN)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 115
+      }
+    },
+    {
+      "id": "UP",
+      "name": "Move sequencer focus to previous item (UP)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 122
+      }
+    },
+    {
+      "id": "CUE",
+      "name": "Ready item into a framebuffer layer (CUE)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        },
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 0,
+          "min": -999,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 129
+      }
+    },
+    {
+      "id": "UNCUEALL",
+      "name": "Remove all cued items from the cued state (UNCUEALL)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 136
+      }
+    },
+    {
+      "id": "UNCUE",
+      "name": "Remove take item from the cued state (UNCUE)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 143
+      }
+    },
+    {
+      "id": "RESUME",
+      "name": "Resume all layers in framebuffer (RESUME)",
+      "options": [
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 150
+      }
+    },
+    {
+      "id": "RESUME_L",
+      "name": "Resume layer in framebuffer (RESUME)",
+      "options": [
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 0,
+          "min": -999,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 157
+      }
+    },
+    {
+      "id": "UPNEXT",
+      "name": "Set preview to take item (UPNEXT)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 164
+      }
+    },
+    {
+      "id": "FOCUS",
+      "name": "Set sequencer focus to take item (FOCUS)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 171
+      }
+    },
+    {
+      "id": "LAYEROFF",
+      "name": "Take layer in framebuffer off air (LAYEROFF)",
+      "options": [
+        {
+          "id": "fb",
+          "type": "number",
+          "label": "Framebuffer",
+          "default": 1,
+          "min": 1,
+          "max": 100,
+          "description": "Sent to the device as fb - 1 (zero based framebuffer index)."
+        },
+        {
+          "id": "layer",
+          "type": "number",
+          "label": "Layer",
+          "default": 0,
+          "min": -999,
+          "max": 999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 178
+      }
+    },
+    {
+      "id": "READ",
+      "name": "Take sequencer item to air (READ)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 185
+      }
+    },
+    {
+      "id": "NEXT",
+      "name": "Take sequencer item to air and advance next (NEXT)",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 192
+      }
+    },
+    {
+      "id": "SEQO",
+      "name": "Take take item off air (SEQO)",
+      "options": [
+        {
+          "id": "takeID",
+          "type": "number",
+          "label": "Take ID",
+          "default": 0,
+          "min": 0,
+          "max": 999999999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 199
+      }
+    },
+    {
+      "id": "GPI",
+      "name": "Trigger simulated GPI (GPI)",
+      "options": [
+        {
+          "id": "gpi",
+          "type": "number",
+          "label": "GPI",
+          "default": 0,
+          "min": 0,
+          "max": 9999,
+          "description": "Sent as a two-digit number for values up to 9 (\"0\" prefix), otherwise as is."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 206
+      }
+    },
+    {
+      "id": "CUSTOM",
+      "name": "Send a custom command",
+      "description": "Refer to RossTalk Guide",
+      "options": [
+        {
+          "id": "cmd",
+          "type": "textinput",
+          "label": "Command"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 213
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 22 actions (src/actions.js, one setActionDefinitions call) and no feedbacks (the module does not define any). The shared option definitions live in src/setup.js (Fields: FrameBuffer at line 2, GPI 10, Layer 18, TakeId 26); the provenance of each action points to its entry in src/actions.js.",
+    "Protocol: RossTalk text commands over TCP (config port default 7788, host validated with Regex.IP, port with Regex.PORT). Option values are interpolated into the command string without further validation; CUSTOM sends any text typed into \"Command\".",
+    "The framebuffer option is 1-based in the UI and sent as fb - 1 (src/actions.js:12-16).",
+    "The number fields declare no asInteger and the textinput of CUSTOM has no useVariables; the module is built on @companion-module/base ~1.11, so options do not support expressions."
+  ]
+}
