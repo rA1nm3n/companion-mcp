@@ -1281,7 +1281,7 @@
       "manufacturer": "ShowPace",
       "products": ["ShowPace Stage Timer"],
       "keywords": ["timer", "countdown", "stage", "rundown", "broadcast"],
-      "note": "Own module of the maintainer, source in rA1nm3n/showpace (integrations/companion); publication in the official Bitfocus module directory not verified"
+      "note": "Own module of the maintainer, source in rA1nm3n/showpace (integrations/companion); not published in the official Bitfocus module directory (repository bitfocus/companion-module-showpace-timer answered 404 on 2026-11-16), load as local development module"
     },
     {
       "moduleId": "shure-wireless",
