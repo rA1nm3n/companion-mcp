@@ -1,0 +1,347 @@
+{
+  "moduleId": "crestron-hd-mdnxm-4kz-e",
+  "name": "Crestron HD-MDNXM-4KZ-E (HD-MD4X1/4X2/8X8-4KZ-E, HD-TXU-4KZ)",
+  "repo": "bitfocus/companion-module-crestron-hd-mdnxm-4kz-e",
+  "version": "2.0.0",
+  "baseVersion": "~2.2.2",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "47c61ce",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "routeVideo",
+      "name": "Output - Route Video",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device inputs (AvioV2.Inputs keys, \"Input<n>\") whose Capabilities.IsVideoRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^Input\\d+$"
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\") whose Capabilities.IsVideoRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        },
+        {
+          "id": "audio",
+          "type": "checkbox",
+          "label": "Force route audio",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 59
+      }
+    },
+    {
+      "id": "clearVideo",
+      "name": "Output - Clear Route",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\") whose Capabilities.IsVideoRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 93
+      }
+    },
+    {
+      "id": "autoRoute",
+      "name": "Auto Route",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Enable",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Enabled"
+            },
+            {
+              "id": "off",
+              "label": "Disabled"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 104
+      }
+    },
+    {
+      "id": "routeAudio",
+      "name": "Output - Route Audio",
+      "availability": "Only registered when the device has at least one input and one output with IsAudioRoutingSupported.",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device inputs (AvioV2.Inputs keys, \"Input<n>\") whose Capabilities.IsAudioRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^Input\\d+$"
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\") whose Capabilities.IsAudioRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 116
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "videoSource",
+      "name": "Destination - Video Source",
+      "description": "Get the video source routed to a destination",
+      "feedbackType": "value",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\") whose Capabilities.IsVideoRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        },
+        {
+          "id": "name",
+          "type": "checkbox",
+          "label": "Name",
+          "default": true,
+          "description": "Return the user specified source name "
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 76
+      }
+    },
+    {
+      "id": "videoDestinationName",
+      "name": "Destination - Name",
+      "description": "Get a destination's user specified name",
+      "feedbackType": "value",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 115
+      }
+    },
+    {
+      "id": "videoDestinationSinkConnected",
+      "name": "Destination - Sink Connected",
+      "description": "Get a destination's sink connected status",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 129
+      }
+    },
+    {
+      "id": "videoSourceTally",
+      "name": "Destination - Video Tally Source",
+      "description": "Tally a video crosspoint",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device inputs (AvioV2.Inputs keys, \"Input<n>\") whose Capabilities.IsVideoRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^Input\\d+$"
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: the device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\") whose Capabilities.IsVideoRoutingSupported is true; label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 152
+      }
+    },
+    {
+      "id": "videoSourceName",
+      "name": "Source - Name",
+      "description": "Get a source's user specified name",
+      "feedbackType": "value",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device inputs (AvioV2.Inputs keys, \"Input<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^Input\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 192
+      }
+    },
+    {
+      "id": "videoSourceSyncDetected",
+      "name": "Source - Sync Detected",
+      "description": "Get a source's sync detected status",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device inputs (AvioV2.Inputs keys, \"Input<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^Input\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 206
+      }
+    },
+    {
+      "id": "audioSource",
+      "name": "Destination - Audio Source",
+      "description": "Get the audio source routed to a destination",
+      "feedbackType": "value",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        },
+        {
+          "id": "name",
+          "type": "checkbox",
+          "label": "Name",
+          "default": true,
+          "description": "Return the user specified source name "
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 228
+      }
+    },
+    {
+      "id": "audioSourceTally",
+      "name": "Destination - Audio Tally Source",
+      "description": "Tally a audio crosspoint",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Source",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device inputs (AvioV2.Inputs keys, \"Input<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^Input\\d+$"
+        },
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "description": "Default in the source: id of the first listed key, or an empty string if the device lists none.",
+          "choicesNote": "Runtime list: all device outputs (AvioV2.Outputs keys, \"Output<n>\" or \"Aux<n>\"); label \"<key>: <UserSpecifiedName>\".",
+          "valueType": "string",
+          "valuePattern": "^(Output\\d+|Aux\\d+)$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 267
+      }
+    },
+    {
+      "id": "automaticRouting",
+      "name": "Auto Route",
+      "description": "Is Auto Route enabled",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 307
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 4 actions (src/actions.ts, one of them, routeAudio, only when the device has audio-routable inputs and outputs) and 9 feedbacks (src/feedbacks.ts). Ids are the camelCase values of the ActionId / FeedbackId enums; the source states they must never change.",
+    "Feedback types: 5 boolean (videoDestinationSinkConnected, videoSourceTally, videoSourceSyncDetected, audioSourceTally, automaticRouting) and 4 value (videoSource, videoDestinationName, videoSourceName, audioSource). There are no advanced feedbacks.",
+    "Protocol: HTTPS login (/userlogin.html, cookie session) and a secure WebSocket (wss://<host>/websockify) to a Crestron HD-MD matrix or HD-TXU extender; commands are JSON messages such as {\"Device\":{\"AvMatrixRoutingV2\":{\"Routes\":{\"<Output>\":{\"VideoSource\":\"<Input>\"}}}}}. Config fields: host, user, password (secret), \"Disable certificate validation\", verbose logs.",
+    "Source and destination ids are the device keys (\"Input<n>\", \"Output<n>\", \"Aux<n>\"; schemas/General.ts) and exist only at runtime, so every list is recorded with choicesNote, valueType string and valuePattern. The pattern is the device schema key regex, not a check the module applies to option values. Video-routing actions and the tally feedbacks list only entries with Capabilities.IsVideoRoutingSupported; the other lists show all entries.",
+    "The actions are only defined while crestronDevice data exists (UpdateActions returns early otherwise); unavailable actions are explicitly set to undefined. The routeVideo, routeAudio actions and the tally feedbacks have a learn() handler that reads the current route of the chosen destination into the source option; these handlers are not part of the catalog schema.",
+    "The \"name\" checkbox of videoSource / audioSource returns the user specified input name instead of the key; a destination configured with \"No Source\" returns the text \"No Source\" (name on) or 0 (name off).",
+    "Built on @companion-module/base ~2.2.2: options may be expressions (new child handler), none of the fields sets disableAutoExpression."
+  ]
+}

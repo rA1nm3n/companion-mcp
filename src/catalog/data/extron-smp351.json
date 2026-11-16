@@ -1,0 +1,768 @@
+{
+  "moduleId": "extron-smp351",
+  "name": "Extron SMP 351",
+  "repo": "bitfocus/companion-module-extron-smp351",
+  "version": "2.1.3",
+  "baseVersion": "~1.10.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "6c16c6e",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "route",
+      "name": "Route input to output channel A or B",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "description": "Source declares regex: this.REGEX_NUMBER, which is not defined anywhere in the module, so the field has no effective pattern."
+        },
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Output Channel",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 3
+      }
+    },
+    {
+      "id": "recall_ps_channel",
+      "name": "Recall a saved user preset",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Output Channel",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "User Preset",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 24
+      }
+    },
+    {
+      "id": "recall_ps_input",
+      "name": "Recall a saved input preset",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Output Channel",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Input Preset",
+          "default": 1,
+          "min": 1,
+          "max": 128
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 48
+      }
+    },
+    {
+      "id": "recall_ps_stream",
+      "name": "Recall a saved stream preset",
+      "options": [
+        {
+          "id": "encoder",
+          "type": "dropdown",
+          "label": "Encoder",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            },
+            {
+              "id": "3",
+              "label": "Confidence A"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Stream Preset",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 72
+      }
+    },
+    {
+      "id": "recall_ps_encoder",
+      "name": "Recall a saved encoder preset",
+      "options": [
+        {
+          "id": "encoder",
+          "type": "dropdown",
+          "label": "Encoder",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            },
+            {
+              "id": "3",
+              "label": "Confidence A"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Encoder Preset",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 96
+      }
+    },
+    {
+      "id": "recall_ps_layout",
+      "name": "Recall a saved layout preset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Layout Preset",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 120
+      }
+    },
+    {
+      "id": "recall_ps_layout_dual",
+      "name": "Recall a saved layout preset in Dual Encoding Mode",
+      "options": [
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Layout Preset",
+          "default": 1,
+          "min": 1,
+          "max": 10
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 137
+      }
+    },
+    {
+      "id": "record",
+      "name": "Stop/Record/Pause",
+      "options": [
+        {
+          "id": "record_action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Stop"
+            },
+            {
+              "id": "1",
+              "label": "Record"
+            },
+            {
+              "id": "2",
+              "label": "Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 154
+      }
+    },
+    {
+      "id": "extend_rec",
+      "name": "Extend Scheduled Recording",
+      "options": [
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration to extend (1 to 60 min)",
+          "default": 5,
+          "min": 1,
+          "max": 60
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 169
+      }
+    },
+    {
+      "id": "rtmp_stream",
+      "name": "RTMP Stream",
+      "options": [
+        {
+          "id": "rtmp_stream",
+          "type": "dropdown",
+          "label": "Stream",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "A"
+            },
+            {
+              "id": "2",
+              "label": "B"
+            },
+            {
+              "id": "3",
+              "label": "Confidence A"
+            }
+          ]
+        },
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 186
+      }
+    },
+    {
+      "id": "mark",
+      "name": "Add Chapter Marker",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 208
+      }
+    },
+    {
+      "id": "audio_mute",
+      "name": "Audio Mute/Unmute",
+      "options": [
+        {
+          "id": "audio_type",
+          "type": "dropdown",
+          "label": "Audio Type",
+          "default": "4",
+          "choices": [
+            {
+              "id": "4",
+              "label": "Input"
+            },
+            {
+              "id": "6",
+              "label": "Output"
+            }
+          ]
+        },
+        {
+          "id": "audio_input",
+          "type": "dropdown",
+          "label": "Audio Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Analog In A Left"
+            },
+            {
+              "id": "1",
+              "label": "Analog In A Right"
+            },
+            {
+              "id": "2",
+              "label": "Digital In A Left"
+            },
+            {
+              "id": "3",
+              "label": "Digital In A Right"
+            },
+            {
+              "id": "4",
+              "label": "Analog In B Left"
+            },
+            {
+              "id": "5",
+              "label": "Analog In B Right"
+            },
+            {
+              "id": "6",
+              "label": "Digital In B Left"
+            },
+            {
+              "id": "7",
+              "label": "Digital In B Right"
+            }
+          ],
+          "visibleWhen": "(options) => options.audio_type === '4'"
+        },
+        {
+          "id": "audio_output",
+          "type": "dropdown",
+          "label": "Audio Output",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Output Left"
+            },
+            {
+              "id": "1",
+              "label": "Output Right"
+            }
+          ],
+          "visibleWhen": "(options) => options.audio_type === '6'"
+        },
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute/Unmute",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Mute"
+            },
+            {
+              "id": "0",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 215
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "record_bg",
+      "name": "Record Status",
+      "description": "If the record state specified is in use, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "record",
+          "type": "dropdown",
+          "label": "Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": "0",
+              "label": "Stop"
+            },
+            {
+              "id": "1",
+              "label": "Record"
+            },
+            {
+              "id": "2",
+              "label": "Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 12
+      }
+    },
+    {
+      "id": "rtmpStatus_a_bg",
+      "name": "Primary RTMP Stream A Status",
+      "description": "If Primary RTMP Stream A is Live, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 34
+      }
+    },
+    {
+      "id": "rtmpStatus_b_bg",
+      "name": "Primary RTMP Stream B Status",
+      "description": "If Primary RTMP Stream B is Live, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 56
+      }
+    },
+    {
+      "id": "rtmpStatus_ca_bg",
+      "name": "Primary RTMP Stream Confidence A Status",
+      "description": "If Primary RTMP Stream Confidence A is Live, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 78
+      }
+    },
+    {
+      "id": "rtmpStatus_a2_bg",
+      "name": "Backup RTMP Stream A Status",
+      "description": "If Backup RTMP Stream A is Live, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 100
+      }
+    },
+    {
+      "id": "rtmpStatus_b2_bg",
+      "name": "Backup RTMP Stream B Status",
+      "description": "If Backup RTMP Stream B is Live, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 122
+      }
+    },
+    {
+      "id": "rtmpStatus_ca2_bg",
+      "name": "RTMP Stream Confidence A Status",
+      "description": "If Backup RTMP Stream Confidence A is Live, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 144
+      }
+    },
+    {
+      "id": "encoder_mode_dual",
+      "name": "Dual Channel Encoder Mode",
+      "description": "Record a separate video file for each channel (LinkLicense required)",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "onoff",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": 0,
+          "choices": [
+            {
+              "id": "0",
+              "label": "OFF"
+            },
+            {
+              "id": "1",
+              "label": "ON"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 166
+      }
+    },
+    {
+      "id": "audio_mute",
+      "name": "Audio Mute Status",
+      "description": "If the audio channel matches the mute status, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "audio_type",
+          "type": "dropdown",
+          "label": "Audio Type",
+          "default": "4",
+          "choices": [
+            {
+              "id": "4",
+              "label": "Input"
+            },
+            {
+              "id": "6",
+              "label": "Output"
+            }
+          ]
+        },
+        {
+          "id": "audio_input",
+          "type": "dropdown",
+          "label": "Audio Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Analog In A Left"
+            },
+            {
+              "id": "1",
+              "label": "Analog In A Right"
+            },
+            {
+              "id": "2",
+              "label": "Digital In A Left"
+            },
+            {
+              "id": "3",
+              "label": "Digital In A Right"
+            },
+            {
+              "id": "4",
+              "label": "Analog In B Left"
+            },
+            {
+              "id": "5",
+              "label": "Analog In B Right"
+            },
+            {
+              "id": "6",
+              "label": "Digital In B Left"
+            },
+            {
+              "id": "7",
+              "label": "Digital In B Right"
+            }
+          ],
+          "visibleWhen": "(options) => options.audio_type === '4'"
+        },
+        {
+          "id": "audio_output",
+          "type": "dropdown",
+          "label": "Audio Output",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Output Left"
+            },
+            {
+              "id": "1",
+              "label": "Output Right"
+            }
+          ],
+          "visibleWhen": "(options) => options.audio_type === '6'"
+        },
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute/Unmute",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Mute"
+            },
+            {
+              "id": "0",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 188
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 12 actions (actions.js, getActions) and 9 boolean feedbacks (feedbacks.js, getFeedbacks); both are built in one pass with no runtime-generated entries. Variables (variables.js) are not catalogued.",
+    "Protocol: TelnetHelper to the configured host on fixed port 23 (index.js initTCP), commands are sent with a trailing \"\\n\". SIS escape commands are used for recording (\"<ESC>Y<n>RCDR\"), extend (\"<ESC>E<min>RCDR\"), RTMP (\"<ESC>E<stream>*<0|1>RTMP\"), chapter marker (\"<ESC>BRCDR\") and audio mute (\"<ESC>M<type>000<channel>*<0|1>AU\"); presets use \"<type>*....\" strings with the type numbers from PRESET in index.js.",
+    "All dropdowns are closed lists defined as class fields in index.js (CHANNEL, RECORD, ENCODER, ONOFF, AUDIOINCHANNEL, AUDIOOUTCHANNEL, AUDIOTYPE, MUTEUNMUTE). Choice ids are strings. Several feedback defaults are numbers (record_bg default 1, onoff default 0) while the choice ids are strings, as written in the source; the callbacks compare with parseInt(), so both spellings work at runtime.",
+    "The number fields also carry range: false in the source (a field that is not part of the catalog schema); it is not recorded. Number fields have no asInteger.",
+    "The audio_mute feedback compares the stored state with feedback.options.mute as a string, unlike the other feedbacks which use parseInt.",
+    "Built on @companion-module/base ~1.10.0: options do not support expressions."
+  ]
+}

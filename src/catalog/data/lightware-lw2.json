@@ -1,0 +1,125 @@
+{
+  "moduleId": "lightware-lw2",
+  "name": "Lightware LW2",
+  "repo": "bitfocus/companion-module-lightware-lw2",
+  "version": "2.0.2",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "9be0a21",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "xpt",
+      "name": "Switch one input to one output",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choicesNote": "Runtime list: Input 1..N with number ids, N = config \"Input Count\" (default 40, 0..100); labels are replaced by the names read from the device ({iname#n=?}).",
+          "valueType": "number",
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Runtime list: Output 1..M with number ids, M = number of outputs the device reports in its \"(ALL ...)\" crosspoint line (autodetected after connect). Labels are replaced by the names read from the device ({oname#n=?}).",
+          "valueType": "number",
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 376
+      }
+    },
+    {
+      "id": "preset",
+      "name": "Load preset",
+      "availability": "Only registered when the device reported presets (numPresets > 0).",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": 1,
+          "choicesNote": "Runtime list: preset ids 1..P with number ids, labels \"Preset <id>: <name>\". P is probed on connect by asking for preset names 64, 32, 16 and 8; the highest one that answers is taken as the preset count.",
+          "valueType": "number",
+          "min": 1,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 402
+      }
+    },
+    {
+      "id": "savepreset",
+      "name": "Save preset",
+      "availability": "Only registered when the device reported presets (numPresets > 0).",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": 1,
+          "choicesNote": "Runtime list: preset ids 1..P with number ids, labels \"Preset <id>: <name>\". P is probed on connect by asking for preset names 64, 32, 16 and 8; the highest one that answers is taken as the preset count.",
+          "valueType": "number",
+          "min": 1,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 418
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "xpt_color",
+      "name": "Change background color",
+      "description": "If the input specified is in use by the output specified, change colors of the bank",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choicesNote": "Runtime list: Input 1..N with number ids, N = config \"Input Count\" (default 40, 0..100); labels are replaced by the names read from the device ({iname#n=?}).",
+          "valueType": "number",
+          "min": 1,
+          "max": 100
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Runtime list: Output 1..M with number ids, M = number of outputs the device reports in its \"(ALL ...)\" crosspoint line (autodetected after connect). Labels are replaced by the names read from the device ({oname#n=?}).",
+          "valueType": "number",
+          "min": 1
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 245
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 3 actions (initActions) and 1 boolean feedback (initFeedbacks), both in index.js. Actions \"preset\" and \"savepreset\" only exist after the device has reported presets; the action definitions are rebuilt whenever names or presets are received.",
+    "Protocol: legacy Lightware LW2 over a TCP socket on fixed port 10001 (TCPHelper, host from config \"Device IP\"). Commands: \"{<in>@<out>}\" (switch), \"{%<n>}\" (load preset), \"{$<n>}\" (save preset), each followed by CRLF.",
+    "All dropdown lists are filled at runtime (CHOICES_INPUTS / CHOICES_OUTPUTS / CHOICES_PRESETS) and are therefore recorded with choicesNote, valueType number and min. The feedback is registered at init with still-empty lists and re-registered when the device reports its outputs; ids are numbers, defaults are the number 1.",
+    "The input max 100 is the upper limit of the \"Input Count\" config field, not a limit of the action.",
+    "Presets (button presets for every input/output pair and for presets) and variables are not catalogued.",
+    "Built on @companion-module/base ~1.12.1: options do not support expressions."
+  ]
+}
