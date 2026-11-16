@@ -1,0 +1,593 @@
+{
+  "moduleId": "allenheath-dt168",
+  "name": "Allen & Heath DT168",
+  "repo": "bitfocus/companion-module-allenheath-dt168",
+  "version": "1.0.0-beta.2",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-11-07",
+  "lastCommitSha": "95800c5",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Community module (README: maintained by MiniFido) for the 16 microphone preamps of an Allen & Heath DT168 over the Dante primary network (UDP 8700/8702, multicast 224.0.0.231); it is published as beta (package.json version 1.0.0-beta.2).",
+    "The input dropdown is built by channelOption() in src/channels.js:2 (ids 1..16) and is shared by all actions and the pad and phantom feedbacks. The pad and phantom actions are created by flagAction (src/actions.js:24) and share the state dropdown (src/actions.js:12-23).",
+    "The gain is the analogue gain before the 20 dB pad: the action accepts 5 to 60 dB; the step is limited to -55..55 dB (src/actions.js:39-69).",
+    "Not catalogued: variables and the 64 presets.",
+    "Built on @companion-module/base ~2.1.3: expressions are supported for option values; the state dropdown documents the valid values in expressionDescription."
+  ],
+  "actions": [
+    {
+      "id": "set_gain",
+      "name": "Set analogue gain (before pad)",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Input 1"
+            },
+            {
+              "id": 2,
+              "label": "Input 2"
+            },
+            {
+              "id": 3,
+              "label": "Input 3"
+            },
+            {
+              "id": 4,
+              "label": "Input 4"
+            },
+            {
+              "id": 5,
+              "label": "Input 5"
+            },
+            {
+              "id": 6,
+              "label": "Input 6"
+            },
+            {
+              "id": 7,
+              "label": "Input 7"
+            },
+            {
+              "id": 8,
+              "label": "Input 8"
+            },
+            {
+              "id": 9,
+              "label": "Input 9"
+            },
+            {
+              "id": 10,
+              "label": "Input 10"
+            },
+            {
+              "id": 11,
+              "label": "Input 11"
+            },
+            {
+              "id": 12,
+              "label": "Input 12"
+            },
+            {
+              "id": 13,
+              "label": "Input 13"
+            },
+            {
+              "id": 14,
+              "label": "Input 14"
+            },
+            {
+              "id": 15,
+              "label": "Input 15"
+            },
+            {
+              "id": 16,
+              "label": "Input 16"
+            }
+          ]
+        },
+        {
+          "id": "gain",
+          "type": "number",
+          "label": "Analogue gain (5–60 dB)",
+          "default": 25,
+          "min": 5,
+          "max": 60,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 39
+      }
+    },
+    {
+      "id": "step_gain",
+      "name": "Adjust gain up/down",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Input 1"
+            },
+            {
+              "id": 2,
+              "label": "Input 2"
+            },
+            {
+              "id": 3,
+              "label": "Input 3"
+            },
+            {
+              "id": 4,
+              "label": "Input 4"
+            },
+            {
+              "id": 5,
+              "label": "Input 5"
+            },
+            {
+              "id": 6,
+              "label": "Input 6"
+            },
+            {
+              "id": 7,
+              "label": "Input 7"
+            },
+            {
+              "id": 8,
+              "label": "Input 8"
+            },
+            {
+              "id": 9,
+              "label": "Input 9"
+            },
+            {
+              "id": 10,
+              "label": "Input 10"
+            },
+            {
+              "id": 11,
+              "label": "Input 11"
+            },
+            {
+              "id": 12,
+              "label": "Input 12"
+            },
+            {
+              "id": 13,
+              "label": "Input 13"
+            },
+            {
+              "id": 14,
+              "label": "Input 14"
+            },
+            {
+              "id": 15,
+              "label": "Input 15"
+            },
+            {
+              "id": 16,
+              "label": "Input 16"
+            }
+          ]
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Change in dB",
+          "default": 1,
+          "min": -55,
+          "max": 55,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 49
+      }
+    },
+    {
+      "id": "pad",
+      "name": "Pad: on / off / toggle",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Input 1"
+            },
+            {
+              "id": 2,
+              "label": "Input 2"
+            },
+            {
+              "id": 3,
+              "label": "Input 3"
+            },
+            {
+              "id": 4,
+              "label": "Input 4"
+            },
+            {
+              "id": 5,
+              "label": "Input 5"
+            },
+            {
+              "id": 6,
+              "label": "Input 6"
+            },
+            {
+              "id": 7,
+              "label": "Input 7"
+            },
+            {
+              "id": 8,
+              "label": "Input 8"
+            },
+            {
+              "id": 9,
+              "label": "Input 9"
+            },
+            {
+              "id": 10,
+              "label": "Input 10"
+            },
+            {
+              "id": 11,
+              "label": "Input 11"
+            },
+            {
+              "id": 12,
+              "label": "Input 12"
+            },
+            {
+              "id": 13,
+              "label": "Input 13"
+            },
+            {
+              "id": 14,
+              "label": "Input 14"
+            },
+            {
+              "id": 15,
+              "label": "Input 15"
+            },
+            {
+              "id": 16,
+              "label": "Input 16"
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 70
+      }
+    },
+    {
+      "id": "phantom",
+      "name": "48 V phantom: on / off / toggle",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Input 1"
+            },
+            {
+              "id": 2,
+              "label": "Input 2"
+            },
+            {
+              "id": 3,
+              "label": "Input 3"
+            },
+            {
+              "id": 4,
+              "label": "Input 4"
+            },
+            {
+              "id": 5,
+              "label": "Input 5"
+            },
+            {
+              "id": 6,
+              "label": "Input 6"
+            },
+            {
+              "id": 7,
+              "label": "Input 7"
+            },
+            {
+              "id": 8,
+              "label": "Input 8"
+            },
+            {
+              "id": 9,
+              "label": "Input 9"
+            },
+            {
+              "id": 10,
+              "label": "Input 10"
+            },
+            {
+              "id": 11,
+              "label": "Input 11"
+            },
+            {
+              "id": 12,
+              "label": "Input 12"
+            },
+            {
+              "id": 13,
+              "label": "Input 13"
+            },
+            {
+              "id": 14,
+              "label": "Input 14"
+            },
+            {
+              "id": 15,
+              "label": "Input 15"
+            },
+            {
+              "id": 16,
+              "label": "Input 16"
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 71
+      }
+    },
+    {
+      "id": "refresh",
+      "name": "Refresh all preamp states",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 72
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "pad",
+      "name": "Pad is on",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Input 1"
+            },
+            {
+              "id": 2,
+              "label": "Input 2"
+            },
+            {
+              "id": 3,
+              "label": "Input 3"
+            },
+            {
+              "id": 4,
+              "label": "Input 4"
+            },
+            {
+              "id": 5,
+              "label": "Input 5"
+            },
+            {
+              "id": 6,
+              "label": "Input 6"
+            },
+            {
+              "id": 7,
+              "label": "Input 7"
+            },
+            {
+              "id": 8,
+              "label": "Input 8"
+            },
+            {
+              "id": 9,
+              "label": "Input 9"
+            },
+            {
+              "id": 10,
+              "label": "Input 10"
+            },
+            {
+              "id": 11,
+              "label": "Input 11"
+            },
+            {
+              "id": 12,
+              "label": "Input 12"
+            },
+            {
+              "id": 13,
+              "label": "Input 13"
+            },
+            {
+              "id": 14,
+              "label": "Input 14"
+            },
+            {
+              "id": 15,
+              "label": "Input 15"
+            },
+            {
+              "id": 16,
+              "label": "Input 16"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 14
+      }
+    },
+    {
+      "id": "phantom",
+      "name": "48 V is on",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Input 1"
+            },
+            {
+              "id": 2,
+              "label": "Input 2"
+            },
+            {
+              "id": 3,
+              "label": "Input 3"
+            },
+            {
+              "id": 4,
+              "label": "Input 4"
+            },
+            {
+              "id": 5,
+              "label": "Input 5"
+            },
+            {
+              "id": 6,
+              "label": "Input 6"
+            },
+            {
+              "id": 7,
+              "label": "Input 7"
+            },
+            {
+              "id": 8,
+              "label": "Input 8"
+            },
+            {
+              "id": 9,
+              "label": "Input 9"
+            },
+            {
+              "id": 10,
+              "label": "Input 10"
+            },
+            {
+              "id": 11,
+              "label": "Input 11"
+            },
+            {
+              "id": 12,
+              "label": "Input 12"
+            },
+            {
+              "id": 13,
+              "label": "Input 13"
+            },
+            {
+              "id": 14,
+              "label": "Input 14"
+            },
+            {
+              "id": 15,
+              "label": "Input 15"
+            },
+            {
+              "id": 16,
+              "label": "Input 16"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 15
+      }
+    },
+    {
+      "id": "connected",
+      "name": "DT168 is connected",
+      "options": [],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 16
+      }
+    }
+  ]
+}

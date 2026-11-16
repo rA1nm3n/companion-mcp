@@ -1,0 +1,1902 @@
+{
+  "moduleId": "allenheath-cq",
+  "name": "Allen & Heath CQ",
+  "repo": "bitfocus/companion-module-allenheath-cq",
+  "version": "1.1.0",
+  "baseVersion": "~1.11.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "d1a0eff",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Plain JavaScript module for the CQ-12T, CQ-18T and CQ-20B (manifest). The 9 actions in actions.js getActionDefinitions and the 2 feedbacks in feedbacks.js are all catalogued; they are returned from one object literal each.",
+    "The channel, target and value dropdowns use the label of the strip as id (for example Ip1, St1, MainLR, DCA1, Out1; helpers.js: muteParameters line 1, panMatrix 43, levelMatrixInputs 214, levelMatrixOutputs 553, dbValues 571, panValues 634). The lists are closed: the module looks the id up in these tables and does nothing for unknown ids.",
+    "The mute action option \"command\" has a tooltip in the source that Toggle does not work for mute groups and DCAs (actions.js:18-30).",
+    "Built on @companion-module/base ~1.11.0 (1.x): option values do not support expressions.",
+    "Not catalogued: config fields, variables and presets."
+  ],
+  "actions": [
+    {
+      "id": "mute",
+      "name": "Mute",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "Ip1",
+          "choices": [
+            {
+              "id": "Ip1",
+              "label": "Ip1"
+            },
+            {
+              "id": "Ip2",
+              "label": "Ip2"
+            },
+            {
+              "id": "Ip3",
+              "label": "Ip3"
+            },
+            {
+              "id": "Ip4",
+              "label": "Ip4"
+            },
+            {
+              "id": "Ip5",
+              "label": "Ip5"
+            },
+            {
+              "id": "Ip6",
+              "label": "Ip6"
+            },
+            {
+              "id": "Ip7",
+              "label": "Ip7"
+            },
+            {
+              "id": "Ip8",
+              "label": "Ip8"
+            },
+            {
+              "id": "Ip9",
+              "label": "Ip9"
+            },
+            {
+              "id": "Ip10",
+              "label": "Ip10"
+            },
+            {
+              "id": "Ip11",
+              "label": "Ip11"
+            },
+            {
+              "id": "Ip12",
+              "label": "Ip12"
+            },
+            {
+              "id": "Ip13",
+              "label": "Ip13"
+            },
+            {
+              "id": "Ip14",
+              "label": "Ip14"
+            },
+            {
+              "id": "Ip15",
+              "label": "Ip15"
+            },
+            {
+              "id": "Ip16",
+              "label": "Ip16"
+            },
+            {
+              "id": "St1",
+              "label": "St1"
+            },
+            {
+              "id": "St2",
+              "label": "St2"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "BT",
+              "label": "BT"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            },
+            {
+              "id": "MainLR",
+              "label": "MainLR"
+            },
+            {
+              "id": "Out1",
+              "label": "Out1"
+            },
+            {
+              "id": "Out2",
+              "label": "Out2"
+            },
+            {
+              "id": "Out3",
+              "label": "Out3"
+            },
+            {
+              "id": "Out4",
+              "label": "Out4"
+            },
+            {
+              "id": "Out5",
+              "label": "Out5"
+            },
+            {
+              "id": "Out6",
+              "label": "Out6"
+            },
+            {
+              "id": "MGRP1",
+              "label": "MGRP1"
+            },
+            {
+              "id": "MGRP2",
+              "label": "MGRP2"
+            },
+            {
+              "id": "MGRP3",
+              "label": "MGRP3"
+            },
+            {
+              "id": "MGRP4",
+              "label": "MGRP4"
+            },
+            {
+              "id": "DCA1",
+              "label": "DCA1"
+            },
+            {
+              "id": "DCA2",
+              "label": "DCA2"
+            },
+            {
+              "id": "DCA3",
+              "label": "DCA3"
+            },
+            {
+              "id": "DCA4",
+              "label": "DCA4"
+            }
+          ]
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Mute Command",
+          "description": "Attention: Toggle is not working for Mute Groups and DCAs!",
+          "default": "mute",
+          "choices": [
+            {
+              "id": "mute",
+              "label": "Mute"
+            },
+            {
+              "id": "unmute",
+              "label": "Unmute"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 5
+      },
+      "description": "Mute/Unmute a specific channel on the CQ mixer"
+    },
+    {
+      "id": "panBalanceAbs",
+      "name": "Pan/Balance [absolute]",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "Ip1",
+          "choices": [
+            {
+              "id": "Ip1",
+              "label": "Ip1"
+            },
+            {
+              "id": "Ip2",
+              "label": "Ip2"
+            },
+            {
+              "id": "Ip3",
+              "label": "Ip3"
+            },
+            {
+              "id": "Ip4",
+              "label": "Ip4"
+            },
+            {
+              "id": "Ip5",
+              "label": "Ip5"
+            },
+            {
+              "id": "Ip6",
+              "label": "Ip6"
+            },
+            {
+              "id": "Ip7",
+              "label": "Ip7"
+            },
+            {
+              "id": "Ip8",
+              "label": "Ip8"
+            },
+            {
+              "id": "Ip9",
+              "label": "Ip9"
+            },
+            {
+              "id": "Ip10",
+              "label": "Ip10"
+            },
+            {
+              "id": "Ip11",
+              "label": "Ip11"
+            },
+            {
+              "id": "Ip12",
+              "label": "Ip12"
+            },
+            {
+              "id": "Ip13",
+              "label": "Ip13"
+            },
+            {
+              "id": "Ip14",
+              "label": "Ip14"
+            },
+            {
+              "id": "Ip15",
+              "label": "Ip15"
+            },
+            {
+              "id": "Ip16",
+              "label": "Ip16"
+            },
+            {
+              "id": "ST1",
+              "label": "ST1"
+            },
+            {
+              "id": "ST2",
+              "label": "ST2"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "BT",
+              "label": "BT"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Select Pan Target",
+          "default": "toLR",
+          "choices": [
+            {
+              "id": "toLR",
+              "label": "LR"
+            },
+            {
+              "id": "toOut12",
+              "label": "Out1/2"
+            },
+            {
+              "id": "toOut34",
+              "label": "Out3/4"
+            },
+            {
+              "id": "toOut56",
+              "label": "Out5/6"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Pan",
+          "default": "L100%",
+          "choices": [
+            {
+              "id": "L100%",
+              "label": "L100%"
+            },
+            {
+              "id": "L90%",
+              "label": "L90%"
+            },
+            {
+              "id": "L80%",
+              "label": "L80%"
+            },
+            {
+              "id": "L70%",
+              "label": "L70%"
+            },
+            {
+              "id": "L60%",
+              "label": "L60%"
+            },
+            {
+              "id": "L50%",
+              "label": "L50%"
+            },
+            {
+              "id": "L40%",
+              "label": "L40%"
+            },
+            {
+              "id": "L30%",
+              "label": "L30%"
+            },
+            {
+              "id": "L20%",
+              "label": "L20%"
+            },
+            {
+              "id": "L15%",
+              "label": "L15%"
+            },
+            {
+              "id": "L10%",
+              "label": "L10%"
+            },
+            {
+              "id": "L5%",
+              "label": "L5%"
+            },
+            {
+              "id": "CTR",
+              "label": "CTR"
+            },
+            {
+              "id": "R5%",
+              "label": "R5%"
+            },
+            {
+              "id": "R10%",
+              "label": "R10%"
+            },
+            {
+              "id": "R15%",
+              "label": "R15%"
+            },
+            {
+              "id": "R20%",
+              "label": "R20%"
+            },
+            {
+              "id": "R30%",
+              "label": "R30%"
+            },
+            {
+              "id": "R40%",
+              "label": "R40%"
+            },
+            {
+              "id": "R50%",
+              "label": "R50%"
+            },
+            {
+              "id": "R60%",
+              "label": "R60%"
+            },
+            {
+              "id": "R70%",
+              "label": "R70%"
+            },
+            {
+              "id": "R80%",
+              "label": "R80%"
+            },
+            {
+              "id": "R90%",
+              "label": "R90%"
+            },
+            {
+              "id": "R100%",
+              "label": "R100%"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 44
+      },
+      "description": "Control the balance of individual channels to a specific target"
+    },
+    {
+      "id": "panBalanceRel",
+      "name": "Pan/Balance [relative]",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "Ip1",
+          "choices": [
+            {
+              "id": "Ip1",
+              "label": "Ip1"
+            },
+            {
+              "id": "Ip2",
+              "label": "Ip2"
+            },
+            {
+              "id": "Ip3",
+              "label": "Ip3"
+            },
+            {
+              "id": "Ip4",
+              "label": "Ip4"
+            },
+            {
+              "id": "Ip5",
+              "label": "Ip5"
+            },
+            {
+              "id": "Ip6",
+              "label": "Ip6"
+            },
+            {
+              "id": "Ip7",
+              "label": "Ip7"
+            },
+            {
+              "id": "Ip8",
+              "label": "Ip8"
+            },
+            {
+              "id": "Ip9",
+              "label": "Ip9"
+            },
+            {
+              "id": "Ip10",
+              "label": "Ip10"
+            },
+            {
+              "id": "Ip11",
+              "label": "Ip11"
+            },
+            {
+              "id": "Ip12",
+              "label": "Ip12"
+            },
+            {
+              "id": "Ip13",
+              "label": "Ip13"
+            },
+            {
+              "id": "Ip14",
+              "label": "Ip14"
+            },
+            {
+              "id": "Ip15",
+              "label": "Ip15"
+            },
+            {
+              "id": "Ip16",
+              "label": "Ip16"
+            },
+            {
+              "id": "ST1",
+              "label": "ST1"
+            },
+            {
+              "id": "ST2",
+              "label": "ST2"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "BT",
+              "label": "BT"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Select Pan Target",
+          "default": "toLR",
+          "choices": [
+            {
+              "id": "toLR",
+              "label": "LR"
+            },
+            {
+              "id": "toOut12",
+              "label": "Out1/2"
+            },
+            {
+              "id": "toOut34",
+              "label": "Out3/4"
+            },
+            {
+              "id": "toOut56",
+              "label": "Out5/6"
+            }
+          ]
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "left",
+          "choices": [
+            {
+              "id": "left",
+              "label": "Turn Left"
+            },
+            {
+              "id": "right",
+              "label": "Turn Right"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 90
+      },
+      "description": "Increment or decrement the balance of a individual channels to a specific target"
+    },
+    {
+      "id": "volumeAbsInputs",
+      "name": "Levels - Inputs and FX to Outputs and FX [absolute]",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "Ip1",
+          "choices": [
+            {
+              "id": "Ip1",
+              "label": "Ip1"
+            },
+            {
+              "id": "Ip2",
+              "label": "Ip2"
+            },
+            {
+              "id": "Ip3",
+              "label": "Ip3"
+            },
+            {
+              "id": "Ip4",
+              "label": "Ip4"
+            },
+            {
+              "id": "Ip5",
+              "label": "Ip5"
+            },
+            {
+              "id": "Ip6",
+              "label": "Ip6"
+            },
+            {
+              "id": "Ip7",
+              "label": "Ip7"
+            },
+            {
+              "id": "Ip8",
+              "label": "Ip8"
+            },
+            {
+              "id": "Ip9",
+              "label": "Ip9"
+            },
+            {
+              "id": "Ip10",
+              "label": "Ip10"
+            },
+            {
+              "id": "Ip11",
+              "label": "Ip11"
+            },
+            {
+              "id": "Ip12",
+              "label": "Ip12"
+            },
+            {
+              "id": "Ip13",
+              "label": "Ip13"
+            },
+            {
+              "id": "Ip14",
+              "label": "Ip14"
+            },
+            {
+              "id": "Ip15",
+              "label": "Ip15"
+            },
+            {
+              "id": "Ip16",
+              "label": "Ip16"
+            },
+            {
+              "id": "ST1",
+              "label": "ST1"
+            },
+            {
+              "id": "ST2",
+              "label": "ST2"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "BT",
+              "label": "BT"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Select Channel Target",
+          "default": "toLR",
+          "choices": [
+            {
+              "id": "toLR",
+              "label": "LR"
+            },
+            {
+              "id": "toOut1",
+              "label": "Out1 (or 1/2)"
+            },
+            {
+              "id": "toOut2",
+              "label": "Out2"
+            },
+            {
+              "id": "toOut3",
+              "label": "Out3 (or 3/4)"
+            },
+            {
+              "id": "toOut4",
+              "label": "Out4"
+            },
+            {
+              "id": "toOut5",
+              "label": "Out5 (or 5/6)"
+            },
+            {
+              "id": "toOut6",
+              "label": "Out6"
+            },
+            {
+              "id": "toFX1",
+              "label": "FX1"
+            },
+            {
+              "id": "toFX2",
+              "label": "FX2"
+            },
+            {
+              "id": "toFX3",
+              "label": "FX3"
+            },
+            {
+              "id": "toFX4",
+              "label": "FX4"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "-inf",
+          "choices": [
+            {
+              "id": "-inf",
+              "label": "-inf"
+            },
+            {
+              "id": "-89",
+              "label": "-89"
+            },
+            {
+              "id": "-85",
+              "label": "-85"
+            },
+            {
+              "id": "-80",
+              "label": "-80"
+            },
+            {
+              "id": "-75",
+              "label": "-75"
+            },
+            {
+              "id": "-70",
+              "label": "-70"
+            },
+            {
+              "id": "-65",
+              "label": "-65"
+            },
+            {
+              "id": "-60",
+              "label": "-60"
+            },
+            {
+              "id": "-55",
+              "label": "-55"
+            },
+            {
+              "id": "-50",
+              "label": "-50"
+            },
+            {
+              "id": "-45",
+              "label": "-45"
+            },
+            {
+              "id": "-40",
+              "label": "-40"
+            },
+            {
+              "id": "-38",
+              "label": "-38"
+            },
+            {
+              "id": "-36",
+              "label": "-36"
+            },
+            {
+              "id": "-35",
+              "label": "-35"
+            },
+            {
+              "id": "-34",
+              "label": "-34"
+            },
+            {
+              "id": "-33",
+              "label": "-33"
+            },
+            {
+              "id": "-32",
+              "label": "-32"
+            },
+            {
+              "id": "-31",
+              "label": "-31"
+            },
+            {
+              "id": "-30",
+              "label": "-30"
+            },
+            {
+              "id": "-29",
+              "label": "-29"
+            },
+            {
+              "id": "-28",
+              "label": "-28"
+            },
+            {
+              "id": "-27",
+              "label": "-27"
+            },
+            {
+              "id": "-26",
+              "label": "-26"
+            },
+            {
+              "id": "-25",
+              "label": "-25"
+            },
+            {
+              "id": "-24",
+              "label": "-24"
+            },
+            {
+              "id": "-23",
+              "label": "-23"
+            },
+            {
+              "id": "-22",
+              "label": "-22"
+            },
+            {
+              "id": "-21",
+              "label": "-21"
+            },
+            {
+              "id": "-20",
+              "label": "-20"
+            },
+            {
+              "id": "-19",
+              "label": "-19"
+            },
+            {
+              "id": "-18",
+              "label": "-18"
+            },
+            {
+              "id": "-17",
+              "label": "-17"
+            },
+            {
+              "id": "-16",
+              "label": "-16"
+            },
+            {
+              "id": "-15",
+              "label": "-15"
+            },
+            {
+              "id": "-14",
+              "label": "-14"
+            },
+            {
+              "id": "-13",
+              "label": "-13"
+            },
+            {
+              "id": "-12",
+              "label": "-12"
+            },
+            {
+              "id": "-11",
+              "label": "-11"
+            },
+            {
+              "id": "-10",
+              "label": "-10"
+            },
+            {
+              "id": "-9",
+              "label": "-9"
+            },
+            {
+              "id": "-8",
+              "label": "-8"
+            },
+            {
+              "id": "-7",
+              "label": "-7"
+            },
+            {
+              "id": "-6",
+              "label": "-6"
+            },
+            {
+              "id": "-5",
+              "label": "-5"
+            },
+            {
+              "id": "-4",
+              "label": "-4"
+            },
+            {
+              "id": "-3",
+              "label": "-3"
+            },
+            {
+              "id": "-2",
+              "label": "-2"
+            },
+            {
+              "id": "-1",
+              "label": "-1"
+            },
+            {
+              "id": "0",
+              "label": "0"
+            },
+            {
+              "id": "+1",
+              "label": "+1"
+            },
+            {
+              "id": "+2",
+              "label": "+2"
+            },
+            {
+              "id": "+3",
+              "label": "+3"
+            },
+            {
+              "id": "+4",
+              "label": "+4"
+            },
+            {
+              "id": "+5",
+              "label": "+5"
+            },
+            {
+              "id": "+6",
+              "label": "+6"
+            },
+            {
+              "id": "+7",
+              "label": "+7"
+            },
+            {
+              "id": "+8",
+              "label": "+8"
+            },
+            {
+              "id": "+9",
+              "label": "+9"
+            },
+            {
+              "id": "+10",
+              "label": "+10"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 136
+      },
+      "description": "Set a dB value for Inputs and FX to Outputs and FX"
+    },
+    {
+      "id": "volumeRelInputs",
+      "name": "Levels - Inputs and FX to Outputs and FX [relative]",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "Ip1",
+          "choices": [
+            {
+              "id": "Ip1",
+              "label": "Ip1"
+            },
+            {
+              "id": "Ip2",
+              "label": "Ip2"
+            },
+            {
+              "id": "Ip3",
+              "label": "Ip3"
+            },
+            {
+              "id": "Ip4",
+              "label": "Ip4"
+            },
+            {
+              "id": "Ip5",
+              "label": "Ip5"
+            },
+            {
+              "id": "Ip6",
+              "label": "Ip6"
+            },
+            {
+              "id": "Ip7",
+              "label": "Ip7"
+            },
+            {
+              "id": "Ip8",
+              "label": "Ip8"
+            },
+            {
+              "id": "Ip9",
+              "label": "Ip9"
+            },
+            {
+              "id": "Ip10",
+              "label": "Ip10"
+            },
+            {
+              "id": "Ip11",
+              "label": "Ip11"
+            },
+            {
+              "id": "Ip12",
+              "label": "Ip12"
+            },
+            {
+              "id": "Ip13",
+              "label": "Ip13"
+            },
+            {
+              "id": "Ip14",
+              "label": "Ip14"
+            },
+            {
+              "id": "Ip15",
+              "label": "Ip15"
+            },
+            {
+              "id": "Ip16",
+              "label": "Ip16"
+            },
+            {
+              "id": "ST1",
+              "label": "ST1"
+            },
+            {
+              "id": "ST2",
+              "label": "ST2"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "BT",
+              "label": "BT"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            }
+          ]
+        },
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Select Channel Target",
+          "default": "toLR",
+          "choices": [
+            {
+              "id": "toLR",
+              "label": "LR"
+            },
+            {
+              "id": "toOut1",
+              "label": "Out1 (or 1/2)"
+            },
+            {
+              "id": "toOut2",
+              "label": "Out2"
+            },
+            {
+              "id": "toOut3",
+              "label": "Out3 (or 3/4)"
+            },
+            {
+              "id": "toOut4",
+              "label": "Out4"
+            },
+            {
+              "id": "toOut5",
+              "label": "Out5 (or 5/6)"
+            },
+            {
+              "id": "toOut6",
+              "label": "Out6"
+            },
+            {
+              "id": "toFX1",
+              "label": "FX1"
+            },
+            {
+              "id": "toFX2",
+              "label": "FX2"
+            },
+            {
+              "id": "toFX3",
+              "label": "FX3"
+            },
+            {
+              "id": "toFX4",
+              "label": "FX4"
+            }
+          ]
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "increment",
+          "choices": [
+            {
+              "id": "increment",
+              "label": "Increment"
+            },
+            {
+              "id": "decrement",
+              "label": "Decrement"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 189
+      },
+      "description": "Increment or decrement the dB value by 1 dB for Inputs and FX to Outputs and FX"
+    },
+    {
+      "id": "volumeAbsOutputs",
+      "name": "Levels - Outputs, FX unit input and DCAs [absolute]",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "MainLR",
+          "choices": [
+            {
+              "id": "MainLR",
+              "label": "MainLR"
+            },
+            {
+              "id": "Out1",
+              "label": "Out1"
+            },
+            {
+              "id": "Out2",
+              "label": "Out2"
+            },
+            {
+              "id": "Out3",
+              "label": "Out3"
+            },
+            {
+              "id": "Out4",
+              "label": "Out4"
+            },
+            {
+              "id": "Out5",
+              "label": "Out5"
+            },
+            {
+              "id": "Out6",
+              "label": "Out6"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            },
+            {
+              "id": "DCA1",
+              "label": "DCA1"
+            },
+            {
+              "id": "DCA2",
+              "label": "DCA2"
+            },
+            {
+              "id": "DCA3",
+              "label": "DCA3"
+            },
+            {
+              "id": "DCA4",
+              "label": "DCA4"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "-inf",
+          "choices": [
+            {
+              "id": "-inf",
+              "label": "-inf"
+            },
+            {
+              "id": "-89",
+              "label": "-89"
+            },
+            {
+              "id": "-85",
+              "label": "-85"
+            },
+            {
+              "id": "-80",
+              "label": "-80"
+            },
+            {
+              "id": "-75",
+              "label": "-75"
+            },
+            {
+              "id": "-70",
+              "label": "-70"
+            },
+            {
+              "id": "-65",
+              "label": "-65"
+            },
+            {
+              "id": "-60",
+              "label": "-60"
+            },
+            {
+              "id": "-55",
+              "label": "-55"
+            },
+            {
+              "id": "-50",
+              "label": "-50"
+            },
+            {
+              "id": "-45",
+              "label": "-45"
+            },
+            {
+              "id": "-40",
+              "label": "-40"
+            },
+            {
+              "id": "-38",
+              "label": "-38"
+            },
+            {
+              "id": "-36",
+              "label": "-36"
+            },
+            {
+              "id": "-35",
+              "label": "-35"
+            },
+            {
+              "id": "-34",
+              "label": "-34"
+            },
+            {
+              "id": "-33",
+              "label": "-33"
+            },
+            {
+              "id": "-32",
+              "label": "-32"
+            },
+            {
+              "id": "-31",
+              "label": "-31"
+            },
+            {
+              "id": "-30",
+              "label": "-30"
+            },
+            {
+              "id": "-29",
+              "label": "-29"
+            },
+            {
+              "id": "-28",
+              "label": "-28"
+            },
+            {
+              "id": "-27",
+              "label": "-27"
+            },
+            {
+              "id": "-26",
+              "label": "-26"
+            },
+            {
+              "id": "-25",
+              "label": "-25"
+            },
+            {
+              "id": "-24",
+              "label": "-24"
+            },
+            {
+              "id": "-23",
+              "label": "-23"
+            },
+            {
+              "id": "-22",
+              "label": "-22"
+            },
+            {
+              "id": "-21",
+              "label": "-21"
+            },
+            {
+              "id": "-20",
+              "label": "-20"
+            },
+            {
+              "id": "-19",
+              "label": "-19"
+            },
+            {
+              "id": "-18",
+              "label": "-18"
+            },
+            {
+              "id": "-17",
+              "label": "-17"
+            },
+            {
+              "id": "-16",
+              "label": "-16"
+            },
+            {
+              "id": "-15",
+              "label": "-15"
+            },
+            {
+              "id": "-14",
+              "label": "-14"
+            },
+            {
+              "id": "-13",
+              "label": "-13"
+            },
+            {
+              "id": "-12",
+              "label": "-12"
+            },
+            {
+              "id": "-11",
+              "label": "-11"
+            },
+            {
+              "id": "-10",
+              "label": "-10"
+            },
+            {
+              "id": "-9",
+              "label": "-9"
+            },
+            {
+              "id": "-8",
+              "label": "-8"
+            },
+            {
+              "id": "-7",
+              "label": "-7"
+            },
+            {
+              "id": "-6",
+              "label": "-6"
+            },
+            {
+              "id": "-5",
+              "label": "-5"
+            },
+            {
+              "id": "-4",
+              "label": "-4"
+            },
+            {
+              "id": "-3",
+              "label": "-3"
+            },
+            {
+              "id": "-2",
+              "label": "-2"
+            },
+            {
+              "id": "-1",
+              "label": "-1"
+            },
+            {
+              "id": "0",
+              "label": "0"
+            },
+            {
+              "id": "+1",
+              "label": "+1"
+            },
+            {
+              "id": "+2",
+              "label": "+2"
+            },
+            {
+              "id": "+3",
+              "label": "+3"
+            },
+            {
+              "id": "+4",
+              "label": "+4"
+            },
+            {
+              "id": "+5",
+              "label": "+5"
+            },
+            {
+              "id": "+6",
+              "label": "+6"
+            },
+            {
+              "id": "+7",
+              "label": "+7"
+            },
+            {
+              "id": "+8",
+              "label": "+8"
+            },
+            {
+              "id": "+9",
+              "label": "+9"
+            },
+            {
+              "id": "+10",
+              "label": "+10"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 242
+      },
+      "description": "Set a dB value for Outputs, FX unit inputs and DCAs"
+    },
+    {
+      "id": "volumeRelOutputs",
+      "name": "Levels - Outputs, FX unit input and DCAs [relative]",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "MainLR",
+          "choices": [
+            {
+              "id": "MainLR",
+              "label": "MainLR"
+            },
+            {
+              "id": "Out1",
+              "label": "Out1"
+            },
+            {
+              "id": "Out2",
+              "label": "Out2"
+            },
+            {
+              "id": "Out3",
+              "label": "Out3"
+            },
+            {
+              "id": "Out4",
+              "label": "Out4"
+            },
+            {
+              "id": "Out5",
+              "label": "Out5"
+            },
+            {
+              "id": "Out6",
+              "label": "Out6"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            },
+            {
+              "id": "DCA1",
+              "label": "DCA1"
+            },
+            {
+              "id": "DCA2",
+              "label": "DCA2"
+            },
+            {
+              "id": "DCA3",
+              "label": "DCA3"
+            },
+            {
+              "id": "DCA4",
+              "label": "DCA4"
+            }
+          ]
+        },
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "increment",
+          "choices": [
+            {
+              "id": "increment",
+              "label": "Increment"
+            },
+            {
+              "id": "decrement",
+              "label": "Decrement"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 275
+      },
+      "description": "Increment or decrement the dB value by 1 dB for Outputs, FX unit input and DCAs"
+    },
+    {
+      "id": "scene",
+      "name": "Scene Change",
+      "options": [
+        {
+          "id": "scene",
+          "type": "number",
+          "label": "Scene",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 308
+      },
+      "description": "Load a scene on the CQ mixer"
+    },
+    {
+      "id": "softkey",
+      "name": "Soft Key",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Soft Key",
+          "default": "30",
+          "choices": [
+            {
+              "id": "30",
+              "label": "Soft Key 1"
+            },
+            {
+              "id": "31",
+              "label": "Soft Key 2"
+            },
+            {
+              "id": "32",
+              "label": "Soft Key 3"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "press",
+          "choices": [
+            {
+              "id": "press",
+              "label": "Press"
+            },
+            {
+              "id": "release",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 333
+      },
+      "description": "Press or release a Soft Key on the CQ mixer"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "mute",
+      "name": "Mute",
+      "options": [
+        {
+          "id": "channel",
+          "type": "dropdown",
+          "label": "Select Channel",
+          "default": "Ip1",
+          "choices": [
+            {
+              "id": "Ip1",
+              "label": "Ip1"
+            },
+            {
+              "id": "Ip2",
+              "label": "Ip2"
+            },
+            {
+              "id": "Ip3",
+              "label": "Ip3"
+            },
+            {
+              "id": "Ip4",
+              "label": "Ip4"
+            },
+            {
+              "id": "Ip5",
+              "label": "Ip5"
+            },
+            {
+              "id": "Ip6",
+              "label": "Ip6"
+            },
+            {
+              "id": "Ip7",
+              "label": "Ip7"
+            },
+            {
+              "id": "Ip8",
+              "label": "Ip8"
+            },
+            {
+              "id": "Ip9",
+              "label": "Ip9"
+            },
+            {
+              "id": "Ip10",
+              "label": "Ip10"
+            },
+            {
+              "id": "Ip11",
+              "label": "Ip11"
+            },
+            {
+              "id": "Ip12",
+              "label": "Ip12"
+            },
+            {
+              "id": "Ip13",
+              "label": "Ip13"
+            },
+            {
+              "id": "Ip14",
+              "label": "Ip14"
+            },
+            {
+              "id": "Ip15",
+              "label": "Ip15"
+            },
+            {
+              "id": "Ip16",
+              "label": "Ip16"
+            },
+            {
+              "id": "St1",
+              "label": "St1"
+            },
+            {
+              "id": "St2",
+              "label": "St2"
+            },
+            {
+              "id": "USB",
+              "label": "USB"
+            },
+            {
+              "id": "BT",
+              "label": "BT"
+            },
+            {
+              "id": "FX1",
+              "label": "FX1"
+            },
+            {
+              "id": "FX2",
+              "label": "FX2"
+            },
+            {
+              "id": "FX3",
+              "label": "FX3"
+            },
+            {
+              "id": "FX4",
+              "label": "FX4"
+            },
+            {
+              "id": "MainLR",
+              "label": "MainLR"
+            },
+            {
+              "id": "Out1",
+              "label": "Out1"
+            },
+            {
+              "id": "Out2",
+              "label": "Out2"
+            },
+            {
+              "id": "Out3",
+              "label": "Out3"
+            },
+            {
+              "id": "Out4",
+              "label": "Out4"
+            },
+            {
+              "id": "Out5",
+              "label": "Out5"
+            },
+            {
+              "id": "Out6",
+              "label": "Out6"
+            },
+            {
+              "id": "MGRP1",
+              "label": "MGRP1"
+            },
+            {
+              "id": "MGRP2",
+              "label": "MGRP2"
+            },
+            {
+              "id": "MGRP3",
+              "label": "MGRP3"
+            },
+            {
+              "id": "MGRP4",
+              "label": "MGRP4"
+            },
+            {
+              "id": "DCA1",
+              "label": "DCA1"
+            },
+            {
+              "id": "DCA2",
+              "label": "DCA2"
+            },
+            {
+              "id": "DCA3",
+              "label": "DCA3"
+            },
+            {
+              "id": "DCA4",
+              "label": "DCA4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 5
+      },
+      "description": "Check if a channel is currently muted",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "sceneActive",
+      "name": "Scene active",
+      "options": [
+        {
+          "id": "scene",
+          "type": "number",
+          "label": "Scene:",
+          "default": 1,
+          "min": 1,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 25
+      },
+      "description": "Check if a specific scene is currently active",
+      "feedbackType": "boolean"
+    }
+  ]
+}

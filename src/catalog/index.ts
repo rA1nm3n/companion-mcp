@@ -1,6 +1,14 @@
+import allenheathAhm from './data/allenheath-ahm.json' with { type: 'json' };
+import allenheathAvantis from './data/allenheath-avantis.json' with { type: 'json' };
+import allenheathCq from './data/allenheath-cq.json' with { type: 'json' };
+import allenheathDlive from './data/allenheath-dlive.json' with { type: 'json' };
+import allenheathDliveIlive from './data/allenheath-dlive-ilive.json' with { type: 'json' };
+import allenheathDt168 from './data/allenheath-dt168.json' with { type: 'json' };
+import allenheathSq from './data/allenheath-sq.json' with { type: 'json' };
 import analogwayAwj from './data/analogway-awj.json' with { type: 'json' };
 import analogwayLivepremier from './data/analogway-livepremier.json' with { type: 'json' };
 import barcoEventmaster from './data/barco-eventmaster.json' with { type: 'json' };
+import behringerX32 from './data/behringer-x32.json' with { type: 'json' };
 import birddogPtz from './data/birddog-ptz.json' with { type: 'json' };
 import bmdAtem from './data/bmd-atem.json' with { type: 'json' };
 import bmdHyperdeck from './data/bmd-hyperdeck.json' with { type: 'json' };
@@ -13,6 +21,7 @@ import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
 import studiocoastVmix from './data/studiocoast-vmix.json' with { type: 'json' };
+import yamahaRcp from './data/yamaha-rcp.json' with { type: 'json' };
 import indexData from './data/_index.json' with { type: 'json' };
 import {
   IndexFileSchema,
@@ -36,9 +45,17 @@ export * from './types.js';
  * disagree.
  */
 const RAW_MODULES: Readonly<Record<string, unknown>> = {
+  'allenheath-ahm': allenheathAhm,
+  'allenheath-avantis': allenheathAvantis,
+  'allenheath-cq': allenheathCq,
+  'allenheath-dlive': allenheathDlive,
+  'allenheath-dlive-ilive': allenheathDliveIlive,
+  'allenheath-dt168': allenheathDt168,
+  'allenheath-sq': allenheathSq,
   'analogway-awj': analogwayAwj,
   'analogway-livepremier': analogwayLivepremier,
   'barco-eventmaster': barcoEventmaster,
+  'behringer-x32': behringerX32,
   'birddog-ptz': birddogPtz,
   'bmd-atem': bmdAtem,
   'bmd-hyperdeck': bmdHyperdeck,
@@ -51,6 +68,7 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'resolume-arena': resolumeArena,
   'shure-wireless': shureWireless,
   'studiocoast-vmix': studiocoastVmix,
+  'yamaha-rcp': yamahaRcp,
 };
 
 let indexCache: IndexFile | undefined;
@@ -212,7 +230,7 @@ function checkDropdownScalar(def: OptionDef, value: unknown, path: string, issue
   // An empty list means the module fills the choices at runtime (or hides the field): not closed.
   if (choices !== undefined && choices.length > 0) {
     if (choices.some((c) => c.id === value)) return;
-    if (!def.allowInvalidValues) {
+    if (!def.allowInvalidValues && !def.allowCustom) {
       const loose = choices.find((c) => String(c.id) === String(value));
       if (loose) {
         issues.push({
@@ -234,7 +252,8 @@ function checkDropdownScalar(def: OptionDef, value: unknown, path: string, issue
       return;
     }
   }
-  // Dynamic list (or allowInvalidValues): check the declared value shape only.
+  // Dynamic list, allowInvalidValues or allowCustom (free text next to the listed choices): check the
+  // declared value shape (type, range, pattern) only.
   switch (def.valueType) {
     case 'number':
       if (typeof value !== 'number' || !Number.isFinite(value)) {

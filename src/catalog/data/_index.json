@@ -13,6 +13,86 @@
       "keywords": ["ableton", "live", "osc", "music", "jingles", "Audio follow Video", "AfV"]
     },
     {
+      "moduleId": "allenheath-ahm",
+      "repo": "bitfocus/companion-module-allenheath-ahm",
+      "version": "3.0.0",
+      "baseVersion": "~2.0.0",
+      "lastCommit": "2026-11-11",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["AHM"],
+      "keywords": ["Audio", "Sound"]
+    },
+    {
+      "moduleId": "allenheath-avantis",
+      "repo": "bitfocus/companion-module-allenheath-avantis",
+      "version": "2.1.1",
+      "baseVersion": "2.0.4",
+      "lastCommit": "2026-10-18",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["Avantis"],
+      "keywords": ["audio", "mixer", "console", "scene", "RackUltraFX"]
+    },
+    {
+      "moduleId": "allenheath-cq",
+      "repo": "bitfocus/companion-module-allenheath-cq",
+      "version": "1.1.0",
+      "baseVersion": "~1.11.0",
+      "lastCommit": "2026-10-30",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["CQ-12T", "CQ-18T", "CQ-20B"],
+      "keywords": [],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
+      "moduleId": "allenheath-dlive",
+      "repo": "bitfocus/companion-module-allenheath-dlive",
+      "version": "1.1.0",
+      "baseVersion": "^1.4.0",
+      "lastCommit": "2026-10-30",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["dLive"],
+      "keywords": ["Audio", "Sound"],
+      "note": "Manifest legacy id allenheath-dlive-ilive: the two repositories name each other as legacy id and the source does not show which one Companion installs for a new connection; both are catalogued separately; built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
+      "moduleId": "allenheath-dlive-ilive",
+      "repo": "bitfocus/companion-module-allenheath-dlive-ilive",
+      "version": "2.0.3",
+      "baseVersion": "^1.4.0",
+      "lastCommit": "2026-10-31",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["dLive", "ilive"],
+      "keywords": ["Audio", "Sound"],
+      "note": "Manifest legacy id allenheath-dlive: the two repositories name each other as legacy id and the source does not show which one Companion installs for a new connection; both are catalogued separately; built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
+      "moduleId": "allenheath-dt168",
+      "repo": "bitfocus/companion-module-allenheath-dt168",
+      "version": "1.0.0-beta.2",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-11-07",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["DT168"],
+      "keywords": ["Dante", "preamp", "gain", "phantom"]
+    },
+    {
+      "moduleId": "allenheath-sq",
+      "repo": "bitfocus/companion-module-allenheath-sq",
+      "version": "4.0.0-rc1",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-10-29",
+      "kind": "full",
+      "manufacturer": "Allen & Heath",
+      "products": ["SQ5", "SQ6", "SQ7"],
+      "keywords": ["SQ5", "SQ6", "SQ7"]
+    },
+    {
       "moduleId": "analogway-awj",
       "repo": "bitfocus/companion-module-analogway-awj",
       "version": "2.5.0",
@@ -240,10 +320,11 @@
       "version": "4.0.3",
       "baseVersion": "~2.0.4",
       "lastCommit": "2026-10-02",
-      "kind": "index-only",
+      "kind": "full",
       "manufacturer": "Behringer/Midas",
-      "products": ["X32/M32"],
-      "keywords": ["Audio"]
+      "products": ["X32", "M32"],
+      "keywords": ["Audio", "OSC", "X32 Compact", "X32 Producer", "M32R"],
+      "note": "Covers X32 and M32 consoles over OSC (manifest products \"X32/M32\"); repository id x32 is a legacy id"
     },
     {
       "moduleId": "birddog-ptz",
@@ -722,6 +803,18 @@
       "manufacturer": "HorineTech",
       "products": ["Keynote"],
       "keywords": ["keynote", "presentation", "slides", "notes", "cue"]
+    },
+    {
+      "moduleId": "internal",
+      "repo": "bitfocus/companion",
+      "version": "5.1.3",
+      "baseVersion": "n/a (built into Companion)",
+      "lastCommit": "2026-11-12",
+      "kind": "full",
+      "manufacturer": "Bitfocus",
+      "products": ["Companion"],
+      "keywords": ["core", "internal", "button", "page", "variable", "trigger", "surface"],
+      "note": "Companion core actions and feedbacks (not a connection module)"
     },
     {
       "moduleId": "kramer-matrix",
@@ -1480,23 +1573,11 @@
       "version": "4.0.1",
       "baseVersion": "^2.2.0",
       "lastCommit": "2026-10-06",
-      "kind": "index-only",
-      "manufacturer": "Yamaha",
-      "products": ["RCP"],
-      "keywords": ["Yamaha", "Mixer", "CL", "QL", "PM", "TF", "DM", "RSio"],
-      "note": "Repository yamaha-scp redirects here"
-    },
-    {
-      "moduleId": "internal",
-      "repo": "bitfocus/companion",
-      "version": "5.1.3",
-      "baseVersion": "n/a (built into Companion)",
-      "lastCommit": "2026-11-12",
       "kind": "full",
-      "manufacturer": "Bitfocus",
-      "products": ["Companion"],
-      "keywords": ["core", "internal", "button", "page", "variable", "trigger", "surface"],
-      "note": "Companion core actions and feedbacks (not a connection module)"
+      "manufacturer": "Yamaha",
+      "products": ["CL", "QL", "Rivage PM", "TF", "DM3", "DM7", "DM5", "RIO", "TIO", "RSio"],
+      "keywords": ["Yamaha", "Mixer", "CL", "QL", "PM", "TF", "DM", "RSio"],
+      "note": "Yamaha RCP/SCP module (manifest legacy id yamaha-scp; both repository names lead to this module). Covers CL/QL, Rivage PM, TF (README also names TF-Rack), DM3, DM7 and DM5 (DM7 table) and the RIO, TIO and RSio I/O devices. The repository yamaha-dm is an unmodified template and is listed under unusable"
     }
   ],
   "noModule": [
@@ -1554,6 +1635,24 @@
       "result": "no separate module",
       "alternatives": ["generic-tcp-udp"],
       "note": "rossvideo-rosstalk and rossvideo-nkrouter may be usable; not verified for Ultrix"
+    },
+    {
+      "device": "Allen & Heath Qu series (Qu-16, Qu-24, Qu-32, Qu-SB, QU-PAC)",
+      "result": "only a legacy module without a companion/manifest.json (bitfocus/companion-module-allenheath-qu, last commit 2022-12-20; see unusable)",
+      "alternatives": ["generic-tcp-udp", "generic-midi"],
+      "note": "Qu consoles are controlled over MIDI (TCP or USB); a generic module sending raw MIDI bytes may work; not verified. Third-party forks of the Qu module exist on GitHub but are not part of the bitfocus organisation and were not checked"
+    },
+    {
+      "device": "Allen & Heath GLD series",
+      "result": "no module in the bitfocus organisation",
+      "alternatives": ["generic-tcp-udp", "generic-midi"],
+      "note": "GLD is controlled over MIDI (TCP or USB); not verified. A third-party repository RobHallArt/companion-module-allenheath-GLD exists on GitHub and was not checked"
+    },
+    {
+      "device": "Allen & Heath ZED and Xone series",
+      "result": "no module found (GitHub repository search \"companion-module allen heath\")",
+      "alternatives": ["generic-midi"],
+      "note": "Analogue and DJ mixers with no network control interface assumed; not verified for individual models"
     }
   ],
   "unusable": [
@@ -1566,6 +1665,11 @@
       "repo": "bitfocus/companion-module-yamaha-dm",
       "directory": "yamaha-dm",
       "reason": "Manifest id is the template placeholder 'your-module-name'; the repository is an unmodified module template and cannot be addressed as a connection module"
+    },
+    {
+      "repo": "bitfocus/companion-module-allenheath-qu",
+      "directory": "allenheath-qu",
+      "reason": "No companion/manifest.json in the repository (legacy module: package.json declares api_version 1.0.0, last commit 2022-12-20); it cannot be addressed by a manifest module id and was not catalogued"
     }
   ]
 }
