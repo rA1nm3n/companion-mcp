@@ -1,0 +1,691 @@
+{
+  "moduleId": "extron-mmx-tcp",
+  "name": "Extron MMX 42/62 Series (TCP)",
+  "repo": "bitfocus/companion-module-extron-mmx-tcp",
+  "version": "1.0.0",
+  "baseVersion": "~1.11.2",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "25721bc",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "RouteAV",
+      "name": "Route Audio & Video",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            }
+          ]
+        },
+        {
+          "id": "id_input",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "In 1"
+            },
+            {
+              "id": "2",
+              "label": "In 2"
+            },
+            {
+              "id": "3",
+              "label": "In 3"
+            },
+            {
+              "id": "4",
+              "label": "In 4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 3
+      }
+    },
+    {
+      "id": "RouteV",
+      "name": "Route Video",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            }
+          ]
+        },
+        {
+          "id": "id_input",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "In 1"
+            },
+            {
+              "id": "2",
+              "label": "In 2"
+            },
+            {
+              "id": "3",
+              "label": "In 3"
+            },
+            {
+              "id": "4",
+              "label": "In 4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 37
+      }
+    },
+    {
+      "id": "RouteA",
+      "name": "Route Audio",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            }
+          ]
+        },
+        {
+          "id": "id_input",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "In 1"
+            },
+            {
+              "id": "2",
+              "label": "In 2"
+            },
+            {
+              "id": "3",
+              "label": "In 3"
+            },
+            {
+              "id": "4",
+              "label": "In 4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 71
+      }
+    },
+    {
+      "id": "VideoMute",
+      "name": "Video Un-/Mute",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            },
+            {
+              "id": "All",
+              "label": "All"
+            }
+          ]
+        },
+        {
+          "id": "id_mute",
+          "type": "dropdown",
+          "label": "Mute/Unmute:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Mute"
+            },
+            {
+              "id": "0",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 105
+      }
+    },
+    {
+      "id": "AudioMute",
+      "name": "Audio Un-/Mute",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            },
+            {
+              "id": "All",
+              "label": "All"
+            }
+          ]
+        },
+        {
+          "id": "id_mute",
+          "type": "dropdown",
+          "label": "Mute/Unmute:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Mute"
+            },
+            {
+              "id": "0",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 146
+      }
+    },
+    {
+      "id": "AudioLevel",
+      "name": "Audio Level",
+      "options": [
+        {
+          "id": "id_input",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "In 1"
+            },
+            {
+              "id": "2",
+              "label": "In 2"
+            },
+            {
+              "id": "3",
+              "label": "In 3"
+            },
+            {
+              "id": "4",
+              "label": "In 4"
+            }
+          ]
+        },
+        {
+          "id": "id_level",
+          "type": "dropdown",
+          "label": "Level:",
+          "default": "0G",
+          "choices": [
+            {
+              "id": "24G",
+              "label": "+24dB"
+            },
+            {
+              "id": "23G",
+              "label": "+23dB"
+            },
+            {
+              "id": "22G",
+              "label": "+22dB"
+            },
+            {
+              "id": "21G",
+              "label": "+21dB"
+            },
+            {
+              "id": "20G",
+              "label": "+20dB"
+            },
+            {
+              "id": "19G",
+              "label": "+19dB"
+            },
+            {
+              "id": "18G",
+              "label": "+18dB"
+            },
+            {
+              "id": "17G",
+              "label": "+17dB"
+            },
+            {
+              "id": "16G",
+              "label": "+16dB"
+            },
+            {
+              "id": "15G",
+              "label": "+15dB"
+            },
+            {
+              "id": "14G",
+              "label": "+14dB"
+            },
+            {
+              "id": "13G",
+              "label": "+13dB"
+            },
+            {
+              "id": "12G",
+              "label": "+12dB"
+            },
+            {
+              "id": "11G",
+              "label": "+11dB"
+            },
+            {
+              "id": "10G",
+              "label": "+10dB"
+            },
+            {
+              "id": "9G",
+              "label": "+9dB"
+            },
+            {
+              "id": "8G",
+              "label": "+8dB"
+            },
+            {
+              "id": "7G",
+              "label": "+7dB"
+            },
+            {
+              "id": "6G",
+              "label": "+6dB"
+            },
+            {
+              "id": "5G",
+              "label": "+5dB"
+            },
+            {
+              "id": "4G",
+              "label": "+4dB"
+            },
+            {
+              "id": "3G",
+              "label": "+3dB"
+            },
+            {
+              "id": "2G",
+              "label": "+2dB"
+            },
+            {
+              "id": "1G",
+              "label": "+1dB"
+            },
+            {
+              "id": "0G",
+              "label": "+0dB"
+            },
+            {
+              "id": "1g",
+              "label": "-1dB"
+            },
+            {
+              "id": "2g",
+              "label": "-2dB"
+            },
+            {
+              "id": "3g",
+              "label": "-3dB"
+            },
+            {
+              "id": "4g",
+              "label": "-4dB"
+            },
+            {
+              "id": "5g",
+              "label": "-5dB"
+            },
+            {
+              "id": "6g",
+              "label": "-6dB"
+            },
+            {
+              "id": "7g",
+              "label": "-7dB"
+            },
+            {
+              "id": "8g",
+              "label": "-8dB"
+            },
+            {
+              "id": "9g",
+              "label": "-9dB"
+            },
+            {
+              "id": "10g",
+              "label": "-10dB"
+            },
+            {
+              "id": "11g",
+              "label": "-11dB"
+            },
+            {
+              "id": "12g",
+              "label": "-12dB"
+            },
+            {
+              "id": "13g",
+              "label": "-13dB"
+            },
+            {
+              "id": "14g",
+              "label": "-14dB"
+            },
+            {
+              "id": "15g",
+              "label": "-15dB"
+            },
+            {
+              "id": "16g",
+              "label": "-16dB"
+            },
+            {
+              "id": "17g",
+              "label": "-17dB"
+            },
+            {
+              "id": "18g",
+              "label": "-18dB"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 188
+      }
+    },
+    {
+      "id": "AudioLevelIncDec",
+      "name": "Audio Level In-/Decrease",
+      "options": [
+        {
+          "id": "id_input",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "In 1"
+            },
+            {
+              "id": "2",
+              "label": "In 2"
+            },
+            {
+              "id": "3",
+              "label": "In 3"
+            },
+            {
+              "id": "4",
+              "label": "In 4"
+            }
+          ]
+        },
+        {
+          "id": "id_dir",
+          "type": "dropdown",
+          "label": "Direction:",
+          "default": "+",
+          "choices": [
+            {
+              "id": "+",
+              "label": "Increase +1dB"
+            },
+            {
+              "id": "-",
+              "label": "Decrease -1dB"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 226
+      }
+    },
+    {
+      "id": "Frontpanel",
+      "name": "Frontpanel",
+      "options": [
+        {
+          "id": "id_lock",
+          "type": "dropdown",
+          "label": "Lock/Unlock:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Lock"
+            },
+            {
+              "id": "0",
+              "label": "Unlock"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 263
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "mute_status",
+      "name": "Mute Status",
+      "description": "Indicates whether an output is muted",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            },
+            {
+              "id": "0",
+              "label": "All"
+            }
+          ]
+        },
+        {
+          "id": "id_type",
+          "type": "dropdown",
+          "label": "Audio/Video:",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Both"
+            },
+            {
+              "id": "1",
+              "label": "Audio"
+            },
+            {
+              "id": "2",
+              "label": "Video"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 6
+      }
+    },
+    {
+      "id": "routing_status",
+      "name": "Routing Status",
+      "description": "Indicates whether an input is routed to an output",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "id_output",
+          "type": "dropdown",
+          "label": "Output:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Out 1"
+            },
+            {
+              "id": "2",
+              "label": "Out 2"
+            }
+          ]
+        },
+        {
+          "id": "id_input",
+          "type": "dropdown",
+          "label": "Input:",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "In 1"
+            },
+            {
+              "id": "2",
+              "label": "In 2"
+            },
+            {
+              "id": "3",
+              "label": "In 3"
+            },
+            {
+              "id": "4",
+              "label": "In 4"
+            }
+          ]
+        },
+        {
+          "id": "id_type",
+          "type": "dropdown",
+          "label": "Audio/Video:",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Both"
+            },
+            {
+              "id": "1",
+              "label": "Audio"
+            },
+            {
+              "id": "2",
+              "label": "Video"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 49
+      }
+    },
+    {
+      "id": "lock_status",
+      "name": "Frontpanel Lock Status",
+      "description": "Indicates whether the Frontpanel ist locked",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 101
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 8 actions (actions.js, one object literal returned by getActionDefinitions) and 3 boolean feedbacks (feedbacks.js). Presets (presets.js) are not catalogued.",
+    "The device is fixed to 4 inputs and 2 outputs: self.INPUT (\"In 1\"..\"In 4\") and self.OUTPUT (\"Out 1\", \"Out 2\") are hard-coded in index.js (lines 23-33). All dropdowns are therefore closed lists with string ids. The \"MMX 42/62\" in the manifest is not reflected by any model option.",
+    "Protocol: TCPHelper to the configured host and port (config.js: default port 32100, regex Regex.PORT; the config also has a \"Save TCP Response\" checkbox). Commands are Extron SIS strings: \"<in>*<out>!\" (audio and video), \"%\" (video only), \"$\" (audio only), \"<out>*<0|1>B\" video mute, \"<out>*<0|1>Z\" audio mute, \"<0|1>*B\" / \"<0|1>*Z\" for all outputs, \"<in>*<level>\" gain, \"<in>+G\" / \"<in>-G\", \"<0|1>X\" front panel lock.",
+    "The callbacks run the command string through parseVariablesInString and unescape, but all inputs are dropdowns, so no variables can be entered.",
+    "The VideoMute/AudioMute actions use the choice id \"All\" for all outputs, while the mute_status feedback uses the id \"0\" for the same meaning.",
+    "AudioLevel choices are generated by a loop (43 entries from +24 dB down to -18 dB, id = abs(value) + \"G\" for >= 0 and + \"g\" for < 0, label with explicit \"+\"/\"-\" sign, so 0 is \"+0dB\" with id \"0G\"); the catalog lists them as written.",
+    "Built on @companion-module/base ~1.11.2: options do not support expressions."
+  ]
+}

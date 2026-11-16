@@ -1,0 +1,219 @@
+{
+  "moduleId": "kramer-matrix",
+  "name": "Kramer Matrix (generic, Protocol 2000/3000)",
+  "repo": "bitfocus/companion-module-kramer-matrix",
+  "version": "2.1.2",
+  "baseVersion": "~1.7.0",
+  "lastCommit": "2026-10-27",
+  "lastCommitSha": "e117fa6",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "switch_audio",
+      "name": "Switch Audio",
+      "description": "Protocol 3000: only works when the \"Route command\" config is #ROUTE (sends \"#ROUTE 1,<out>,<in>\"); with #VID it logs a message and sends nothing.",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input #",
+          "default": "0",
+          "choicesNote": "Runtime list: {id \"0\", label \"Off\"} (string id) followed by Input 1..N with NUMBER ids, N = config \"Input count\" clamped to 1..64 (blank or 0 counts as 1; auto-detected from the device when left blank).",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 64
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output #",
+          "default": "0",
+          "choicesNote": "Runtime list: {id \"0\", label \"All\"} (string id) followed by Output 1..N with NUMBER ids, N = config \"Output count\" clamped to 1..64.",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 886
+      }
+    },
+    {
+      "id": "switch_video",
+      "name": "Switch Video",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input #",
+          "default": "0",
+          "choicesNote": "Runtime list: {id \"0\", label \"Off\"} (string id) followed by Input 1..N with NUMBER ids, N = config \"Input count\" clamped to 1..64 (blank or 0 counts as 1; auto-detected from the device when left blank).",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 64
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output #",
+          "default": "0",
+          "choicesNote": "Runtime list: {id \"0\", label \"All\"} (string id) followed by Output 1..N with NUMBER ids, N = config \"Output count\" clamped to 1..64.",
+          "valueType": "numeric",
+          "min": 0,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 913
+      }
+    },
+    {
+      "id": "switch_video_dynamic",
+      "name": "Switch Video (Dynamic)",
+      "description": "Both fields are parsed with parseInt after variable resolution; non-integers log an error and send nothing. No regex in the source.",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input #",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "output",
+          "type": "textinput",
+          "label": "Output #",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 940
+      }
+    },
+    {
+      "id": "switch_audio_dynamic",
+      "name": "Switch Audio (Dynamic)",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input #",
+          "default": "0",
+          "useVariables": true,
+          "regex": "/^\\d*$/"
+        },
+        {
+          "id": "output",
+          "type": "textinput",
+          "label": "Output #",
+          "default": "0",
+          "useVariables": true,
+          "regex": "/^\\d*$/"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 970
+      }
+    },
+    {
+      "id": "recall_setup",
+      "name": "Recall Preset",
+      "options": [
+        {
+          "id": "setup",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "1",
+          "choicesNote": "Runtime list: Preset 1..N with NUMBER ids, N = config \"Preset count\" clamped to 1..64.",
+          "valueType": "numeric",
+          "min": 1,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1002
+      }
+    },
+    {
+      "id": "store_setup",
+      "name": "Store Preset",
+      "options": [
+        {
+          "id": "setup",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "1",
+          "choicesNote": "Runtime list: Preset 1..N with NUMBER ids, N = config \"Preset count\" clamped to 1..64.",
+          "valueType": "numeric",
+          "min": 1,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1018
+      }
+    },
+    {
+      "id": "delete_setup",
+      "name": "Delete Preset",
+      "description": "Protocol 2000: sends the store instruction with parameter B = 1 (delete). Protocol 3000: the code path sends the same instruction as Store Preset (\"#PRST-STO <n>\"), because the \"not supported\" branch tests this.DELETE_SETUP, which is not defined in the module.",
+      "options": [
+        {
+          "id": "setup",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "1",
+          "choicesNote": "Runtime list: Preset 1..N with NUMBER ids, N = config \"Preset count\" clamped to 1..64.",
+          "valueType": "numeric",
+          "min": 1,
+          "max": 64
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1038
+      }
+    },
+    {
+      "id": "front_panel",
+      "name": "Front Panel Lock",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0"
+            },
+            {
+              "id": "1"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 1060
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 8 actions (all in one setActionDefinitions call in actions(), index.js from line 885) and no feedbacks (the module never calls setFeedbackDefinitions). Presets and variables do not exist in this module.",
+    "Protocol: Kramer Protocol 2000 (4-byte binary frames) or Protocol 3000 (ASCII \"#...\\r\"), chosen by the config field \"Protocol\" (default 3000). Transport is TCP port 5000 (default) or UDP port 50000, chosen by \"TCP or UDP\". Consecutive Protocol 3000 commands need 200 ms spacing according to a source comment.",
+    "The action definitions are rebuilt by actions() on init, config updates and when capabilities are detected. The input, output and preset dropdowns are therefore filled at runtime from the config counts (or auto-detection) and are recorded with choicesNote, valueType numeric, min and max; their ids mix a string \"0\" (Off / All) with number ids 1..N, exactly as the source builds them. The defaults are the strings \"0\" and \"1\".",
+    "The front_panel choices are written { id, name } in the source (the Companion field is label), so they carry no label in the catalog; ids \"0\" (Unlock) and \"1\" (Lock) are taken from the name text.",
+    "Route command (#VID or #ROUTE) and disconnect parameter (\"0\" or number of inputs + 1) are config options that change the generated command; for #ROUTE the module shifts the input number by -1 for the models VP-428H2, VP-440, VP-444 and VP-440H2 and uses layer 12 for the first three. Input \"0\" means disconnect, output \"0\" means all outputs.",
+    "Built on @companion-module/base ~1.7.0: options do not support expressions. The module is CommonJS, written in a single index.js."
+  ]
+}

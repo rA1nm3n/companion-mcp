@@ -1,0 +1,375 @@
+{
+  "moduleId": "extron-dxp-hd-4k-plus",
+  "name": "Extron DXP HD 4K Plus Series",
+  "repo": "bitfocus/companion-module-extron-dxp-hd-4k-plus",
+  "version": "1.0.0",
+  "baseVersion": "~1.11.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "f49554b",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "route_input_output",
+      "name": "Route Input to Output",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 8, dxp88: 8, dxp1212: 12, dxp1616: 16 inputs); 8 when no model is configured. Labels are the custom label from the module config or \"Input n\". Built in getInputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 32
+      }
+    },
+    {
+      "id": "route_input_all",
+      "name": "Route Input to All Outputs",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 8, dxp88: 8, dxp1212: 12, dxp1616: 16 inputs); 8 when no model is configured. Labels are the custom label from the module config or \"Input n\". Built in getInputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 59
+      }
+    },
+    {
+      "id": "disconnect_output",
+      "name": "Disconnect Output",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 78
+      }
+    },
+    {
+      "id": "save_preset",
+      "name": "Save Preset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Preset Number",
+          "default": 1,
+          "min": 1,
+          "max": 32
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 97
+      }
+    },
+    {
+      "id": "recall_preset",
+      "name": "Recall Preset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "number",
+          "label": "Preset Number",
+          "default": 1,
+          "min": 1,
+          "max": 32
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 117
+      }
+    },
+    {
+      "id": "get_device_info",
+      "name": "Get Device Information",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 137
+      }
+    },
+    {
+      "id": "get_routing_status",
+      "name": "Get Routing Status",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 146
+      }
+    },
+    {
+      "id": "reset_device",
+      "name": "Reset Device",
+      "description": "Sends \"1Z\" only when the confirm checkbox is set.",
+      "options": [
+        {
+          "id": "confirm",
+          "type": "checkbox",
+          "label": "Confirm Reset (This will reboot the device)",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 155
+      }
+    },
+    {
+      "id": "front_panel_lock",
+      "name": "Front Panel Lock",
+      "options": [
+        {
+          "id": "lock",
+          "type": "dropdown",
+          "label": "Lock State",
+          "default": "unlock",
+          "choices": [
+            {
+              "id": "lock",
+              "label": "Lock"
+            },
+            {
+              "id": "unlock",
+              "label": "Unlock"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 173
+      }
+    },
+    {
+      "id": "set_volume",
+      "name": "Set Audio Volume",
+      "description": "The 0-100 value is converted to Math.round(volume / 100 * 64) and sent as \"<n>*<output>V\".",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Audio Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "volume",
+          "type": "number",
+          "label": "Volume Level",
+          "default": 50,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 194
+      }
+    },
+    {
+      "id": "mute_output",
+      "name": "Mute/Unmute Audio Output",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Audio Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "mute",
+          "type": "dropdown",
+          "label": "Mute State",
+          "default": "mute",
+          "choices": [
+            {
+              "id": "mute",
+              "label": "Mute"
+            },
+            {
+              "id": "unmute",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 224
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "input_routed_to_output",
+      "name": "Input Routed to Output",
+      "description": "Shows if a specific input is routed to a specific output",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 8, dxp88: 8, dxp1212: 12, dxp1616: 16 inputs); 8 when no model is configured. Labels are the custom label from the module config or \"Input n\". Built in getInputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 38
+      }
+    },
+    {
+      "id": "connection_status",
+      "name": "Connection Status",
+      "description": "Shows if device is connected",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 77
+      }
+    },
+    {
+      "id": "output_source",
+      "name": "Output Source Display",
+      "description": "Shows which input is currently routed to an output",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 92
+      }
+    },
+    {
+      "id": "device_model",
+      "name": "Device Model",
+      "description": "Shows the device model information",
+      "feedbackType": "advanced",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 140
+      }
+    },
+    {
+      "id": "output_disconnected",
+      "name": "Output Disconnected",
+      "description": "Shows if an output has no input routed to it",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "label": "Output",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 4, dxp88: 8, dxp1212: 12, dxp1616: 16 outputs); 8 when no model is configured. Labels are the custom label from the module config or \"Output n\". Built in getOutputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 155
+      }
+    },
+    {
+      "id": "input_routing_count",
+      "name": "Input Routing Count",
+      "description": "Shows how many outputs an input is routed to",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choicesNote": "Ids are the numbers 1..N of the configured model (dxp44: 4, dxp66: 6, dxp84: 8, dxp88: 8, dxp1212: 12, dxp1616: 16 inputs); 8 when no model is configured. Labels are the custom label from the module config or \"Input n\". Built in getInputChoices().",
+          "valueType": "number",
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 192
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 11 actions (src/actions.ts) and 6 feedbacks (src/feedbacks.ts), each registered once in a single call (UpdateActions / UpdateFeedbacks). They are rebuilt on every config change.",
+    "Protocol: plain TCP socket (config field \"TCP Port\", default 23, \"Extron devices typically use port 23\"), commands are SIS-style strings terminated with CRLF (src/main.ts sendCommand): route \"<in>*<out>!\", all outputs \"<in>*!\", disconnect \"0*<out>!\", save preset \"<n>,\", recall preset \"<n>.\", front panel lock \"1X\"/\"0X\", reset \"1Z\", mute \"<out>*Z\" and unmute \"<out>*z\", volume \"<v>*<out>V\".",
+    "Input and output dropdowns are built at runtime from the configured device model (src/config.ts DXP_MODELS) and the per-port labels in the module config. Their ids are numbers (1 and \"1\" are different values); the catalog records valueType number with min 1 and max 16 (largest model) and describes the pattern in choicesNote.",
+    "set_volume and mute_output reuse getOutputChoices(): the \"Audio Output\" dropdown lists the video outputs of the model, not a separate audio list.",
+    "The reset_device callback sends \"1Z\" only when the \"confirm\" checkbox is true; the default is false.",
+    "Built on @companion-module/base ~1.11.3: options do not support expressions."
+  ]
+}
