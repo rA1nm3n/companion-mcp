@@ -1,0 +1,624 @@
+{
+  "moduleId": "novastar-d12",
+  "name": "NovaStar D12",
+  "repo": "bitfocus/companion-module-novastar-d12",
+  "version": "1.0.0",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "38d1291",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "take",
+      "name": "TAKE",
+      "options": [],
+      "description": "Sends a fixed packet (JSON body screenId 255, screenType 2 and 4, switchEffect time 1, direction 0, type 1).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 68
+      }
+    },
+    {
+      "id": "cut",
+      "name": "CUT",
+      "options": [],
+      "description": "Sends a fixed packet (same body as TAKE with switchEffect type 0).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 94
+      }
+    },
+    {
+      "id": "change_black",
+      "name": "Change Black Screen",
+      "options": [
+        {
+          "id": "black",
+          "type": "dropdown",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No fade to black"
+            },
+            {
+              "id": "1",
+              "label": "Fade to black"
+            }
+          ]
+        }
+      ],
+      "description": "Fade-to-black enable flag (FTB enable 0 or 1, time 0) for screen types 2 and 4. The choice list is instance.CHOICES_BLACK defined in src/main.js (line 12); CONFIG_MODEL has only the model d12.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 120
+      }
+    },
+    {
+      "id": "change_freeze",
+      "name": "Change Freeze Screen",
+      "options": [
+        {
+          "id": "freeze",
+          "type": "dropdown",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfreeze"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            }
+          ]
+        }
+      ],
+      "description": "Freeze flag for screen types 2 and 4. The choice list is instance.CHOICES_FREEZE defined in src/main.js (line 54).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 141
+      }
+    },
+    {
+      "id": "load_preset",
+      "name": "Load Preset to Preview",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "default": "0",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Preset 1"
+            },
+            {
+              "id": 2,
+              "label": "Preset 2"
+            },
+            {
+              "id": 3,
+              "label": "Preset 3"
+            },
+            {
+              "id": 4,
+              "label": "Preset 4"
+            },
+            {
+              "id": 5,
+              "label": "Preset 5"
+            },
+            {
+              "id": 6,
+              "label": "Preset 6"
+            },
+            {
+              "id": 7,
+              "label": "Preset 7"
+            },
+            {
+              "id": 8,
+              "label": "Preset 8"
+            },
+            {
+              "id": 9,
+              "label": "Preset 9"
+            },
+            {
+              "id": 10,
+              "label": "Preset 10"
+            },
+            {
+              "id": 11,
+              "label": "Preset 11"
+            },
+            {
+              "id": 12,
+              "label": "Preset 12"
+            },
+            {
+              "id": 13,
+              "label": "Preset 13"
+            },
+            {
+              "id": 14,
+              "label": "Preset 14"
+            },
+            {
+              "id": 15,
+              "label": "Preset 15"
+            },
+            {
+              "id": 16,
+              "label": "Preset 16"
+            },
+            {
+              "id": 17,
+              "label": "Preset 17"
+            },
+            {
+              "id": 18,
+              "label": "Preset 18"
+            },
+            {
+              "id": 19,
+              "label": "Preset 19"
+            },
+            {
+              "id": 20,
+              "label": "Preset 20"
+            },
+            {
+              "id": 21,
+              "label": "Preset 21"
+            },
+            {
+              "id": 22,
+              "label": "Preset 22"
+            },
+            {
+              "id": 23,
+              "label": "Preset 23"
+            },
+            {
+              "id": 24,
+              "label": "Preset 24"
+            },
+            {
+              "id": 25,
+              "label": "Preset 25"
+            },
+            {
+              "id": 26,
+              "label": "Preset 26"
+            },
+            {
+              "id": 27,
+              "label": "Preset 27"
+            },
+            {
+              "id": 28,
+              "label": "Preset 28"
+            },
+            {
+              "id": 29,
+              "label": "Preset 29"
+            },
+            {
+              "id": 30,
+              "label": "Preset 30"
+            },
+            {
+              "id": 31,
+              "label": "Preset 31"
+            },
+            {
+              "id": 32,
+              "label": "Preset 32"
+            },
+            {
+              "id": 33,
+              "label": "Preset 33"
+            },
+            {
+              "id": 34,
+              "label": "Preset 34"
+            },
+            {
+              "id": 35,
+              "label": "Preset 35"
+            },
+            {
+              "id": 36,
+              "label": "Preset 36"
+            },
+            {
+              "id": 37,
+              "label": "Preset 37"
+            },
+            {
+              "id": 38,
+              "label": "Preset 38"
+            },
+            {
+              "id": 39,
+              "label": "Preset 39"
+            },
+            {
+              "id": 40,
+              "label": "Preset 40"
+            },
+            {
+              "id": 41,
+              "label": "Preset 41"
+            },
+            {
+              "id": 42,
+              "label": "Preset 42"
+            },
+            {
+              "id": 43,
+              "label": "Preset 43"
+            },
+            {
+              "id": 44,
+              "label": "Preset 44"
+            },
+            {
+              "id": 45,
+              "label": "Preset 45"
+            },
+            {
+              "id": 46,
+              "label": "Preset 46"
+            },
+            {
+              "id": 47,
+              "label": "Preset 47"
+            },
+            {
+              "id": 48,
+              "label": "Preset 48"
+            },
+            {
+              "id": 49,
+              "label": "Preset 49"
+            },
+            {
+              "id": 50,
+              "label": "Preset 50"
+            },
+            {
+              "id": 51,
+              "label": "Preset 51"
+            },
+            {
+              "id": 52,
+              "label": "Preset 52"
+            },
+            {
+              "id": 53,
+              "label": "Preset 53"
+            },
+            {
+              "id": 54,
+              "label": "Preset 54"
+            },
+            {
+              "id": 55,
+              "label": "Preset 55"
+            },
+            {
+              "id": 56,
+              "label": "Preset 56"
+            },
+            {
+              "id": 57,
+              "label": "Preset 57"
+            },
+            {
+              "id": 58,
+              "label": "Preset 58"
+            },
+            {
+              "id": 59,
+              "label": "Preset 59"
+            },
+            {
+              "id": 60,
+              "label": "Preset 60"
+            },
+            {
+              "id": 61,
+              "label": "Preset 61"
+            },
+            {
+              "id": 62,
+              "label": "Preset 62"
+            },
+            {
+              "id": 63,
+              "label": "Preset 63"
+            },
+            {
+              "id": 64,
+              "label": "Preset 64"
+            },
+            {
+              "id": 65,
+              "label": "Preset 65"
+            },
+            {
+              "id": 66,
+              "label": "Preset 66"
+            },
+            {
+              "id": 67,
+              "label": "Preset 67"
+            },
+            {
+              "id": 68,
+              "label": "Preset 68"
+            },
+            {
+              "id": 69,
+              "label": "Preset 69"
+            },
+            {
+              "id": 70,
+              "label": "Preset 70"
+            },
+            {
+              "id": 71,
+              "label": "Preset 71"
+            },
+            {
+              "id": 72,
+              "label": "Preset 72"
+            },
+            {
+              "id": 73,
+              "label": "Preset 73"
+            },
+            {
+              "id": 74,
+              "label": "Preset 74"
+            },
+            {
+              "id": 75,
+              "label": "Preset 75"
+            },
+            {
+              "id": 76,
+              "label": "Preset 76"
+            },
+            {
+              "id": 77,
+              "label": "Preset 77"
+            },
+            {
+              "id": 78,
+              "label": "Preset 78"
+            },
+            {
+              "id": 79,
+              "label": "Preset 79"
+            },
+            {
+              "id": 80,
+              "label": "Preset 80"
+            },
+            {
+              "id": 81,
+              "label": "Preset 81"
+            },
+            {
+              "id": 82,
+              "label": "Preset 82"
+            },
+            {
+              "id": 83,
+              "label": "Preset 83"
+            },
+            {
+              "id": 84,
+              "label": "Preset 84"
+            },
+            {
+              "id": 85,
+              "label": "Preset 85"
+            },
+            {
+              "id": 86,
+              "label": "Preset 86"
+            },
+            {
+              "id": 87,
+              "label": "Preset 87"
+            },
+            {
+              "id": 88,
+              "label": "Preset 88"
+            },
+            {
+              "id": 89,
+              "label": "Preset 89"
+            },
+            {
+              "id": 90,
+              "label": "Preset 90"
+            },
+            {
+              "id": 91,
+              "label": "Preset 91"
+            },
+            {
+              "id": 92,
+              "label": "Preset 92"
+            },
+            {
+              "id": 93,
+              "label": "Preset 93"
+            },
+            {
+              "id": 94,
+              "label": "Preset 94"
+            },
+            {
+              "id": 95,
+              "label": "Preset 95"
+            },
+            {
+              "id": 96,
+              "label": "Preset 96"
+            },
+            {
+              "id": 97,
+              "label": "Preset 97"
+            },
+            {
+              "id": 98,
+              "label": "Preset 98"
+            },
+            {
+              "id": 99,
+              "label": "Preset 99"
+            },
+            {
+              "id": 100,
+              "label": "Preset 100"
+            },
+            {
+              "id": 101,
+              "label": "Preset 101"
+            },
+            {
+              "id": 102,
+              "label": "Preset 102"
+            },
+            {
+              "id": 103,
+              "label": "Preset 103"
+            },
+            {
+              "id": 104,
+              "label": "Preset 104"
+            },
+            {
+              "id": 105,
+              "label": "Preset 105"
+            },
+            {
+              "id": 106,
+              "label": "Preset 106"
+            },
+            {
+              "id": 107,
+              "label": "Preset 107"
+            },
+            {
+              "id": 108,
+              "label": "Preset 108"
+            },
+            {
+              "id": 109,
+              "label": "Preset 109"
+            },
+            {
+              "id": 110,
+              "label": "Preset 110"
+            },
+            {
+              "id": 111,
+              "label": "Preset 111"
+            },
+            {
+              "id": 112,
+              "label": "Preset 112"
+            },
+            {
+              "id": 113,
+              "label": "Preset 113"
+            },
+            {
+              "id": 114,
+              "label": "Preset 114"
+            },
+            {
+              "id": 115,
+              "label": "Preset 115"
+            },
+            {
+              "id": 116,
+              "label": "Preset 116"
+            },
+            {
+              "id": 117,
+              "label": "Preset 117"
+            },
+            {
+              "id": 118,
+              "label": "Preset 118"
+            },
+            {
+              "id": 119,
+              "label": "Preset 119"
+            },
+            {
+              "id": 120,
+              "label": "Preset 120"
+            },
+            {
+              "id": 121,
+              "label": "Preset 121"
+            },
+            {
+              "id": 122,
+              "label": "Preset 122"
+            },
+            {
+              "id": 123,
+              "label": "Preset 123"
+            },
+            {
+              "id": 124,
+              "label": "Preset 124"
+            },
+            {
+              "id": 125,
+              "label": "Preset 125"
+            },
+            {
+              "id": 126,
+              "label": "Preset 126"
+            },
+            {
+              "id": 127,
+              "label": "Preset 127"
+            },
+            {
+              "id": 128,
+              "label": "Preset 128"
+            }
+          ]
+        }
+      ],
+      "description": "The default is the string '0', which is not one of the choices (numeric ids 1 to 128). The command builder treats an index below 1 or above 128 as 1 (console.log of an error, then default 1).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 162
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 5 actions (src/actions.js, getActions() returns one object). The module registers no feedbacks and no variables; src/presets.js defines presets (categories Basics and Display, 6 buttons) which are not catalogued.",
+    "Protocol: binary packets (header 0x55 0xAA, JSON body, checksum) over TCP to the configured host, port 5400 when no port is set (src/main.js:200-205); the module also opens a UDP socket to port 3800 (initUDP, src/main.js:248-255). The host config field is not recorded.",
+    "Built on @companion-module/base ~1.4.3 (1.x): options do not support expressions.",
+    "The option labels of the dropdowns are written as 'name: ...' in the source (not a valid option field), so the options carry no label.",
+    "change_black and change_freeze send the id looked up in instance.model.black/freeze (CONFIG_MODEL d12 only); string ids '0' and '1'. load_preset uses number ids 1-128 but string default '0' (recorded as written).",
+    "Nothing in this file was tested against a device."
+  ]
+}

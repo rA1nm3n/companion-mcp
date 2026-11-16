@@ -1,0 +1,357 @@
+{
+  "moduleId": "novastar-coex",
+  "name": "NovaStar COEX",
+  "repo": "bitfocus/companion-module-novastar-coex",
+  "version": "2.0.2",
+  "baseVersion": "^1.11.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "c48ecd0",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "source",
+      "name": "Change Input Source",
+      "options": [
+        {
+          "id": "num",
+          "type": "dropdown",
+          "label": "Mode",
+          "choicesNote": "Filled at runtime from the device: one choice per input source, id and label are both the source name (string). Default is the first source name, or undefined while the list is empty (actions are first registered before the connection exists).",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 5
+      }
+    },
+    {
+      "id": "brightness",
+      "name": "Brightness",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Brightness",
+          "default": 50,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 27
+      }
+    },
+    {
+      "id": "gamma",
+      "name": "Gamma",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Gamma",
+          "default": 2.8,
+          "min": 1,
+          "max": 4
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 50
+      }
+    },
+    {
+      "id": "display_mode",
+      "name": "Display Mode",
+      "options": [
+        {
+          "id": "num",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Normal"
+            },
+            {
+              "id": 1,
+              "label": "Blackout"
+            },
+            {
+              "id": 2,
+              "label": "Freeze"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 73
+      }
+    },
+    {
+      "id": "colortemp",
+      "name": "Color Temperature",
+      "options": [
+        {
+          "id": "num",
+          "type": "number",
+          "label": "Color Temp",
+          "default": 6500,
+          "min": 1700,
+          "max": 15000
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 107
+      }
+    },
+    {
+      "id": "preset",
+      "name": "Preset",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset Name",
+          "choicesNote": "Filled at runtime from the device: one choice per preset, id and label are both the preset name (string). Default is the first preset name, or undefined while the list is empty.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 130
+      }
+    },
+    {
+      "id": "testpattern",
+      "name": "Test Pattern",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Test Pattern",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Color"
+            },
+            {
+              "id": 16,
+              "label": "Horizontal stripes to the bottom"
+            },
+            {
+              "id": 17,
+              "label": "Horizontal stripes to the right"
+            },
+            {
+              "id": 18,
+              "label": "Slashes"
+            },
+            {
+              "id": 19,
+              "label": "Backslashes"
+            },
+            {
+              "id": 20,
+              "label": "Grid to the bottom right"
+            },
+            {
+              "id": 21,
+              "label": "Grid to the right"
+            },
+            {
+              "id": 32,
+              "label": "Left-to-right red gradient"
+            },
+            {
+              "id": 33,
+              "label": "Left-to-right green gradient"
+            },
+            {
+              "id": 34,
+              "label": "Left-to-right blue gradient"
+            },
+            {
+              "id": 35,
+              "label": "Left-to-right gray gradient"
+            },
+            {
+              "id": 36,
+              "label": "Top-to-bottom red gradient"
+            },
+            {
+              "id": 37,
+              "label": "Top-to-bottom green gradient"
+            },
+            {
+              "id": 38,
+              "label": "Top-to-bottom blue gradient"
+            },
+            {
+              "id": 39,
+              "label": "Top-to-bottom gray gradient"
+            },
+            {
+              "id": 48,
+              "label": "Lightning"
+            }
+          ]
+        },
+        {
+          "id": "params",
+          "type": "other",
+          "rawType": "static-text",
+          "label": "Some of the test patterns use optional parameters, such as color values for \"Color\" pattern, or speed for gradients and other patterns. Default values are included."
+        },
+        {
+          "id": "red",
+          "type": "number",
+          "label": "Red",
+          "default": 4095,
+          "min": 0,
+          "max": 4095
+        },
+        {
+          "id": "green",
+          "type": "number",
+          "label": "Green",
+          "default": 4095,
+          "min": 0,
+          "max": 4095
+        },
+        {
+          "id": "blue",
+          "type": "number",
+          "label": "Blue",
+          "default": 4095,
+          "min": 0,
+          "max": 4095
+        },
+        {
+          "id": "gray",
+          "type": "number",
+          "label": "Grayscale / Brightness",
+          "default": 255,
+          "min": 0,
+          "max": 255
+        },
+        {
+          "id": "gridWidth",
+          "type": "number",
+          "label": "Grid Width / Size",
+          "default": 255,
+          "min": 0,
+          "max": 255
+        },
+        {
+          "id": "moveSpeed",
+          "type": "number",
+          "label": "Movement Speed",
+          "default": 100,
+          "min": 0,
+          "max": 100
+        },
+        {
+          "id": "gradientStretch",
+          "type": "number",
+          "label": "Gradient Stretch",
+          "default": 1,
+          "min": 1,
+          "max": 20
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 155
+      }
+    },
+    {
+      "id": "set_3dlut_status",
+      "name": "3D LUT Status (Set)",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Status",
+          "default": false,
+          "choices": [
+            {
+              "id": true,
+              "label": "Enable"
+            },
+            {
+              "id": false,
+              "label": "Disable"
+            }
+          ]
+        },
+        {
+          "id": "screenids",
+          "type": "textinput",
+          "label": "Screen IDs (optional, comma-separated, blank for all)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 270
+      }
+    },
+    {
+      "id": "toggle_blackout",
+      "name": "Toggle Blackout/Normal",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 307
+      }
+    },
+    {
+      "id": "toggle_freeze",
+      "name": "Toggle Freeze/Normal",
+      "options": [],
+      "provenance": {
+        "file": "actions.js",
+        "line": 344
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "screen_color_temperature_display",
+      "name": "Screen Color Temperature Display",
+      "feedbackType": "advanced",
+      "description": "Source label: 'Display Screen Color Temperature as Background Color'. Sets the button background to the RGB color computed from the screen's polled color temperature (Kelvin); returns an empty style when no data exists for the index.",
+      "options": [
+        {
+          "id": "screenIndex",
+          "type": "number",
+          "label": "Screen Index (0-based)",
+          "default": 0,
+          "min": 0,
+          "max": 10
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 53
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 10 actions (actions.js, single setActionDefinitions call) and 1 advanced feedback (feedbacks.js). Nothing is generated at runtime except the choice lists of source and preset.",
+    "Protocol: the module talks to the device through the npm package @novastar-dev/coex (its transport was not read, not part of the clone) with config fields host (Regex.IP) and port (Regex.PORT, default 8001). Manifest description: COEX/VMP devices (MX40 Pro, MX30, CX80 Pro).",
+    "Built on @companion-module/base ^1.11.3 (1.x): options do not support expressions. Module version in package.json is 2.0.2; manifest.json carries the placeholder version 0.0.0.",
+    "display_mode uses numeric ids 0/1/2 and set_3dlut_status uses boolean ids true/false; the source keeps these types (the booleans are not strings).",
+    "Brightness and gamma calls pass screenId null (all screens); the screenids field of set_3dlut_status is trimmed and blank means all screens.",
+    "The testpattern action always sends the red/green/blue/gray/gridWidth/moveSpeed/gradientStretch values together with state 1 whatever the chosen pattern; the static-text option id params carries no value.",
+    "The toggle actions read the display mode of the first screen only (displayState[0].displayMode); toggle_blackout switches Freeze and unknown to Blackout, toggle_freeze switches Blackout and unknown to Freeze.",
+    "Variables (variables.js) and the upgrade scripts (empty) are not catalogued; the module has no presets file."
+  ]
+}
