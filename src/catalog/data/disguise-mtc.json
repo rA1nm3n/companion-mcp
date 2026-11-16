@@ -1,0 +1,155 @@
+{
+  "moduleId": "disguise-mtc",
+  "name": "Disguise Multi Transport Control",
+  "repo": "bitfocus/companion-module-disguise-mtc",
+  "version": "2.1.0",
+  "baseVersion": "~1.11.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "1f925a4",
+  "status": "read",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "go_to_cue",
+      "name": "Go to Cue / Timecode",
+      "options": [
+        {
+          "id": "playmode",
+          "type": "dropdown",
+          "label": "Play Mode",
+          "default": "playSection",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "playSection",
+              "label": "Play Section"
+            },
+            {
+              "id": "loop",
+              "label": "Loop Section"
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "type": "dropdown",
+          "label": "Transport (Player)",
+          "description": "Select a target transport. List is updated by polling.",
+          "choicesNote": "Transports (players) reported by the Multitransport Manager: id and label are both the player name, refreshed by polling {\"query\":{\"q\":\"playerList\"}} (src/main.js:278-296). Until a list has been received the only entry is {id \"\", label \"No transports loaded\"} and the action logs an error and sends nothing for an empty id. The default is computed at runtime ((self.playerList && self.playerList.length > 0) ? self.playerList[0].id : '') and is not recorded.",
+          "valueType": "string"
+        },
+        {
+          "id": "track",
+          "type": "dropdown",
+          "label": "Track",
+          "description": "Select a target track. List is updated by polling.",
+          "choicesNote": "Tracks reported by the Multitransport Manager: id and label are both the track name, refreshed by polling {\"query\":{\"q\":\"trackList\"}} (src/main.js:297-308). Until a list has been received the only entry is {id \"\", label \"No tracks loaded\"}. The default is computed at runtime ((self.trackList && self.trackList.length > 0) ? self.trackList[0].id : '') and is not recorded.",
+          "valueType": "string"
+        },
+        {
+          "id": "location",
+          "type": "textinput",
+          "label": "Cue / Timecode",
+          "description": "Format as CUE number ('1', '1.2', or '1.2.3') or Timecode ('00:00:00:00').",
+          "default": "1.1",
+          "useVariables": true,
+          "regex": "/^(\\d+(\\.\\d{1,}(\\.\\d{1,})?)?|\\d{2}:\\d{2}:\\d{2}:\\d{2})$/"
+        },
+        {
+          "id": "transitionType",
+          "type": "checkbox",
+          "label": "Use Track Transition",
+          "description": "Use a specific track and section for the transition instead of a timed transition.",
+          "default": false
+        },
+        {
+          "id": "transitionTime",
+          "type": "textinput",
+          "label": "Transition Time (Seconds)",
+          "description": "Duration of the transition in seconds.",
+          "default": "0",
+          "useVariables": true,
+          "regex": "/^(?:\\d+\\.?\\d*|\\.\\d+)$/",
+          "visibleWhen": "(options) => !options.transitionType"
+        },
+        {
+          "id": "transitionTrack",
+          "type": "dropdown",
+          "label": "Transition Track",
+          "description": "Select a transition track. List is updated by polling.",
+          "choicesNote": "Tracks reported by the Multitransport Manager: id and label are both the track name, refreshed by polling {\"query\":{\"q\":\"trackList\"}} (src/main.js:297-308). Until a list has been received the only entry is {id \"\", label \"No tracks loaded\"}. The default is computed at runtime ((self.trackList && self.trackList.length > 0) ? self.trackList[0].id : '') and is not recorded.",
+          "valueType": "string",
+          "visibleWhen": "(options) => options.transitionType === true"
+        },
+        {
+          "id": "transitionSection",
+          "type": "textinput",
+          "label": "Transition Section",
+          "description": "Section on transition track, ex: \"woosh\" or \"1.1\".",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "(options) => options.transitionType === true"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 140
+      }
+    },
+    {
+      "id": "transport_command",
+      "name": "Transport Command",
+      "options": [
+        {
+          "id": "playmode",
+          "type": "dropdown",
+          "label": "Play Mode",
+          "default": "playSection",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "playSection",
+              "label": "Play Section"
+            },
+            {
+              "id": "loop",
+              "label": "Loop Section"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "type": "dropdown",
+          "label": "Transport (Player)",
+          "description": "Select a target transport. List is updated by polling.",
+          "choicesNote": "Transports (players) reported by the Multitransport Manager: id and label are both the player name, refreshed by polling {\"query\":{\"q\":\"playerList\"}} (src/main.js:278-296). Until a list has been received the only entry is {id \"\", label \"No transports loaded\"} and the action logs an error and sends nothing for an empty id. The default is computed at runtime ((self.playerList && self.playerList.length > 0) ? self.playerList[0].id : '') and is not recorded.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 225
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 2 actions (go_to_cue, transport_command), both registered in actions.js; the module defines no feedbacks (there is no setFeedbackDefinitions call).",
+    "Protocol: TCP socket, one JSON object per line (newline terminated), for the disguise Multitransport Controller (default port 54321 in src/main.js getConfigFields). Commands are {\"track_command\":{...}}. The module polls playerList and trackList every pollingInterval seconds (default 5, 0 disables polling) and rebuilds the actions when the lists change.",
+    "The transport, track and transitionTrack dropdowns take their choices from the polled lists when the actions are (re)registered; defaults are the first list entry, so they are not recorded.",
+    "Play-mode ids are the strings play, playSection, loop and stop; go_to_cue offers only the first three (PLAY_MODES.slice(0, 3), actions.js:11-14).",
+    "The location field accepts a cue number (1, 1.2 or 1.2.3), sent as \"CUE <number>\", or a timecode HH:MM:SS:FF; the field regex is recorded as written. The transition time is sent as a string; with \"Use Track Transition\" the transition track and section are sent instead.",
+    "Built on @companion-module/base ~1.11.3: options do not support expressions.",
+    "Status read, not verified-sample: the module has only two actions, so fewer than five entries could be compared by hand (both were compared option by option)."
+  ]
+}

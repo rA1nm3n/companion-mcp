@@ -1,0 +1,217 @@
+{
+  "moduleId": "disguise-smc",
+  "name": "Disguise SMC",
+  "repo": "bitfocus/companion-module-disguise-smc",
+  "version": "2.0.0",
+  "baseVersion": "~1.4.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "28afc91",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "power_on",
+      "name": "Power On",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 5
+      }
+    },
+    {
+      "id": "power_off",
+      "name": "Power Off",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 13
+      }
+    },
+    {
+      "id": "power_cycle",
+      "name": "Power Cycle",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 26
+      }
+    },
+    {
+      "id": "who_am_i",
+      "name": "Flash LCD",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 34
+      }
+    },
+    {
+      "id": "notification",
+      "name": "Send a Notification to the LCD",
+      "options": [
+        {
+          "id": "title",
+          "type": "textinput",
+          "label": "Title",
+          "default": ""
+        },
+        {
+          "id": "message",
+          "type": "textinput",
+          "label": "Message",
+          "default": ""
+        },
+        {
+          "id": "priority",
+          "type": "number",
+          "label": "Priority",
+          "default": 0,
+          "min": 0,
+          "max": 2,
+          "step": 1,
+          "required": true
+        },
+        {
+          "id": "duration",
+          "type": "number",
+          "label": "Duration",
+          "default": 10,
+          "min": 5,
+          "max": 30,
+          "step": 1,
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 42
+      }
+    },
+    {
+      "id": "set_strip",
+      "name": "Set LED Strip",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Select Mode",
+          "default": "static",
+          "choices": [
+            {
+              "id": "static",
+              "label": "Static"
+            },
+            {
+              "id": "colour_id",
+              "label": "Colour ID"
+            },
+            {
+              "id": "rainbow",
+              "label": "Rainbow"
+            }
+          ]
+        },
+        {
+          "id": "red",
+          "type": "number",
+          "label": "Red",
+          "default": 0,
+          "min": 0,
+          "max": 255,
+          "step": 1,
+          "required": false
+        },
+        {
+          "id": "green",
+          "type": "number",
+          "label": "Green",
+          "default": 0,
+          "min": 0,
+          "max": 255,
+          "step": 1,
+          "required": false
+        },
+        {
+          "id": "blue",
+          "type": "number",
+          "label": "Blue",
+          "default": 0,
+          "min": 0,
+          "max": 255,
+          "step": 1,
+          "required": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 95
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "power",
+      "name": "Check System Power",
+      "description": "Checks if the system is powered on (or off).",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 7
+      }
+    },
+    {
+      "id": "power_fault",
+      "name": "Check Any Power Fault",
+      "description": "Checks the machine for any power fault.",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "true",
+          "choices": [
+            {
+              "id": "true",
+              "label": "True"
+            },
+            {
+              "id": "false",
+              "label": "False"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 32
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 6 actions (src/actions.js) and 2 boolean feedbacks (src/feedbacks.js) for the System Management Controller of Disguise hardware.",
+    "Protocol: HTTP requests with Basic authentication to the SMC management port (src/requests.js, src/index.js; the config fields are ip, username and password; supported firmware 4.3.7 per the config text). Reading state needs no credentials, sending commands needs a valid SMC user.",
+    "The power_off action has an option entry of type static-text without an id (a note that the OS is not shut down gracefully); it carries no value and is not catalogued.",
+    "The notification action sends two requests (duration, then the notification); the Priority and Duration number fields have required: true, the LED strip colour fields required: false. set_strip sends the red, green and blue values for every mode.",
+    "Feedback state ids: power uses on/off, power_fault uses the strings true/false (the callback compares with state === \"true\").",
+    "Built on @companion-module/base ~1.4.3: options do not support expressions."
+  ]
+}
