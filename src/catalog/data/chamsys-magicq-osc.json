@@ -1,0 +1,552 @@
+{
+  "moduleId": "chamsys-magicq-osc",
+  "name": "ChamSys MagicQ (OSC)",
+  "repo": "bitfocus/companion-module-chamsys-magicq-osc",
+  "version": "3.3.0",
+  "baseVersion": "~2.0.4",
+  "lastCommit": "2026-10-27",
+  "lastCommitSha": "ead4984",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "pb",
+      "name": "Set the playback fader level",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback fader (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "pbVal",
+          "type": "textinput",
+          "label": "Fader value (0-100 %)",
+          "default": "",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 7
+      }
+    },
+    {
+      "id": "pbAdjust",
+      "name": "Adjust Playback Level",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback fader (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "pbVal",
+          "type": "textinput",
+          "label": "Fader value to increment or decrement by (-100% - 100%)",
+          "default": "",
+          "regex": "/^[+-]?\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 56
+      }
+    },
+    {
+      "id": "pbGo",
+      "name": "Go on Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 106
+      }
+    },
+    {
+      "id": "pbFlash",
+      "name": "Flash Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "pbFId",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "1",
+              "label": "Flash On"
+            },
+            {
+              "id": "0",
+              "label": "Flash Off"
+            },
+            {
+              "id": "2",
+              "label": "Flash Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 128
+      }
+    },
+    {
+      "id": "pbPause",
+      "name": "Pause Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 183
+      }
+    },
+    {
+      "id": "pbRelease",
+      "name": "Release Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 205
+      }
+    },
+    {
+      "id": "pbJump",
+      "name": "Jump to Cue in Playback",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue Number",
+          "default": "1",
+          "regex": "/^([0-9]+)(\\.[0-9]+)?$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 241
+      }
+    },
+    {
+      "id": "dbo",
+      "name": "Desk Black Out DBO",
+      "options": [
+        {
+          "id": "dboId",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "1",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "1",
+              "label": "Black Out On"
+            },
+            {
+              "id": "0",
+              "label": "Black Out Off"
+            },
+            {
+              "id": "2",
+              "label": "Black Out Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 272
+      }
+    },
+    {
+      "id": "swap",
+      "name": "Set swap mode",
+      "options": [
+        {
+          "id": "swapId",
+          "type": "dropdown",
+          "label": "Swap Mode",
+          "default": "0",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "0",
+              "label": "Add"
+            },
+            {
+              "id": "1",
+              "label": "Swap"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 310
+      }
+    },
+    {
+      "id": "execute",
+      "name": "Execute",
+      "options": [
+        {
+          "id": "exeP",
+          "type": "textinput",
+          "label": "Execute Page (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "exeNr",
+          "type": "textinput",
+          "label": "Execute Nr (1-1000)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "exeToggle",
+          "type": "checkbox",
+          "label": "Toggle?",
+          "default": false,
+          "disableAutoExpression": true,
+          "description": "If checked, this action will just toggle the execute button"
+        },
+        {
+          "id": "exeVal",
+          "type": "textinput",
+          "label": "Execute Level: 0 - 100 %",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true,
+          "description": "0 = Release, 1 - 100 = Activate or Fader Level",
+          "visibleWhen": "!$(options:exeToggle)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 339
+      }
+    },
+    {
+      "id": "executeAdjust",
+      "name": "Adjust Execute Level",
+      "options": [
+        {
+          "id": "exeP",
+          "type": "textinput",
+          "label": "Execute Page (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "exeNr",
+          "type": "textinput",
+          "label": "Execute Number (1-1000)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "exeVal",
+          "type": "textinput",
+          "label": "Execute value to increment or decrement by (-100% - 100%)",
+          "default": "",
+          "regex": "/^[+-]?\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 412
+      }
+    },
+    {
+      "id": "tenScene",
+      "name": "10 Scene",
+      "options": [
+        {
+          "id": "tenSceneItem",
+          "type": "textinput",
+          "label": "10Scene Item",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "tenSceneZone",
+          "type": "textinput",
+          "label": "10Scene Zone",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "tenSceneVal",
+          "type": "textinput",
+          "label": "10Scene Level: 0.0 = Release, 1.0 = Activate, 0.0-1.0 = Fader Level",
+          "default": "1",
+          "regex": "/^([0-9]+)(\\.[0-9]+)?$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 478
+      }
+    },
+    {
+      "id": "rpc",
+      "name": "RPC Command",
+      "options": [
+        {
+          "id": "rpcCmd",
+          "type": "textinput",
+          "label": "RPC Command",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 523
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "pb",
+      "name": "Playback Level",
+      "description": "Feedback based on playback level",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback fader (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "pbComp",
+          "type": "dropdown",
+          "label": "Comparison method",
+          "default": "equal",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "isActive",
+              "label": "Playback Active"
+            },
+            {
+              "id": "equal",
+              "label": "Equal"
+            },
+            {
+              "id": "notEqual",
+              "label": "Not Equal"
+            },
+            {
+              "id": "greater",
+              "label": "Greater than"
+            },
+            {
+              "id": "greaterEqual",
+              "label": "Greater than or equal"
+            },
+            {
+              "id": "less",
+              "label": "Less than"
+            },
+            {
+              "id": "lessEqual",
+              "label": "Less than or equal"
+            }
+          ]
+        },
+        {
+          "id": "pbVal",
+          "type": "textinput",
+          "label": "Playback value (0-100)",
+          "default": "0",
+          "regex": "/^\\d+$/",
+          "useVariables": true,
+          "visibleWhen": "$(options:pbComp) != \"isActive\""
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 7
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pbFlash",
+      "name": "Playback Flash",
+      "description": "Feedback based on playback flash status",
+      "options": [
+        {
+          "id": "pbId",
+          "type": "textinput",
+          "label": "Playback fader (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 77
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "exec",
+      "name": "Execute Level",
+      "description": "Feedback based on execute level",
+      "options": [
+        {
+          "id": "execPage",
+          "type": "textinput",
+          "label": "Execute Page (1-10)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "execNumber",
+          "type": "textinput",
+          "label": "Execute Number (1-1000)",
+          "default": "1",
+          "regex": "/^\\d+$/",
+          "useVariables": true
+        },
+        {
+          "id": "execComp",
+          "type": "dropdown",
+          "label": "Comparison method",
+          "default": "equal",
+          "disableAutoExpression": true,
+          "choices": [
+            {
+              "id": "isActive",
+              "label": "Execute Active"
+            },
+            {
+              "id": "equal",
+              "label": "Equal"
+            },
+            {
+              "id": "notEqual",
+              "label": "Not Equal"
+            },
+            {
+              "id": "greater",
+              "label": "Greater than"
+            },
+            {
+              "id": "greaterEqual",
+              "label": "Greater than or equal"
+            },
+            {
+              "id": "less",
+              "label": "Less than"
+            },
+            {
+              "id": "lessEqual",
+              "label": "Less than or equal"
+            }
+          ]
+        },
+        {
+          "id": "execVal",
+          "type": "textinput",
+          "label": "Execute value (0-100)",
+          "default": "0",
+          "regex": "/^\\d+$/",
+          "useVariables": true,
+          "visibleWhen": "$(options:execComp) != \"isActive\""
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 103
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "dbo",
+      "name": "Desk Black Out",
+      "description": "True while this connection believes desk black out is on. The DBO action presses the console's DBO button rather than setting a state, and MagicQ never reports black out back over OSC, so this follows what Companion sent. On a latched or tap-to-time DBO button it can disagree with the desk.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 194
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Transport: OSC to MagicQ; the module tracks playback, execute and DBO state itself because MagicQ does not report OSC-driven changes back, so feedbacks reflect what Companion sent plus console-reported manual fader moves (comments in actions.js and feedbacks.js).",
+    "Playbacks are limited to 1-10 and execute pages to 1-10, execute numbers to 1-1000 (src/constants.js MAX_EXEC_PAGE, MAX_EXEC_NR; parsePlayback and parseExecTarget in src/main.js). The limits are enforced in the callbacks, not by the option definitions; labels show the ranges after resolving the constants.",
+    "Number-like fields are text inputs with useVariables, not number fields. The regex values are the resolved @companion-module/base constants (Regex.NUMBER, Regex.SIGNED_NUMBER, Regex.FLOAT_OR_INT) and are informational.",
+    "Dropdowns and the exeToggle checkbox set disableAutoExpression; text inputs stay expression-capable.",
+    "Variables (pb1-pb10, pb<N>_flash, exec<page>_<nr>) and presets are not catalogued. Execute variables are created at runtime as executes are seen.",
+    "Built on @companion-module/base ~2.0.4: expressions are supported for option values (derived from the base major version, not tested against a running Companion)."
+  ]
+}

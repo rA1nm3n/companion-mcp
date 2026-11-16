@@ -1,0 +1,379 @@
+{
+  "moduleId": "malighting-grandma3",
+  "name": "MA Lighting grandMA3",
+  "repo": "bitfocus/companion-module-malighting-grandma3",
+  "version": "1.4.1",
+  "baseVersion": "~1.14.1",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "c9bc50a",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "quickey",
+      "name": "Select Quickey via number",
+      "options": [
+        {
+          "id": "quickey",
+          "type": "number",
+          "label": "Quickey Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 17
+      }
+    },
+    {
+      "id": "quickey_name",
+      "name": "Select Quickey via name",
+      "options": [
+        {
+          "id": "quickey",
+          "type": "textinput",
+          "label": "Quickey Name",
+          "default": "OOPS"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 47
+      }
+    },
+    {
+      "id": "group",
+      "name": "Select Group via number",
+      "options": [
+        {
+          "id": "group",
+          "type": "number",
+          "label": "Group Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 70
+      }
+    },
+    {
+      "id": "group_name",
+      "name": "Select Group via name",
+      "options": [
+        {
+          "id": "group",
+          "type": "textinput",
+          "label": "Group Name",
+          "default": "Front Lights"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 99
+      }
+    },
+    {
+      "id": "matrick",
+      "name": "Select MAtrick via number",
+      "options": [
+        {
+          "id": "matrick",
+          "type": "number",
+          "label": "MAtrick Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 122
+      }
+    },
+    {
+      "id": "matrick_name",
+      "name": "Select MAtrick via name",
+      "options": [
+        {
+          "id": "matrick",
+          "type": "textinput",
+          "label": "MAtrick Name",
+          "default": "Odd"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 151
+      }
+    },
+    {
+      "id": "sequence",
+      "name": "Select Sequence via number",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "number",
+          "label": "Sequence Number via number",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 174
+      }
+    },
+    {
+      "id": "sequence_name",
+      "name": "Select Sequence via name",
+      "options": [
+        {
+          "id": "sequence",
+          "type": "textinput",
+          "label": "Sequence Name",
+          "default": "Random Strobe"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 203
+      }
+    },
+    {
+      "id": "plugin",
+      "name": "Call Plugin via number",
+      "options": [
+        {
+          "id": "plugin",
+          "type": "number",
+          "label": "Plugin Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 226
+      }
+    },
+    {
+      "id": "plugin_name",
+      "name": "Call Plugin via name",
+      "options": [
+        {
+          "id": "plugin",
+          "type": "textinput",
+          "label": "Plugin Name",
+          "default": "Cool Plugin 123"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 255
+      }
+    },
+    {
+      "id": "macro",
+      "name": "Call Macro via number",
+      "options": [
+        {
+          "id": "macro",
+          "type": "number",
+          "label": "Macro Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 278
+      }
+    },
+    {
+      "id": "macro_name",
+      "name": "Call Macro via name",
+      "options": [
+        {
+          "id": "macro",
+          "type": "textinput",
+          "label": "Macro Name",
+          "default": "Cool Macro 456"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 307
+      }
+    },
+    {
+      "id": "atmenu",
+      "name": "At Menu",
+      "options": [
+        {
+          "id": "atmenu",
+          "type": "dropdown",
+          "label": "At Menu Item",
+          "default": "At Full",
+          "choices": [
+            {
+              "id": "At Full",
+              "label": "Full"
+            },
+            {
+              "id": "At Zero",
+              "label": "Zero"
+            },
+            {
+              "id": "At Default",
+              "label": "Default"
+            },
+            {
+              "id": "Cut Programmer",
+              "label": "Cut Programmer"
+            },
+            {
+              "id": "At Normal",
+              "label": "Normal"
+            },
+            {
+              "id": "Copy Programmer",
+              "label": "Copy Programmer"
+            },
+            {
+              "id": "On Selection",
+              "label": "On"
+            },
+            {
+              "id": "Paste Programmer",
+              "label": "Paste Programmer"
+            },
+            {
+              "id": "Off Selection",
+              "label": "Off"
+            },
+            {
+              "id": "At Release",
+              "label": "Release"
+            },
+            {
+              "id": "Delete Programmer",
+              "label": "Delete Steps"
+            },
+            {
+              "id": "At Remove",
+              "label": "Remove"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 330
+      }
+    },
+    {
+      "id": "command",
+      "name": "Run Command",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Command",
+          "default": "SelectFixtures Group 1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 403
+      }
+    },
+    {
+      "id": "exec_button",
+      "name": "Executor Button",
+      "options": [
+        {
+          "id": "page",
+          "type": "number",
+          "label": "Page",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "visibleWhen": "$(options:current_page)==false"
+        },
+        {
+          "id": "current_page",
+          "type": "checkbox",
+          "label": "Use current page",
+          "default": false
+        },
+        {
+          "id": "button_number",
+          "type": "number",
+          "label": "Button",
+          "default": 201,
+          "min": 1,
+          "max": 490
+        },
+        {
+          "id": "button_state",
+          "type": "dropdown",
+          "label": "Button State",
+          "default": "push",
+          "choices": [
+            {
+              "id": "push",
+              "label": "Push"
+            },
+            {
+              "id": "release",
+              "label": "Release"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 434
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "sequence_active",
+      "name": "Check if a sequence is active",
+      "options": [
+        {
+          "id": "sequence_number",
+          "type": "number",
+          "label": "Sequence Number",
+          "default": 1,
+          "min": 1,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 6
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Transport: OSC over UDP to the console (host and port from the module config); every action except exec_button sends a command string to /cmd, exec_button sends /Page<n>/Key<n>. An optional input prefix from the config is prepended to the path (actions.ts:4-14).",
+    "The manifest lists only GrandMA3. The module help describes control of 'grandMA3 Software' and a LUA plugin for grandMA3 onPC, but there is no separate onPC module and no statement about hardware consoles; onPC versus console coverage is not verified.",
+    "Actions come in number and name pairs (for example group and group_name); the name variants are plain text inputs without useVariables. Only the command action resolves variables (useVariables).",
+    "The only feedback, sequence_active, is driven by OSC messages the console sends to the module's feedback port; it reads address 14.14.1.6 (main.ts handleOSCMessage) and depends on the console-side OSC output setup.",
+    "exec_button hides the 'page' number when 'current_page' is checked; the condition is isVisibleExpression '$(options:current_page)==false' in the source.",
+    "Built on @companion-module/base ~1.14.1: no expressions; the isVisibleExpression above only controls visibility."
+  ]
+}
