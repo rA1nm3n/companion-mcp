@@ -1,0 +1,357 @@
+{
+  "moduleId": "generic-sacn",
+  "name": "Generic sACN",
+  "repo": "bitfocus/companion-module-generic-sacn",
+  "version": "3.0.4",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "f7811c4",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 7 actions (src/actions.ts) and 4 feedbacks (src/feedbacks.ts: 2 boolean, 2 advanced), each registered in a single call.",
+    "sACN (E1.31) over UDP, default port 5568 (src/constants.ts); the module can transmit, receive, or both, one universe per connection. Config (not in the schema): universe (1-63999, default 1), localAddress, mode (none, send, receive), enableSender, enableReceiver, source name, UUID, priority (1-201, default 100), custom target IP, slow update interval (default 800 ms, 10-10000) and fast interval (default 40 ms, 5-1000) in src/config.ts.",
+    "Every numeric field of the actions is a textinput with useVariables, so values are strings that the callbacks convert with Number() after resolving variables. Nothing in the module range-checks channel numbers or values in the options; the callbacks pass them to the transitions code, which is not catalogued.",
+    "fadeValues and offset_multiple use regex /((^| )([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])){1,512}$/ (recorded as written). The regex has no start anchor and only allows spaces between numbers, although the label and the callback (valuesRaw.replaceAll(':', ' ')) also accept colons. The offset_multiple values are described as change values but the regex allows only 0-255 (no minus sign).",
+    "The feedback 'value' options of chan_matches_value and chan_greater_than are textinputs without useVariables (src/feedbacks.ts:22, 53); the callbacks compare Number(value) with Number(self.data[channel - 1]). chan_rgb with 16-Bit reads only the high bytes (channels c, c+2, c+4).",
+    "16-bit actions (setValue16, offset_single_16, percent_single_flex with resolution) address the MSB on the given channel and the LSB on the next one. percent_single_flex converts percent to 0-255 or 0-65535 and adds the current value when 'Use offset' is set.",
+    "Built on @companion-module/base ~1.12.1: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "setValue",
+      "name": "Set/Fade Value (single)",
+      "description": "Set/Fade the output of one channel",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (0-255)",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "fadeValues",
+      "name": "Set/Fade Values (multiple)",
+      "description": "Set/Fade the output of multiple channels",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "start",
+          "type": "textinput",
+          "label": "Starting Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "values",
+          "type": "textinput",
+          "label": "Values (space/colon-separated list)",
+          "default": "0 1 255",
+          "useVariables": true,
+          "regex": "/((^| )([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])){1,512}$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 41
+      }
+    },
+    {
+      "id": "offset_single",
+      "name": "Offset Value (single)",
+      "description": "Change the output of one channel with + or -",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value change + or -",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 81
+      }
+    },
+    {
+      "id": "offset_multiple",
+      "name": "Offset Value (multiple)",
+      "description": "Change the output of multiple channels with + or -",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "start",
+          "type": "textinput",
+          "label": "Starting Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "values",
+          "type": "textinput",
+          "label": "Values to change + or - (space/colon-separated list) ",
+          "default": "0 1 255",
+          "useVariables": true,
+          "regex": "/((^| )([1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])){1,512}$/"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 119
+      }
+    },
+    {
+      "id": "setValue16",
+      "name": "Set/Fade Value (single) 16-bit",
+      "description": "Set/Fade the output of one 16-bit channel",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Start Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (0-65535)",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 161
+      }
+    },
+    {
+      "id": "offset_single_16",
+      "name": "Offset Value (single) 16-bit",
+      "description": "Change the output of one 16-bit channel with + or -",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Start Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value change + or -",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 196
+      }
+    },
+    {
+      "id": "percent_single_flex",
+      "name": "Set/Fade Value (single) percentage (0–100%)",
+      "description": "Change the output of one channel from 0-100%",
+      "options": [
+        {
+          "id": "duration",
+          "type": "textinput",
+          "label": "Fade duration (ms)",
+          "default": "0",
+          "useVariables": true
+        },
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel (1-512)",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "percent",
+          "type": "textinput",
+          "label": "Value in Percent",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "relative",
+          "type": "checkbox",
+          "label": "Use offset",
+          "description": "Offset current value + or -",
+          "default": false
+        },
+        {
+          "id": "resolution",
+          "type": "checkbox",
+          "label": "16-Bit Value",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 237
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "chan_matches_value",
+      "name": "When channel matches a value",
+      "feedbackType": "boolean",
+      "description": "Changes the button's style when the value matches",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "chan_greater_than",
+      "name": "When channel value is greater than",
+      "feedbackType": "boolean",
+      "description": "Changes the button's style when the value is greater than",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Threshold",
+          "default": "128"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 37
+      }
+    },
+    {
+      "id": "chan_intensity",
+      "name": "Channel Intensity",
+      "feedbackType": "advanced",
+      "description": "Changes the button's style according to the channel brightness",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Channel",
+          "default": "1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 67
+      }
+    },
+    {
+      "id": "chan_rgb",
+      "name": "Channel RGB",
+      "feedbackType": "advanced",
+      "description": "Changes the button's color according to the channel RGB Values",
+      "options": [
+        {
+          "id": "channel",
+          "type": "textinput",
+          "label": "Start channel",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "resolution16",
+          "type": "checkbox",
+          "label": "16-Bit",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 92
+      }
+    }
+  ]
+}
