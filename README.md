@@ -37,7 +37,7 @@ All tools are prefixed `companion_`. Full reference: [docs/tools.md](docs/tools.
 | Write (gate) | `import_page`, `rollback` (dry run by default)                             |
 | Satellite    | `satellite_snapshot`, `press` (see [docs/satellite.md](docs/satellite.md)) |
 
-Page templates exist for ATEM, Videohub, vMix and BirdDog. The catalog covers 19 modules in detail (ATEM, Videohub, vMix, BirdDog, HyperDeck, Panasonic PTZ, Analog Way AWJ/LivePremier, Barco EventMaster, Shure, Luminex GigaCore, Dataton Watchout, Resolume, grandMA2, grandMA3, ChamSys MagicQ OSC/UDP, Companion internal) and indexes 108 modules. See [docs/catalog.md](docs/catalog.md).
+Page templates exist for ATEM, Videohub, vMix, BirdDog and ShowPace. The catalog covers 38 modules in detail and indexes 126 modules. Detailed: ATEM, Videohub, vMix, BirdDog, HyperDeck, Panasonic PTZ, Analog Way AWJ/LivePremier, Barco EventMaster, Shure, Luminex GigaCore, Dataton Watchout, Resolume, TouchDesigner, MADRIX Aura, MadMapper 5/6, lighting consoles (grandMA2/3, ChamSys MagicQ OSC/UDP, Avolites Titan, ETC Eos, High End Hog 4, Obsidian ONYX telnet/OSC), audio consoles (Yamaha RCP, Behringer X32, Allen & Heath SQ/Avantis/dLive/dLive-iLive/CQ/AHM/DT168), ShowPace and Companion internal. See [docs/catalog.md](docs/catalog.md).
 
 ## Safety model
 

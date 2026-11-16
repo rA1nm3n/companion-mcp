@@ -35,6 +35,7 @@ const LIGHTING = [
   'malighting-grandma3',
   'chamsys-magicq-osc',
   'chamsys-magicq-udp',
+];
 const AUDIO = [
   'yamaha-rcp',
   'behringer-x32',
@@ -54,8 +55,9 @@ function load(file: string): unknown {
 describe('catalog data files', () => {
   it('has the expected set of module files', () => {
     const ids = moduleFiles.map((f) => f.replace(/\.json$/, ''));
-    for (const id of [...PRIO1, ...REPORT_05, ...LIGHTING, 'internal']) expect(ids).toContain(id);
-    for (const id of [...PRIO1, ...REPORT_05, ...AUDIO, 'internal']) expect(ids).toContain(id);
+    for (const id of [...PRIO1, ...REPORT_05, ...LIGHTING, ...AUDIO, 'internal']) {
+      expect(ids).toContain(id);
+    }
   });
 
   it.each(moduleFiles)('%s matches the module schema', (file) => {

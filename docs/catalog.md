@@ -29,7 +29,7 @@ zod lazily, on first access.
 
 | Function                                           | Purpose                                                                                 |
 | -------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `listModules()`                                    | All modules of the index (about 100), with repo, version, base library, kind            |
+| `listModules()`                                    | All modules of the index (about 125), with repo, version, base library, kind            |
 | `searchModules(query)`                             | Case-insensitive AND search over id, repo, manufacturer, products, keywords             |
 | `getModule(id)`                                    | Full data of a catalogued module, `undefined` for index-only or unknown modules         |
 | `findAction(moduleId, actionId)`                   | One action definition                                                                   |

@@ -1,3 +1,4 @@
+import indexData from './data/_index.json' with { type: 'json' };
 import allenheathAhm from './data/allenheath-ahm.json' with { type: 'json' };
 import allenheathAvantis from './data/allenheath-avantis.json' with { type: 'json' };
 import allenheathCq from './data/allenheath-cq.json' with { type: 'json' };
@@ -16,21 +17,19 @@ import bmdHyperdeck from './data/bmd-hyperdeck.json' with { type: 'json' };
 import bmdVideohub from './data/bmd-videohub.json' with { type: 'json' };
 import chamsysMagicqOsc from './data/chamsys-magicq-osc.json' with { type: 'json' };
 import chamsysMagicqUdp from './data/chamsys-magicq-udp.json' with { type: 'json' };
-import datatonWatchoutJson from './data/dataton-watchout-json.json' with { type: 'json' };
 import datatonWatchout from './data/dataton-watchout.json' with { type: 'json' };
+import datatonWatchoutJson from './data/dataton-watchout-json.json' with { type: 'json' };
 import etcEos from './data/etc-eos.json' with { type: 'json' };
+import garagecubeMadmapper5 from './data/garagecube-madmapper5.json' with { type: 'json' };
+import garagecubeMadmapper6 from './data/garagecube-madmapper6.json' with { type: 'json' };
 import highendHog4 from './data/highend-hog4.json' with { type: 'json' };
 import internal from './data/internal.json' with { type: 'json' };
 import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
+import madrixAura from './data/madrix-aura.json' with { type: 'json' };
 import malightingGrandma2 from './data/malighting-grandma2.json' with { type: 'json' };
 import malightingGrandma3 from './data/malighting-grandma3.json' with { type: 'json' };
 import obsidiancontrolOnyx from './data/obsidiancontrol-onyx.json' with { type: 'json' };
 import obsidiancontrolOnyxOsc from './data/obsidiancontrol-onyx-osc.json' with { type: 'json' };
-import garagecubeMadmapper5 from './data/garagecube-madmapper5.json' with { type: 'json' };
-import garagecubeMadmapper6 from './data/garagecube-madmapper6.json' with { type: 'json' };
-import internal from './data/internal.json' with { type: 'json' };
-import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
-import madrixAura from './data/madrix-aura.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
 import showpaceTimer from './data/showpace-timer.json' with { type: 'json' };
@@ -38,7 +37,6 @@ import shureWireless from './data/shure-wireless.json' with { type: 'json' };
 import studiocoastVmix from './data/studiocoast-vmix.json' with { type: 'json' };
 import touchDesigner from './data/touch-designer.json' with { type: 'json' };
 import yamahaRcp from './data/yamaha-rcp.json' with { type: 'json' };
-import indexData from './data/_index.json' with { type: 'json' };
 import {
   IndexFileSchema,
   ModuleDefSchema,
@@ -82,18 +80,16 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'dataton-watchout': datatonWatchout,
   'dataton-watchout-json': datatonWatchoutJson,
   'etc-eos': etcEos,
+  'garagecube-madmapper5': garagecubeMadmapper5,
+  'garagecube-madmapper6': garagecubeMadmapper6,
   'highend-hog4': highendHog4,
   internal,
   'luminex-gigacore': luminexGigacore,
+  'madrix-aura': madrixAura,
   'malighting-grandma2': malightingGrandma2,
   'malighting-grandma3': malightingGrandma3,
   'obsidiancontrol-onyx': obsidiancontrolOnyx,
   'obsidiancontrol-onyx-osc': obsidiancontrolOnyxOsc,
-  'garagecube-madmapper5': garagecubeMadmapper5,
-  'garagecube-madmapper6': garagecubeMadmapper6,
-  internal,
-  'luminex-gigacore': luminexGigacore,
-  'madrix-aura': madrixAura,
   'panasonic-ptz': panasonicPtz,
   'resolume-arena': resolumeArena,
   'showpace-timer': showpaceTimer,
