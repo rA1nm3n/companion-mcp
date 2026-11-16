@@ -1,0 +1,1275 @@
+{
+  "moduleId": "nec-projectors",
+  "name": "NEC Projectors",
+  "repo": "bitfocus/companion-module-nec-projectors",
+  "version": "1.1.0",
+  "baseVersion": "2.0.4",
+  "lastCommit": "2026-10-07",
+  "lastCommitSha": "6cee647",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 22 actions (src/actions.ts, one setActionDefinitions call) and 12 boolean feedbacks (src/feedbacks.ts, one setFeedbackDefinitions call). Choice lists come from src/nec/constants.ts; nothing is generated per model at runtime.",
+    "Transport: HTTP to the projector's IsapiExtPj.dll control CGI (default port 80, optional password logon with cookie and md5 nonce handshake; src/nec/client.ts, src/config.ts). Binary command bytes are sent through that HTTP interface (src/nec/protocol.ts).",
+    "Built on @companion-module/base 2.0.4, so option values may be expressions, except in fields marked disableAutoExpression (the input, aspect, eco and audio source dropdowns, which also offer the sentinel id 'custom').",
+    "Dropdown ids keep the source type: most lists use numeric ids (hex literals in the source, recorded as decimal numbers, for example 0x7f = 127, 0xff = 255); the input, aspect, eco and audio-source lists mix numbers with the string id 'custom'. Choosing 'custom' enables a hex text field (custom, inputCustom, sourceCustom) that parseHexByte accepts as 1 or 2 hex digits with optional 0x prefix; anything else refuses the press with a warning and sends nothing.",
+    "input_select and audio_select use logical input ids (computer1 ... sdi4); the module tries several hex terminal codes per input (INPUT_LOGICAL in src/nec/constants.ts). The audio_select action uses only the first code of the chosen input.",
+    "Notable defaults of the source: power defaults to 'on', the other on/off/toggle actions to 'toggle'. The power action can be refused by the module (powerOnRefusal, powerOffRefusal) during the power-off lockout, which is set by the module config (powerOffLockout, default 65 s).",
+    "send_raw takes command bytes as hex text split on whitespace or commas, without length and checksum, and can send any command the projector accepts. lan_name sends the typed text as the projector name; the label says max 16 characters, the action itself declares no limit.",
+    "The input_active feedback compares the decoded input name (INPUT_NAME_CHOICES, which differ from the logical input ids of the action) with the polled state, so 'HDMI' matches both HDMI 1 and HDMI 2. Feedbacks other than input_active have no options.",
+    "Presets, variables and the polling/feedback logic are not catalogued."
+  ],
+  "actions": [
+    {
+      "id": "power",
+      "name": "Power On / Off",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 77
+      }
+    },
+    {
+      "id": "input_select",
+      "name": "Select Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "hdmi1",
+          "choices": [
+            {
+              "id": "computer1",
+              "label": "Computer 1 (VGA)"
+            },
+            {
+              "id": "computer2",
+              "label": "Computer 2 (VGA)"
+            },
+            {
+              "id": "computer3",
+              "label": "Computer 3 (VGA)"
+            },
+            {
+              "id": "video",
+              "label": "Video"
+            },
+            {
+              "id": "svideo",
+              "label": "S-Video"
+            },
+            {
+              "id": "component",
+              "label": "Component"
+            },
+            {
+              "id": "hdmi1",
+              "label": "HDMI 1"
+            },
+            {
+              "id": "hdmi2",
+              "label": "HDMI 2"
+            },
+            {
+              "id": "displayport",
+              "label": "DisplayPort"
+            },
+            {
+              "id": "viewer",
+              "label": "Viewer / USB"
+            },
+            {
+              "id": "network",
+              "label": "Network (LAN)"
+            },
+            {
+              "id": "hdbaset",
+              "label": "HDBaseT"
+            },
+            {
+              "id": "sdi1",
+              "label": "SDI 1"
+            },
+            {
+              "id": "sdi2",
+              "label": "SDI 2"
+            },
+            {
+              "id": "sdi3",
+              "label": "SDI 3"
+            },
+            {
+              "id": "sdi4",
+              "label": "SDI 4"
+            },
+            {
+              "id": "custom",
+              "label": "Custom — enter a code (advanced)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "Custom input code (hex, e.g. 1A)",
+          "default": "",
+          "visibleWhen": "$(options:input) == 'custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 92
+      }
+    },
+    {
+      "id": "picture_mute",
+      "name": "Mute Picture (blank the image)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 119
+      }
+    },
+    {
+      "id": "sound_mute",
+      "name": "Mute Sound",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 128
+      }
+    },
+    {
+      "id": "onscreen_mute",
+      "name": "Hide On-Screen Menu / Display",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 137
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze Image",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 146
+      }
+    },
+    {
+      "id": "shutter",
+      "name": "Shutter (blank the screen)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "close",
+              "label": "Close (screen blank)"
+            },
+            {
+              "id": "open",
+              "label": "Open (show image)"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 155
+      }
+    },
+    {
+      "id": "picture_adjust",
+      "name": "Adjust Picture (brightness, contrast…)",
+      "options": [
+        {
+          "id": "item",
+          "type": "dropdown",
+          "label": "Setting",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Brightness"
+            },
+            {
+              "id": 1,
+              "label": "Contrast"
+            },
+            {
+              "id": 2,
+              "label": "Color"
+            },
+            {
+              "id": 3,
+              "label": "Hue / Tint"
+            },
+            {
+              "id": 4,
+              "label": "Sharpness"
+            }
+          ]
+        },
+        {
+          "id": "adjustType",
+          "type": "dropdown",
+          "label": "How",
+          "default": "relative",
+          "choices": [
+            {
+              "id": "relative",
+              "label": "Adjust by (+ / −)"
+            },
+            {
+              "id": "absolute",
+              "label": "Set to (exact value)"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Amount",
+          "default": 1,
+          "min": -32768,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 179
+      }
+    },
+    {
+      "id": "volume_adjust",
+      "name": "Adjust Volume",
+      "options": [
+        {
+          "id": "adjustType",
+          "type": "dropdown",
+          "label": "How",
+          "default": "relative",
+          "choices": [
+            {
+              "id": "relative",
+              "label": "Adjust by (+ / −)"
+            },
+            {
+              "id": "absolute",
+              "label": "Set to (exact value)"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Amount",
+          "default": 1,
+          "min": -32768,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 193
+      }
+    },
+    {
+      "id": "aspect",
+      "name": "Set Aspect Ratio",
+      "options": [
+        {
+          "id": "aspect",
+          "type": "dropdown",
+          "label": "Aspect ratio",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Auto"
+            },
+            {
+              "id": 2,
+              "label": "16:9"
+            },
+            {
+              "id": 4,
+              "label": "4:3"
+            },
+            {
+              "id": 6,
+              "label": "16:10"
+            },
+            {
+              "id": 5,
+              "label": "15:9"
+            },
+            {
+              "id": 11,
+              "label": "5:4"
+            },
+            {
+              "id": 1,
+              "label": "Wide Zoom"
+            },
+            {
+              "id": 7,
+              "label": "Letterbox / Zoom"
+            },
+            {
+              "id": 3,
+              "label": "Native"
+            },
+            {
+              "id": 16,
+              "label": "Normal"
+            },
+            {
+              "id": "custom",
+              "label": "Custom — enter a code (advanced)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "Custom aspect code (hex)",
+          "default": "",
+          "visibleWhen": "$(options:aspect) == 'custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 203
+      }
+    },
+    {
+      "id": "eco_mode",
+      "name": "Set Eco / Lamp Mode",
+      "options": [
+        {
+          "id": "eco",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off / Normal"
+            },
+            {
+              "id": 1,
+              "label": "Eco (On)"
+            },
+            {
+              "id": 2,
+              "label": "Eco 1"
+            },
+            {
+              "id": 3,
+              "label": "Eco 2"
+            },
+            {
+              "id": 4,
+              "label": "Long Life"
+            },
+            {
+              "id": 5,
+              "label": "Boost"
+            },
+            {
+              "id": "custom",
+              "label": "Custom — enter a code (advanced)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "Custom eco code (hex)",
+          "default": "",
+          "visibleWhen": "$(options:eco) == 'custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 226
+      }
+    },
+    {
+      "id": "remote_key",
+      "name": "Press a Remote Button",
+      "options": [
+        {
+          "id": "key",
+          "type": "dropdown",
+          "label": "Button",
+          "default": 6,
+          "choices": [
+            {
+              "id": 6,
+              "label": "Menu"
+            },
+            {
+              "id": 7,
+              "label": "Up"
+            },
+            {
+              "id": 8,
+              "label": "Down"
+            },
+            {
+              "id": 9,
+              "label": "Right"
+            },
+            {
+              "id": 10,
+              "label": "Left"
+            },
+            {
+              "id": 11,
+              "label": "Enter / OK"
+            },
+            {
+              "id": 12,
+              "label": "Exit / Back"
+            },
+            {
+              "id": 5,
+              "label": "Auto Adjust"
+            },
+            {
+              "id": 13,
+              "label": "Help"
+            },
+            {
+              "id": 15,
+              "label": "Magnify +"
+            },
+            {
+              "id": 16,
+              "label": "Magnify −"
+            },
+            {
+              "id": 41,
+              "label": "Picture"
+            },
+            {
+              "id": 163,
+              "label": "Aspect"
+            },
+            {
+              "id": 215,
+              "label": "Source"
+            },
+            {
+              "id": 132,
+              "label": "Volume +"
+            },
+            {
+              "id": 133,
+              "label": "Volume −"
+            },
+            {
+              "id": 19,
+              "label": "Mute"
+            },
+            {
+              "id": 138,
+              "label": "Freeze"
+            },
+            {
+              "id": 238,
+              "label": "Eco / Lamp Mode"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 249
+      }
+    },
+    {
+      "id": "lens_control",
+      "name": "Lens — Zoom / Focus / Shift",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Lens part",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Zoom"
+            },
+            {
+              "id": 1,
+              "label": "Focus"
+            },
+            {
+              "id": 2,
+              "label": "Shift (left / right)"
+            },
+            {
+              "id": 3,
+              "label": "Shift (up / down)"
+            },
+            {
+              "id": 6,
+              "label": "Periphery Focus"
+            }
+          ]
+        },
+        {
+          "id": "drive",
+          "type": "dropdown",
+          "label": "Move",
+          "default": 127,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Stop"
+            },
+            {
+              "id": 1,
+              "label": "Forward — 1 second"
+            },
+            {
+              "id": 2,
+              "label": "Forward — 0.5 second"
+            },
+            {
+              "id": 3,
+              "label": "Forward — 0.25 second"
+            },
+            {
+              "id": 127,
+              "label": "Forward — hold (send Stop to halt)"
+            },
+            {
+              "id": 129,
+              "label": "Back — hold (send Stop to halt)"
+            },
+            {
+              "id": 253,
+              "label": "Back — 0.25 second"
+            },
+            {
+              "id": 254,
+              "label": "Back — 0.5 second"
+            },
+            {
+              "id": 255,
+              "label": "Back — 1 second"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 256
+      }
+    },
+    {
+      "id": "lens_control2",
+      "name": "Lens — Move to Position",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Lens part",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Zoom"
+            },
+            {
+              "id": 1,
+              "label": "Focus"
+            },
+            {
+              "id": 2,
+              "label": "Shift (left / right)"
+            },
+            {
+              "id": 3,
+              "label": "Shift (up / down)"
+            },
+            {
+              "id": 6,
+              "label": "Periphery Focus"
+            },
+            {
+              "id": 255,
+              "label": "Stop"
+            }
+          ]
+        },
+        {
+          "id": "adjustType",
+          "type": "dropdown",
+          "label": "How",
+          "default": "relative",
+          "choices": [
+            {
+              "id": "relative",
+              "label": "Adjust by (+ / −)"
+            },
+            {
+              "id": "absolute",
+              "label": "Set to (exact value)"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -32768,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 266
+      }
+    },
+    {
+      "id": "lens_memory",
+      "name": "Lens Memory — Recall / Save / Reset",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Recall (move)"
+            },
+            {
+              "id": 1,
+              "label": "Save (store)"
+            },
+            {
+              "id": 2,
+              "label": "Reset"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 286
+      }
+    },
+    {
+      "id": "ref_lens_memory",
+      "name": "Reference Lens Memory — Recall / Save / Reset",
+      "options": [
+        {
+          "id": "op",
+          "type": "dropdown",
+          "label": "Action",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Recall (move)"
+            },
+            {
+              "id": 1,
+              "label": "Save (store)"
+            },
+            {
+              "id": 2,
+              "label": "Reset"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 293
+      }
+    },
+    {
+      "id": "lens_profile",
+      "name": "Lens — Select Profile",
+      "options": [
+        {
+          "id": "profile",
+          "type": "dropdown",
+          "label": "Profile",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Profile 1"
+            },
+            {
+              "id": 1,
+              "label": "Profile 2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 300
+      }
+    },
+    {
+      "id": "audio_select",
+      "name": "Select Audio Source",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "For input",
+          "default": "hdmi1",
+          "choices": [
+            {
+              "id": "computer1",
+              "label": "Computer 1 (VGA)"
+            },
+            {
+              "id": "computer2",
+              "label": "Computer 2 (VGA)"
+            },
+            {
+              "id": "computer3",
+              "label": "Computer 3 (VGA)"
+            },
+            {
+              "id": "video",
+              "label": "Video"
+            },
+            {
+              "id": "svideo",
+              "label": "S-Video"
+            },
+            {
+              "id": "component",
+              "label": "Component"
+            },
+            {
+              "id": "hdmi1",
+              "label": "HDMI 1"
+            },
+            {
+              "id": "hdmi2",
+              "label": "HDMI 2"
+            },
+            {
+              "id": "displayport",
+              "label": "DisplayPort"
+            },
+            {
+              "id": "viewer",
+              "label": "Viewer / USB"
+            },
+            {
+              "id": "network",
+              "label": "Network (LAN)"
+            },
+            {
+              "id": "hdbaset",
+              "label": "HDBaseT"
+            },
+            {
+              "id": "sdi1",
+              "label": "SDI 1"
+            },
+            {
+              "id": "sdi2",
+              "label": "SDI 2"
+            },
+            {
+              "id": "sdi3",
+              "label": "SDI 3"
+            },
+            {
+              "id": "sdi4",
+              "label": "SDI 4"
+            },
+            {
+              "id": "custom",
+              "label": "Custom — enter a code (advanced)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "inputCustom",
+          "type": "textinput",
+          "label": "Custom input code (hex)",
+          "default": "",
+          "visibleWhen": "$(options:input) == 'custom'"
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Audio source",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "HDMI 1"
+            },
+            {
+              "id": 1,
+              "label": "HDMI 2"
+            },
+            {
+              "id": 2,
+              "label": "DisplayPort"
+            },
+            {
+              "id": 3,
+              "label": "HDBaseT / Network"
+            },
+            {
+              "id": 4,
+              "label": "USB-A"
+            },
+            {
+              "id": 5,
+              "label": "USB-B"
+            },
+            {
+              "id": 9,
+              "label": "HDBaseT"
+            },
+            {
+              "id": "custom",
+              "label": "Custom — enter a code (advanced)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sourceCustom",
+          "type": "textinput",
+          "label": "Custom audio source (hex)",
+          "default": "",
+          "visibleWhen": "$(options:source) == 'custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 307
+      }
+    },
+    {
+      "id": "edge_blending",
+      "name": "Edge Blending On / Off",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 350
+      }
+    },
+    {
+      "id": "pip_pbp",
+      "name": "Picture-in-Picture / Side-by-Side",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Set",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Mode (PIP vs side-by-side)"
+            },
+            {
+              "id": 1,
+              "label": "Position"
+            },
+            {
+              "id": 2,
+              "label": "Sub input 1"
+            },
+            {
+              "id": 9,
+              "label": "Sub input 2"
+            },
+            {
+              "id": 10,
+              "label": "Sub input 3"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": 0,
+          "max": 255
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 368
+      }
+    },
+    {
+      "id": "lan_name",
+      "name": "Set Projector Name",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name (max 16 characters)",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 390
+      }
+    },
+    {
+      "id": "send_raw",
+      "name": "Advanced — Send Raw Command",
+      "options": [
+        {
+          "id": "hex",
+          "type": "textinput",
+          "label": "Command bytes in hex (no length/checksum), e.g. \"02 03 00 00 02 01 1A\"",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 397
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "power_on",
+      "name": "Power is on",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 30
+      }
+    },
+    {
+      "id": "power_warming",
+      "name": "Power is warming up",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 37
+      }
+    },
+    {
+      "id": "power_cooling",
+      "name": "Power is cooling down",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 44
+      }
+    },
+    {
+      "id": "power_off_locked",
+      "name": "Power off is locked out (lamp just came on)",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 51
+      }
+    },
+    {
+      "id": "connected",
+      "name": "Connected to projector",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 58
+      }
+    },
+    {
+      "id": "input_active",
+      "name": "Active input is…",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "HDMI",
+          "choices": [
+            {
+              "id": "VGA Comp 1",
+              "label": "Computer 1 (VGA)"
+            },
+            {
+              "id": "VGA Comp 2",
+              "label": "Computer 2 (VGA)"
+            },
+            {
+              "id": "VGA Comp 3",
+              "label": "Computer 3 (VGA)"
+            },
+            {
+              "id": "Video",
+              "label": "Video"
+            },
+            {
+              "id": "S-Video",
+              "label": "S-Video"
+            },
+            {
+              "id": "Component",
+              "label": "Component"
+            },
+            {
+              "id": "HDMI",
+              "label": "HDMI"
+            },
+            {
+              "id": "DisplayPort",
+              "label": "DisplayPort"
+            },
+            {
+              "id": "DVI-D",
+              "label": "DVI-D"
+            },
+            {
+              "id": "Viewer",
+              "label": "Viewer"
+            },
+            {
+              "id": "Network",
+              "label": "Network (LAN)"
+            },
+            {
+              "id": "HDBaseT",
+              "label": "HDBaseT"
+            },
+            {
+              "id": "SDI",
+              "label": "SDI"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 65
+      }
+    },
+    {
+      "id": "picture_mute",
+      "name": "Picture is muted",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 80
+      }
+    },
+    {
+      "id": "sound_mute",
+      "name": "Sound is muted",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 87
+      }
+    },
+    {
+      "id": "onscreen_mute",
+      "name": "On-screen menu is hidden",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 94
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Image is frozen",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 101
+      }
+    },
+    {
+      "id": "shutter_closed",
+      "name": "Shutter is closed (screen blank)",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 108
+      }
+    },
+    {
+      "id": "has_error",
+      "name": "Projector has an error / warning",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 115
+      }
+    }
+  ]
+}
