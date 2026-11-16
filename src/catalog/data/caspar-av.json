@@ -1,0 +1,736 @@
+{
+  "moduleId": "caspar-av",
+  "name": "caspar-AV",
+  "repo": "stoatworks-labs/companion-module-caspar-av",
+  "version": "1.0.5",
+  "baseVersion": "~2.2.2",
+  "lastCommit": "2026-11-09",
+  "lastCommitSha": "f9253ac",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "fireCue",
+      "name": "Fire a cue",
+      "options": [
+        {
+          "id": "cue",
+          "type": "dropdown",
+          "label": "Cue",
+          "choicesNote": "Cues are read at runtime from the show snapshot that caspar-avd pushes (cueChoices(), src/actions.js:20); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "description": "The cue's actions are compiled to one BEGIN/COMMIT batch, so a multi-screen cue lands on a single frame. Prefer this over stacking transport actions on a button.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 79
+      }
+    },
+    {
+      "id": "firePad",
+      "name": "Fire a pad by grid position",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Pad index",
+          "min": 0,
+          "max": 255,
+          "default": 0
+        }
+      ],
+      "description": "Fires whatever cue is currently assigned to that pad, so a button keeps working when the show is re-laid-out. An empty pad does nothing.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 101
+      }
+    },
+    {
+      "id": "play",
+      "name": "Screen: play a clip",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "clip",
+          "type": "dropdown",
+          "label": "Clip",
+          "choicesNote": "Clips are read at runtime from the show snapshot that caspar-avd pushes (mediaChoices(): media id or name, src/actions.js:24); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "looping",
+          "type": "checkbox",
+          "label": "Loop",
+          "default": false
+        },
+        {
+          "id": "frames",
+          "type": "number",
+          "label": "Mix in (frames)",
+          "min": 0,
+          "max": 250,
+          "default": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 128
+      }
+    },
+    {
+      "id": "load",
+      "name": "Screen: load a clip into the background",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "clip",
+          "type": "dropdown",
+          "label": "Clip",
+          "choicesNote": "Clips are read at runtime from the show snapshot that caspar-avd pushes (mediaChoices(): media id or name, src/actions.js:24); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "looping",
+          "type": "checkbox",
+          "label": "Loop",
+          "default": false
+        },
+        {
+          "id": "frames",
+          "type": "number",
+          "label": "Mix in (frames)",
+          "min": 0,
+          "max": 250,
+          "default": 0
+        }
+      ],
+      "description": "Prepares the clip without putting it on air. Follow with Take to cut to it — the pair that makes a frame-accurate change possible.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 156
+      }
+    },
+    {
+      "id": "take",
+      "name": "Screen: take (background to foreground)",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 186
+      }
+    },
+    {
+      "id": "pause",
+      "name": "Screen: pause",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 191
+      }
+    },
+    {
+      "id": "resume",
+      "name": "Screen: resume",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 196
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Screen: stop",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 201
+      }
+    },
+    {
+      "id": "clear",
+      "name": "Screen: clear",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 206
+      }
+    },
+    {
+      "id": "mixer",
+      "name": "Screen: set a mixer property",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "property",
+          "type": "dropdown",
+          "label": "Property",
+          "default": "opacity",
+          "choices": [
+            {
+              "id": "opacity",
+              "label": "opacity"
+            },
+            {
+              "id": "volume",
+              "label": "volume"
+            },
+            {
+              "id": "brightness",
+              "label": "brightness"
+            },
+            {
+              "id": "saturation",
+              "label": "saturation"
+            },
+            {
+              "id": "contrast",
+              "label": "contrast"
+            },
+            {
+              "id": "rotation",
+              "label": "rotation"
+            },
+            {
+              "id": "fill",
+              "label": "fill"
+            },
+            {
+              "id": "clip",
+              "label": "clip"
+            },
+            {
+              "id": "crop",
+              "label": "crop"
+            },
+            {
+              "id": "anchor",
+              "label": "anchor"
+            },
+            {
+              "id": "perspective",
+              "label": "perspective"
+            },
+            {
+              "id": "blend",
+              "label": "blend"
+            },
+            {
+              "id": "keyer",
+              "label": "keyer"
+            }
+          ]
+        },
+        {
+          "id": "values",
+          "type": "textinput",
+          "label": "Values (comma separated)",
+          "default": "1",
+          "useVariables": true,
+          "description": "opacity/volume take one value. fill takes x, y, w, h. perspective takes eight. Anything missing is read as 0."
+        },
+        {
+          "id": "frames",
+          "type": "number",
+          "label": "Animate over (frames)",
+          "min": 0,
+          "max": 500,
+          "default": 0
+        },
+        {
+          "id": "tween",
+          "type": "textinput",
+          "label": "Tween (optional)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "description": "Values are normalised 0..1 for geometry — the show model works in normalised space and caspar-avd converts. Frames animates the change; a tween names an easing curve.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 213
+      }
+    },
+    {
+      "id": "screenEnable",
+      "name": "Screen: enable / disable",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Set",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "enable",
+              "label": "Enable"
+            },
+            {
+              "id": "disable",
+              "label": "Disable"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "description": "Compiles to MIXER OPACITY. Disabling leaves the layer loaded, so re-enabling does not restart the clip.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 283
+      }
+    },
+    {
+      "id": "template",
+      "name": "Screen: template (CG)",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "template",
+          "type": "dropdown",
+          "label": "Template",
+          "choicesNote": "Templates are read at runtime from the show snapshot that caspar-avd pushes (templateChoices(): template id or name, src/actions.js:31); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "add"
+            },
+            {
+              "id": "update",
+              "label": "update"
+            },
+            {
+              "id": "stop",
+              "label": "stop"
+            },
+            {
+              "id": "next",
+              "label": "next"
+            },
+            {
+              "id": "invoke",
+              "label": "invoke"
+            }
+          ]
+        },
+        {
+          "id": "cg_layer",
+          "type": "number",
+          "label": "CG layer",
+          "min": 0,
+          "max": 20,
+          "default": 1
+        },
+        {
+          "id": "data",
+          "type": "textinput",
+          "label": "Data (JSON or XML, optional)",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "method",
+          "type": "textinput",
+          "label": "Method (for invoke)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "description": "add loads and plays, update pushes new data, invoke calls a method on the template, next steps it, stop takes it off.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 316
+      }
+    },
+    {
+      "id": "rawCommand",
+      "name": "Send a raw AMCP command",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "AMCP",
+          "default": "MIXER 1-10 FILL 0 0 0.5 0.5",
+          "useVariables": true
+        }
+      ],
+      "description": "The escape hatch every media server needs. Watch the two-word trap: a two-word command puts its target BETWEEN the words — 'MIXER 1-10 FILL 0 0 0.5 0.5' is right, 'MIXER FILL 1-10 ...' answers 400 ERROR.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 386
+      }
+    },
+    {
+      "id": "rawBatch",
+      "name": "Send several AMCP commands as one batch",
+      "options": [
+        {
+          "id": "commands",
+          "type": "textinput",
+          "label": "Commands (one per line)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "description": "Wrapped in BEGIN/COMMIT, so every touched channel is released on the same frame — this is how a multi-screen change lands together. One line per command.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 409
+      }
+    },
+    {
+      "id": "refreshLibrary",
+      "name": "Refresh the media library",
+      "options": [],
+      "description": "Re-reads media-scanner. Without media-scanner running, CasparCG has no media list of its own and every CLS/TLS/THUMBNAIL command answers 501.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 449
+      }
+    },
+    {
+      "id": "pushMapping",
+      "name": "Push the screen mapping to CasparCG",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 456
+      }
+    },
+    {
+      "id": "setPads",
+      "name": "Assign a cue to a pad",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Pad index",
+          "min": 0,
+          "max": 255,
+          "default": 0
+        },
+        {
+          "id": "cue",
+          "type": "dropdown",
+          "label": "Cue",
+          "choicesNote": "Cues are read at runtime from the show snapshot that caspar-avd pushes (cueChoices(), src/actions.js:20); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 461
+      }
+    },
+    {
+      "id": "logState",
+      "name": "Log the current snapshot",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 491
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "connected",
+      "name": "caspar-avd is connected",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 29
+      }
+    },
+    {
+      "id": "casparcgUp",
+      "name": "CasparCG is connected to caspar-avd",
+      "feedbackType": "boolean",
+      "options": [],
+      "description": "A different question from 'is caspar-avd reachable'. The daemon reconnects to CasparCG with backoff, so this goes dark and recovers on its own when the server is restarted mid-rig.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 37
+      }
+    },
+    {
+      "id": "telemetry",
+      "name": "OSC telemetry is arriving",
+      "feedbackType": "boolean",
+      "options": [],
+      "description": "Commands can work perfectly with this dark — CasparCG pushes telemetry over OSC rather than answering questions over AMCP. While it is dark, every 'is this playing' feedback below is unknowable, not false.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 47
+      }
+    },
+    {
+      "id": "scannerUp",
+      "name": "media-scanner is up",
+      "feedbackType": "boolean",
+      "options": [],
+      "description": "Not optional in CasparCG 2.5 — CLS, TLS, FLS, CINF and every THUMBNAIL command are HTTP-proxied straight to it, and answer 501 without it. The server has no media list of its own.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 57
+      }
+    },
+    {
+      "id": "screenPlaying",
+      "name": "Screen has something playing",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "description": "From the OSC telemetry, not from the show. The show is INTENT and telemetry is what CasparCG is actually doing — caspar-avd never merges them, and a disagreement is information.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 67
+      }
+    },
+    {
+      "id": "screenPaused",
+      "name": "Screen is paused",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 82
+      }
+    },
+    {
+      "id": "screenPlayingFile",
+      "name": "Screen is playing a specific file",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "file",
+          "type": "textinput",
+          "label": "File name",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 91
+      }
+    },
+    {
+      "id": "screenNearEnd",
+      "name": "Screen's clip is near its end",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "seconds",
+          "type": "number",
+          "label": "Within (seconds of the end)",
+          "min": 1,
+          "max": 300,
+          "default": 10
+        }
+      ],
+      "description": "From file/time, which is [position, duration] in SECONDS. There is no frame number on the producer side, so a frame-accurate countdown is not available here — derive it as time x fps if you need one.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 114
+      }
+    },
+    {
+      "id": "screenEnabled",
+      "name": "Screen is enabled",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Screens are read at runtime from the show snapshot that caspar-avd pushes (screenChoices(): id, label \"<name or id> (<channel>-<layer>)\", src/actions.js:13); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "description": "The show's own intent, not telemetry — this is what the operator configured, and it stays true while telemetry is absent.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 143
+      }
+    },
+    {
+      "id": "cueAssignedToPad",
+      "name": "A pad holds a specific cue",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Pad index",
+          "min": 0,
+          "max": 255,
+          "default": 0
+        },
+        {
+          "id": "cue",
+          "type": "dropdown",
+          "label": "Cue",
+          "choicesNote": "Cues are read at runtime from the show snapshot that caspar-avd pushes (cueChoices(), src/actions.js:20); the list is rebuilt when it changes. The source default is the first entry's id, or \"\" while the list is empty.",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "description": "For a surface laid out to mirror the pad grid — the button can show whether the pad it represents is still assigned to the cue it was built for.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 153
+      }
+    },
+    {
+      "id": "warnings",
+      "name": "caspar-avd has configuration warnings",
+      "feedbackType": "boolean",
+      "options": [],
+      "description": "Configuration problems the daemon pre-empted rather than waiting for them to bite. Worth a light on a setup page.",
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 185
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 18 actions (src/actions.js, one setActionDefinitions call) and 11 boolean feedbacks (src/feedbacks.js, one setFeedbackDefinitions call). Definitions are re-registered whenever the screen, cue, pad, media or template lists change (src/main.js applySnapshot/rebuild), so the dropdown choices are runtime data.",
+    "This module does not talk to CasparCG directly. It connects to the separate caspar-avd daemon (caspar-AV show control) over HTTP (REST under /api/...) and a WebSocket at /ws/ui; config fields are host (default 127.0.0.1) and port (number 1-65535, integer, default 8080) (src/main.js getConfigFields, src/api.js). The daemon speaks AMCP to CasparCG; the raw actions pass AMCP text through.",
+    "Screen, cue, clip and template dropdowns all use allowCustom: any string is sent (URL-encoded) to the daemon. Their ids are generated by caspar-avd and are free-form strings.",
+    "Options flagged useVariables are expanded by Companion before the callback runs (source comment in src/actions.js:53-56). The feedback defaultStyle values (green 0x003300/0x00ff00 for health signals, etc.) are not catalogued.",
+    "Variables and presets (src/variables.js, src/presets.js) are not catalogued. Per-screen variables are named screen_<safeId>_<name> where unsafe characters of the id become \"_\" (src/main.js safeId, refreshVariableValues).",
+    "Upgrade script (src/upgrades.js): a saved string port is converted to a number.",
+    "Built on @companion-module/base ~2.2.2: option values may be expressions."
+  ]
+}
