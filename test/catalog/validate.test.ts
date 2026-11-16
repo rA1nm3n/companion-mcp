@@ -188,8 +188,8 @@ describe('validateActionOptions: general behaviour', () => {
     expect(codes(validateFeedbackOptions('nope', 'x', {}))).toEqual(['unknown-module']);
   });
 
-  it('reports index-only modules as unknown for validation', () => {
-    expect(codes(validateActionOptions('generic-osc', 'x', {}))).toEqual(['unknown-module']);
+  it('validates the generic modules like any other catalogued module', () => {
+    expect(codes(validateActionOptions('generic-osc', 'x', {}))).toEqual(['unknown-action']);
   });
 
   it('rejects options that are not in { isExpression, value } format', () => {

@@ -156,15 +156,25 @@ describe('catalog consistency', () => {
   });
 
   it('keeps closed choice lists free of duplicate ids', () => {
+    // Duplicate choice ids in the module sources, recorded as written (CasparCG WIPE has the id
+    // CUT; the TSL UMD listener lists tally1 and tally2 twice).
+    const knownSourceDuplicates = new Set([
+      'casparcg-server/LOADBG/transition',
+      'casparcg-server/LOAD/transition',
+      'casparcg-server/PLAY/transition',
+      'tslproducts-umdlistener/tallyState/number',
+    ]);
+    const found = new Set<string>();
     for (const mod of modules) {
       for (const e of [...mod.actions, ...mod.feedbacks]) {
         for (const o of e.options) {
           if (!o.choices) continue;
           const ids = o.choices.map((c) => `${typeof c.id}:${String(c.id)}`);
-          expect(new Set(ids).size, `${mod.moduleId}/${e.id}/${o.id}`).toBe(ids.length);
+          if (new Set(ids).size !== ids.length) found.add(`${mod.moduleId}/${e.id}/${o.id}`);
         }
       }
     }
+    expect([...found].sort()).toEqual([...knownSourceDuplicates].sort());
   });
 
   it('has defaults that are valid choices where a closed list is given', () => {
@@ -176,6 +186,42 @@ describe('catalog consistency', () => {
       'studiocoast-vmix/dynamic/number',
       // grandMA2 button: numeric default 11, string choice ids (actions.js:38-41, choices.js)
       'malighting-grandma2/button/button',
+      // Default and choice ids differ in type in the sources of the modules added with the full
+      // catalog (for example '1' versus 1); recorded as written.
+      'avstumpfl-pixera/timeline_transport/mode',
+      'barco-pds/ISEL/i',
+      'barco-pds/FREEZE/m',
+      'barco-pds/BLACK/m',
+      'barco-pds/OTPM/o',
+      'barco-pds/OTPM/m',
+      'barco-pds/OTPT/o',
+      'barco-pds/OTPT/t',
+      'barco-pds/ORBM/o',
+      'barco-pds/ORBM/m',
+      'barco-pds/LOGOSEL/l',
+      'barco-pds/LOGOSAVE/l',
+      'barco-pds/AUTOTAKE/m',
+      'barco-pds/PENDPIP/p',
+      'barco-pds/PENDPIP/m',
+      'barco-pds/PIPISEL/p',
+      'barco-pds/PIPISEL/i',
+      'barco-pds/PIPREC/p',
+      'barco-pds/PIPREC/f',
+      'bmd-multiview4/solo_source/input',
+      'bmd-multiview4/audio_source/input',
+      'christie-spyder/trn/mix',
+      'christie-spyder/frz/frzonoff',
+      'christie-spyder/ofz/frzonoff',
+      'extron-smp351/record_bg/record',
+      'extron-smp351/rtmpStatus_a_bg/onoff',
+      'extron-smp351/rtmpStatus_b_bg/onoff',
+      'extron-smp351/rtmpStatus_ca_bg/onoff',
+      'extron-smp351/rtmpStatus_a2_bg/onoff',
+      'extron-smp351/rtmpStatus_b2_bg/onoff',
+      'extron-smp351/rtmpStatus_ca2_bg/onoff',
+      'extron-smp351/encoder_mode_dual/onoff',
+      'sony-visca/buttonFeedback/bol',
+      'sony-visca/internalRecording/bol',
     ]);
     const found = new Set<string>();
     for (const mod of modules) {

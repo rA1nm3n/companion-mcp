@@ -1,4 +1,5 @@
 import indexData from './data/_index.json' with { type: 'json' };
+import abletonOsc from './data/ableton-osc.json' with { type: 'json' };
 import allenheathAhm from './data/allenheath-ahm.json' with { type: 'json' };
 import allenheathAvantis from './data/allenheath-avantis.json' with { type: 'json' };
 import allenheathCq from './data/allenheath-cq.json' with { type: 'json' };
@@ -7,35 +8,120 @@ import allenheathDliveIlive from './data/allenheath-dlive-ilive.json' with { typ
 import allenheathDt168 from './data/allenheath-dt168.json' with { type: 'json' };
 import allenheathSq from './data/allenheath-sq.json' with { type: 'json' };
 import analogwayAwj from './data/analogway-awj.json' with { type: 'json' };
+import analogwayCoreplay from './data/analogway-coreplay.json' with { type: 'json' };
+import analogwayLivecore from './data/analogway-livecore.json' with { type: 'json' };
 import analogwayLivepremier from './data/analogway-livepremier.json' with { type: 'json' };
+import analogwayMidra from './data/analogway-midra.json' with { type: 'json' };
+import analogwayPicturall from './data/analogway-picturall.json' with { type: 'json' };
+import analogwayPls300 from './data/analogway-pls300.json' with { type: 'json' };
+import anomesMillumin from './data/anomes-millumin.json' with { type: 'json' };
+import arenaOsc from './data/arena-osc.json' with { type: 'json' };
+import arkaosMediamaster from './data/arkaos-mediamaster.json' with { type: 'json' };
 import avolitesTitan from './data/avolites-titan.json' with { type: 'json' };
+import avstumpflPixera from './data/avstumpfl-pixera.json' with { type: 'json' };
+import barcoClickshare from './data/barco-clickshare.json' with { type: 'json' };
+import barcoDp from './data/barco-dp.json' with { type: 'json' };
 import barcoEventmaster from './data/barco-eventmaster.json' with { type: 'json' };
+import barcoEventmasterXml from './data/barco-eventmaster-xml.json' with { type: 'json' };
+import barcoPds from './data/barco-pds.json' with { type: 'json' };
+import barcoPulse from './data/barco-pulse.json' with { type: 'json' };
 import behringerX32 from './data/behringer-x32.json' with { type: 'json' };
 import birddogPtz from './data/birddog-ptz.json' with { type: 'json' };
 import bmdAtem from './data/bmd-atem.json' with { type: 'json' };
 import bmdHyperdeck from './data/bmd-hyperdeck.json' with { type: 'json' };
+import bmdMultiview4 from './data/bmd-multiview4.json' with { type: 'json' };
 import bmdVideohub from './data/bmd-videohub.json' with { type: 'json' };
+import bromptonTessera from './data/brompton-tessera.json' with { type: 'json' };
+import casparAv from './data/caspar-av.json' with { type: 'json' };
+import casparcgServer from './data/casparcg-server.json' with { type: 'json' };
 import chamsysMagicqOsc from './data/chamsys-magicq-osc.json' with { type: 'json' };
 import chamsysMagicqUdp from './data/chamsys-magicq-udp.json' with { type: 'json' };
+import christieProjector from './data/christie-projector.json' with { type: 'json' };
+import christieSpyder from './data/christie-spyder.json' with { type: 'json' };
+import crestronDigitalmatrix from './data/crestron-digitalmatrix.json' with { type: 'json' };
+import crestronHdMdnxm4kzE from './data/crestron-hd-mdnxm-4kz-e.json' with { type: 'json' };
 import datatonWatchout from './data/dataton-watchout.json' with { type: 'json' };
 import datatonWatchoutJson from './data/dataton-watchout-json.json' with { type: 'json' };
+import disguiseLiveupdate from './data/disguise-liveupdate.json' with { type: 'json' };
+import disguiseMtc from './data/disguise-mtc.json' with { type: 'json' };
+import disguiseOsc from './data/disguise-osc.json' with { type: 'json' };
+import disguiseSmc from './data/disguise-smc.json' with { type: 'json' };
+import dtvideolabsPlaybackproplus from './data/dtvideolabs-playbackproplus.json' with { type: 'json' };
+import epiphanPearl from './data/epiphan-pearl.json' with { type: 'json' };
 import etcEos from './data/etc-eos.json' with { type: 'json' };
+import extronDxpHd4kPlus from './data/extron-dxp-hd-4k-plus.json' with { type: 'json' };
+import extronMmxTcp from './data/extron-mmx-tcp.json' with { type: 'json' };
+import extronSmp351 from './data/extron-smp351.json' with { type: 'json' };
+import figure53GoButton from './data/figure53-go-button.json' with { type: 'json' };
+import figure53QlabAdvance from './data/figure53-qlab-advance.json' with { type: 'json' };
+import figure53Qview from './data/figure53-qview.json' with { type: 'json' };
 import garagecubeMadmapper5 from './data/garagecube-madmapper5.json' with { type: 'json' };
 import garagecubeMadmapper6 from './data/garagecube-madmapper6.json' with { type: 'json' };
+import genericArtnet from './data/generic-artnet.json' with { type: 'json' };
+import genericHttp from './data/generic-http.json' with { type: 'json' };
+import genericMidi from './data/generic-midi.json' with { type: 'json' };
+import genericOsc from './data/generic-osc.json' with { type: 'json' };
+import genericPjlink from './data/generic-pjlink.json' with { type: 'json' };
+import genericSacn from './data/generic-sacn.json' with { type: 'json' };
+import genericTcpUdp from './data/generic-tcp-udp.json' with { type: 'json' };
+import greenhippoHippotizerRest from './data/greenhippo-hippotizer-rest.json' with { type: 'json' };
+import hdkatovVisca from './data/hdkatov-visca.json' with { type: 'json' };
 import highendHog4 from './data/highend-hog4.json' with { type: 'json' };
+import horinetechKeynote from './data/horinetech-keynote.json' with { type: 'json' };
 import internal from './data/internal.json' with { type: 'json' };
+import kramerMatrix from './data/kramer-matrix.json' with { type: 'json' };
+import leonreucherVstopowerpoint from './data/leonreucher-vstopowerpoint.json' with { type: 'json' };
+import lightwareLw2 from './data/lightware-lw2.json' with { type: 'json' };
+import lightwareLw3 from './data/lightware-lw3.json' with { type: 'json' };
 import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
 import madrixAura from './data/madrix-aura.json' with { type: 'json' };
 import malightingGrandma2 from './data/malighting-grandma2.json' with { type: 'json' };
 import malightingGrandma3 from './data/malighting-grandma3.json' with { type: 'json' };
+import modulopiModuloplayer from './data/modulopi-moduloplayer.json' with { type: 'json' };
+import necDisplay from './data/nec-display.json' with { type: 'json' };
+import necProjectors from './data/nec-projectors.json' with { type: 'json' };
+import novastarCoex from './data/novastar-coex.json' with { type: 'json' };
+import novastarController from './data/novastar-controller.json' with { type: 'json' };
+import novastarD12 from './data/novastar-d12.json' with { type: 'json' };
+import novastarMediaserver from './data/novastar-mediaserver.json' with { type: 'json' };
+import novastarMxreal3 from './data/novastar-mxreal3.json' with { type: 'json' };
+import novastarSplicer from './data/novastar-splicer.json' with { type: 'json' };
+import obsStudio from './data/obs-studio.json' with { type: 'json' };
 import obsidiancontrolOnyx from './data/obsidiancontrol-onyx.json' with { type: 'json' };
 import obsidiancontrolOnyxOsc from './data/obsidiancontrol-onyx-osc.json' with { type: 'json' };
+import panasonicCameras from './data/panasonic-cameras.json' with { type: 'json' };
+import panasonicKairos from './data/panasonic-kairos.json' with { type: 'json' };
+import panasonicProjector from './data/panasonic-projector.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
+import pixelhueMediaserver from './data/pixelhue-mediaserver.json' with { type: 'json' };
+import pixelhueSwitcher from './data/pixelhue-switcher.json' with { type: 'json' };
+import ptzopticsVisca from './data/ptzoptics-visca.json' with { type: 'json' };
+import renewedvisionPropresenter from './data/renewedvision-propresenter.json' with { type: 'json' };
+import renewedvisionPropresenterApi from './data/renewedvision-propresenter-api.json' with { type: 'json' };
+import renewedvisionPvp from './data/renewedvision-pvp.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
+import resolumeWs from './data/resolume-ws.json' with { type: 'json' };
+import rossCarbonite from './data/ross-carbonite.json' with { type: 'json' };
+import rossvideoCrossover from './data/rossvideo-crossover.json' with { type: 'json' };
+import rossvideoNkrouter from './data/rossvideo-nkrouter.json' with { type: 'json' };
+import rossvideoRosstalk from './data/rossvideo-rosstalk.json' with { type: 'json' };
+import rossvideoXpression from './data/rossvideo-xpression.json' with { type: 'json' };
 import showpaceTimer from './data/showpace-timer.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
+import smodetechSmodelive from './data/smodetech-smodelive.json' with { type: 'json' };
+import sonyPtz from './data/sony-ptz.json' with { type: 'json' };
+import sonyVisca from './data/sony-visca.json' with { type: 'json' };
 import studiocoastVmix from './data/studiocoast-vmix.json' with { type: 'json' };
+import techministryTallyarbiter from './data/techministry-tallyarbiter.json' with { type: 'json' };
+import teradekPrism from './data/teradek-prism.json' with { type: 'json' };
+import teradekVidiux from './data/teradek-vidiux.json' with { type: 'json' };
 import touchDesigner from './data/touch-designer.json' with { type: 'json' };
+import tslproductsUmd from './data/tslproducts-umd.json' with { type: 'json' };
+import tslproductsUmdlistener from './data/tslproducts-umdlistener.json' with { type: 'json' };
+import tslproductsUsp3 from './data/tslproducts-usp3.json' with { type: 'json' };
+import twolooxPandorasbox from './data/twoloox-pandorasbox.json' with { type: 'json' };
+import vizrtMosart from './data/vizrt-mosart.json' with { type: 'json' };
+import vizrtTcpEngineTrio from './data/vizrt-tcp-engine-trio.json' with { type: 'json' };
 import yamahaRcp from './data/yamaha-rcp.json' with { type: 'json' };
 import {
   IndexFileSchema,
@@ -59,6 +145,7 @@ export * from './types.js';
  * disagree.
  */
 const RAW_MODULES: Readonly<Record<string, unknown>> = {
+  'ableton-osc': abletonOsc,
   'allenheath-ahm': allenheathAhm,
   'allenheath-avantis': allenheathAvantis,
   'allenheath-cq': allenheathCq,
@@ -67,35 +154,120 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'allenheath-dt168': allenheathDt168,
   'allenheath-sq': allenheathSq,
   'analogway-awj': analogwayAwj,
+  'analogway-coreplay': analogwayCoreplay,
+  'analogway-livecore': analogwayLivecore,
   'analogway-livepremier': analogwayLivepremier,
+  'analogway-midra': analogwayMidra,
+  'analogway-picturall': analogwayPicturall,
+  'analogway-pls300': analogwayPls300,
+  'anomes-millumin': anomesMillumin,
+  'arena-osc': arenaOsc,
+  'arkaos-mediamaster': arkaosMediamaster,
   'avolites-titan': avolitesTitan,
+  'avstumpfl-pixera': avstumpflPixera,
+  'barco-clickshare': barcoClickshare,
+  'barco-dp': barcoDp,
   'barco-eventmaster': barcoEventmaster,
+  'barco-eventmaster-xml': barcoEventmasterXml,
+  'barco-pds': barcoPds,
+  'barco-pulse': barcoPulse,
   'behringer-x32': behringerX32,
   'birddog-ptz': birddogPtz,
   'bmd-atem': bmdAtem,
   'bmd-hyperdeck': bmdHyperdeck,
+  'bmd-multiview4': bmdMultiview4,
   'bmd-videohub': bmdVideohub,
+  'brompton-tessera': bromptonTessera,
+  'caspar-av': casparAv,
+  'casparcg-server': casparcgServer,
   'chamsys-magicq-osc': chamsysMagicqOsc,
   'chamsys-magicq-udp': chamsysMagicqUdp,
+  'christie-projector': christieProjector,
+  'christie-spyder': christieSpyder,
+  'crestron-digitalmatrix': crestronDigitalmatrix,
+  'crestron-hd-mdnxm-4kz-e': crestronHdMdnxm4kzE,
   'dataton-watchout': datatonWatchout,
   'dataton-watchout-json': datatonWatchoutJson,
+  'disguise-liveupdate': disguiseLiveupdate,
+  'disguise-mtc': disguiseMtc,
+  'disguise-osc': disguiseOsc,
+  'disguise-smc': disguiseSmc,
+  'dtvideolabs-playbackproplus': dtvideolabsPlaybackproplus,
+  'epiphan-pearl': epiphanPearl,
   'etc-eos': etcEos,
+  'extron-dxp-hd-4k-plus': extronDxpHd4kPlus,
+  'extron-mmx-tcp': extronMmxTcp,
+  'extron-smp351': extronSmp351,
+  'figure53-go-button': figure53GoButton,
+  'figure53-qlab-advance': figure53QlabAdvance,
+  'figure53-qview': figure53Qview,
   'garagecube-madmapper5': garagecubeMadmapper5,
   'garagecube-madmapper6': garagecubeMadmapper6,
+  'generic-artnet': genericArtnet,
+  'generic-http': genericHttp,
+  'generic-midi': genericMidi,
+  'generic-osc': genericOsc,
+  'generic-pjlink': genericPjlink,
+  'generic-sacn': genericSacn,
+  'generic-tcp-udp': genericTcpUdp,
+  'greenhippo-hippotizer-rest': greenhippoHippotizerRest,
+  'hdkatov-visca': hdkatovVisca,
   'highend-hog4': highendHog4,
-  internal,
+  'horinetech-keynote': horinetechKeynote,
+  internal: internal,
+  'kramer-matrix': kramerMatrix,
+  'leonreucher-vstopowerpoint': leonreucherVstopowerpoint,
+  'lightware-lw2': lightwareLw2,
+  'lightware-lw3': lightwareLw3,
   'luminex-gigacore': luminexGigacore,
   'madrix-aura': madrixAura,
   'malighting-grandma2': malightingGrandma2,
   'malighting-grandma3': malightingGrandma3,
+  'modulopi-moduloplayer': modulopiModuloplayer,
+  'nec-display': necDisplay,
+  'nec-projectors': necProjectors,
+  'novastar-coex': novastarCoex,
+  'novastar-controller': novastarController,
+  'novastar-d12': novastarD12,
+  'novastar-mediaserver': novastarMediaserver,
+  'novastar-mxreal3': novastarMxreal3,
+  'novastar-splicer': novastarSplicer,
+  'obs-studio': obsStudio,
   'obsidiancontrol-onyx': obsidiancontrolOnyx,
   'obsidiancontrol-onyx-osc': obsidiancontrolOnyxOsc,
+  'panasonic-cameras': panasonicCameras,
+  'panasonic-kairos': panasonicKairos,
+  'panasonic-projector': panasonicProjector,
   'panasonic-ptz': panasonicPtz,
+  'pixelhue-mediaserver': pixelhueMediaserver,
+  'pixelhue-switcher': pixelhueSwitcher,
+  'ptzoptics-visca': ptzopticsVisca,
+  'renewedvision-propresenter': renewedvisionPropresenter,
+  'renewedvision-propresenter-api': renewedvisionPropresenterApi,
+  'renewedvision-pvp': renewedvisionPvp,
   'resolume-arena': resolumeArena,
+  'resolume-ws': resolumeWs,
+  'ross-carbonite': rossCarbonite,
+  'rossvideo-crossover': rossvideoCrossover,
+  'rossvideo-nkrouter': rossvideoNkrouter,
+  'rossvideo-rosstalk': rossvideoRosstalk,
+  'rossvideo-xpression': rossvideoXpression,
   'showpace-timer': showpaceTimer,
   'shure-wireless': shureWireless,
+  'smodetech-smodelive': smodetechSmodelive,
+  'sony-ptz': sonyPtz,
+  'sony-visca': sonyVisca,
   'studiocoast-vmix': studiocoastVmix,
+  'techministry-tallyarbiter': techministryTallyarbiter,
+  'teradek-prism': teradekPrism,
+  'teradek-vidiux': teradekVidiux,
   'touch-designer': touchDesigner,
+  'tslproducts-umd': tslproductsUmd,
+  'tslproducts-umdlistener': tslproductsUmdlistener,
+  'tslproducts-usp3': tslproductsUsp3,
+  'twoloox-pandorasbox': twolooxPandorasbox,
+  'vizrt-mosart': vizrtMosart,
+  'vizrt-tcp-engine-trio': vizrtTcpEngineTrio,
   'yamaha-rcp': yamahaRcp,
 };
 
