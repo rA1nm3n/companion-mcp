@@ -1,0 +1,325 @@
+{
+  "moduleId": "christie-spyder",
+  "name": "Christie Spyder",
+  "repo": "bitfocus/companion-module-christie-spyder",
+  "version": "2.3.0",
+  "baseVersion": "^1.8.0",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "e33f8b8",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "asc",
+      "name": "Take (Advance Script Cue)",
+      "options": [
+        {
+          "id": "cueNum",
+          "type": "dropdown",
+          "label": "Cues to advance / step Back",
+          "default": "0",
+          "choices": [
+            {
+              "id": "-10",
+              "label": "Step back 10 Cues"
+            },
+            {
+              "id": "-1",
+              "label": "Step back 1 Cue"
+            },
+            {
+              "id": "0",
+              "label": "None / Take"
+            },
+            {
+              "id": "+1",
+              "label": "Advance 1 Cue"
+            },
+            {
+              "id": "+10",
+              "label": "Advance 10 Cues"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 7
+      }
+    },
+    {
+      "id": "bpr",
+      "name": "Basic Preset Recall (Index Nr)",
+      "options": [
+        {
+          "id": "idx",
+          "type": "textinput",
+          "label": "Preset Index",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "dur",
+          "type": "textinput",
+          "label": "Duration (Optional)",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 30
+      }
+    },
+    {
+      "id": "rsc",
+      "name": "Recall Script Cue (Script, Cue)",
+      "options": [
+        {
+          "id": "sidx",
+          "type": "textinput",
+          "label": "Script ID/Register ID",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "cidx",
+          "type": "textinput",
+          "label": "Script Cue",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "ID Type being recalled",
+          "default": "S",
+          "choices": [
+            {
+              "id": "S",
+              "label": "ScriptID (default)"
+            },
+            {
+              "id": "R",
+              "label": "RegisterID"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 55
+      }
+    },
+    {
+      "id": "trn",
+      "name": "Transition layer(s)",
+      "options": [
+        {
+          "id": "mix",
+          "type": "dropdown",
+          "label": "Transition Mix on/off",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Mix On"
+            },
+            {
+              "id": 0,
+              "label": "Mix Off"
+            }
+          ]
+        },
+        {
+          "id": "dur",
+          "type": "textinput",
+          "label": "duration",
+          "default": 60,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "lay",
+          "type": "textinput",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 91
+      }
+    },
+    {
+      "id": "frz",
+      "name": "Freeze Layer(s)",
+      "options": [
+        {
+          "id": "frzonoff",
+          "type": "dropdown",
+          "label": "Freeze Layer on/off",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze On"
+            },
+            {
+              "id": 0,
+              "label": "Freeze Off"
+            }
+          ]
+        },
+        {
+          "id": "lay",
+          "type": "textinput",
+          "label": "Layer(s) input multiple layers space delimited",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 126
+      }
+    },
+    {
+      "id": "btr",
+      "name": "Background Transition",
+      "options": [
+        {
+          "id": "dur",
+          "type": "textinput",
+          "label": "duration",
+          "default": 60,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 153
+      }
+    },
+    {
+      "id": "fkr",
+      "name": "Function Key Recall",
+      "options": [
+        {
+          "id": "fkrid",
+          "type": "textinput",
+          "label": "Funktion key ID",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "lay",
+          "type": "textinput",
+          "label": "Layer(s) input multiple layers space delimited",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 170
+      }
+    },
+    {
+      "id": "ofz",
+      "name": "Output Freeze",
+      "options": [
+        {
+          "id": "frzonoff",
+          "type": "dropdown",
+          "label": "Freeze Output on/off",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Freeze On"
+            },
+            {
+              "id": 0,
+              "label": "Freeze Off"
+            }
+          ]
+        },
+        {
+          "id": "output",
+          "type": "textinput",
+          "label": "Output(s)input multiple outputs space delimited",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 194
+      }
+    },
+    {
+      "id": "dmt",
+      "name": "Device Mixer Transition",
+      "options": [
+        {
+          "id": "dur",
+          "type": "textinput",
+          "label": "duration",
+          "default": 60,
+          "regex": "/^\\d+$/"
+        },
+        {
+          "id": "dev",
+          "type": "textinput",
+          "label": "Device(s)",
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "actions.js",
+        "line": 221
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "inp_ok",
+      "name": "Script Active",
+      "description": "Change button state when Script is Active",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "ID Type being recalled",
+          "default": "S",
+          "choices": [
+            {
+              "id": "S",
+              "label": "ScriptID (default)"
+            },
+            {
+              "id": "R",
+              "label": "RegisterID"
+            }
+          ]
+        },
+        {
+          "id": "sidx",
+          "type": "textinput",
+          "label": "Script ID/Register ID",
+          "default": 1,
+          "regex": "/^\\d+$/"
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 6
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 9 actions (actions.js, returned object of compileActionDefinitions) and 1 boolean feedback (feedbacks.js, GetFeedbackDefinitions). Both are registered in start() in spyder.js.",
+    "Protocol: UDP datagrams to port 11116 of the configured host (spyder.js init_udp). Each command is sent as 'spyder' + four NUL bytes + the command text, for example 'BPR 1 1' or 'TRN 1 60 1 2'. Variables are not catalogued.",
+    "Textinput values with regex: Regex.NUMBER carry the text '/^\\d+$/' (the value in @companion-module/base 1.15.0 dist/module-api/enums.js; the module requires ^1.8.0 and that version was not checked). Several text inputs for layers, outputs or devices have no regex and take space-delimited lists such as '1 2 3'; they have no useVariables in the source.",
+    "Quirks kept as written: the dropdown defaults are the strings '1' while the choice ids are the numbers 1 and 0 (actions trn, frz, ofz); the numeric textinput defaults are numbers (1, 60), not strings. Action frz uses the key label ('Freeze Layer(s)') instead of name, so the catalog takes that text as the name. The textinput lay of action trn carries name instead of label ('Layer(s) input multiple layers space delimited'), so it is recorded without a label. The option label of ofz is 'Output(s)input multiple outputs space delimited' (no space after the parenthesis), as in the source.",
+    "Feedback inp_ok (Script Active) has defaultStyle only; its callback returns the active flag of the polled script/register state.",
+    "Built on @companion-module/base ^1.8.0: options do not support expressions."
+  ]
+}
