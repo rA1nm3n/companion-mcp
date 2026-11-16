@@ -1,0 +1,864 @@
+{
+  "moduleId": "analogway-coreplay",
+  "name": "Analog Way CorePlay",
+  "repo": "bitfocus/companion-module-analogway-coreplay",
+  "version": "1.0.0",
+  "baseVersion": "~1.11.2",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "b5cc278",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "transport",
+      "name": "Player: Transport",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "stop",
+          "choices": [
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "tglstop",
+              "label": "Toggle Play/Stop"
+            },
+            {
+              "id": "tglpause",
+              "label": "Toggle Play/Pause"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 18
+      }
+    },
+    {
+      "id": "take",
+      "name": "Player: Take",
+      "description": "Without selected properties the action posts an empty take configuration; with selected properties it merges them into the player's current takeConfiguration and posts that (src/actions.ts:125-141).",
+      "options": [
+        {
+          "id": "properties",
+          "type": "multidropdown",
+          "label": "Override Take Configuration properties",
+          "default": [],
+          "choices": [
+            {
+              "id": "transitionDuration",
+              "label": "Take Duration"
+            },
+            {
+              "id": "transitionType",
+              "label": "Transition Type"
+            },
+            {
+              "id": "startPoint",
+              "label": "Playhead Option"
+            },
+            {
+              "id": "mode",
+              "label": "Preset Toggle"
+            }
+          ]
+        },
+        {
+          "id": "transitionDuration",
+          "type": "number",
+          "label": "Take Duration",
+          "default": 0,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "(opt: any) => opt.properties?.includes('transitionDuration')"
+        },
+        {
+          "id": "transitionType",
+          "type": "dropdown",
+          "label": "Transition Type",
+          "default": "crossfade",
+          "choices": [
+            {
+              "id": "directCut",
+              "label": "Direct Cut"
+            },
+            {
+              "id": "crossfade",
+              "label": "Crossfade"
+            },
+            {
+              "id": "dipToColor",
+              "label": "Dip to Color"
+            }
+          ],
+          "visibleWhen": "(opt: any) => opt.properties?.includes('transitionType')"
+        },
+        {
+          "id": "startPoint",
+          "type": "dropdown",
+          "label": "Playhead Option",
+          "default": "inpoint",
+          "choices": [
+            {
+              "id": "inpoint",
+              "label": "From inpoint"
+            },
+            {
+              "id": "position",
+              "label": "From current position in preview"
+            }
+          ],
+          "visibleWhen": "(opt: any) => opt.properties?.includes('startPoint')"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Preset Toggle",
+          "default": "copy",
+          "choices": [
+            {
+              "id": "swap",
+              "label": "Swap"
+            },
+            {
+              "id": "copy",
+              "label": "Copy"
+            }
+          ],
+          "visibleWhen": "(opt: any) => opt.properties?.includes('mode')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 75
+      }
+    },
+    {
+      "id": "seek",
+      "name": "Player: Seek to time",
+      "description": "Time is parsed with parseFloat after variable resolution; the text field allows h:m:s forms in its regex but parseFloat only reads the leading number (src/actions.ts:225).",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "abs",
+          "choices": [
+            {
+              "id": "abs",
+              "label": "Time absolut"
+            },
+            {
+              "id": "inc",
+              "label": "Time incremental"
+            },
+            {
+              "id": "rel",
+              "label": "Percent"
+            }
+          ]
+        },
+        {
+          "id": "abs",
+          "type": "textinput",
+          "label": "Time",
+          "default": "",
+          "regex": "/^[+-]?((\\d+:)?(\\d+:))?\\d+(\\.\\d+)?$/",
+          "useVariables": true,
+          "description": "enter the time in seconds like 1.5 or m:s.s or h:m:s.s\nEnter a negative time to seek from the end, e.g. '-10' will seek ten seconds from the outpoint.",
+          "visibleWhen": "(options) => options.type === 'abs'"
+        },
+        {
+          "id": "inc",
+          "type": "number",
+          "label": "Time increment",
+          "default": 0,
+          "min": -600,
+          "max": 600,
+          "step": 0.1,
+          "description": "the time increment with each action run\nCorePlay can only seek to the nearest keyframe, if you seek in too small increments, you will never reach the next keyframe",
+          "visibleWhen": "(options) => options.type === 'inc'"
+        },
+        {
+          "id": "rel",
+          "type": "number",
+          "label": "Percent (0.0 - 1.0)",
+          "default": 0,
+          "min": 0,
+          "max": 1,
+          "step": 0.01,
+          "description": "the relative position to seek to from 0.0 to 1.0\n0.0 is the inpoint, 1.0 is the outpoint, 0.5 is half way between inpoint and outpoint",
+          "visibleWhen": "(options) => options.type === 'rel'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 150
+      }
+    },
+    {
+      "id": "selectItem",
+      "name": "Playlist: Select Item",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "next",
+          "choices": [
+            {
+              "id": "previous",
+              "label": "Previous Item"
+            },
+            {
+              "id": "next",
+              "label": "Next Item"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 253
+      }
+    },
+    {
+      "id": "setMedia",
+      "name": "Player: Set Media by index",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "collections",
+          "choices": [
+            {
+              "id": "collections",
+              "label": "Single Media"
+            },
+            {
+              "id": "playlists",
+              "label": "Playlist"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 0,
+          "max": 999999999,
+          "step": 1,
+          "description": "Number of Collection or Playlist"
+        },
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot",
+          "default": 1,
+          "min": 1,
+          "max": 255,
+          "step": 1,
+          "description": "Number of Slot",
+          "visibleWhen": "(opt) => opt.type == 'collections'"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "first",
+          "regex": "/^\\d+(\\.\\d+)?|first$/",
+          "description": "Number of Cue, type 'first' to reference the first cue, regardles of its number",
+          "visibleWhen": "(opt) => opt.type == 'playlists'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 290
+      }
+    },
+    {
+      "id": "mute",
+      "name": "Audio: Mute",
+      "description": "The default 'next' is not one of the choices (src/actions.ts:391); with it the callback does nothing.",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "action",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "next",
+          "choices": [
+            {
+              "id": "mute",
+              "label": "Mute"
+            },
+            {
+              "id": "unmute",
+              "label": "Unmute"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 383
+      }
+    },
+    {
+      "id": "volume",
+      "name": "Audio: Volume",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "volume",
+          "type": "number",
+          "label": "Volume",
+          "default": 0,
+          "min": -200,
+          "max": 12,
+          "step": 3,
+          "description": "Range is from +12dB to -200dB, -200dB is like -infinity"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 416
+      }
+    },
+    {
+      "id": "setTakeConfiguration",
+      "name": "Player: Set Default Take Configuration",
+      "description": "'Toggle Value' cycles to the next choice of the list (src/actions.ts:490-516); it is not applicable to the Take Duration.",
+      "options": [
+        {
+          "id": "properties",
+          "type": "multidropdown",
+          "label": "Properties to set",
+          "default": [],
+          "choices": [
+            {
+              "id": "transitionDuration",
+              "label": "Take Duration"
+            },
+            {
+              "id": "transitionType",
+              "label": "Transition Type"
+            },
+            {
+              "id": "startPoint",
+              "label": "Playhead Option"
+            },
+            {
+              "id": "mode",
+              "label": "Preset Toggle"
+            }
+          ]
+        },
+        {
+          "id": "transitionDuration",
+          "type": "number",
+          "label": "Take Duration",
+          "default": 0,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "(opt: any) => opt.properties?.includes('transitionDuration')"
+        },
+        {
+          "id": "transitionType",
+          "type": "dropdown",
+          "label": "Transition Type",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "directCut",
+              "label": "Direct Cut"
+            },
+            {
+              "id": "crossfade",
+              "label": "Crossfade"
+            },
+            {
+              "id": "dipToColor",
+              "label": "Dip to Color"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle Value"
+            }
+          ],
+          "visibleWhen": "(opt: any) => opt.properties?.includes('transitionType')"
+        },
+        {
+          "id": "startPoint",
+          "type": "dropdown",
+          "label": "Playhead Option",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "inpoint",
+              "label": "From inpoint"
+            },
+            {
+              "id": "position",
+              "label": "From current position in preview"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle Value"
+            }
+          ],
+          "visibleWhen": "(opt: any) => opt.properties?.includes('startPoint')"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Preset Toggle",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "swap",
+              "label": "Swap"
+            },
+            {
+              "id": "copy",
+              "label": "Copy"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle Value"
+            }
+          ],
+          "visibleWhen": "(opt: any) => opt.properties?.includes('mode')"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 442
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "playerstate",
+      "name": "Playhead state",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "program",
+          "choices": [
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "stopped",
+          "choices": [
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 11
+      }
+    },
+    {
+      "id": "tallyBool",
+      "name": "Tally",
+      "feedbackType": "boolean",
+      "description": "With playback 'any' and a state other than 'any', the state comparison reads players['1']['any'] (src/feedbacks.ts:149-150, 161-162), which throws; the error is caught and the feedback returns false.",
+      "options": [
+        {
+          "id": "playback",
+          "type": "dropdown",
+          "label": "Playback",
+          "default": "any",
+          "choices": [
+            {
+              "id": "any",
+              "label": "Any"
+            },
+            {
+              "id": "program",
+              "label": "Program"
+            },
+            {
+              "id": "preview",
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "any",
+          "choices": [
+            {
+              "id": "any",
+              "label": "Any"
+            },
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ]
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "collections",
+          "choices": [
+            {
+              "id": "collections",
+              "label": "Single Media"
+            },
+            {
+              "id": "playlists",
+              "label": "Playlist"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 0,
+          "max": 999999999,
+          "step": 1,
+          "description": "Number of Collection or Playlist"
+        },
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot",
+          "default": 1,
+          "min": 0,
+          "max": 255,
+          "step": 1,
+          "description": "Number of Slot, use 0 for any slot",
+          "visibleWhen": "(opt) => opt.type == 'collections'"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "regex": "/^\\d+(\\.\\d+)?$|any/",
+          "description": "Number of Cue, or 'any'",
+          "visibleWhen": "(opt) => opt.type == 'playlists'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 47
+      }
+    },
+    {
+      "id": "takeRunning",
+      "name": "Take in progress",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 180
+      }
+    },
+    {
+      "id": "transitionType",
+      "name": "Player Configuration: Transition type",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "transitionType",
+          "type": "dropdown",
+          "label": "Transition Type",
+          "default": "crossfade",
+          "choices": [
+            {
+              "id": "directCut",
+              "label": "Direct Cut"
+            },
+            {
+              "id": "crossfade",
+              "label": "Crossfade"
+            },
+            {
+              "id": "dipToColor",
+              "label": "Dip to Color"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 193
+      }
+    },
+    {
+      "id": "startPoint",
+      "name": "Player Configuration: Playhead Option",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "startPoint",
+          "type": "dropdown",
+          "label": "Playhead Option",
+          "default": "inpoint",
+          "choices": [
+            {
+              "id": "inpoint",
+              "label": "From inpoint"
+            },
+            {
+              "id": "position",
+              "label": "From current position in preview"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 216
+      }
+    },
+    {
+      "id": "mode",
+      "name": "Player Configuration: Preset Toggle",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Preset Toggle",
+          "default": "copy",
+          "choices": [
+            {
+              "id": "swap",
+              "label": "Swap"
+            },
+            {
+              "id": "copy",
+              "label": "Copy"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 242
+      }
+    },
+    {
+      "id": "previewImage",
+      "name": "Preview Thumbnail",
+      "feedbackType": "advanced",
+      "description": "Draws the thumbnail of the media (medium, large or small thumbnail from the CorePlay) as a 144 px image buffer.",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "collections",
+          "choices": [
+            {
+              "id": "collections",
+              "label": "Single Media"
+            },
+            {
+              "id": "playlists",
+              "label": "Playlist"
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 0,
+          "max": 999999999,
+          "step": 1,
+          "description": "Number of Collection or Playlist"
+        },
+        {
+          "id": "slot",
+          "type": "number",
+          "label": "Slot",
+          "default": 1,
+          "min": 1,
+          "max": 255,
+          "step": 1,
+          "description": "Number of Slot",
+          "visibleWhen": "(opt) => opt.type == 'collections'"
+        },
+        {
+          "id": "cue",
+          "type": "textinput",
+          "label": "Cue",
+          "default": "1",
+          "regex": "/^\\d+(\\.\\d+)?$/",
+          "description": "Number of Cue",
+          "visibleWhen": "(opt) => opt.type == 'playlists'"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 268
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 8 actions (src/actions.ts) and 7 feedbacks (6 boolean, 1 advanced; src/feedbacks.ts). Both are single object literals registered at the end of their function, nothing is generated at runtime.",
+    "Protocol: HTTP REST API of the CorePlay at the URL from the config field 'host' (default 'http://192.168.2.140', which is an example value from the source and not a recommendation; regex /^https?:\\/\\/[\\w]+/). Only player 1 is addressed (paths /players/1/...).",
+    "Written in TypeScript with shared option objects: OPTIONPLAYBACK (program/preview, default 'program', src/constants.ts:10) is the first option of most entries; transitionType/mode/startPoint lists come from src/constants.ts:44-58; 'Toggle Value' is {id:'toggle'} (constants.ts:35). Entity provenance points at the action/feedback key, not at the shared constants.",
+    "Options carry isVisible functions (recorded in visibleWhen as source text). The take actions use only the options named in the 'properties' multidropdown.",
+    "Take Duration range 0-600 has no step; the volume step is 3 (dB, as written) while the callback clamps -200..12 and sends two decimals.",
+    "The tally feedback 'cue' regex /^\\d+(\\.\\d+)?$|any/ and the setMedia cue regex /^\\d+(\\.\\d+)?|first$/ are as in the source; each has an alternation without grouping, so the anchors only apply to one branch.",
+    "setMedia: 'Single Media' (collections) accepts collection 1-255 and slot 1-255 (clamped); 'Playlist' accepts any number >= 1 and a cue like 3 or 3.1 (a whole number is sent as '3.0'); 'first' selects the first cue by CorePlay sort order.",
+    "Source quirks kept: the 'Audio: Mute' default 'next' is not a choice.",
+    "Built on @companion-module/base ~1.11.2: options do not support expressions. Presets (src/presets.ts) and variables are not catalogued."
+  ]
+}

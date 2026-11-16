@@ -1,0 +1,87 @@
+{
+  "moduleId": "barco-clickshare",
+  "name": "Barco ClickShare",
+  "repo": "bitfocus/companion-module-barco-clickshare",
+  "version": "2.1.0",
+  "baseVersion": "~1.6.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "274ad2a",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "selectWallpaper",
+      "name": "Select Wallpaper",
+      "options": [
+        {
+          "id": "wallpaperId",
+          "type": "textinput",
+          "label": "ID of wallpaper",
+          "default": "1001",
+          "useVariables": true,
+          "regex": "/^\\d+$/",
+          "description": "default wallpapers have ID 1 and 2, user wallpapers start at 1001"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 6
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "inUse",
+      "name": "In Use",
+      "description": "True if the app or a button is connected to the Clickshare",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "sharing",
+      "name": "Sharing",
+      "description": "True if someone is streaming a desktop to the Clickshare",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 29
+      }
+    },
+    {
+      "id": "idle",
+      "name": "Idle",
+      "description": "True if no one is connected to the Clickshare",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 52
+      }
+    },
+    {
+      "id": "available",
+      "name": "Available",
+      "description": "True if some one is connected to the Clickshare but no one is streaming",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 75
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 1 action (src/actions.ts) and 4 boolean feedbacks (src/feedbacks.ts), all registered in single setActionDefinitions/setFeedbackDefinitions calls.",
+    "The module talks to the ClickShare REST API (config: IP, API port default 4003, username, password; src/config.ts, src/barco-api/barco.ts). Credentials are config fields, not catalogued.",
+    "selectWallpaper parses the (variable-resolved) text with parseInt and sends it as the wallpaper id (src/actions.ts:19-23). The regex is the value of Regex.NUMBER from @companion-module/base (/^\\d+$/), written out here as in the other catalog files; it was not read from the installed dependency.",
+    "The four feedbacks have no options. inUse = isInUse, sharing = isSharing, idle = !isInUse, available = isInUse && !isSharing, taken from the module's polled state (src/feedbacks.ts). Each subscribe/unsubscribe adjusts a subscription counter that controls polling (self.subscriptions).",
+    "Default style of all feedbacks: black text on red (combineRgb(0,0,0) / combineRgb(255,0,0)).",
+    "Built on @companion-module/base ~1.6.0: options do not support expressions.",
+    "Variables are not catalogued."
+  ]
+}

@@ -1,0 +1,929 @@
+{
+  "moduleId": "analogway-midra",
+  "name": "Analog Way Midra (Eikos2, Saphyr, Pulse2, SmartMatriX2, QuickMatriX, QuickVu)",
+  "repo": "bitfocus/companion-module-analogway-midra",
+  "version": "2.0.0",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "858be0a",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "1GCtal",
+      "name": "Take all",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 200
+      }
+    },
+    {
+      "id": "takescreen",
+      "name": "Take single screen",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 205
+      }
+    },
+    {
+      "id": "loadpreset",
+      "name": "Load Memory",
+      "description": "The option id of each filter is its bit value (1 to 512); the callback adds the bit when the option is '1' (the 'Exclude'/'Do not scale' choice) and sends `<sourcescreen>,<memory-1>,<destscreen>,<pvwpgm>,<sum>,1GClrq` (analogway_midra.js:323-360). The first filter, 'Scale enable', has the inverted sense: its default '0' is 'Enable scale'.",
+      "options": [
+        {
+          "id": "memory",
+          "type": "textinput",
+          "label": "Memory to load",
+          "default": "1",
+          "description": "Enter the number of the memory you want to load from 1 to 8",
+          "regex": "/^0*[1-8]$/"
+        },
+        {
+          "id": "destscreen",
+          "type": "dropdown",
+          "label": "Screen to load to",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ],
+          "description": "Select the screen where you want the memory to be recalled to."
+        },
+        {
+          "id": "pvwpgm",
+          "type": "dropdown",
+          "label": "PGM/PVW",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Program"
+            },
+            {
+              "id": "1",
+              "label": "Preview"
+            }
+          ],
+          "description": "Select wether the memory schould be loaded into the preview or program of the screen"
+        },
+        {
+          "id": "sourcescreen",
+          "type": "dropdown",
+          "label": "Screen to load from",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ],
+          "description": "Select the screen where the memory to be recalled has been saved."
+        },
+        {
+          "id": "filter1",
+          "type": "dropdown",
+          "label": "Scale enable",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Enable scale"
+            },
+            {
+              "id": "1",
+              "label": "Do not scale"
+            }
+          ],
+          "description": "Select wether the layers in the memory should be scaled according to the size of the screen if it is different from the size of the screens which the memory has been saved from."
+        },
+        {
+          "id": "filter2",
+          "type": "dropdown",
+          "label": "Filter Source",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Source"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Source"
+            }
+          ],
+          "description": "Select wether the layer source should be included in the memory recall."
+        },
+        {
+          "id": "filter4",
+          "type": "dropdown",
+          "label": "Filter Position and Size",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Pos/Size"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Pos/Size"
+            }
+          ],
+          "description": "Select wether the layer position and size should be included in the memory recall."
+        },
+        {
+          "id": "filter8",
+          "type": "dropdown",
+          "label": "Filter Trancparency",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Transparency"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Transparency"
+            }
+          ],
+          "description": "Select wether the layer transparency should be included in the memory recall."
+        },
+        {
+          "id": "filter16",
+          "type": "dropdown",
+          "label": "Filter Cropping",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Cropping"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Cropping"
+            }
+          ],
+          "description": "Select wether the layer cropping should be included in the memory recall."
+        },
+        {
+          "id": "filter32",
+          "type": "dropdown",
+          "label": "Filter Border",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Border"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Border"
+            }
+          ],
+          "description": "Select wether the layer border should be included in the memory recall."
+        },
+        {
+          "id": "filter64",
+          "type": "dropdown",
+          "label": "Filter Transition",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Transition"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Transition"
+            }
+          ],
+          "description": "Select wether the layer transition should be included in the memory recall."
+        },
+        {
+          "id": "filter128",
+          "type": "dropdown",
+          "label": "Filter Timing",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Timing"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Timing"
+            }
+          ],
+          "description": "Select wether the layer timing should be included in the memory recall."
+        },
+        {
+          "id": "filter256",
+          "type": "dropdown",
+          "label": "Filter Effects",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Effects"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Effects"
+            }
+          ],
+          "description": "Select wether the layer effects should be included in the memory recall."
+        },
+        {
+          "id": "filter512",
+          "type": "dropdown",
+          "label": "Filter Audio",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Include Audio"
+            },
+            {
+              "id": "1",
+              "label": "Exclude Audio"
+            }
+          ],
+          "description": "Select wether the audio layer should be included in the memory recall."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 222
+      }
+    },
+    {
+      "id": "switchlayerinput",
+      "name": "Switch Layer Input",
+      "description": "Sends `<screen>,<pvwpgm>,<layer>,<input>PRinp` followed by `<screen>,1PUscu` (analogway_midra.js:418-425).",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        },
+        {
+          "id": "pvwpgm",
+          "type": "dropdown",
+          "label": "Preview/Program",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Preview"
+            },
+            {
+              "id": "0",
+              "label": "Program"
+            }
+          ]
+        },
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Background"
+            },
+            {
+              "id": "1",
+              "label": "PiP Layer 1"
+            },
+            {
+              "id": "2",
+              "label": "PiP Layer 2"
+            },
+            {
+              "id": "3",
+              "label": "PiP Layer 3"
+            },
+            {
+              "id": "4",
+              "label": "PiP Layer 4"
+            },
+            {
+              "id": "5",
+              "label": "Logo Layer 1"
+            },
+            {
+              "id": "6",
+              "label": "Logo Layer 2"
+            },
+            {
+              "id": "7",
+              "label": "Audio Layer"
+            }
+          ]
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No Input"
+            },
+            {
+              "id": "1",
+              "label": "In/Frame 1"
+            },
+            {
+              "id": "2",
+              "label": "In/Frame 2"
+            },
+            {
+              "id": "3",
+              "label": "In/Frame 3"
+            },
+            {
+              "id": "4",
+              "label": "In/Frame 4"
+            },
+            {
+              "id": "5",
+              "label": "In/Frame 5"
+            },
+            {
+              "id": "6",
+              "label": "In/Frame 6"
+            },
+            {
+              "id": "7",
+              "label": "In/Frame 7"
+            },
+            {
+              "id": "8",
+              "label": "In/Frame 8"
+            },
+            {
+              "id": "9",
+              "label": "In/Frame 9"
+            },
+            {
+              "id": "10",
+              "label": "In/Frame 10"
+            },
+            {
+              "id": "11",
+              "label": "Matte"
+            }
+          ],
+          "description": "Choose the Input for background, PiPs and audio or choose the frame number for logo layers."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 362
+      }
+    },
+    {
+      "id": "1GCsba",
+      "name": "Reload last Preset",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 427
+      }
+    },
+    {
+      "id": "1GCrpr",
+      "name": "Reload Program to Preview",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 441
+      }
+    },
+    {
+      "id": "GCfsc",
+      "name": "Freeze Screen (all layers)",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfrozen"
+            },
+            {
+              "id": "1",
+              "label": "Frozen"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 455
+      }
+    },
+    {
+      "id": "GCfra",
+      "name": "Freeze all screens (all layers)",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfrozen"
+            },
+            {
+              "id": "1",
+              "label": "Frozen"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 478
+      }
+    },
+    {
+      "id": "INfrz",
+      "name": "Freeze Input",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "1"
+            },
+            {
+              "id": "1",
+              "label": "2"
+            },
+            {
+              "id": "2",
+              "label": "3"
+            },
+            {
+              "id": "3",
+              "label": "4"
+            },
+            {
+              "id": "4",
+              "label": "5"
+            },
+            {
+              "id": "5",
+              "label": "6"
+            },
+            {
+              "id": "6",
+              "label": "7"
+            },
+            {
+              "id": "7",
+              "label": "8"
+            },
+            {
+              "id": "8",
+              "label": "9"
+            },
+            {
+              "id": "9",
+              "label": "10"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfrozen"
+            },
+            {
+              "id": "1",
+              "label": "Frozen"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 492
+      }
+    },
+    {
+      "id": "GCfrl",
+      "name": "Freeze Layer",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        },
+        {
+          "id": "1",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Background"
+            },
+            {
+              "id": "1",
+              "label": "PiP Layer 1"
+            },
+            {
+              "id": "2",
+              "label": "PiP Layer 2"
+            },
+            {
+              "id": "3",
+              "label": "PiP Layer 3"
+            },
+            {
+              "id": "4",
+              "label": "PiP Layer 4"
+            },
+            {
+              "id": "5",
+              "label": "Logo Layer 1"
+            },
+            {
+              "id": "6",
+              "label": "Logo Layer 2"
+            },
+            {
+              "id": "7",
+              "label": "Audio Layer"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfrozen"
+            },
+            {
+              "id": "1",
+              "label": "Frozen"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 523
+      }
+    },
+    {
+      "id": "INplg",
+      "name": "Switch Input Plug",
+      "description": "The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "1"
+            },
+            {
+              "id": "1",
+              "label": "2"
+            },
+            {
+              "id": "2",
+              "label": "3"
+            },
+            {
+              "id": "3",
+              "label": "4"
+            },
+            {
+              "id": "4",
+              "label": "5"
+            },
+            {
+              "id": "5",
+              "label": "6"
+            },
+            {
+              "id": "6",
+              "label": "7"
+            },
+            {
+              "id": "7",
+              "label": "8"
+            },
+            {
+              "id": "8",
+              "label": "9"
+            },
+            {
+              "id": "9",
+              "label": "10"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Plug",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Analog (HD-15)"
+            },
+            {
+              "id": "1",
+              "label": "DVI"
+            },
+            {
+              "id": "2",
+              "label": "SDI"
+            },
+            {
+              "id": "3",
+              "label": "HDMI"
+            },
+            {
+              "id": "4",
+              "label": "HDBaseT"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 561
+      }
+    },
+    {
+      "id": "CTqfa",
+      "name": "Quick Frame single screen",
+      "description": "This command doesn't sync with Quick frame for all screens! The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "S1"
+            },
+            {
+              "id": "1",
+              "label": "S2"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Quick Frame Off"
+            },
+            {
+              "id": "1",
+              "label": "Quick Frame On"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 595
+      }
+    },
+    {
+      "id": "CTqfl",
+      "name": "Quick Frame all screens",
+      "description": "This command doesn't sync with Quick frame for a single screen! The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Quick Frame Off"
+            },
+            {
+              "id": "1",
+              "label": "Quick Frame On"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 619
+      }
+    },
+    {
+      "id": "GCply",
+      "name": "Preview Layer",
+      "description": "Midra devices can only show one layer with the correct source. Here you can select which one. The action id is the command id; the shared actionCallback builds `<option 0>,...,<option 5>,<value><actionId>` from the options with ids 0-5 and 'value' (analogway_midra.js:174-191).",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Background"
+            },
+            {
+              "id": "1",
+              "label": "PiP Layer 1"
+            },
+            {
+              "id": "2",
+              "label": "PiP Layer 2"
+            },
+            {
+              "id": "3",
+              "label": "PiP Layer 3"
+            },
+            {
+              "id": "4",
+              "label": "PiP Layer 4"
+            },
+            {
+              "id": "5",
+              "label": "Logo Layer 1"
+            },
+            {
+              "id": "6",
+              "label": "Logo Layer 2"
+            },
+            {
+              "id": "7",
+              "label": "Audio Layer"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_midra.js",
+        "line": 634
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 14 actions (analogway_midra.js:193-655, one object literal in init_actions) and no feedbacks (the module defines none and never calls setFeedbackDefinitions).",
+    "Protocol: Analog Way text protocol over TCP port 10500 (hard-coded, analogway_midra.js:33) to the config host; config also has a 'variant' dropdown (Eikos2, Saphyr, Pulse2, SmartMatriX2, QuickMatriX, QuickVu and the -H variants) that is not used by the actions. The module's sendcmd sends the command text without appending a line terminator (analogway_midra.js:658-676), unlike the LiveCore module.",
+    "Actions that use the shared actionCallback take their action id as the command id and build the command from options with ids '0'..'5' (sent in order, each followed by a comma) and 'value'. Their option ids are therefore protocol positions, not names.",
+    "All dropdown ids are strings; screens are S1/S2 ('0'/'1'), inputs 1-10 are ids '0'-'9' (zero-based, labels 1-10). Layer ids '0'-'7' (Background, PiP 1-4, Logo 1-2, Audio).",
+    "Memory numbers are entered 1-based (1-8) in the textinput, with leading zeros allowed, and the callback subtracts 1.",
+    "Tooltips in the source are recorded as `description`. The action-level tooltips of Quick Frame and Preview Layer are in the entity description.",
+    "Built on @companion-module/base ~1.4.1: options do not support expressions. Variables and presets are not defined by this module."
+  ]
+}
