@@ -1,0 +1,1082 @@
+{
+  "moduleId": "novastar-splicer",
+  "name": "NovaStar Splicer",
+  "repo": "bitfocus/companion-module-novastar-splicer",
+  "version": "3.0.2",
+  "baseVersion": "~1.5.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "bde98b3",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "select_screen",
+      "name": "Select Screen",
+      "description": "Select/Deselect a screen (without affecting operations performed on other terminals).",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen Select",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Screen Select",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Select"
+            },
+            {
+              "id": 0,
+              "label": "Unselect"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 10
+      }
+    },
+    {
+      "id": "select_layer",
+      "name": "Select Layer",
+      "description": "Select a layer (screen and layer display, without affecting operations performed on other terminals).",
+      "options": [
+        {
+          "id": "combineId",
+          "type": "dropdown",
+          "label": "Screen Layer",
+          "choicesNote": "Filled at runtime from the screens' layer lists: id is the string '<screenId>_<layerId>' (both numbers), label '<screen name>_<layer name>'. Offline programming mode synthesizes 4 layers per screen (layerId 0-3). The source default is the first entry or null.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        },
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Layer Select",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Select"
+            },
+            {
+              "id": 0,
+              "label": "Unselect"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 53
+      }
+    },
+    {
+      "id": "load_preset",
+      "name": "Preset",
+      "description": "Read the screen list and preset list of each screen. Preset loading is allowed.",
+      "options": [
+        {
+          "id": "combineId",
+          "type": "dropdown",
+          "label": "Preset",
+          "choicesNote": "Filled at runtime from the screens' preset lists: id is the string '<screenId>_<presetId>' (both numbers), label '<screen name>_<preset name>'. Offline programming mode synthesizes 20 presets per screen (presetId 0-19). The source default is the first entry or null.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 98
+      }
+    },
+    {
+      "id": "send_command",
+      "name": "Send Command",
+      "description": "You can send a custom command. The text is sent as given (Buffer.from(command)); the source default is a JSON command array such as [{\"cmd\":\"W041A\",\"screenId\":1,\"enable\":0}] (DEFAULT_COMMAND in utils/constant.js).",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Command",
+          "default": "[{\"cmd\":\"W041A\",\"screenId\":1,\"enable\":0}]",
+          "required": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 125
+      }
+    },
+    {
+      "id": "play_preset_collection",
+      "name": "Preset group",
+      "description": "Read the preset group list of the selected screen. Select a preset group to load it. (Once loaded, the screen with presets saved in the preset group is selected.",
+      "options": [
+        {
+          "id": "presetCollectionId",
+          "type": "dropdown",
+          "label": "Preset Collection",
+          "choicesNote": "Filled at runtime from the device preset group (preset collection) list: id = presetCollectionId as delivered by the device (type not fixed in the source), label = group name. Offline programming mode leaves the list empty. The source default is the first entry or null."
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 150
+      }
+    },
+    {
+      "id": "pgm_pvw_switch",
+      "name": "PGM/PVW",
+      "description": "Switch to PGM/PVW mode for the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "enNonTime",
+          "type": "dropdown",
+          "label": "Model",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "PGM"
+            },
+            {
+              "id": 1,
+              "label": "PVW"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 171
+      }
+    },
+    {
+      "id": "take_switch",
+      "name": "Take",
+      "description": "Press Take button to take the content to the screen in PVW mode. Only acts while PVW mode is active (set with pgm_pvw_switch). Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "manualPlay",
+          "type": "dropdown",
+          "label": "Take Select",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Select"
+            },
+            {
+              "id": 0,
+              "label": "Unselect"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 210
+      }
+    },
+    {
+      "id": "apply_ftb",
+      "name": "FTB",
+      "description": "On/Off; make the selected screen go black. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "FTB",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "FTB"
+            },
+            {
+              "id": 1,
+              "label": "unFTB"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 246
+      }
+    },
+    {
+      "id": "apply_volume_switch",
+      "name": "Volume Switch",
+      "description": "On/Off; turn on or turn off the audio of the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent. The choice labels are 'open' (0) and 'close' (1); the value is sent as isMute.",
+      "options": [
+        {
+          "id": "isMute",
+          "type": "dropdown",
+          "label": "Switch",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "open"
+            },
+            {
+              "id": 1,
+              "label": "close"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 277
+      }
+    },
+    {
+      "id": "screen_frz_toggle",
+      "name": "Screen FRZ",
+      "description": "On/Off; freeze the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Screen FRZ",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 330
+      }
+    },
+    {
+      "id": "screen_volume_add",
+      "name": "Screen Volume Add",
+      "description": "Increase the volume of the selected screen (by 1, capped at 100). Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 367
+      }
+    },
+    {
+      "id": "screen_volume_minus",
+      "name": "Screen Volume Minus",
+      "description": "Decrease the volume of the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 386
+      }
+    },
+    {
+      "id": "brightness_add_direct",
+      "name": "Brightness + (Direct)",
+      "description": "Increase brightness by 1% on a specific screen (no select_screen needed).",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 409
+      }
+    },
+    {
+      "id": "brightness_minus_direct",
+      "name": "Brightness - (Direct)",
+      "description": "Decrease brightness by 1% on a specific screen (no select_screen needed).",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 426
+      }
+    },
+    {
+      "id": "set_brightness",
+      "name": "Set Brightness",
+      "description": "Set brightness of a specific screen to an absolute value (0-100). Supports variables. The text is parsed with parseVariablesInString, rounded and clamped to 0-100.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "brightness",
+          "type": "textinput",
+          "label": "Brightness (0-100)",
+          "default": "100",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 443
+      }
+    },
+    {
+      "id": "freeze_direct",
+      "name": "Freeze (Direct)",
+      "description": "Enable or disable freeze on a specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Enable"
+            },
+            {
+              "id": 0,
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 465
+      }
+    },
+    {
+      "id": "ftb_direct",
+      "name": "FTB (Direct)",
+      "description": "Enable or disable Fade-to-Black on a specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Enable"
+            },
+            {
+              "id": 0,
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 480
+      }
+    },
+    {
+      "id": "bkg_direct",
+      "name": "BKG (Direct)",
+      "description": "Enable or disable BKG on a specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Enable"
+            },
+            {
+              "id": 0,
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 496
+      }
+    },
+    {
+      "id": "osd_direct",
+      "name": "OSD (Direct)",
+      "description": "Enable or disable OSD on a specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "osdType",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "text",
+          "choices": [
+            {
+              "id": "text",
+              "label": "OSD Text"
+            },
+            {
+              "id": "image",
+              "label": "OSD Image"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Enable"
+            },
+            {
+              "id": 0,
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 511
+      }
+    },
+    {
+      "id": "test_pattern_direct",
+      "name": "Test Pattern (Direct)",
+      "description": "Enable or disable test pattern on a specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Enable"
+            },
+            {
+              "id": 0,
+              "label": "Disable"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 528
+      }
+    },
+    {
+      "id": "screen_brightness_add",
+      "name": "Screen Brightness Add",
+      "description": "Increase the brightness of the screen loaded by the selected sending card. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 544
+      }
+    },
+    {
+      "id": "screen_brightness_minus",
+      "name": "Screen Brightness Minus",
+      "description": "Decrease the brightness of the screen loaded by the selected sending card. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 562
+      }
+    },
+    {
+      "id": "layer_frz_toggle",
+      "name": "Layer FRZ",
+      "description": "On/Off; freeze the layer of the selected screen. Acts on the layer chosen with select_layer.",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "Layer FRZ",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 581
+      }
+    },
+    {
+      "id": "source_switch",
+      "name": "Source",
+      "description": "Invoke the command to switch the selected source to that of the selected layer displayed on the selected screen. Acts on the layer chosen with select_layer; nothing is sent when no layer is selected or the source is unknown.",
+      "options": [
+        {
+          "id": "id",
+          "type": "dropdown",
+          "label": "Source List",
+          "choicesNote": "Filled at runtime from the device input lists (inputs, IPC and NDI inputs, plus crops): id is the string '<inputId>_<cropId>' (cropId 255 for a whole input), label = source name. Offline programming mode synthesizes 4 inputs per configured input card. The source default is the first entry or null.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 621
+      }
+    },
+    {
+      "id": "test_pattern_switch",
+      "name": "Test Pattern",
+      "description": "On/Off; turn on or turn off the test pattern for the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "testPattern",
+          "type": "dropdown",
+          "label": "testPattern",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "open"
+            },
+            {
+              "id": 65535,
+              "label": "close"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 656
+      }
+    },
+    {
+      "id": "bkg_switch",
+      "name": "BKG",
+      "description": "On/Off; turn on or turn off the BKG function for the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "BKG Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 725
+      }
+    },
+    {
+      "id": "osd_switch",
+      "name": "OSD",
+      "description": "On/Off; turn on or turn off the OSD function for the selected screen. Acts on the screens selected with select_screen (instance.selectedScreenList); without a selected screen nothing is sent.",
+      "options": [
+        {
+          "id": "enable",
+          "type": "dropdown",
+          "label": "OSD Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "On"
+            },
+            {
+              "id": 0,
+              "label": "Off"
+            }
+          ]
+        },
+        {
+          "id": "osdType",
+          "type": "dropdown",
+          "label": "OSD Type",
+          "default": "text",
+          "choices": [
+            {
+              "id": "text",
+              "label": "OSD Text"
+            },
+            {
+              "id": "image",
+              "label": "OSD Image"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 775
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "screen_selected",
+      "name": "Select Screen",
+      "feedbackType": "boolean",
+      "description": "Update button style when the screen is selected.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Select Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 9
+      }
+    },
+    {
+      "id": "layer_selected",
+      "name": "Select Layer",
+      "feedbackType": "boolean",
+      "description": "Update button style when the layer is selected.",
+      "options": [
+        {
+          "id": "combineId",
+          "type": "dropdown",
+          "label": "Select Layer",
+          "choicesNote": "Filled at runtime from the screens' layer lists: id is the string '<screenId>_<layerId>' (both numbers), label '<screen name>_<layer name>'. Offline programming mode synthesizes 4 layers per screen (layerId 0-3). The source default is the first entry or null.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 25
+      }
+    },
+    {
+      "id": "screen_frz",
+      "name": "Freeze Screen",
+      "feedbackType": "boolean",
+      "description": "Update button style when the selected screen is frozen.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 48
+      }
+    },
+    {
+      "id": "layer_frz",
+      "name": "Freeze Layer",
+      "feedbackType": "boolean",
+      "description": "Update button style when the selected layer is frozen.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 54
+      }
+    },
+    {
+      "id": "pgm_pvw_switch",
+      "name": "PGM/PVW Status Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style on PGM/PVW change.",
+      "options": [
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Model",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "PGM"
+            },
+            {
+              "id": 1,
+              "label": "PVW"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 60
+      }
+    },
+    {
+      "id": "pvw_take_selected",
+      "name": "Take Status Detection",
+      "feedbackType": "boolean",
+      "description": "TUpdate button style when Take is selected.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 86
+      }
+    },
+    {
+      "id": "preset_group_selected",
+      "name": "Preset Group Selection Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style when the new preset group is loaded.",
+      "options": [
+        {
+          "id": "presetCollectionId",
+          "type": "dropdown",
+          "label": "Preset Collection",
+          "choicesNote": "Filled at runtime from the device preset group (preset collection) list: id = presetCollectionId as delivered by the device (type not fixed in the source), label = group name. Offline programming mode leaves the list empty. The source default is the first entry or null."
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 92
+      }
+    },
+    {
+      "id": "source_switch_selected",
+      "name": "Input Source Selection Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style when the new preset group is loaded. (Description text as written in the source; the feedback is true when the source id equals the last id chosen with the source_switch action.)",
+      "options": [
+        {
+          "id": "id",
+          "type": "dropdown",
+          "label": "Source List",
+          "choicesNote": "Filled at runtime from the device input lists (inputs, IPC and NDI inputs, plus crops): id is the string '<inputId>_<cropId>' (cropId 255 for a whole input), label = source name. Offline programming mode synthesizes 4 inputs per configured input card. The source default is the first entry or null.",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 108
+      }
+    },
+    {
+      "id": "ftb_selected",
+      "name": "FTB Status Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style on FTB status change.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 124
+      }
+    },
+    {
+      "id": "volume_switch_selected",
+      "name": "Volume On/Off Status Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style on volume status change.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 130
+      }
+    },
+    {
+      "id": "test_pattern_selected",
+      "name": "Test Pattern On/Off Status Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style on test pattern status change.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 136
+      }
+    },
+    {
+      "id": "bkg_switch",
+      "name": "BKG Status Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style when BKG status is selected.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 142
+      }
+    },
+    {
+      "id": "osd_switch",
+      "name": "OSD Status Detection",
+      "feedbackType": "boolean",
+      "description": "Update button style when OSD status is selected.",
+      "options": [
+        {
+          "id": "osdType",
+          "type": "dropdown",
+          "label": "OSD Type",
+          "default": "text",
+          "choices": [
+            {
+              "id": "text",
+              "label": "OSD Text"
+            },
+            {
+              "id": "image",
+              "label": "OSD Image"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 153
+      }
+    },
+    {
+      "id": "brightness_match",
+      "name": "Brightness Matches Value (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when the selected screen brightness equals the given value.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (0-100)",
+          "default": 100,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 185
+      }
+    },
+    {
+      "id": "frozen_direct",
+      "name": "Freeze State (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when the specific screen is frozen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 199
+      }
+    },
+    {
+      "id": "ftb_direct",
+      "name": "FTB State (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when FTB is active on the specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 209
+      }
+    },
+    {
+      "id": "bkg_direct",
+      "name": "BKG State (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when BKG is enabled on the specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 219
+      }
+    },
+    {
+      "id": "osd_text_direct",
+      "name": "OSD Text State (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when OSD Text is enabled on the specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 229
+      }
+    },
+    {
+      "id": "osd_image_direct",
+      "name": "OSD Image State (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when OSD Image is enabled on the specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 239
+      }
+    },
+    {
+      "id": "test_pattern_direct",
+      "name": "Test Pattern State (Direct)",
+      "feedbackType": "boolean",
+      "description": "True when test pattern is enabled on the specific screen.",
+      "options": [
+        {
+          "id": "screenId",
+          "type": "dropdown",
+          "label": "Screen",
+          "choicesNote": "Filled at runtime from the device screen list (R0400): one choice per screen, id = screenId (number), label = screen name. In offline programming mode the module synthesizes ids 0 to screenCount-1 labelled 'Screen N'. The source default is the first screen id, or null while the list is empty.",
+          "valueType": "number"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 249
+      }
+    },
+    {
+      "id": "preset_loaded",
+      "name": "Load Preset",
+      "feedbackType": "boolean",
+      "description": "Update button style when the preset is loaded.",
+      "options": [
+        {
+          "id": "combineId",
+          "type": "dropdown",
+          "label": "Load Preset",
+          "choicesNote": "Filled at runtime from the screens' preset lists: id is the string '<screenId>_<presetId>' (both numbers), label '<screen name>_<preset name>'. Offline programming mode synthesizes 20 presets per screen (presetId 0-19). The source default is the first entry or null.",
+          "valueType": "string",
+          "valuePattern": "^\\d+_\\d+$"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 260
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 27 actions (src/actions.js getActions) and 21 boolean feedbacks (src/feedbacks.js getFeedbacks); both functions return one object literal and nothing is conditional on a model. The module also defines variables and presets (src/presets.js), which are not catalogued.",
+    "Dropdowns that depend on the device (screens, layers, presets, preset groups, input sources) are filled from the device lists at runtime (choicesNote); formatDropDownData in utils/formatDropDown.js builds them. The definitions are re-registered by updateAll() (src/main.js:285) after the lists are loaded. The source defaults of these dropdowns are the first list entry or null.",
+    "Screen ids are numbers; combined ids for layers and presets are strings '<screenId>_<layerId>' / '<screenId>_<presetId>' and source ids '<inputId>_<cropId>'. The callbacks compare the fixed dropdowns strictly: select_screen, take_switch and the other 0/1 dropdowns use number ids (1 and 0, not strings).",
+    "Protocol: JSON commands with 5-character codes (for example R0400, W0605, W0412; table ACTIONS_CMD in utils/constant.js) over UDP to the configured host and port (config fields host and port, source default port '6000'; src/main.js:349-352, 466). The host default in the source is a loopback example and is not recorded. An offline programming mode (config offlineMode, screenCount 1-40, inputCardCount 1-40) synthesizes screens, layers, presets and inputs and sends nothing.",
+    "Built on @companion-module/base ~1.5.1 (1.x): options do not support expressions. The text input of set_brightness uses useVariables; the send_command text input has no useVariables.",
+    "Many actions work on the module-local selection (select_screen, select_layer) and do nothing when it is empty; the *_direct actions and feedbacks take the screen as an option and do not need a selection.",
+    "Upgrade script (src/upgrades.js) maps v2 ids: play_preset to load_preset, freeze to screen_frz_toggle, ftb to apply_ftb, brightness to screen_brightness_add; feedbacks freeze to screen_frz and ftb to ftb_selected. Option labels are written as both 'name:' and 'label:' in the source; the label is recorded.",
+    "Nothing in this file was tested against a device."
+  ]
+}

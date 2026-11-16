@@ -1,0 +1,695 @@
+{
+  "moduleId": "novastar-controller",
+  "name": "NovaStar Controller",
+  "repo": "bitfocus/companion-module-novastar-controller",
+  "version": "2.6.4",
+  "baseVersion": "1.12.x",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "1982496",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "change_brightness",
+      "name": "Change Brightness",
+      "description": "Sends the stored command of the chosen entry. The callback always looks the id up in CHOICES_BRIGHTNESS (22 entries), also on models that offer the 11-entry CHOICES_BRIGHTNESS_VX1000 list.",
+      "options": [
+        {
+          "id": "brightness",
+          "type": "dropdown",
+          "default": "0",
+          "choicesNote": "Per-model list (ids are strings, labels are the percentages): CHOICES_BRIGHTNESS ids '0'-'21' = 3%, 5%, 8%, 10%, 15%, 20%, 25%, 30%, 35%, 40%, 45%, 50%, 55%, 60%, 65%, 70%, 75%, 80%, 85%, 90%, 95%, 100% for vx4s, vx6s, novaProHD, mctrl4k, mctrl and vx16s; CHOICES_BRIGHTNESS_VX1000 ids '0'-'10' = 0%, 10%, ..., 100% for novaProUHDJr, vx1000, vx600 and vxPro. The j6 model defines no brightness list: the action is still registered there with choices undefined.",
+          "valueType": "string",
+          "valuePattern": "^([0-9]|1[0-9]|2[01])$"
+        }
+      ],
+      "availability": "Registered for every model; the choice list is model dependent (j6 has none).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 119
+      }
+    },
+    {
+      "id": "set_brightness",
+      "name": "Set Brightness",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Set / Adjust",
+          "default": "S",
+          "choices": [
+            {
+              "id": "A",
+              "label": "Adjust +/- Value"
+            },
+            {
+              "id": "S",
+              "label": "Set Direct Value"
+            }
+          ]
+        },
+        {
+          "id": "which",
+          "type": "dropdown",
+          "label": "Which Color?",
+          "default": "O",
+          "choices": [
+            {
+              "id": "O",
+              "label": "Overall/Global"
+            },
+            {
+              "id": "R",
+              "label": "Red"
+            },
+            {
+              "id": "G",
+              "label": "Green"
+            },
+            {
+              "id": "B",
+              "label": "Blue"
+            },
+            {
+              "id": "V",
+              "label": "Virtual Red"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value (0-100)",
+          "default": 0,
+          "useVariables": true,
+          "regex": "Regex.FLOAT",
+          "visibleWhen": "options.mode === 'S'"
+        },
+        {
+          "id": "adj",
+          "type": "textinput",
+          "label": "By (+/-) ",
+          "default": 0,
+          "useVariables": true,
+          "regex": "Regex.SIGNED_FLOAT",
+          "visibleWhen": "options.mode === 'A'"
+        }
+      ],
+      "description": "The result is clamped to 0-100 and sent as a computed brightness command (255 * pct / 100, rounded). The module keeps the value in the variables brite, brite_r, brite_g, brite_b and brite_v.",
+      "availability": "All models.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 137
+      }
+    },
+    {
+      "id": "change_input",
+      "name": "Change Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choicesNote": "Closed list per model (instance.model.inputs, ids are strings): vx4s: '0'=DVI, '1'=HDMI, '2'=VGA 1, '3'=VGA 2, '4'=CVBS 1, '5'=CVBS 2, '6'=SDI, '7'=Display Port; vx6s: '0'=[Window 1] HDMI 1, '1'=[Window 1] HDMI 2, '2'=[Window 1] SDI 1, '3'=[Window 1] SDI 2, '4'=[Window 1] DVI 1, '5'=[Window 1] DVI 2, '6'=[Window 1] USB, '7'=[Window 2] HDMI 1, '9'=[Window 2] HDMI 2, '10'=[Window 2] SDI 1, '11'=[Window 2] SDI 2, '12'=[Window 2] DVI 1, '13'=[Window 2] DVI 2, '14'=[Window 2] USB, '15'=[Window 3] HDMI 1, '16'=[Window 3] HDMI 2, '17'=[Window 3] SDI 1, '18'=[Window 3] SDI 2, '19'=[Window 3] DVI 1, '20'=[Window 3] DVI 2, '21'=[Window 3] USB; novaProHD: '0'=SDI, '1'=DVI, '2'=HDMI, '3'=Display Port, '4'=VGA, '5'=CVBS; mctrl4k and mctrl: '0'=DVI, '1'=HDMI, '2'=Display Port; vx1000 and vxPro: '0'=Layer 1-HDMI 1, '1'=Layer 1-HDMI 2, '2'=Layer 1-DVI 1, '3'=Layer 1-DVI 2, '4'=Layer 1-SDI, '5'=Layer 1-OPT 1, '6'=Layer 1-OPT 2, '7'=Layer 2-HDMI 1, '8'=Layer 2-HDMI 2, '9'=Layer 2-DVI 1, '10'=Layer 2-DVI 2, '11'=Layer 2-SDI, '12'=Layer 2-OPT 1, '13'=Layer 2-OPT 2, '14'=Layer 3-HDMI 1, '15'=Layer 3-HDMI 2, '16'=Layer 3-DVI 1, '17'=Layer 3-DVI 2, '18'=Layer 3-SDI, '19'=Layer 3-OPT 1, '20'=Layer 3-OPT 2; vx600: '0'=Layer 1-HDMI 1, '1'=Layer 1-HDMI 2, '2'=Layer 1-DVI 1, '3'=Layer 1-SDI, '4'=Layer 1-OPT 1, '5'=Layer 1-OPT 2, '6'=Layer 1- Mosaic, '7'=Layer 2-HDMI 1, '8'=Layer 2-HDMI 2, '9'=Layer 2-DVI 1, '10'=Layer 2-SDI, '11'=Layer 2-OPT 1, '12'=Layer 2-OPT 2, '13'=Layer 2-Mosaic, '14'=Layer 3-HDMI 1, '15'=Layer 3-HDMI 2, '16'=Layer 3-DVI 1, '17'=Layer 3-SDI, '18'=Layer 3-OPT 1, '19'=Layer 3-OPT 2, '20'=Layer 3-Mosaic. Models without inputs (novaProUHDJr, vx16s, j6) do not get this action. The CHOICES_INPUTS_NOVAPROUHDJR list is defined in choices.js but not referenced by any model. The VX6S list has no id '8'.",
+          "valueType": "string",
+          "valuePattern": "^\\d+$"
+        }
+      ],
+      "availability": "Only registered for models that define inputs: vx4s, vx6s, novaProHD, mctrl4k, mctrl, vx1000, vx600, vxPro.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 215
+      }
+    },
+    {
+      "id": "change_test_pattern",
+      "name": "Change Test Patterns",
+      "description": "Looks the id up in CHOICES_TESTPATTERNS and sends its stored command. The dropdown has allowCustom, but a value outside the list leaves the element undefined and the callback throws on element.cmd.",
+      "options": [
+        {
+          "id": "pattern",
+          "type": "dropdown",
+          "label": "Test Patterns",
+          "default": "0",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "0",
+              "label": "Red"
+            },
+            {
+              "id": "1",
+              "label": "Green"
+            },
+            {
+              "id": "2",
+              "label": "Blue"
+            },
+            {
+              "id": "3",
+              "label": "White"
+            },
+            {
+              "id": "4",
+              "label": "Horizontal"
+            },
+            {
+              "id": "5",
+              "label": "Vertical"
+            },
+            {
+              "id": "6",
+              "label": "Diagonal"
+            },
+            {
+              "id": "7",
+              "label": "Gray-Scale"
+            },
+            {
+              "id": "8",
+              "label": "Aging-All"
+            },
+            {
+              "id": "9",
+              "label": "Pattern Off"
+            }
+          ]
+        }
+      ],
+      "availability": "All models.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 236
+      }
+    },
+    {
+      "id": "test_pattern_vx",
+      "name": "Select Test Pattern (VX Series)",
+      "description": "With allowCustom the callback also accepts an expression/variable text: when the value is not a list id it is parsed with parseVariablesInString and used as an index into the list (pat_list[parseInt(...)]); an unknown pattern sets the status to UnknownWarning.",
+      "options": [
+        {
+          "id": "pattern",
+          "type": "dropdown",
+          "label": "Which Pattern?",
+          "default": "00",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "00",
+              "label": "0 - Black"
+            },
+            {
+              "id": "01",
+              "label": "1 - Red"
+            },
+            {
+              "id": "02",
+              "label": "2 - Green"
+            },
+            {
+              "id": "03",
+              "label": "3 - Blue"
+            },
+            {
+              "id": "04",
+              "label": "4 - White"
+            },
+            {
+              "id": "05",
+              "label": "5 - Vert Bars"
+            },
+            {
+              "id": "06",
+              "label": "6 - Horz Bars"
+            },
+            {
+              "id": "07",
+              "label": "7 - Chess Board"
+            },
+            {
+              "id": "10",
+              "label": "8 - Horizontal"
+            },
+            {
+              "id": "11",
+              "label": "9 - Vertical"
+            },
+            {
+              "id": "12",
+              "label": "10 - Diagonal  "
+            },
+            {
+              "id": "13",
+              "label": "11 - Diagonal /"
+            },
+            {
+              "id": "14",
+              "label": "12 - Grid"
+            },
+            {
+              "id": "15",
+              "label": "13 - Cross Hatch"
+            },
+            {
+              "id": "20",
+              "label": "14 - Red Gradient (H)"
+            },
+            {
+              "id": "21",
+              "label": "15 - Green Gradient (H)"
+            },
+            {
+              "id": "22",
+              "label": "16 - Blue Gradient (H)"
+            },
+            {
+              "id": "23",
+              "label": "17 - White Gradient (H)"
+            },
+            {
+              "id": "24",
+              "label": "18 - Red Gradient (V)"
+            },
+            {
+              "id": "25",
+              "label": "19 - Green Gradient (V)"
+            },
+            {
+              "id": "26",
+              "label": "20 - Blue Gradient (V)"
+            },
+            {
+              "id": "27",
+              "label": "21 - White Gradient (V)"
+            }
+          ]
+        }
+      ],
+      "availability": "Only registered when the configured modelID starts with 'vx' (vx4s, vx6s, vx1000, vx600, vx16s, vxPro).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 294
+      }
+    },
+    {
+      "id": "test_pattern",
+      "name": "Select Test Pattern",
+      "description": "With allowCustom the callback also accepts an expression/variable text: when the value is not a list id it is parsed with parseVariablesInString and used as an index into the list (pat_list[parseInt(...)]); an unknown pattern sets the status to UnknownWarning.",
+      "options": [
+        {
+          "id": "pattern",
+          "type": "dropdown",
+          "label": "Which Pattern?",
+          "default": "0",
+          "allowCustom": true,
+          "choices": [
+            {
+              "id": "0",
+              "label": "0 - Pattern Off"
+            },
+            {
+              "id": "1",
+              "label": "1 - Red"
+            },
+            {
+              "id": "2",
+              "label": "2 - Green"
+            },
+            {
+              "id": "3",
+              "label": "3 - Blue"
+            },
+            {
+              "id": "4",
+              "label": "4 - White"
+            },
+            {
+              "id": "5",
+              "label": "5 - Horizontal"
+            },
+            {
+              "id": "6",
+              "label": "6 - Vertical"
+            },
+            {
+              "id": "7",
+              "label": "7 - Diagonal"
+            },
+            {
+              "id": "8",
+              "label": "8 - Gray-Scale"
+            },
+            {
+              "id": "9",
+              "label": "9 - Aging (random all)"
+            }
+          ]
+        }
+      ],
+      "availability": "All models.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 314
+      }
+    },
+    {
+      "id": "change_display_mode",
+      "name": "Change Display Mode",
+      "options": [
+        {
+          "id": "display_mode",
+          "type": "dropdown",
+          "label": "Display Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Normal"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            },
+            {
+              "id": "2",
+              "label": "Black"
+            }
+          ]
+        }
+      ],
+      "description": "Every model uses its own command table, but all tables (CHOICES_DISPLAYMODE, _VX6S, _VX600, _MCTRL, _VX1000) have the same ids and labels.",
+      "availability": "All models.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 333
+      }
+    },
+    {
+      "id": "change_working_mode",
+      "name": "Change Working Mode",
+      "options": [
+        {
+          "id": "working_mode",
+          "type": "dropdown",
+          "label": "Working Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0"
+            },
+            {
+              "id": "1"
+            }
+          ],
+          "choicesNote": "Per-model labels: vx6s: '0'=Direct, '1'=Switcher; j6: '0'=Splicer Mode, '1'=Switcher Mode."
+        }
+      ],
+      "availability": "Only registered for models that define workingModes: vx6s and j6. The labels differ per model (see choicesNote).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 354
+      }
+    },
+    {
+      "id": "pip_onoff",
+      "name": "PIP On/Off",
+      "options": [
+        {
+          "id": "value",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            }
+          ]
+        }
+      ],
+      "availability": "Only registered for models that define piponoffs: vx4s, vx6s, novaProHD (note the spelling: vx1000 and vxPro define pipOnOffs with a capital O, which this check does not read).",
+      "provenance": {
+        "file": "actions.js",
+        "line": 375
+      }
+    },
+    {
+      "id": "update_layer_vx1000",
+      "name": "Update Layer VX",
+      "description": "Builds a layer-update packet (header, enable flag, layer, card, priority, connector, X, Y, width, height, opacity, checksum). Number values are truncated to integers and clamped: X, Y, width, height to 0-4294967295, opacity to 0-100. The packet is written with writeInt32LE, which throws for values above 2147483647.",
+      "options": [
+        {
+          "id": "enabled",
+          "type": "dropdown",
+          "label": "On/Off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            }
+          ]
+        },
+        {
+          "id": "layerNumber",
+          "type": "dropdown",
+          "label": "Layer Number",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Main Layer"
+            },
+            {
+              "id": "1",
+              "label": "Layer 1"
+            },
+            {
+              "id": "2",
+              "label": "Layer 2"
+            }
+          ]
+        },
+        {
+          "id": "cardNumber",
+          "type": "dropdown",
+          "label": "Card Number",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "HDMI1"
+            },
+            {
+              "id": "1",
+              "label": "HDMI2"
+            },
+            {
+              "id": "2",
+              "label": "DVI1"
+            },
+            {
+              "id": "3",
+              "label": "DVI2"
+            },
+            {
+              "id": "4",
+              "label": "SDI"
+            },
+            {
+              "id": "5",
+              "label": "OPT-1"
+            },
+            {
+              "id": "6",
+              "label": "OPT-2"
+            },
+            {
+              "id": "7",
+              "label": "MOSAIC"
+            }
+          ]
+        },
+        {
+          "id": "layerPriority",
+          "type": "dropdown",
+          "label": "Layer Priority",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Layer Priority 1"
+            },
+            {
+              "id": "1",
+              "label": "Layer Priority 2"
+            },
+            {
+              "id": "2",
+              "label": "Layer Priority 3"
+            }
+          ]
+        },
+        {
+          "id": "connectorCode",
+          "type": "dropdown",
+          "label": "Video Connector",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "HDMI1"
+            },
+            {
+              "id": "1",
+              "label": "HDMI2"
+            },
+            {
+              "id": "2",
+              "label": "DVI1"
+            },
+            {
+              "id": "3",
+              "label": "DVI2"
+            },
+            {
+              "id": "4",
+              "label": "SDI"
+            },
+            {
+              "id": "5",
+              "label": "OPT-1"
+            },
+            {
+              "id": "6",
+              "label": "OPT-2"
+            },
+            {
+              "id": "7",
+              "label": "MOSAIC"
+            }
+          ]
+        },
+        {
+          "id": "opacity",
+          "type": "number",
+          "label": "Opacity (0 - 100)",
+          "default": "100"
+        },
+        {
+          "id": "initialX",
+          "type": "number",
+          "label": "Initial X",
+          "default": "550"
+        },
+        {
+          "id": "initialY",
+          "type": "number",
+          "label": "Initial Y",
+          "default": "0"
+        },
+        {
+          "id": "hWidth",
+          "type": "number",
+          "label": "H Width",
+          "default": "1307"
+        },
+        {
+          "id": "vHeight",
+          "type": "number",
+          "label": "V Height",
+          "default": "640"
+        }
+      ],
+      "availability": "Only registered for models that define layers: vx1000 and vxPro. The number options have no min/max in the source and string defaults.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 396
+      }
+    },
+    {
+      "id": "change_scaling",
+      "name": "Change Scaling",
+      "options": [
+        {
+          "id": "scale",
+          "type": "dropdown",
+          "label": "Scale",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Disable"
+            },
+            {
+              "id": "1",
+              "label": "Custom"
+            },
+            {
+              "id": "2",
+              "label": "Auto"
+            }
+          ]
+        }
+      ],
+      "availability": "Only registered for models that define scaling: vx4s, vx6s, novaProHD.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 518
+      }
+    },
+    {
+      "id": "load_preset",
+      "name": "Recall Preset",
+      "description": "On the vx6s model the module re-registers this id as 'Load Preset to Preview' (actions.js:569, same option); the entry here is the generic 'Recall Preset' definition of all other models.",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "0",
+          "choicesNote": "Per-model list of ids '0'-'N' labelled 'Preset 1' to 'Preset N+1' (strings): ids '0'-'9' for vx4s, novaProUHDJr, vx1000, vx600, vx16s and vxPro; ids '0'-'15' for vx6s; ids '0'-'31' for j6. Models without presets (novaProHD, mctrl4k, mctrl) do not get this action.",
+          "valueType": "string",
+          "valuePattern": "^([0-9]|[12][0-9]|3[01])$"
+        }
+      ],
+      "availability": "Only registered for models that define presets: vx4s, vx6s, novaProUHDJr, vx1000, vx600, vx16s, j6, vxPro.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 548
+      }
+    },
+    {
+      "id": "take",
+      "name": "Take Preview to Program",
+      "options": [],
+      "availability": "Only registered when the configured modelID is vx6s.",
+      "provenance": {
+        "file": "actions.js",
+        "line": 587
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 13 action ids (actions.js, one getActions() call that returns an object). The module registers no feedbacks; variables are ctrl_id, ctrl_type, ctrl_fw and brite (set_brightness also writes brite_r/_g/_b/_v). Presets do not exist in the clone.",
+    "The action set depends on the Model config field (modelID, default 'j6'): vx4s, vx6s, novaProHD, novaProUHDJr, mctrl4k, mctrl (MCTRLxx0), vx1000, vx600, vx16s, j6, vxPro. Each entity carries its availability; choice lists per model are described in choicesNote because ids and labels differ between models (choices.js CONFIG_MODEL).",
+    "Protocol: TCP via TCPHelper to config.host, port 5200 (15200 for vxPro); binary packets starting 0x55 0xAA with a checksum. The module overwrites config.port with these fixed values. The host field default is a private example address and is not recorded.",
+    "Built on @companion-module/base 1.12.x: options do not support expressions. The text inputs of set_brightness use useVariables.",
+    "Several dropdown ids are strings ('0', '1', ...), the VX test pattern ids are zero-padded strings ('00', '07', '10'). The number options of update_layer_vx1000 have string defaults and no limits in the source; recorded as written.",
+    "The option label of change_brightness is written as 'name: Brightness' in the source (not a valid option field), so the option has no label in the catalog.",
+    "MODEL_IDS (choices.js) lists the detected device types (also novaProUHD and vx400) but these ids are not keys of CONFIG_MODEL; the action set follows the configured Model field only.",
+    "Regex values (Regex.FLOAT = /^([0-9]*\\.)?[0-9]+$/, Regex.SIGNED_FLOAT = /^[+-]?([0-9]*\\.)?[0-9]+$/) taken from @companion-module/base 1.12.0 (dist/module-api/enums.js).",
+    "Nothing in this file was tested against a device."
+  ]
+}

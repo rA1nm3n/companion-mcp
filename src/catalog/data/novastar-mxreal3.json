@@ -1,0 +1,379 @@
+{
+  "moduleId": "novastar-mxreal3",
+  "name": "NovaStar MxReal 3",
+  "repo": "bitfocus/companion-module-novastar-mxreal3",
+  "version": "1.0.1",
+  "baseVersion": "~1.5.1",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "86b26e3",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "play",
+      "name": "Play & Pause: Play or pause the timeline.",
+      "options": [
+        {
+          "id": "play",
+          "type": "dropdown",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Pause"
+            },
+            {
+              "id": "1",
+              "label": "Play"
+            }
+          ]
+        }
+      ],
+      "description": "Value '0' sends TagCodes.timeLinePause (tag 101), otherwise TagCodes.timeLinePlay (tag 100); then stores the value as latched state for the 'play' feedback.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 7
+      }
+    },
+    {
+      "id": "stop",
+      "name": "Stop: Stop the timeline.",
+      "options": [],
+      "description": "Sends TagCodes.timeLineStop (tag 126).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 42
+      }
+    },
+    {
+      "id": "play_previous",
+      "name": "Previous Clip: Move the cursor on the timeline to the previous clip.",
+      "options": [],
+      "description": "Sends TagCodes.playPrevious (tag 102).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 57
+      }
+    },
+    {
+      "id": "play_next",
+      "name": "Next Clip: Move the cursor on the timeline to the next clip.",
+      "options": [],
+      "description": "Sends TagCodes.playNext (tag 103).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 72
+      }
+    },
+    {
+      "id": "previous_cue",
+      "name": "Previous Cue: Move the cursor on the timeline to the previous Cue.",
+      "options": [],
+      "description": "Sends TagCodes.previousCUE (tag 104).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 87
+      }
+    },
+    {
+      "id": "next_cue",
+      "name": "Next Cue: Move the cursor on the timeline to the next Cue.",
+      "options": [],
+      "description": "Sends TagCodes.nextCUE (tag 105).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 102
+      }
+    },
+    {
+      "id": "cam1",
+      "name": "Workflow 1: Switch the preview screen to the Workflow 1 screen.",
+      "options": [],
+      "description": "Sends TagCodes.cam1 (tag 106).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 117
+      }
+    },
+    {
+      "id": "cam2",
+      "name": "Workflow 2: Switch the preview screen to the Workflow 2 screen.",
+      "options": [],
+      "description": "Sends TagCodes.cam2 (tag 107).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 132
+      }
+    },
+    {
+      "id": "cam_previous",
+      "name": "Previous Workflow: Switch the preview screen to the previous workflow screen.",
+      "options": [],
+      "description": "Sends TagCodes.camPrevious (tag 108).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 147
+      }
+    },
+    {
+      "id": "cam_next",
+      "name": "Next Workflow: Switch the preview screen to the next workflow screen.",
+      "options": [],
+      "description": "Sends TagCodes.camNext (tag 109).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 162
+      }
+    },
+    {
+      "id": "volume",
+      "name": "Audio On/Off: Turn on or turn off the global audio.",
+      "options": [
+        {
+          "id": "volume",
+          "type": "dropdown",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Close Volume"
+            },
+            {
+              "id": "1",
+              "label": "Open Volume"
+            }
+          ]
+        }
+      ],
+      "description": "Value '0' sends TagCodes.closeVolume (tag 111), otherwise TagCodes.openVolume (tag 110); then stores the value as latched state for the 'volume' feedback.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 177
+      }
+    },
+    {
+      "id": "volume_up",
+      "name": "Volume +: Increase the global audio volume.",
+      "options": [],
+      "description": "Sends TagCodes.volumeUp (tag 112).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 212
+      }
+    },
+    {
+      "id": "volume_down",
+      "name": "Volume -: Decrease the global audio volume.",
+      "options": [],
+      "description": "Sends TagCodes.volumeDown (tag 113).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 227
+      }
+    },
+    {
+      "id": "ftb",
+      "name": "FTB On/Off: Control the output FTB state.",
+      "options": [
+        {
+          "id": "ftb",
+          "type": "dropdown",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No fade to black"
+            },
+            {
+              "id": "1",
+              "label": "Fade to black"
+            }
+          ]
+        }
+      ],
+      "description": "Value '0' sends TagCodes.closeFTB (tag 115), otherwise TagCodes.openFTB (tag 114); then stores the value as latched state for the 'ftb' feedback.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 242
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze On/Off: Control the output freeze state.",
+      "options": [
+        {
+          "id": "freeze",
+          "type": "dropdown",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfreeze"
+            },
+            {
+              "id": "1",
+              "label": "Freeze"
+            }
+          ]
+        }
+      ],
+      "description": "Value '0' sends TagCodes.Unfreeze (tag 117), otherwise TagCodes.freeze (tag 116); then stores the value as latched state for the 'freeze' feedback.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 277
+      }
+    },
+    {
+      "id": "light_up",
+      "name": "Brightness +: Increase the output brightness.",
+      "options": [],
+      "description": "Sends TagCodes.lightUp (tag 118).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 312
+      }
+    },
+    {
+      "id": "light_down",
+      "name": "Brightness -: Decrease the output brightness. ",
+      "options": [],
+      "description": "Sends TagCodes.lightDown (tag 119).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 327
+      }
+    },
+    {
+      "id": "output",
+      "name": "All Outputs On/Off: Connect or disconnect all outputs.",
+      "options": [
+        {
+          "id": "output",
+          "type": "dropdown",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Close"
+            },
+            {
+              "id": "1",
+              "label": "Open"
+            }
+          ]
+        }
+      ],
+      "description": "Value '0' sends TagCodes.closeOutput (tag 121), otherwise TagCodes.openOutput (tag 120); then stores the value as latched state for the 'output' feedback.",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 342
+      }
+    },
+    {
+      "id": "xr_up",
+      "name": "Extension +: Expand the range of extension effect.",
+      "options": [],
+      "description": "Sends TagCodes.xrUp (tag 122).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 377
+      }
+    },
+    {
+      "id": "xr_down",
+      "name": "Extension -: Narrow the range of extension effect.",
+      "options": [],
+      "description": "Sends TagCodes.xrDown (tag 123).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 392
+      }
+    },
+    {
+      "id": "emergence_up",
+      "name": "Feathering +: Expand the range of feathering effect.",
+      "options": [],
+      "description": "Sends TagCodes.emergenceUp (tag 124).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 407
+      }
+    },
+    {
+      "id": "emergence_down",
+      "name": "Feathering -: Narrow the range of feathering effect.",
+      "options": [],
+      "description": "Sends TagCodes.emergenceDown (tag 125).",
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 422
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "play",
+      "name": "Play Status Detection",
+      "feedbackType": "boolean",
+      "description": "Change the style when Play is pressed. Default style: text 'Pause'. Returns true when the latched value of the matching action is the string '1'. The latched state is set only by pressing the module's own action (initial value is the number 0); it is not read back from the device.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 6
+      }
+    },
+    {
+      "id": "volume",
+      "name": "Audio Status Detection",
+      "feedbackType": "boolean",
+      "description": "Change the style when Audio is pressed. Default style: red background. Returns true when the latched value of the matching action is the string '1'. The latched state is set only by pressing the module's own action (initial value is the number 0); it is not read back from the device.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 17
+      }
+    },
+    {
+      "id": "ftb",
+      "name": "FTB Status Detection",
+      "feedbackType": "boolean",
+      "description": "Change the style when FTB is pressed. Default style: red background. Returns true when the latched value of the matching action is the string '1'. The latched state is set only by pressing the module's own action (initial value is the number 0); it is not read back from the device.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 28
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze Status Detection",
+      "feedbackType": "boolean",
+      "description": "Change the style when Freeze is pressed. Default style: red background. Returns true when the latched value of the matching action is the string '1'. The latched state is set only by pressing the module's own action (initial value is the number 0); it is not read back from the device.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 39
+      }
+    },
+    {
+      "id": "output",
+      "name": "Output Status Detection",
+      "feedbackType": "boolean",
+      "description": "Change the style when Outputs is pressed. Default style: red background. Returns true when the latched value of the matching action is the string '1'. The latched state is set only by pressing the module's own action (initial value is the number 0); it is not read back from the device.",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 50
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 22 actions (src/actions.js, getActions) and 5 boolean feedbacks (src/feedbacks.js). Only 5 actions have an option (a two-value dropdown with string ids '0' and '1'); the rest are parameterless. Presets (src/presets.js) and the heartbeat are not catalogued.",
+    "Protocol: binary control packets (utils/cmdCodec.js, tag numbers in utils/constant.js TagCodes) over UDP to the configured host, remote port 23334, local bind port 23335 (utils/constant.js serverPort/clientPort; src/main.js:61). The status becomes OK when the device answers with tag 99. The host default in the source is a private example address and is not recorded.",
+    "Single model: PRODUCTS_INFO has one entry (key rx6, id 'xr', label 'NovaStar MxReal 3'); the modelId config field has no effect on the action set.",
+    "Built on @companion-module/base ~1.5.1 (1.x): options do not support expressions.",
+    "Action names are long sentences of the form 'Title: explanation' in the source and are recorded as written. The option labels are written as 'name:' in the source (not a valid option field), so options carry no label.",
+    "Feedback state is latched in the module from the last pressed action (instance.config.latchActions); it does not follow the real device state and starts as the number 0 (never equal to the string '1').",
+    "Nothing in this file was tested against a device."
+  ]
+}
