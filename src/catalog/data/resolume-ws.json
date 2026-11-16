@@ -1,0 +1,713 @@
+{
+  "moduleId": "resolume-ws",
+  "name": "Resolume Arena (WebSockets)",
+  "repo": "chabad360/companion-module-resolume-ws",
+  "version": "0.1.0",
+  "baseVersion": "~1.8.0",
+  "lastCommit": "2024-06-03",
+  "lastCommitSha": "72a7453",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "set-param",
+      "name": "Set Parameter",
+      "options": [
+        {
+          "id": "parameter",
+          "type": "textinput",
+          "label": "Parameter ID",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true
+        },
+        {
+          "id": "type",
+          "type": "dropdown",
+          "label": "Parameter Type",
+          "default": "float",
+          "choices": [
+            {
+              "id": "float",
+              "label": "Float"
+            },
+            {
+              "id": "int",
+              "label": "Integer"
+            },
+            {
+              "id": "bool",
+              "label": "Boolean"
+            },
+            {
+              "id": "string",
+              "label": "String"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "useVariables": true
+        }
+      ],
+      "description": "Sends a Set for /parameter/by-id/<Parameter ID>. float uses parseFloat, int parseInt, bool is true only for the text \"true\"; a NaN result is logged and not sent (src/actions/actions.ts setParam).",
+      "provenance": {
+        "file": "src/actions/actions.ts",
+        "line": 15
+      }
+    },
+    {
+      "id": "clear-layer",
+      "name": "Clear Layer",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Layer",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 8
+      }
+    },
+    {
+      "id": "clear-clip-layer",
+      "name": "Clear Layer for Clip (if playing)",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        }
+      ],
+      "description": "Clears the layer only when the clip is connected (clip.connected.index >= 3).",
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 31
+      }
+    },
+    {
+      "id": "select-layer",
+      "name": "Select Layer",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true
+        }
+      ],
+      "description": "The number is sent as entered (1-based) to /composition/layers/<n>/select.",
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 62
+      }
+    },
+    {
+      "id": "select-clip",
+      "name": "Select Clip",
+      "options": [
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true
+        }
+      ],
+      "description": "Both fields declare useVariables: { local: true } in the source. The numbers are sent as entered (1-based) to /composition/layers/<layer>/clips/<column>/select.",
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 75
+      }
+    },
+    {
+      "id": "connect-clip",
+      "name": "Connect Clip",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 100
+      }
+    },
+    {
+      "id": "clear-clip",
+      "name": "Clear Clip",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "connect-column",
+      "name": "Connect Column",
+      "options": [
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 162
+      }
+    },
+    {
+      "id": "connect-current-column",
+      "name": "Reconnect Current Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 175
+      }
+    },
+    {
+      "id": "connect-next-column",
+      "name": "Connect Next Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 180
+      }
+    },
+    {
+      "id": "connect-previous-column",
+      "name": "Connect Previous Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/cursor.ts",
+        "line": 185
+      }
+    },
+    {
+      "id": "set-playmodeaway",
+      "name": "Set Clip Start Mode",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "playmodeaway",
+          "type": "dropdown",
+          "label": "Start Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Restart"
+            },
+            {
+              "id": 1,
+              "label": "Continue"
+            },
+            {
+              "id": 2,
+              "label": "Relative"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip.ts",
+        "line": 8
+      }
+    },
+    {
+      "id": "set-playmode",
+      "name": "Set Clip End Mode",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "playmode",
+          "type": "dropdown",
+          "label": "Loop Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Loop"
+            },
+            {
+              "id": 1,
+              "label": "Bounce"
+            },
+            {
+              "id": 2,
+              "label": "Random"
+            },
+            {
+              "id": 3,
+              "label": "Play Once & Clear"
+            },
+            {
+              "id": 4,
+              "label": "Play Once & Hold"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip.ts",
+        "line": 50
+      }
+    },
+    {
+      "id": "set-playdirection",
+      "name": "Set Clip Play Mode",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "playdirection",
+          "type": "dropdown",
+          "label": "Playback Direction",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Backward"
+            },
+            {
+              "id": 1,
+              "label": "Pause"
+            },
+            {
+              "id": 2,
+              "label": "Forward"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip.ts",
+        "line": 93
+      }
+    },
+    {
+      "id": "toggle-playdirection",
+      "name": "Toggle Between Clip Play Modes",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "playdirectionfrom",
+          "type": "dropdown",
+          "label": "From",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Backward (0)"
+            },
+            {
+              "id": 1,
+              "label": "Pause (1)"
+            },
+            {
+              "id": 2,
+              "label": "Forward (2)"
+            }
+          ]
+        },
+        {
+          "id": "playdirectionto",
+          "type": "dropdown",
+          "label": "To",
+          "default": 2,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Backward (0)"
+            },
+            {
+              "id": 1,
+              "label": "Pause (1)"
+            },
+            {
+              "id": 2,
+              "label": "Forward (2)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip.ts",
+        "line": 134
+      }
+    },
+    {
+      "id": "set-clip-resize",
+      "name": "Set Clip Resize Mode",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "resize",
+          "type": "dropdown",
+          "label": "Resize Mode",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Fill"
+            },
+            {
+              "id": 1,
+              "label": "Fit"
+            },
+            {
+              "id": 2,
+              "label": "Stretch"
+            },
+            {
+              "id": 3,
+              "label": "Original"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip.ts",
+        "line": 187
+      }
+    },
+    {
+      "id": "toggle-clip-resize",
+      "name": "Toggle Between Clip Resize Modes",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "resizeFrom",
+          "type": "dropdown",
+          "label": "From",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Fill (0)"
+            },
+            {
+              "id": 1,
+              "label": "Fit (1)"
+            },
+            {
+              "id": 2,
+              "label": "Stretch (2)"
+            },
+            {
+              "id": 3,
+              "label": "Original (3)"
+            }
+          ]
+        },
+        {
+          "id": "resizeTo",
+          "type": "dropdown",
+          "label": "To",
+          "default": 3,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Fill (0)"
+            },
+            {
+              "id": 1,
+              "label": "Fit (1)"
+            },
+            {
+              "id": 2,
+              "label": "Stretch (2)"
+            },
+            {
+              "id": 3,
+              "label": "Original (3)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/clip.ts",
+        "line": 229
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "clip-thumbnail",
+      "name": "Clip Thumbnail",
+      "feedbackType": "advanced",
+      "description": "Returns a PNG of the clip thumbnail fetched over HTTP from the Resolume web server (host and HTTP port from the config), scaled to the button image size (default 72x72 when the size is unknown).",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Clip",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Clip Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        },
+        {
+          "id": "column",
+          "type": "textinput",
+          "label": "Clip Column",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 13
+      }
+    },
+    {
+      "id": "connected-clip-thumbnail",
+      "name": "Connected Clip Thumbnail",
+      "feedbackType": "advanced",
+      "description": "Returns a PNG of the clip thumbnail fetched over HTTP from the Resolume web server (host and HTTP port from the config), scaled to the button image size (default 72x72 when the size is unknown). With \"Selected Layer\" ticked it shows the clip connected on the selected layer (instance.connectedClips). Reading the source: without it, getThumbnail parses a \"column\" option this feedback does not have (NaN), so the clip lookup finds nothing and the feedback returns an empty result (src/feedbacks.ts:90-91, 105).",
+      "options": [
+        {
+          "id": "selected",
+          "type": "checkbox",
+          "label": "Selected Layer",
+          "default": false
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer",
+          "regex": "/^(\\d+|\\$\\(.+\\))/",
+          "useVariables": true,
+          "visibleWhen": "(options) => !options.selected"
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 53
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 17 actions (src/actions/actions.ts set-param, src/actions/cursor.ts 10 actions, src/actions/clip.ts 6 actions) and 2 advanced feedbacks (src/feedbacks.ts). Definitions are rebuilt on every composition update (src/index.ts updateInstance), but their options do not depend on the composition.",
+    "Third-party repository (chabad360); the manifest repository field names bitfocus/companion-module-resolume-ws. Not verified whether the module is listed in the Companion module store. The last commit is from 2024-06-03.",
+    "Protocol: Resolume Arena WebSocket API through the \"resolume\" npm package (src/resolume.ts); config fields host (default 127.0.0.1) and httpPort (number 1-65535, step 1, default 7003) (src/config.ts). Variables (src/variables.ts) are not catalogued.",
+    "Layer, column and clip positions are text inputs with the regex NumberOrVariable = /^(\\d+|\\$\\(.+\\))/ (src/actions/actions.ts:11; not anchored at the end, so \"1abc\" also matches) and useVariables. Values are 1-based; most actions subtract 1 internally and send +1 again, while select-layer and select-clip send the entered number unchanged.",
+    "All \"Selected ...\" checkboxes default to false; the position fields have isVisible (options) => !options.selected (recorded in visibleWhen) except in select-layer, select-clip and connect-column, which have no such checkbox. When ticked, the module uses the clip or layer last selected in Resolume (instance.selectedClipLayer/selectedClipColumn/selectedLayer).",
+    "Dropdown ids are numbers (0, 1, 2, ...) as in the source; the callbacks check typeof === \"number\". toggle-playdirection and toggle-clip-resize step the current index +1 and wrap to From when it passes To.",
+    "Source quirk: clear-layer with \"Selected Layer\" ticked and no layer selected (selectedLayer -1) sends a trigger for layer 0; most other actions return silently when the clip does not exist in the received composition.",
+    "Built on @companion-module/base ~1.8.0: option values cannot be expressions."
+  ]
+}
