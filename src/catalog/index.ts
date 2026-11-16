@@ -1,5 +1,6 @@
 import analogwayAwj from './data/analogway-awj.json' with { type: 'json' };
 import analogwayLivepremier from './data/analogway-livepremier.json' with { type: 'json' };
+import avolitesTitan from './data/avolites-titan.json' with { type: 'json' };
 import barcoEventmaster from './data/barco-eventmaster.json' with { type: 'json' };
 import birddogPtz from './data/birddog-ptz.json' with { type: 'json' };
 import bmdAtem from './data/bmd-atem.json' with { type: 'json' };
@@ -7,8 +8,12 @@ import bmdHyperdeck from './data/bmd-hyperdeck.json' with { type: 'json' };
 import bmdVideohub from './data/bmd-videohub.json' with { type: 'json' };
 import datatonWatchoutJson from './data/dataton-watchout-json.json' with { type: 'json' };
 import datatonWatchout from './data/dataton-watchout.json' with { type: 'json' };
+import etcEos from './data/etc-eos.json' with { type: 'json' };
+import highendHog4 from './data/highend-hog4.json' with { type: 'json' };
 import internal from './data/internal.json' with { type: 'json' };
 import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
+import obsidiancontrolOnyx from './data/obsidiancontrol-onyx.json' with { type: 'json' };
+import obsidiancontrolOnyxOsc from './data/obsidiancontrol-onyx-osc.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
@@ -38,6 +43,7 @@ export * from './types.js';
 const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'analogway-awj': analogwayAwj,
   'analogway-livepremier': analogwayLivepremier,
+  'avolites-titan': avolitesTitan,
   'barco-eventmaster': barcoEventmaster,
   'birddog-ptz': birddogPtz,
   'bmd-atem': bmdAtem,
@@ -45,8 +51,12 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'bmd-videohub': bmdVideohub,
   'dataton-watchout': datatonWatchout,
   'dataton-watchout-json': datatonWatchoutJson,
+  'etc-eos': etcEos,
+  'highend-hog4': highendHog4,
   internal,
   'luminex-gigacore': luminexGigacore,
+  'obsidiancontrol-onyx': obsidiancontrolOnyx,
+  'obsidiancontrol-onyx-osc': obsidiancontrolOnyxOsc,
   'panasonic-ptz': panasonicPtz,
   'resolume-arena': resolumeArena,
   'shure-wireless': shureWireless,

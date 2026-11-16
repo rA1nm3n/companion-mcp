@@ -151,6 +151,18 @@
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
+      "moduleId": "avolites-titan",
+      "repo": "bitfocus/companion-module-avolites-titan",
+      "version": "3.1.2",
+      "baseVersion": "~1.11.3",
+      "lastCommit": "2026-10-30",
+      "kind": "full",
+      "manufacturer": "Avolites",
+      "products": ["Titan"],
+      "keywords": ["Lighting"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
       "moduleId": "avstumpfl-pixera",
       "repo": "bitfocus/companion-module-avstumpfl-pixera",
       "version": "3.2.3",
@@ -505,6 +517,18 @@
       ]
     },
     {
+      "moduleId": "etc-eos",
+      "repo": "bitfocus/companion-module-etc-eos",
+      "version": "2.2.3",
+      "baseVersion": "~1.15.0",
+      "lastCommit": "2026-11-11",
+      "kind": "full",
+      "manufacturer": "ETC",
+      "products": ["EOS"],
+      "keywords": ["Lighting"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
       "moduleId": "extron-dxp-hd-4k-plus",
       "repo": "bitfocus/companion-module-extron-dxp-hd-4k-plus",
       "version": "1.0.0",
@@ -710,6 +734,18 @@
       "manufacturer": "HDkatov",
       "products": ["VISCA"],
       "keywords": ["VISCA", "VISCA over IP", "PTZ", "Camera", "hdkatov", "UDP"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
+      "moduleId": "highend-hog4",
+      "repo": "bitfocus/companion-module-highend-hog4",
+      "version": "2.0.1",
+      "baseVersion": "~1.10",
+      "lastCommit": "2026-10-31",
+      "kind": "full",
+      "manufacturer": "High End Systems",
+      "products": ["Hog 4"],
+      "keywords": ["Lighting"],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -927,6 +963,29 @@
       "manufacturer": "OBS",
       "products": ["Studio"],
       "keywords": ["Stream", "Live", "Broadcast", "Streaming", "Switcher"]
+    },
+    {
+      "moduleId": "obsidiancontrol-onyx",
+      "repo": "bitfocus/companion-module-obsidiancontrol-onyx",
+      "version": "2.0.1",
+      "baseVersion": "~1.14.1",
+      "lastCommit": "2026-10-30",
+      "kind": "full",
+      "manufacturer": "Obsidian",
+      "products": ["ONYX"],
+      "keywords": ["onyx", "lighting", "control"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions; telnet protocol (the OSC variant is obsidiancontrol-onyx-osc)"
+    },
+    {
+      "moduleId": "obsidiancontrol-onyx-osc",
+      "repo": "bitfocus/companion-module-obsidiancontrol-onyx-osc",
+      "version": "1.0.0",
+      "baseVersion": "~1.4.3",
+      "lastCommit": "2026-10-30",
+      "kind": "full",
+      "manufacturer": "Obsidian Control Systems",
+      "products": ["ONYX"],
+      "note": "Built on @companion-module/base 1.x: options do not support expressions; OSC protocol (the telnet variant is obsidiancontrol-onyx)"
     },
     {
       "moduleId": "panasonic-cameras",
@@ -1554,6 +1613,12 @@
       "result": "no separate module",
       "alternatives": ["generic-tcp-udp"],
       "note": "rossvideo-rosstalk and rossvideo-nkrouter may be usable; not verified for Ultrix"
+    },
+    {
+      "device": "Chauvet Professional Infinity Chimp consoles (Chimp, Chimp 100/300/600, G2, G3)",
+      "result": "no module found; the search \"companion-module+infinity\" only returns Adder Infinity KVM modules (adder-infinity100xseries, adder-infinity-aim, adder-infinity-alif), which are unrelated to lighting; searches for \"chimp\" and \"chauvet\" returned no repository",
+      "alternatives": [],
+      "note": "No generic alternative was verified: the remote-control protocols of the console were not checked against its documentation, so none is suggested. The Adder Infinity modules control Adder KVM devices, not Chauvet consoles."
     }
   ],
   "unusable": [

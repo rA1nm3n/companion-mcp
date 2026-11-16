@@ -176,7 +176,8 @@ describe('catalog consistency', () => {
     const ids = new Set(listModules().map((m) => m.moduleId));
     expect(listNoModule().length).toBeGreaterThan(0);
     for (const n of listNoModule()) {
-      expect(n.alternatives.length).toBeGreaterThan(0);
+      // An empty list is allowed only when the note explains why no alternative was verified.
+      if (n.alternatives.length === 0) expect(n.note, n.device).toBeTruthy();
       for (const a of n.alternatives) expect(ids.has(a), `${n.device}: ${a}`).toBe(true);
     }
     const generic = new Set(listNoModule().flatMap((n) => n.alternatives));
