@@ -1861,6 +1861,18 @@
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
+      "moduleId": "showpace-timer",
+      "repo": "rA1nm3n/showpace",
+      "version": "0.2.1",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-11-09",
+      "kind": "full",
+      "manufacturer": "ShowPace",
+      "products": ["ShowPace Stage Timer"],
+      "keywords": ["timer", "countdown", "stage", "rundown", "broadcast"],
+      "note": "Own module of the maintainer, source in rA1nm3n/showpace (integrations/companion); not published in the official Bitfocus module directory (repository bitfocus/companion-module-showpace-timer answered 404 on 2026-11-16), load as local development module"
+    },
+    {
       "moduleId": "shure-wireless",
       "repo": "bitfocus/companion-module-shure-wireless",
       "version": "2.3.1",

@@ -22,6 +22,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - `diffReadback` options `connectionIdMap` and `inferConnectionIds`: remapped entity `connectionId`s (explicit import remapping or a consistent 1:1 mapping, contradictions stay errors) and an absent versus empty `children` are tolerated inside the diff. The tool layer no longer rewrites the intended export.
 - Claude Desktop extension: `npm run bundle` builds `build/companion-mcp-<version>.mcpb` (manifest 0.3, production dependencies only, tool list read from the real server, validated with the official `mcpb` CLI pinned in the script). The install dialog exposes URL, REST token (sensitive), write gate (off), allowed hosts, press allow-list and the unknown-version switch.
 - `sanitizeEnv`: environment values that still contain an unreplaced `${...}` placeholder are treated as unset, so an empty optional extension field can never become a literal token or URL.
+- ShowPace (Stagetimer) in the catalog: `showpace-timer`, the maintainer's own module (source `rA1nm3n/showpace`, `integrations/companion`, v0.2.1, commit 824fddf), complete list of 32 actions and 13 feedbacks, plus a `showpace` page template (display, start/pause/reset, previous/next segment, tempo) in `companion_generate_page`.
 - Documentation: `docs/architecture.md`, `docs/catalog.md`, `docs/satellite.md`, `docs/tools.md`.
 
 ### Known limitations

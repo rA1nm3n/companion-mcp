@@ -141,6 +141,12 @@ Files are formatted with Prettier (`npx prettier --write src/catalog`).
   module `notes` say so.
 - ATEM and several others hide the M/E or DSK picker on single-M/E or single-DSK models and ignore
   its value.
+- `showpace-timer` is the maintainer's own module. Its `repo` is `rA1nm3n/showpace` (the module lives
+  in `integrations/companion`, so provenance paths start with that directory), not the
+  `bitfocus/companion-module-showpace-timer` that its manifest names. Whether the module is published
+  in the official Bitfocus module directory was not verified (see the module `notes`). The schema has
+  no fields for variables or presets, so the module `notes` list the variable ids and the preset
+  categories.
 
 ## Adding a module
 

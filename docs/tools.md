@@ -17,23 +17,23 @@ Every tool returns one text content item with JSON.
 
 ## Tools
 
-| Tool                           | Purpose                                                                     | Side effects                                                 | Gate                                             |
-| ------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
-| `companion_catalog_search`     | Search the offline module catalog                                           | none (offline)                                               | none                                             |
-| `companion_catalog_module`     | Actions and feedbacks of one module                                         | none (offline)                                               | none                                             |
-| `companion_catalog_action`     | Full definition of one action or feedback (options, choices, ranges)        | none (offline)                                               | none                                             |
-| `companion_validate_config`    | Validate an export against the format rules and the catalog                 | none (offline)                                               | none                                             |
-| `companion_generate_page`      | Page from a template (`atem`, `videohub`, `vmix`, `birddog`), validated     | none (offline)                                               | none                                             |
-| `companion_build_page`         | Page from a free specification (buttons, actions, feedbacks), validated     | none (offline)                                               | none                                             |
-| `companion_status`             | Reachability, version, REST state, safety configuration (no tokens)         | short read-only connection                                   | host allow-list (nothing is contacted otherwise) |
-| `companion_export`             | Export `full` configuration or `{ page: n }`                                | read-only                                                    | host allow-list, version guard                   |
-| `companion_get_page`           | Read a page back (name and every control)                                   | read-only                                                    | host allow-list, version guard                   |
-| `companion_list_connections`   | Connections via REST v2 (secret-looking fields redacted)                    | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
-| `companion_list_surfaces`      | Surfaces via REST v2                                                        | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
-| `companion_import_page`        | Validate, snapshot, import, read back, diff. `dry_run` defaults to **true** | **replaces a page** (or appends); may **create connections** | write gate, host allow-list, version guard       |
-| `companion_rollback`           | Re-import a snapshot of a page. `dry_run` defaults to **true**              | **replaces a page**; may re-create missing connections       | write gate, host allow-list, version guard       |
-| `companion_satellite_snapshot` | Read what every button of the shown page renders (text, color, bitmap)      | registers a virtual surface for the call, removes it again   | host allow-list                                  |
-| `companion_press`              | Press one button. `dry_run` defaults to **true**                            | **a real press triggers the button's actions**               | write gate, host allow-list, press allow-list    |
+| Tool                           | Purpose                                                                             | Side effects                                                 | Gate                                             |
+| ------------------------------ | ----------------------------------------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| `companion_catalog_search`     | Search the offline module catalog                                                   | none (offline)                                               | none                                             |
+| `companion_catalog_module`     | Actions and feedbacks of one module                                                 | none (offline)                                               | none                                             |
+| `companion_catalog_action`     | Full definition of one action or feedback (options, choices, ranges)                | none (offline)                                               | none                                             |
+| `companion_validate_config`    | Validate an export against the format rules and the catalog                         | none (offline)                                               | none                                             |
+| `companion_generate_page`      | Page from a template (`atem`, `videohub`, `vmix`, `birddog`, `showpace`), validated | none (offline)                                               | none                                             |
+| `companion_build_page`         | Page from a free specification (buttons, actions, feedbacks), validated             | none (offline)                                               | none                                             |
+| `companion_status`             | Reachability, version, REST state, safety configuration (no tokens)                 | short read-only connection                                   | host allow-list (nothing is contacted otherwise) |
+| `companion_export`             | Export `full` configuration or `{ page: n }`                                        | read-only                                                    | host allow-list, version guard                   |
+| `companion_get_page`           | Read a page back (name and every control)                                           | read-only                                                    | host allow-list, version guard                   |
+| `companion_list_connections`   | Connections via REST v2 (secret-looking fields redacted)                            | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
+| `companion_list_surfaces`      | Surfaces via REST v2                                                                | read-only                                                    | host allow-list; needs `COMPANION_REST_TOKEN`    |
+| `companion_import_page`        | Validate, snapshot, import, read back, diff. `dry_run` defaults to **true**         | **replaces a page** (or appends); may **create connections** | write gate, host allow-list, version guard       |
+| `companion_rollback`           | Re-import a snapshot of a page. `dry_run` defaults to **true**                      | **replaces a page**; may re-create missing connections       | write gate, host allow-list, version guard       |
+| `companion_satellite_snapshot` | Read what every button of the shown page renders (text, color, bitmap)              | registers a virtual surface for the call, removes it again   | host allow-list                                  |
+| `companion_press`              | Press one button. `dry_run` defaults to **true**                                    | **a real press triggers the button's actions**               | write gate, host allow-list, press allow-list    |
 
 Triggers and full imports are intentionally not implemented.
 
@@ -47,6 +47,7 @@ Triggers and full imports are intentionally not implemented.
 | `videohub` | `inputs`, `outputs`, `routedColor?`, `routedTextColor?`, `labelColor?`, `ignoreLock?`                                                                                            |
 | `vmix`     | `inputs` (count or list of number, name or `{ input, label }`), `mix?` (1 to 16 or `"Selected"`), `programColor?`, `previewColor?`, `tallyTextColor?`, `programRow?`, `columns?` |
 | `birddog`  | `presets` (count or list, 1 to 64), `buttonColor?`, `columns?`                                                                                                                   |
+| `showpace` | `tempoSteps?` (percentages 50 to 200, default 110, 120, 135), `display?`, `columns?`                                                                                             |
 
 Invalid params come back as `ok: false`, `code: INVALID_PARAMS` with an `errors` list.
 
