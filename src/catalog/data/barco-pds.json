@@ -1,0 +1,828 @@
+{
+  "moduleId": "barco-pds",
+  "name": "Barco PDS (Presentation Switchers)",
+  "repo": "bitfocus/companion-module-barco-pds",
+  "version": "2.0.1",
+  "baseVersion": "~1.11.0",
+  "lastCommit": "2026-11-01",
+  "lastCommitSha": "ee73207",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "TAKE",
+      "name": "Take",
+      "options": [],
+      "provenance": {
+        "file": "pds.js",
+        "line": 447
+      }
+    },
+    {
+      "id": "ISEL",
+      "name": "Select Input",
+      "options": [
+        {
+          "id": "i",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "1 VGA"
+            },
+            {
+              "id": 2,
+              "label": "2 VGA"
+            },
+            {
+              "id": 3,
+              "label": "3 VGA"
+            },
+            {
+              "id": 4,
+              "label": "4 VGA"
+            },
+            {
+              "id": 5,
+              "label": "5 DVI"
+            },
+            {
+              "id": 6,
+              "label": "6 DVI"
+            },
+            {
+              "id": 7,
+              "label": "7 DVI"
+            },
+            {
+              "id": 8,
+              "label": "8 DVI"
+            },
+            {
+              "id": 9,
+              "label": "9 SDI"
+            },
+            {
+              "id": 10,
+              "label": "Black/Logo"
+            }
+          ],
+          "choicesNote": "Built at runtime in init_actions from the config 'variant' (pds.js:412-422): ids 1-6 and 10 always; 7 and 8 only for variant 2 (PDS-901) or 3 (PDS-902); 9 only for variant 1 (PDS-701) or 3 (PDS-902). The list here is the union of all ids."
+        },
+        {
+          "id": "f",
+          "type": "textinput",
+          "label": "Filenumber (optional)",
+          "default": "",
+          "regex": "/^([1-9]|[1-5][0-9]|6[0-4])$/"
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 452
+      }
+    },
+    {
+      "id": "FREEZE",
+      "name": "Freeze",
+      "description": "Besides FREEZE the callback also sends FPUPDATE (pds.js:438-440).",
+      "options": [
+        {
+          "id": "m",
+          "type": "dropdown",
+          "label": "Freeze",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "unfrozen"
+            },
+            {
+              "id": 1,
+              "label": "frozen"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 472
+      }
+    },
+    {
+      "id": "BLACK",
+      "name": "Set Black Output",
+      "options": [
+        {
+          "id": "m",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "normal"
+            },
+            {
+              "id": 1,
+              "label": "black"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 488
+      }
+    },
+    {
+      "id": "OTPM",
+      "name": "Set Testpattern on/off",
+      "options": [
+        {
+          "id": "o",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Program"
+            },
+            {
+              "id": 3,
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "m",
+          "type": "dropdown",
+          "label": "Testpattern",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "off"
+            },
+            {
+              "id": 1,
+              "label": "on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 504
+      }
+    },
+    {
+      "id": "OTPT",
+      "name": "Set Testpattern Type",
+      "options": [
+        {
+          "id": "o",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Program"
+            },
+            {
+              "id": 3,
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "t",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "4",
+          "choices": [
+            {
+              "id": 4,
+              "label": "16x16 Grid"
+            },
+            {
+              "id": 5,
+              "label": "32x32 Grid"
+            },
+            {
+              "id": 1,
+              "label": "H Ramp"
+            },
+            {
+              "id": 2,
+              "label": "V Ramp"
+            },
+            {
+              "id": 6,
+              "label": "Burst"
+            },
+            {
+              "id": 7,
+              "label": "75% Color Bars"
+            },
+            {
+              "id": 3,
+              "label": "100% Color Bars"
+            },
+            {
+              "id": 9,
+              "label": "Vertical Gray Steps"
+            },
+            {
+              "id": 10,
+              "label": "Horizontal Gray Steps"
+            },
+            {
+              "id": 8,
+              "label": "50% Gray"
+            },
+            {
+              "id": 11,
+              "label": "White"
+            },
+            {
+              "id": 12,
+              "label": "Black"
+            },
+            {
+              "id": 13,
+              "label": "Red"
+            },
+            {
+              "id": 14,
+              "label": "Green"
+            },
+            {
+              "id": 15,
+              "label": "Blue"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 530
+      }
+    },
+    {
+      "id": "ORBM",
+      "name": "Set Rasterbox on/off",
+      "options": [
+        {
+          "id": "o",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Program"
+            },
+            {
+              "id": 3,
+              "label": "Preview"
+            }
+          ]
+        },
+        {
+          "id": "m",
+          "type": "dropdown",
+          "label": "Rasterbox",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "off"
+            },
+            {
+              "id": 1,
+              "label": "on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 569
+      }
+    },
+    {
+      "id": "TRNTIME",
+      "name": "Set Transition Time",
+      "options": [
+        {
+          "id": "s",
+          "type": "textinput",
+          "label": "Seconds",
+          "default": "1.0",
+          "regex": "/^([0-9]|1[0-2])(\\.\\d)?$/"
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 595
+      }
+    },
+    {
+      "id": "LOGOSEL",
+      "name": "Select Black/Logo",
+      "options": [
+        {
+          "id": "l",
+          "type": "dropdown",
+          "label": "Framestore",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "Black"
+            },
+            {
+              "id": 1,
+              "label": "Logo 1"
+            },
+            {
+              "id": 2,
+              "label": "Logo 2"
+            },
+            {
+              "id": 3,
+              "label": "Logo 3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 608
+      }
+    },
+    {
+      "id": "LOGOSAVE",
+      "name": "Save Logo",
+      "options": [
+        {
+          "id": "l",
+          "type": "dropdown",
+          "label": "Framestore",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "Logo 1"
+            },
+            {
+              "id": 2,
+              "label": "Logo 2"
+            },
+            {
+              "id": 3,
+              "label": "Logo 3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 621
+      }
+    },
+    {
+      "id": "AUTOTAKE",
+      "name": "Set Autotake Mode on/off",
+      "options": [
+        {
+          "id": "m",
+          "type": "dropdown",
+          "label": "Autotake",
+          "default": "0",
+          "choices": [
+            {
+              "id": 0,
+              "label": "off"
+            },
+            {
+              "id": 1,
+              "label": "on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 638
+      }
+    },
+    {
+      "id": "PENDPIP",
+      "name": "Pend PiP Mode on/off",
+      "options": [
+        {
+          "id": "p",
+          "type": "dropdown",
+          "label": "PiP",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "PiP 1"
+            },
+            {
+              "id": 2,
+              "label": "PiP 2"
+            }
+          ]
+        },
+        {
+          "id": "m",
+          "type": "dropdown",
+          "label": "PiP on/off",
+          "default": "0",
+          "choices": [
+            {
+              "id": 0,
+              "label": "unpend (no change on Take)"
+            },
+            {
+              "id": 1,
+              "label": "pend (PiP on/off on Take)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 654
+      }
+    },
+    {
+      "id": "PIPISEL",
+      "name": "Pend PiP Input",
+      "options": [
+        {
+          "id": "p",
+          "type": "dropdown",
+          "label": "PiP",
+          "default": "1",
+          "choices": [
+            {
+              "id": 0,
+              "label": "All PiPs"
+            },
+            {
+              "id": 1,
+              "label": "PiP 1"
+            },
+            {
+              "id": 2,
+              "label": "PiP 2"
+            }
+          ]
+        },
+        {
+          "id": "i",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "1 VGA"
+            },
+            {
+              "id": 2,
+              "label": "2 VGA"
+            },
+            {
+              "id": 3,
+              "label": "3 VGA"
+            },
+            {
+              "id": 4,
+              "label": "4 VGA"
+            },
+            {
+              "id": 5,
+              "label": "5 DVI"
+            },
+            {
+              "id": 6,
+              "label": "6 DVI"
+            },
+            {
+              "id": 7,
+              "label": "7 DVI"
+            },
+            {
+              "id": 8,
+              "label": "8 DVI"
+            },
+            {
+              "id": 9,
+              "label": "9 SDI"
+            },
+            {
+              "id": 10,
+              "label": "Black/Logo"
+            }
+          ],
+          "choicesNote": "Built at runtime in init_actions from the config 'variant' (pds.js:412-422): ids 1-6 and 10 always; 7 and 8 only for variant 2 (PDS-901) or 3 (PDS-902); 9 only for variant 1 (PDS-701) or 3 (PDS-902). The list here is the union of all ids."
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 683
+      }
+    },
+    {
+      "id": "PIPREC",
+      "name": "PiP Recall",
+      "options": [
+        {
+          "id": "p",
+          "type": "dropdown",
+          "label": "PiP",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "PiP 1"
+            },
+            {
+              "id": 2,
+              "label": "PiP 2"
+            }
+          ]
+        },
+        {
+          "id": "f",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "1",
+          "choices": [
+            {
+              "id": 1,
+              "label": "1"
+            },
+            {
+              "id": 2,
+              "label": "2"
+            },
+            {
+              "id": 3,
+              "label": "3"
+            },
+            {
+              "id": 4,
+              "label": "4"
+            },
+            {
+              "id": 5,
+              "label": "5"
+            },
+            {
+              "id": 6,
+              "label": "6"
+            },
+            {
+              "id": 7,
+              "label": "7"
+            },
+            {
+              "id": 8,
+              "label": "8"
+            },
+            {
+              "id": 9,
+              "label": "9"
+            },
+            {
+              "id": 10,
+              "label": "10"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 707
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "preview_bg",
+      "name": "Change colors for preview",
+      "description": "If the input specified is in use by preview, change colors of the bank",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 65280
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1 VGA"
+            },
+            {
+              "id": 2,
+              "label": "2 VGA"
+            },
+            {
+              "id": 3,
+              "label": "3 VGA"
+            },
+            {
+              "id": 4,
+              "label": "4 VGA"
+            },
+            {
+              "id": 5,
+              "label": "5 DVI"
+            },
+            {
+              "id": 6,
+              "label": "6 DVI"
+            },
+            {
+              "id": 7,
+              "label": "7 DVI"
+            },
+            {
+              "id": 8,
+              "label": "8 DVI"
+            },
+            {
+              "id": 9,
+              "label": "9 SDI"
+            },
+            {
+              "id": 10,
+              "label": "Black/Logo"
+            }
+          ],
+          "choicesNote": "Built at runtime in init_actions from the config 'variant' (pds.js:412-422): ids 1-6 and 10 always; 7 and 8 only for variant 2 (PDS-901) or 3 (PDS-902); 9 only for variant 1 (PDS-701) or 3 (PDS-902). The list here is the union of all ids."
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 271
+      }
+    },
+    {
+      "id": "program_bg",
+      "name": "Change colors for program",
+      "description": "If the input specified is in use by program, change colors of the bank",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 16711680
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "1 VGA"
+            },
+            {
+              "id": 2,
+              "label": "2 VGA"
+            },
+            {
+              "id": 3,
+              "label": "3 VGA"
+            },
+            {
+              "id": 4,
+              "label": "4 VGA"
+            },
+            {
+              "id": 5,
+              "label": "5 DVI"
+            },
+            {
+              "id": 6,
+              "label": "6 DVI"
+            },
+            {
+              "id": 7,
+              "label": "7 DVI"
+            },
+            {
+              "id": 8,
+              "label": "8 DVI"
+            },
+            {
+              "id": 9,
+              "label": "9 SDI"
+            },
+            {
+              "id": 10,
+              "label": "Black/Logo"
+            }
+          ],
+          "choicesNote": "Built at runtime in init_actions from the config 'variant' (pds.js:412-422): ids 1-6 and 10 always; 7 and 8 only for variant 2 (PDS-901) or 3 (PDS-902); 9 only for variant 1 (PDS-701) or 3 (PDS-902). The list here is the union of all ids."
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 304
+      }
+    },
+    {
+      "id": "logo_bg",
+      "name": "Change colors for logo",
+      "description": "If the logo specified is in use, change colors of the bank",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "fg",
+          "type": "colorpicker",
+          "label": "Foreground color",
+          "default": 16777215
+        },
+        {
+          "id": "bg",
+          "type": "colorpicker",
+          "label": "Background color",
+          "default": 16711680
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Black"
+            },
+            {
+              "id": 1,
+              "label": "Logo 1"
+            },
+            {
+              "id": 2,
+              "label": "Logo 2"
+            },
+            {
+              "id": 3,
+              "label": "Logo 3"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pds.js",
+        "line": 337
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 14 actions and 3 advanced feedbacks, all registered in single calls in pds.js (init_actions line 373, init_feedbacks line 267). Source is a single ES-module file.",
+    "Protocol: line-based text over TCP port 3000 (hard-coded, pds.js:66) to the config host. Every action shares one callback that builds `<ACTION-ID> -<optionId> <value>` for each non-empty option and sends it with a trailing CR (pds.js:424-444): the action ids are the PDS command names and the option ids are the command's flag letters. An empty text option (e.g. ISEL filenumber) is omitted.",
+    "Dropdown ids keep their source type: input/logo/mode ids are NUMBERS, while the option defaults are STRINGS ('1', '0', '4'). The type mismatch is in the source.",
+    "Input lists (ISEL, PIPISEL, and the preview/program feedbacks) depend on the config 'variant' (PDS-701 = 1, PDS-901 = 2, PDS-902 = 3, from the config dropdown whose ids are numbers and default is the string '1'): see choicesNote. optionsComplete stays true; only the offered input ids vary.",
+    "The config dropdown uses self.PDS_VARIANT, which is first assigned in init_actions (pds.js:376), while getConfigFields reads it; it can be undefined when the config UI is built before init has run. Not catalogued further.",
+    "The feedback checks `states[...] === parseInt(options.input)` against states polled every 4 s (PREVIEW/PROGRAM/LOGOSEL queries) and updated from TAKE/ISEL responses (pds.js:37-44, 99-132). Feedback colour defaults: fg white 16777215 for all, bg green 65280 (preview) or red 16711680 (program, logo).",
+    "The action callback tests `!this._isConnected` (the method, never called), which is always false, so the connection guard never triggers; if the socket is missing, send throws.",
+    "Textinput regex values (ISEL file number 1-64; TRNTIME seconds 0-12 with an optional single decimal) are given as they evaluate at runtime.",
+    "Built on @companion-module/base ~1.11.0: options do not support expressions. Presets and variables are not catalogued (none are defined in pds.js)."
+  ]
+}

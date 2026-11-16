@@ -1,0 +1,151 @@
+{
+  "moduleId": "barco-eventmaster-xml",
+  "name": "Barco Event Master (XML)",
+  "repo": "bitfocus/companion-module-barco-eventmaster-xml",
+  "version": "2.1.0",
+  "baseVersion": "~1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "4c03eae",
+  "status": "read",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "multiviewerlayout",
+      "name": "Change multiviewer layout",
+      "options": [
+        {
+          "id": "layoutNumber",
+          "type": "dropdown",
+          "label": "Layout number",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "1"
+            },
+            {
+              "id": "1",
+              "label": "2"
+            },
+            {
+              "id": "2",
+              "label": "3"
+            },
+            {
+              "id": "3",
+              "label": "4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 68
+      }
+    },
+    {
+      "id": "audioTone",
+      "name": "Set audio tone on output",
+      "options": [
+        {
+          "id": "destination",
+          "type": "dropdown",
+          "label": "Destination",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "PGM 1A"
+            },
+            {
+              "id": "1",
+              "label": "PGM 1B"
+            },
+            {
+              "id": "2",
+              "label": "PGM 2A"
+            },
+            {
+              "id": "3",
+              "label": "PGM 2B"
+            }
+          ]
+        },
+        {
+          "id": "onOff",
+          "type": "dropdown",
+          "label": "on/off",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "off"
+            },
+            {
+              "id": "1",
+              "label": "on"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 91
+      }
+    },
+    {
+      "id": "userkeys",
+      "name": "Apply userkey",
+      "options": [
+        {
+          "id": "userKey",
+          "type": "textinput",
+          "label": "Userkey number (sending -1)",
+          "default": "1"
+        },
+        {
+          "id": "screenDest",
+          "type": "textinput",
+          "label": "Screen Destination (sending -1)",
+          "default": "1"
+        },
+        {
+          "id": "layer",
+          "type": "textinput",
+          "label": "Layer (sending -1)",
+          "default": "1"
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 127
+      }
+    },
+    {
+      "id": "custom",
+      "name": "Custom XML",
+      "options": [
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "XML content",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 159
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 4 actions in initActions (index.js:66-174), no feedbacks (none defined).",
+    "Protocol: raw XML strings over TCP port 9876 (hard-coded, index.js:54) to the config host. The config has the host IP and a 'Target MAC Address', which is used as the Frame id in the multiview layout XML (index.js:85); without it that action sends an empty frame id.",
+    "The labels 'Userkey number (sending -1)', 'Screen Destination (sending -1)' and 'Layer (sending -1)' mean: the callback parses the text with parseInt and subtracts 1 before sending, so the user enters 1-based numbers (index.js:150-152). Non-numeric text yields NaN in the XML.",
+    "audioTone destination ids '0'..'3' are inserted unquoted as the XML id attribute value (index.js:118).",
+    "The XML bodies contain fixed GUID attributes copied from the source; Custom XML sends the text unchanged, so any Event Master XML can be sent. The Custom XML field has no variable support.",
+    "This is the legacy XML (port 9876) module; barco-eventmaster is the separate JSON-RPC module.",
+    "Built on @companion-module/base ~1.12.1: options do not support expressions."
+  ]
+}

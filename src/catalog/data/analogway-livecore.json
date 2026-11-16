@@ -1,0 +1,1011 @@
+{
+  "moduleId": "analogway-livecore",
+  "name": "Analog Way LiveCore (Ascender, NeXtage, SmartMatriX Ultra)",
+  "repo": "bitfocus/companion-module-analogway-livecore",
+  "version": "2.0.0",
+  "baseVersion": "~1.4.1",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "8190bd4",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "1SPtsl",
+      "name": "Take selected screens (Global take)",
+      "description": "The action id is itself the command: the generic callback sends '1SPtsl' (analogway_livecore.js:31-45, 346-350).",
+      "options": [],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 346
+      }
+    },
+    {
+      "id": "takescreen",
+      "name": "Take single screen",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "1"
+            },
+            {
+              "id": "1",
+              "label": "2"
+            },
+            {
+              "id": "2",
+              "label": "3"
+            },
+            {
+              "id": "3",
+              "label": "4"
+            },
+            {
+              "id": "4",
+              "label": "5"
+            },
+            {
+              "id": "5",
+              "label": "6"
+            },
+            {
+              "id": "6",
+              "label": "7"
+            },
+            {
+              "id": "7",
+              "label": "8"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 351
+      }
+    },
+    {
+      "id": "loadpreset",
+      "name": "Load Memory",
+      "options": [
+        {
+          "id": "memory",
+          "type": "textinput",
+          "label": "Memory to load",
+          "default": "1",
+          "description": "Enter the number of the memory you want to load from 1 to 144",
+          "regex": "/^0*([1-9]|[1-8][0-9]|9[0-9]|1[0-3][0-9]|14[0-4])$/"
+        },
+        {
+          "id": "destscreen",
+          "type": "textinput",
+          "label": "Destination screen",
+          "default": "1",
+          "description": "Enter the number of the screen where the memory schould be loaded to (1 to 8)",
+          "regex": "/^0*[1-8]$/"
+        },
+        {
+          "id": "pgmpvw",
+          "type": "dropdown",
+          "label": "PGM/PVW",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Program"
+            },
+            {
+              "id": "1",
+              "label": "Preview"
+            }
+          ],
+          "description": "Select wether the memory schould be loaded into the preview or program of the screen"
+        },
+        {
+          "id": "scale",
+          "type": "dropdown",
+          "label": "Scale enable",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Do not scale"
+            },
+            {
+              "id": "1",
+              "label": "Enable scale"
+            }
+          ],
+          "description": "Select wether the layers in the memory should be scaled according to the size of the screen if it is different from the size of the screen which the memory has been saved from."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 377
+      }
+    },
+    {
+      "id": "loadmaster",
+      "name": "Load Master Memory",
+      "options": [
+        {
+          "id": "memory",
+          "type": "textinput",
+          "label": "Master Memory to load",
+          "default": "1",
+          "description": "Enter the number of the master memory you want to load from 1 to 144",
+          "regex": "/^0*([1-9]|[1-8][0-9]|9[0-9]|1[0-3][0-9]|14[0-4])$/"
+        },
+        {
+          "id": "pgmpvw",
+          "type": "dropdown",
+          "label": "PGM/PVW",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Program"
+            },
+            {
+              "id": "1",
+              "label": "Preview"
+            }
+          ],
+          "description": "Select wether the memory schould be loaded into the preview or program of the screens"
+        },
+        {
+          "id": "scale",
+          "type": "dropdown",
+          "label": "Scale enable",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Do not scale"
+            },
+            {
+              "id": "1",
+              "label": "Enable scale"
+            }
+          ],
+          "description": "Select wether the layers in the memory should be scaled according to the size of the screens if it is different from the size of the screens which the memory has been saved from."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 447
+      }
+    },
+    {
+      "id": "setfilter",
+      "name": "Set recall filter",
+      "description": "The option id is the bit value (1, 2, 4 ... 2048); the callback sums the bits of all options set to '1' and sends '<sum>PMcat' (analogway_livecore.js:642-658).",
+      "options": [
+        {
+          "id": "filter1",
+          "type": "dropdown",
+          "label": "Layer source",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude source"
+            },
+            {
+              "id": "1",
+              "label": "Include source"
+            }
+          ],
+          "description": "Select wether the layer source should be included in the memory recall."
+        },
+        {
+          "id": "filter2",
+          "type": "dropdown",
+          "label": "Layer position and size",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude position and size"
+            },
+            {
+              "id": "1",
+              "label": "Include position and size"
+            }
+          ],
+          "description": "Select wether the layer position and size should be included in the memory recall."
+        },
+        {
+          "id": "filter4",
+          "type": "dropdown",
+          "label": "Layer transparency",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude transparency"
+            },
+            {
+              "id": "1",
+              "label": "Include transparency"
+            }
+          ],
+          "description": "Select wether the layer transparency should be included in the memory recall."
+        },
+        {
+          "id": "filter8",
+          "type": "dropdown",
+          "label": "Layer crop",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude crop"
+            },
+            {
+              "id": "1",
+              "label": "Include crop"
+            }
+          ],
+          "description": "Select wether the layer crop should be included in the memory recall."
+        },
+        {
+          "id": "filter16",
+          "type": "dropdown",
+          "label": "Layer border",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude border"
+            },
+            {
+              "id": "1",
+              "label": "Include border"
+            }
+          ],
+          "description": "Select wether the layer border apperance should be included in the memory recall."
+        },
+        {
+          "id": "filter32",
+          "type": "dropdown",
+          "label": "Layer transitions",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude transitions"
+            },
+            {
+              "id": "1",
+              "label": "Include transitions"
+            }
+          ],
+          "description": "Select wether the layer opening and closing transitions should be included in the memory recall."
+        },
+        {
+          "id": "filter64",
+          "type": "dropdown",
+          "label": "Layer effects",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude effects"
+            },
+            {
+              "id": "1",
+              "label": "Include effects"
+            }
+          ],
+          "description": "Select wether the layer effects should be included in the memory recall."
+        },
+        {
+          "id": "filter128",
+          "type": "dropdown",
+          "label": "Layer timing",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude timing"
+            },
+            {
+              "id": "1",
+              "label": "Include timing"
+            }
+          ],
+          "description": "Select wether the layer timing should be included in the memory recall."
+        },
+        {
+          "id": "filter256",
+          "type": "dropdown",
+          "label": "Layer speed",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude speed"
+            },
+            {
+              "id": "1",
+              "label": "Include speed"
+            }
+          ],
+          "description": "Select wether the layer speed should be included in the memory recall."
+        },
+        {
+          "id": "filter512",
+          "type": "dropdown",
+          "label": "Layer flying curve",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude flying curve"
+            },
+            {
+              "id": "1",
+              "label": "Include flying curve"
+            }
+          ],
+          "description": "Select wether the layer flying curve should be included in the memory recall."
+        },
+        {
+          "id": "filter1024",
+          "type": "dropdown",
+          "label": "Native background",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude native background"
+            },
+            {
+              "id": "1",
+              "label": "Include native background"
+            }
+          ],
+          "description": "Select wether the native background should be included in the memory recall."
+        },
+        {
+          "id": "filter2048",
+          "type": "dropdown",
+          "label": "Layer mask",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Exclude mask"
+            },
+            {
+              "id": "1",
+              "label": "Include mask"
+            }
+          ],
+          "description": "Select wether the layer mask should be included in the memory recall."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 506
+      }
+    },
+    {
+      "id": "inputfreeze",
+      "name": "Freeze Input",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "default": "1",
+          "description": "Enter the number of the input you want to adjust (1 to 12 for inputs of master device and 13 to 24 for inputs of slave device).",
+          "regex": "/^0*([1-9]|1[0-9]|2[0-4])$/"
+        },
+        {
+          "id": "freeze",
+          "type": "dropdown",
+          "label": "Freeze Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Unfrozen"
+            },
+            {
+              "id": "1",
+              "label": "Frozen"
+            }
+          ],
+          "description": "Select wether the input should be frozen or live."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 660
+      }
+    },
+    {
+      "id": "loadmonitoring",
+      "name": "Recall Monitoring Memory",
+      "options": [
+        {
+          "id": "memory",
+          "type": "textinput",
+          "label": "Monitoring Memory to load",
+          "default": "1",
+          "description": "Enter the number of the memory you want to load from 1 to 8",
+          "regex": "/^0*[1-8]$/"
+        },
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Master"
+            },
+            {
+              "id": "1",
+              "label": "Slave"
+            }
+          ],
+          "description": "Select wether the monitoring memory schould be recalled on master or slave device in a stacked configuration. Leave at master for single configuration."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 692
+      }
+    },
+    {
+      "id": "monitoringfullscreen",
+      "name": "Fullscreen Monitoring",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Source to show",
+          "default": "1",
+          "description": "Enter the number of the source you want to show. 1 to 12 for inputs of master device, 13 to 24 for inputs of slave device, 25 to 40 for frames and logos of master and slave, 41 to 48 for screen 1 to 8 and 49 to 56 for preview 1 to 8.",
+          "regex": "/^0*([1-9]|[1-4][0-9]|5[0-6])$/"
+        },
+        {
+          "id": "device",
+          "type": "dropdown",
+          "label": "Device",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Master"
+            },
+            {
+              "id": "1",
+              "label": "Slave"
+            }
+          ],
+          "description": "Select wether to switch the master or the slave device in stacked configuration."
+        },
+        {
+          "id": "fullscreen",
+          "type": "dropdown",
+          "label": "Fullscreen Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Mosaic mode"
+            },
+            {
+              "id": "1",
+              "label": "Fullscreen Mode"
+            }
+          ],
+          "description": "Select wether the monitoring output should be in mosaic mode or fullscreen mode."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 731
+      }
+    },
+    {
+      "id": "selectscreens",
+      "name": "Select screens for global take",
+      "description": "Select the screens which schould transition with the global take command. The selection stays active until changed again.",
+      "options": [
+        {
+          "id": "0",
+          "type": "dropdown",
+          "label": "Screen 1",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "1",
+          "type": "dropdown",
+          "label": "Screen 2",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "type": "dropdown",
+          "label": "Screen 3",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "type": "dropdown",
+          "label": "Screen 4",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "type": "dropdown",
+          "label": "Screen 5",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "type": "dropdown",
+          "label": "Screen 6",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "6",
+          "type": "dropdown",
+          "label": "Screen 7",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "type": "dropdown",
+          "label": "Screen 8",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No change"
+            },
+            {
+              "id": "1",
+              "label": "Add to selection"
+            },
+            {
+              "id": "2",
+              "label": "Remove from selection"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 781
+      }
+    },
+    {
+      "id": "loadconfidence",
+      "name": "Load confidence Memory",
+      "options": [
+        {
+          "id": "memory",
+          "type": "textinput",
+          "label": "Memory",
+          "default": "",
+          "description": "Enter the number of the memory you want to load from 1 to 16",
+          "regex": "/^0*([1-9]|1[0-6])$/"
+        },
+        {
+          "id": "destscreen",
+          "type": "textinput",
+          "label": "Destination screen",
+          "default": "1",
+          "description": "Enter the number of the screen where the memory schould be loaded to (1 to 8)",
+          "regex": "/^0*[1-8]$/"
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 893
+      }
+    },
+    {
+      "id": "activateconfidence",
+      "name": "Switch confidence mode",
+      "options": [
+        {
+          "id": "destscreen",
+          "type": "textinput",
+          "label": "Screen",
+          "default": "1",
+          "description": "Enter the number of the screen where confidence mode should be switched (1 to 8)",
+          "regex": "/^0*[1-8]$/"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            }
+          ],
+          "description": "Select wether confidence mode should be switched on or off at selected screen"
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 919
+      }
+    },
+    {
+      "id": "switchplug",
+      "name": "Switch input plug",
+      "description": "Note that not all inputs may be available at your system and not all plugs are available at any input.",
+      "options": [
+        {
+          "id": "input",
+          "type": "textinput",
+          "label": "Input",
+          "default": "1",
+          "description": "Enter the number of the input where you want to switch the input plug (1 to 12 for inputs of master device and 13 to 24 for inputs of slave device).",
+          "regex": "/^0*([1-9]|1[0-9]|2[0-4])$/"
+        },
+        {
+          "id": "plug",
+          "type": "dropdown",
+          "label": "Plug",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Analog HD15 connector"
+            },
+            {
+              "id": "1",
+              "label": "Analog DVI-A connector"
+            },
+            {
+              "id": "2",
+              "label": "DVI"
+            },
+            {
+              "id": "3",
+              "label": "SDI"
+            },
+            {
+              "id": "4",
+              "label": "HDMI"
+            },
+            {
+              "id": "5",
+              "label": "DisplayPort"
+            }
+          ],
+          "description": "Select the plug to use for that input"
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 948
+      }
+    },
+    {
+      "id": "sendcustomcommand",
+      "name": "Send custom command",
+      "options": [
+        {
+          "id": "command",
+          "type": "textinput",
+          "label": "Command",
+          "default": "",
+          "useVariables": true,
+          "description": "Enter any command you like in plain ASCII. Beware of correct syntax, you mustn't enter the linebreak at the end of the command. You can use variables here."
+        }
+      ],
+      "provenance": {
+        "file": "analogway_livecore.js",
+        "line": 986
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "input_used",
+      "name": "Source used",
+      "description": "If a source is used in preset, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "source",
+          "type": "number",
+          "label": "Source",
+          "default": 1,
+          "min": 1,
+          "max": 48
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            },
+            {
+              "id": "any",
+              "label": "Any"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 13
+      }
+    },
+    {
+      "id": "memory_active",
+      "name": "Memory active",
+      "description": "If a screen memory is loaded in preset, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "memory",
+          "type": "number",
+          "label": "Screen Memory",
+          "default": 1,
+          "min": 1,
+          "max": 119
+        },
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": "any",
+          "choices": [
+            {
+              "id": "any",
+              "label": "Any"
+            },
+            {
+              "id": 0,
+              "label": "1"
+            },
+            {
+              "id": 1,
+              "label": "2"
+            },
+            {
+              "id": 2,
+              "label": "3"
+            },
+            {
+              "id": 3,
+              "label": "4"
+            },
+            {
+              "id": 4,
+              "label": "5"
+            },
+            {
+              "id": 5,
+              "label": "6"
+            },
+            {
+              "id": 6,
+              "label": "7"
+            },
+            {
+              "id": 7,
+              "label": "8"
+            }
+          ]
+        },
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "Program"
+            },
+            {
+              "id": "pvw",
+              "label": "Preview"
+            },
+            {
+              "id": "any",
+              "label": "Any"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 58
+      }
+    },
+    {
+      "id": "screen_active",
+      "name": "Screen selected",
+      "description": "If a screen for global take is selected, change the style of the button",
+      "feedbackType": "boolean",
+      "options": [
+        {
+          "id": "screen",
+          "type": "dropdown",
+          "label": "Screen",
+          "default": 0,
+          "choices": [
+            {
+              "id": 0,
+              "label": "1"
+            },
+            {
+              "id": 1,
+              "label": "2"
+            },
+            {
+              "id": 2,
+              "label": "3"
+            },
+            {
+              "id": 3,
+              "label": "4"
+            },
+            {
+              "id": 4,
+              "label": "5"
+            },
+            {
+              "id": 5,
+              "label": "6"
+            },
+            {
+              "id": 6,
+              "label": "7"
+            },
+            {
+              "id": 7,
+              "label": "8"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "feedbacks.js",
+        "line": 135
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 13 actions (analogway_livecore.js:337-1009, one object literal in actions()) and 3 boolean feedbacks (feedbacks.js). No definitions are built at runtime.",
+    "Protocol: Analog Way text protocol over TCP (config: host, port dropdown 10600 default/10500/10400, variant dropdown). Commands are lines such as `<index>,<value><CommandId>`; stacked configurations are controlled through the master unit. Commands are sent through sendcmd with a trailing newline.",
+    "Generic action pattern: the action id is the command id when an action uses the shared callback `actioncb` (only '1SPtsl' does here): the callback prepends option values 0..5 and `value` before the id. All other actions have their own callback that builds the command.",
+    "Numbers are entered 1-based in the textinput fields and the callbacks subtract 1 (memory, screen, input numbers), and the regexes accept leading zeros (^0*...). Dropdown ids are strings ('0', '1', ...), compared with === in setfilter and with == / === '1' elsewhere.",
+    "Feedback dropdowns for screens use NUMERIC ids 0-7 (memory_active adds the string id 'any'; its default is 'any'); the feedback 'preset' dropdown has no label in the source.",
+    "BUG in the source (feedbacks.js:43-52): input_used compares feedback.options.preset with the bare identifiers pgm, pvw and any (not strings), which throws a ReferenceError when the feedback is evaluated, so the feedback does not work.",
+    "The module has no config option for the number of inputs; max for 'Source used' is 48, for 'Screen Memory' 119 (feedback) while the actions accept memories 1-144.",
+    "The source file also holds model detection (DEV codes for NeXtage, Ascender, SmartMatriX Ultra, Output Expander) and tally polling; not catalogued. The config 'variant' (ASC4806, ASC3204, ASC1602, NXT1604, NXT0802, SMX12x4) is read only from the config and does not change the action lists.",
+    "Built on @companion-module/base ~1.4.1: options do not support expressions. Presets and variables are not catalogued."
+  ]
+}

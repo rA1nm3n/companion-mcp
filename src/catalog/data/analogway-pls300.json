@@ -1,0 +1,200 @@
+{
+  "moduleId": "analogway-pls300",
+  "name": "Analog Way Pulse 300 (PLS300)",
+  "repo": "bitfocus/companion-module-analogway-pls300",
+  "version": "2.0.0",
+  "baseVersion": "~1.4.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "24fe599",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "take",
+      "name": "Take",
+      "description": "Sends the command '1TK' twice (analogway-pls300.js:183).",
+      "options": [],
+      "provenance": {
+        "file": "analogway-pls300.js",
+        "line": 179
+      }
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze (All Inputs)",
+      "description": "Toggles: the first run sends '<input>,1Sf' for all input ids of the list, the next run sends '<input>,0Sf'. The state is kept in the module (this.frozen) and starts as unfrozen; it is not read back from the device (analogway-pls300.js:186-206).",
+      "options": [],
+      "provenance": {
+        "file": "analogway-pls300.js",
+        "line": 186
+      }
+    },
+    {
+      "id": "in",
+      "name": "Input",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer",
+          "default": "2",
+          "choices": [
+            {
+              "id": "2",
+              "label": "BG Live"
+            },
+            {
+              "id": "3",
+              "label": "PiP 1 (BG Live 2 in Matrix)"
+            }
+          ]
+        },
+        {
+          "id": "input",
+          "type": "dropdown",
+          "label": "Input",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No Input"
+            },
+            {
+              "id": "1",
+              "label": "Input 1"
+            },
+            {
+              "id": "2",
+              "label": "Input 2"
+            },
+            {
+              "id": "3",
+              "label": "Input 3"
+            },
+            {
+              "id": "4",
+              "label": "Input 4"
+            },
+            {
+              "id": "5",
+              "label": "Input 5"
+            },
+            {
+              "id": "6",
+              "label": "Input 6"
+            },
+            {
+              "id": "9",
+              "label": "DVI 1"
+            },
+            {
+              "id": "10",
+              "label": "DVI 2"
+            },
+            {
+              "id": "11",
+              "label": "SDI 1"
+            },
+            {
+              "id": "12",
+              "label": "SDI 2"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway-pls300.js",
+        "line": 207
+      }
+    },
+    {
+      "id": "fr",
+      "name": "Background Frame",
+      "options": [
+        {
+          "id": "frame",
+          "type": "dropdown",
+          "label": "Frame",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No Frame"
+            },
+            {
+              "id": "1",
+              "label": "Frame 1"
+            },
+            {
+              "id": "2",
+              "label": "Frame 2"
+            },
+            {
+              "id": "3",
+              "label": "Frame 3"
+            },
+            {
+              "id": "4",
+              "label": "Frame 4"
+            },
+            {
+              "id": "5",
+              "label": "Frame 5"
+            },
+            {
+              "id": "6",
+              "label": "Frame 6"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway-pls300.js",
+        "line": 230
+      }
+    },
+    {
+      "id": "ps",
+      "name": "User Preset",
+      "description": "The ids are the device preset numbers 3-6, labelled Preset 1-4 (analogway-pls300.js:171-176).",
+      "options": [
+        {
+          "id": "preset",
+          "type": "dropdown",
+          "label": "Preset",
+          "default": "3",
+          "choices": [
+            {
+              "id": "3",
+              "label": "Preset 1"
+            },
+            {
+              "id": "4",
+              "label": "Preset 2"
+            },
+            {
+              "id": "5",
+              "label": "Preset 3"
+            },
+            {
+              "id": "6",
+              "label": "Preset 4"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "analogway-pls300.js",
+        "line": 246
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Complete list: 5 actions, returned by getActions() (analogway-pls300.js:141-263) and registered in init; no feedbacks (init calls setFeedbackDefinitions({}) at line 20) and no variables.",
+    "Protocol: Analog Way text protocol, over TCP or UDP selectable by the config dropdown 'prot' (default 'tcp'), both to port 10500 (hard-coded, lines 92 and 119). Each command is sent twice, separated by CR LF, and has no trailing line terminator (for example `1,<layer>,<input>IN`).",
+    "All dropdown ids are strings. The input list is the same one the freeze action iterates over (ids 0-6, 9-12; no 7 or 8).",
+    "The layer dropdown only offers layer 2 ('BG Live') and layer 3 ('PiP 1 (BG Live 2 in Matrix)'); Background Frame always targets layer 0 (command '1,0,<frame>IN').",
+    "Built on @companion-module/base ~1.4.0: options do not support expressions. Presets (getPresets, lines 288-464) are not catalogued."
+  ]
+}
