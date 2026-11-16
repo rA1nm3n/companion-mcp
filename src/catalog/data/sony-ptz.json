@@ -1,0 +1,2293 @@
+{
+  "moduleId": "sony-ptz",
+  "name": "Sony PTZ cameras (HTTP/CGI: BRC-AM7, SRG-A40, SRG-A12, ILME-FR7)",
+  "repo": "bitfocus/companion-module-sony-ptz",
+  "version": "1.3.0",
+  "baseVersion": "~1.14.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "18283de",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 39 actions (src/actions/*.ts, one function per group, all returned as object literals and merged in src/actions/index.ts) and 19 boolean feedbacks (src/feedbacks.ts, single setFeedbackDefinitions call). No definitions are generated at runtime. The module registers every action for every camera; it has no model selection (the manifest lists BRC-AM7, SRG-A40, SRG-A12 and ILME-FR7).",
+    "Protocol: HTTP GET with digest authentication to the camera (default port 80; src/config.ts, src/api/transport.ts). Commands go to command/ptzf.cgi and other CGI paths, status inquiries to command/inquiry.cgi. Configuration: Target IP, Target Port, User, Password, Referer header (default on), Status Check (default on) and Status Check Interval (default 10000 ms, 500 to 3600000). Variables and presets are not catalogued.",
+    "Dropdown ids are strings with prefixes (for example preset_3, preset_set_3, multitrackingnum_2, waittime_15, scenefile_set_4); the action callbacks parse them with String.replace. Feedback dropdown ids are different strings (for example the sceneFile feedback uses \"0\" to \"16\", shotMode uses the numeric strings \"1200\", \"510\", \"310\", \"200\").",
+    "Many numeric fields are text inputs with useVariables and a default string; the value is resolved with resolveNumber (rounded, falls back to the default when not numeric) and the hint in the label (for example \"Speed (0-24)\") describes the range the module clamps to. The catalog records no min/max for those text inputs because the source has no such field attribute.",
+    "Absolute focus/zoom/PTZF/pan-tilt and relative pan-tilt actions pass the text values unchanged to the camera CGI (AbsoluteFocus, AbsoluteZoom, AbsolutePTZF, AbsolutePanTilt, RelativePanTilt), and the module does not validate them. The own position code of the module converts to 4-character hex strings for the camera (src/api/camera-api.ts:38), but these raw actions document no format. other_command_action and generic_step_action send arbitrary CGI paths and parameters (params is a \"key=value&key=value\" string).",
+    "ptz_step_action does nothing when the focusPos variable is empty (no status polled yet). generic_step_action keeps its value in the variable named after the parameter with a lower-case first letter.",
+    "Option fields isVisibleExpression ($(options:val) == ...) are recorded as visibleWhen. These expressions are evaluated by Companion in the UI only; the option values themselves do not support expressions because the module is built on @companion-module/base ~1.14.1 (1.x, no expression support).",
+    "Extracted statically (parsed with the TypeScript compiler API, constants and Array.from spreads resolved, no code executed). Not tested against a camera or a running Companion instance."
+  ],
+  "actions": [
+    {
+      "id": "system_power_action",
+      "name": "System - Power",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "State",
+          "default": "system_on",
+          "choices": [
+            {
+              "id": "system_on",
+              "label": "ON"
+            },
+            {
+              "id": "system_standby",
+              "label": "Standby"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/system.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "auto_framing_action",
+      "name": "Auto Framing - Control",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Auto Framing",
+          "default": "autoframing_off",
+          "choices": [
+            {
+              "id": "autoframing_on",
+              "label": "ON"
+            },
+            {
+              "id": "autoframing_off",
+              "label": "OFF"
+            },
+            {
+              "id": "autoframing_pause_on",
+              "label": "Pause ON"
+            },
+            {
+              "id": "autoframing_pause_off",
+              "label": "Pause OFF"
+            },
+            {
+              "id": "autoframing_restart",
+              "label": "Restart"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 13
+      }
+    },
+    {
+      "id": "framing_mode_action",
+      "name": "Auto Framing - Framing Mode",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Framing Mode",
+          "default": "autoframing_person",
+          "choices": [
+            {
+              "id": "autoframing_person",
+              "label": "Person"
+            },
+            {
+              "id": "autoframing_ball",
+              "label": "Ball Sports"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 50
+      }
+    },
+    {
+      "id": "lead_room_action",
+      "name": "Auto Framing - Lead Room",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Lead Room",
+          "default": "autoframing_leadroom_middle",
+          "choices": [
+            {
+              "id": "autoframing_leadroom_off",
+              "label": "OFF"
+            },
+            {
+              "id": "autoframing_leadroom_low",
+              "label": "Low"
+            },
+            {
+              "id": "autoframing_leadroom_middle",
+              "label": "Middle"
+            },
+            {
+              "id": "autoframing_leadroom_high",
+              "label": "High"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 75
+      }
+    },
+    {
+      "id": "auto_framing_frame_area_indicator_action",
+      "name": "Auto Framing - Frame/Area Indicator",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Auto Framing - Frame/Area Indicator",
+          "default": "autoframing_faceindicator_on",
+          "choices": [
+            {
+              "id": "autoframing_faceindicator_on",
+              "label": "ON"
+            },
+            {
+              "id": "autoframing_faceindicator_off",
+              "label": "OFF"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 108
+      }
+    },
+    {
+      "id": "auto_framing_shot_mode_action",
+      "name": "Auto Framing - Shot Mode",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Auto Framing Shot Mode",
+          "default": "autoframing_fullbody",
+          "choices": [
+            {
+              "id": "autoframing_closer_closeup",
+              "label": "Closer Closeup"
+            },
+            {
+              "id": "autoframing_closeup",
+              "label": "Closeup"
+            },
+            {
+              "id": "autoframing_waist",
+              "label": "Waist"
+            },
+            {
+              "id": "autoframing_fullbody",
+              "label": "Full Body"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 133
+      }
+    },
+    {
+      "id": "auto_framing_start_position_action",
+      "name": "Auto Framing - Start Position",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Auto Framing Start Position",
+          "default": "autoframing_startpos_move",
+          "choices": [
+            {
+              "id": "autoframing_startpos_set",
+              "label": "Decide"
+            },
+            {
+              "id": "autoframing_startpos_move",
+              "label": "Move"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 166
+      }
+    },
+    {
+      "id": "multi_tracking_num_action",
+      "name": "Auto Framing - Multi Tracking Targets",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Targets",
+          "default": "multitrackingnum_1",
+          "choices": [
+            {
+              "id": "multitrackingnum_1",
+              "label": "1"
+            },
+            {
+              "id": "multitrackingnum_2",
+              "label": "2"
+            },
+            {
+              "id": "multitrackingnum_3",
+              "label": "3"
+            },
+            {
+              "id": "multitrackingnum_4",
+              "label": "4"
+            },
+            {
+              "id": "multitrackingnum_5",
+              "label": "5"
+            },
+            {
+              "id": "multitrackingnum_6",
+              "label": "6"
+            },
+            {
+              "id": "multitrackingnum_7",
+              "label": "7"
+            },
+            {
+              "id": "multitrackingnum_8",
+              "label": "8"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 191
+      }
+    },
+    {
+      "id": "multi_tracking_wait_time_action",
+      "name": "Auto Framing - Multi Tracking Wait Time",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Multi Tracking Wait Time",
+          "default": "waittime_0",
+          "choices": [
+            {
+              "id": "waittime_0",
+              "label": "0"
+            },
+            {
+              "id": "waittime_1",
+              "label": "1"
+            },
+            {
+              "id": "waittime_2",
+              "label": "2"
+            },
+            {
+              "id": "waittime_3",
+              "label": "3"
+            },
+            {
+              "id": "waittime_4",
+              "label": "4"
+            },
+            {
+              "id": "waittime_5",
+              "label": "5"
+            },
+            {
+              "id": "waittime_6",
+              "label": "6"
+            },
+            {
+              "id": "waittime_7",
+              "label": "7"
+            },
+            {
+              "id": "waittime_8",
+              "label": "8"
+            },
+            {
+              "id": "waittime_9",
+              "label": "9"
+            },
+            {
+              "id": "waittime_10",
+              "label": "10"
+            },
+            {
+              "id": "waittime_11",
+              "label": "11"
+            },
+            {
+              "id": "waittime_12",
+              "label": "12"
+            },
+            {
+              "id": "waittime_13",
+              "label": "13"
+            },
+            {
+              "id": "waittime_14",
+              "label": "14"
+            },
+            {
+              "id": "waittime_15",
+              "label": "15"
+            },
+            {
+              "id": "waittime_16",
+              "label": "16"
+            },
+            {
+              "id": "waittime_17",
+              "label": "17"
+            },
+            {
+              "id": "waittime_18",
+              "label": "18"
+            },
+            {
+              "id": "waittime_19",
+              "label": "19"
+            },
+            {
+              "id": "waittime_20",
+              "label": "20"
+            },
+            {
+              "id": "waittime_21",
+              "label": "21"
+            },
+            {
+              "id": "waittime_22",
+              "label": "22"
+            },
+            {
+              "id": "waittime_23",
+              "label": "23"
+            },
+            {
+              "id": "waittime_24",
+              "label": "24"
+            },
+            {
+              "id": "waittime_25",
+              "label": "25"
+            },
+            {
+              "id": "waittime_26",
+              "label": "26"
+            },
+            {
+              "id": "waittime_27",
+              "label": "27"
+            },
+            {
+              "id": "waittime_28",
+              "label": "28"
+            },
+            {
+              "id": "waittime_29",
+              "label": "29"
+            },
+            {
+              "id": "waittime_30",
+              "label": "30"
+            },
+            {
+              "id": "waittime_31",
+              "label": "31"
+            },
+            {
+              "id": "waittime_32",
+              "label": "32"
+            },
+            {
+              "id": "waittime_33",
+              "label": "33"
+            },
+            {
+              "id": "waittime_34",
+              "label": "34"
+            },
+            {
+              "id": "waittime_35",
+              "label": "35"
+            },
+            {
+              "id": "waittime_36",
+              "label": "36"
+            },
+            {
+              "id": "waittime_37",
+              "label": "37"
+            },
+            {
+              "id": "waittime_38",
+              "label": "38"
+            },
+            {
+              "id": "waittime_39",
+              "label": "39"
+            },
+            {
+              "id": "waittime_40",
+              "label": "40"
+            },
+            {
+              "id": "waittime_41",
+              "label": "41"
+            },
+            {
+              "id": "waittime_42",
+              "label": "42"
+            },
+            {
+              "id": "waittime_43",
+              "label": "43"
+            },
+            {
+              "id": "waittime_44",
+              "label": "44"
+            },
+            {
+              "id": "waittime_45",
+              "label": "45"
+            },
+            {
+              "id": "waittime_46",
+              "label": "46"
+            },
+            {
+              "id": "waittime_47",
+              "label": "47"
+            },
+            {
+              "id": "waittime_48",
+              "label": "48"
+            },
+            {
+              "id": "waittime_49",
+              "label": "49"
+            },
+            {
+              "id": "waittime_50",
+              "label": "50"
+            },
+            {
+              "id": "waittime_51",
+              "label": "51"
+            },
+            {
+              "id": "waittime_52",
+              "label": "52"
+            },
+            {
+              "id": "waittime_53",
+              "label": "53"
+            },
+            {
+              "id": "waittime_54",
+              "label": "54"
+            },
+            {
+              "id": "waittime_55",
+              "label": "55"
+            },
+            {
+              "id": "waittime_56",
+              "label": "56"
+            },
+            {
+              "id": "waittime_57",
+              "label": "57"
+            },
+            {
+              "id": "waittime_58",
+              "label": "58"
+            },
+            {
+              "id": "waittime_59",
+              "label": "59"
+            },
+            {
+              "id": "waittime_60",
+              "label": "60"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 211
+      }
+    },
+    {
+      "id": "fixed_angle_position_action",
+      "name": "Auto Framing - Fixed Angle Position",
+      "description": "Note: The Fixed Angle Position Settings must be set to enabled in the PTZ Auto Framing Settings menu.",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Fixed Angle Position",
+          "default": "fixedangle_off",
+          "choices": [
+            {
+              "id": "fixedangle_off",
+              "label": "OFF"
+            },
+            {
+              "id": "fixedangle_on",
+              "label": "ON"
+            },
+            {
+              "id": "fixedangle_store",
+              "label": "Store Current Position"
+            },
+            {
+              "id": "fixedangle_recall",
+              "label": "Recall Position"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 227
+      }
+    },
+    {
+      "id": "fixed_angle_fine_action",
+      "name": "Auto Framing - Fixed Angle Fine Adjustment",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "pan",
+          "choices": [
+            {
+              "id": "pan",
+              "label": "Pan"
+            },
+            {
+              "id": "tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 100,
+          "min": -32768,
+          "max": 32767
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 262
+      }
+    },
+    {
+      "id": "autoframing_tracking_speed_action",
+      "name": "Auto Framing - Tracking Speed",
+      "options": [
+        {
+          "id": "axis",
+          "type": "dropdown",
+          "label": "Axis",
+          "default": "Pan",
+          "choices": [
+            {
+              "id": "Pan",
+              "label": "Pan"
+            },
+            {
+              "id": "Tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "Zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Speed (1-5)",
+          "default": 4,
+          "min": 1,
+          "max": 5
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 284
+      }
+    },
+    {
+      "id": "autoframing_tracking_sensitivity_action",
+      "name": "Auto Framing - Tracking Sensitivity",
+      "options": [
+        {
+          "id": "axis",
+          "type": "dropdown",
+          "label": "Axis",
+          "default": "Pan",
+          "choices": [
+            {
+              "id": "Pan",
+              "label": "Pan"
+            },
+            {
+              "id": "Tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "Zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Sensitivity (0-5)",
+          "default": 3,
+          "min": 0,
+          "max": 5
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 294
+      }
+    },
+    {
+      "id": "autoframing_tracking_step_action",
+      "name": "Auto Framing - Tracking Step (Speed/Sensitivity)",
+      "options": [
+        {
+          "id": "kind",
+          "type": "dropdown",
+          "label": "Adjust",
+          "default": "Speed",
+          "choices": [
+            {
+              "id": "Speed",
+              "label": "Speed (1-5)"
+            },
+            {
+              "id": "Sensitivity",
+              "label": "Sensitivity (0-5)"
+            }
+          ]
+        },
+        {
+          "id": "axis",
+          "type": "dropdown",
+          "label": "Axis",
+          "default": "Pan",
+          "choices": [
+            {
+              "id": "Pan",
+              "label": "Pan"
+            },
+            {
+              "id": "Tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "Zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 1,
+          "min": -5,
+          "max": 5
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/autoframing.ts",
+        "line": 304
+      }
+    },
+    {
+      "id": "ptz_reset_action",
+      "name": "PTZ - Reset",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "PTZ Reset",
+          "default": "ptzf_reset",
+          "choices": [
+            {
+              "id": "ptzf_reset",
+              "label": "Reset"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 23
+      }
+    },
+    {
+      "id": "ptz_move_action",
+      "name": "PTZ - Move",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "PTZ Move",
+          "default": "move_up",
+          "choices": [
+            {
+              "id": "move_up",
+              "label": "Up"
+            },
+            {
+              "id": "move_down",
+              "label": "Down"
+            },
+            {
+              "id": "move_left",
+              "label": "Left"
+            },
+            {
+              "id": "move_right",
+              "label": "Right"
+            },
+            {
+              "id": "move_up_left",
+              "label": "Up Left"
+            },
+            {
+              "id": "move_up_right",
+              "label": "Up Right"
+            },
+            {
+              "id": "move_down_left",
+              "label": "Down Left"
+            },
+            {
+              "id": "move_down_right",
+              "label": "Down Right"
+            }
+          ]
+        },
+        {
+          "id": "speed",
+          "type": "textinput",
+          "label": "Speed (0-24)",
+          "description": "Pan/tilt speed. Supports variables; value is clamped to 0-24.",
+          "default": "8",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 38
+      }
+    },
+    {
+      "id": "ptz_zoom_action",
+      "name": "PTZ - Zoom",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "PTZ Zoom",
+          "default": "zoom_tele",
+          "choices": [
+            {
+              "id": "zoom_tele",
+              "label": "Tele"
+            },
+            {
+              "id": "zoom_wide",
+              "label": "Wide"
+            }
+          ]
+        },
+        {
+          "id": "speed",
+          "type": "textinput",
+          "label": "Speed (0-32766)",
+          "description": "Zoom speed. Supports variables; value is clamped to 0-32766.",
+          "default": "8000",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 89
+      }
+    },
+    {
+      "id": "ptz_move_stop_action",
+      "name": "PTZ - Move Stop",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "PTZ Move Stop",
+          "default": "stop_pantilt",
+          "choices": [
+            {
+              "id": "stop_pantilt",
+              "label": "Pan/Tilt"
+            },
+            {
+              "id": "stop_zoom",
+              "label": "Tele/Wide"
+            },
+            {
+              "id": "stop_focus",
+              "label": "Focus"
+            },
+            {
+              "id": "stop_motor",
+              "label": "Motor"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 122
+      }
+    },
+    {
+      "id": "ptz_step_action",
+      "name": "PTZ - Step",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "zoom",
+          "choices": [
+            {
+              "id": "pan",
+              "label": "Pan"
+            },
+            {
+              "id": "tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 5,
+          "min": -9999,
+          "max": 9999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 155
+      }
+    },
+    {
+      "id": "absolute_focus_action",
+      "name": "Absolute Focus",
+      "options": [
+        {
+          "id": "val1",
+          "type": "textinput",
+          "label": "Value1",
+          "default": "0000",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 198
+      }
+    },
+    {
+      "id": "absolute_zoom_action",
+      "name": "Absolute Zoom",
+      "options": [
+        {
+          "id": "val1",
+          "type": "textinput",
+          "label": "Value1",
+          "default": "0000",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 205
+      }
+    },
+    {
+      "id": "absolute_ptzf_action",
+      "name": "Absolute PTZF",
+      "options": [
+        {
+          "id": "val1",
+          "type": "textinput",
+          "label": "Value1",
+          "default": "00000",
+          "useVariables": true
+        },
+        {
+          "id": "val2",
+          "type": "textinput",
+          "label": "Value2",
+          "default": "00000",
+          "useVariables": true
+        },
+        {
+          "id": "val3",
+          "type": "textinput",
+          "label": "Value3",
+          "default": "0000",
+          "useVariables": true
+        },
+        {
+          "id": "val4",
+          "type": "textinput",
+          "label": "Value4",
+          "default": "0000",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 212
+      }
+    },
+    {
+      "id": "absolute_pantilt_action",
+      "name": "Absolute PanTilt",
+      "options": [
+        {
+          "id": "val1",
+          "type": "textinput",
+          "label": "Value1",
+          "default": "0000",
+          "useVariables": true
+        },
+        {
+          "id": "val2",
+          "type": "textinput",
+          "label": "Value2",
+          "default": "0000",
+          "useVariables": true
+        },
+        {
+          "id": "val3",
+          "type": "textinput",
+          "label": "Value3",
+          "default": "12",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 225
+      }
+    },
+    {
+      "id": "relative_pantilt_action",
+      "name": "Relative PanTilt",
+      "options": [
+        {
+          "id": "val1",
+          "type": "textinput",
+          "label": "Value1",
+          "default": "0000",
+          "useVariables": true
+        },
+        {
+          "id": "val2",
+          "type": "textinput",
+          "label": "Value2",
+          "default": "0000",
+          "useVariables": true
+        },
+        {
+          "id": "val3",
+          "type": "textinput",
+          "label": "Value3",
+          "default": "12",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/ptz.ts",
+        "line": 237
+      }
+    },
+    {
+      "id": "auto_focus_mode_action",
+      "name": "Auto Focus Mode",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Focus - Auto Focus Mode",
+          "default": "afmode_normal",
+          "choices": [
+            {
+              "id": "afmode_normal",
+              "label": "Normal"
+            },
+            {
+              "id": "afmode_interval",
+              "label": "Interval"
+            },
+            {
+              "id": "afmode_zoomtrigger",
+              "label": "Zoom Trigger"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/focus.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "auto_focus_sensitivity_action",
+      "name": "Focus - Auto Focus Sensitivity",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Auto Focus Sensitivity",
+          "default": "afsensitivity_normal",
+          "choices": [
+            {
+              "id": "afsensitivity_normal",
+              "label": "Normal"
+            },
+            {
+              "id": "afsensitivity_low",
+              "label": "Low"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/focus.ts",
+        "line": 35
+      }
+    },
+    {
+      "id": "focus_mode_action",
+      "name": "Focus - Mode (Auto/Manual)",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Focus Mode",
+          "default": "focus_auto",
+          "choices": [
+            {
+              "id": "focus_auto",
+              "label": "Auto"
+            },
+            {
+              "id": "focus_manual",
+              "label": "Manual"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/focus.ts",
+        "line": 60
+      }
+    },
+    {
+      "id": "white_balance_mode_action",
+      "name": "Imaging - White Balance Mode",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "White Balance Mode",
+          "default": "wb_auto",
+          "choices": [
+            {
+              "id": "wb_auto",
+              "label": "Auto"
+            },
+            {
+              "id": "wb_indoor",
+              "label": "Indoor"
+            },
+            {
+              "id": "wb_outdoor",
+              "label": "Outdoor"
+            },
+            {
+              "id": "wb_onepushwb",
+              "label": "One Push WB"
+            },
+            {
+              "id": "wb_atw",
+              "label": "ATW"
+            },
+            {
+              "id": "wb_manual",
+              "label": "Manual"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/imaging.ts",
+        "line": 9
+      }
+    },
+    {
+      "id": "white_balance_cb_gain_action",
+      "name": "Imaging - White Balance Blue (Cb) Gain",
+      "options": [
+        {
+          "id": "val",
+          "type": "textinput",
+          "label": "Blue (Cb) Gain (0-255)",
+          "description": "Manual white balance blue gain. Supports variables; value is clamped to 0-255.",
+          "default": "128",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/imaging.ts",
+        "line": 50
+      }
+    },
+    {
+      "id": "white_balance_cr_gain_action",
+      "name": "Imaging - White Balance Red (Cr) Gain",
+      "options": [
+        {
+          "id": "val",
+          "type": "textinput",
+          "label": "Red (Cr) Gain (0-255)",
+          "description": "Manual white balance red gain. Supports variables; value is clamped to 0-255.",
+          "default": "128",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/imaging.ts",
+        "line": 66
+      }
+    },
+    {
+      "id": "image_stabilizer_action",
+      "name": "Imaging - Image Stabilizer",
+      "description": "Note: Not available while PTZ Auto Framing is active.",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Image Stabilizer",
+          "default": "stabilizer_on",
+          "choices": [
+            {
+              "id": "stabilizer_on",
+              "label": "On"
+            },
+            {
+              "id": "stabilizer_off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/imaging.ts",
+        "line": 82
+      }
+    },
+    {
+      "id": "tally_control_action",
+      "name": "Tally - Control",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Tally Control",
+          "default": "tally_on",
+          "choices": [
+            {
+              "id": "tally_on",
+              "label": "On"
+            },
+            {
+              "id": "tally_off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/tally.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "preset_call_action",
+      "name": "PTZ Presets - Recall",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset Call",
+          "default": "preset_1",
+          "choices": [
+            {
+              "id": "preset_back",
+              "label": "Look Back"
+            },
+            {
+              "id": "preset_home",
+              "label": "PTZ Home"
+            },
+            {
+              "id": "autoframing_home",
+              "label": "Auto Framing Start Position"
+            },
+            {
+              "id": "preset_custom",
+              "label": "Custom Number / Variable"
+            },
+            {
+              "id": "preset_1",
+              "label": "1"
+            },
+            {
+              "id": "preset_2",
+              "label": "2"
+            },
+            {
+              "id": "preset_3",
+              "label": "3"
+            },
+            {
+              "id": "preset_4",
+              "label": "4"
+            },
+            {
+              "id": "preset_5",
+              "label": "5"
+            },
+            {
+              "id": "preset_6",
+              "label": "6"
+            },
+            {
+              "id": "preset_7",
+              "label": "7"
+            },
+            {
+              "id": "preset_8",
+              "label": "8"
+            },
+            {
+              "id": "preset_9",
+              "label": "9"
+            },
+            {
+              "id": "preset_10",
+              "label": "10"
+            }
+          ]
+        },
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "Preset Number",
+          "description": "Preset number to recall. Supports variables.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:val) == 'preset_custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/preset.ts",
+        "line": 7
+      }
+    },
+    {
+      "id": "preset_set_action",
+      "name": "PTZ Presets - Store",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Preset Set",
+          "default": "preset_set_1",
+          "choices": [
+            {
+              "id": "preset_set_1",
+              "label": "1"
+            },
+            {
+              "id": "preset_set_2",
+              "label": "2"
+            },
+            {
+              "id": "preset_set_3",
+              "label": "3"
+            },
+            {
+              "id": "preset_set_4",
+              "label": "4"
+            },
+            {
+              "id": "preset_set_5",
+              "label": "5"
+            },
+            {
+              "id": "preset_set_6",
+              "label": "6"
+            },
+            {
+              "id": "preset_set_7",
+              "label": "7"
+            },
+            {
+              "id": "preset_set_8",
+              "label": "8"
+            },
+            {
+              "id": "preset_set_9",
+              "label": "9"
+            },
+            {
+              "id": "preset_set_10",
+              "label": "10"
+            },
+            {
+              "id": "preset_set_custom",
+              "label": "Custom Number / Variable"
+            }
+          ]
+        },
+        {
+          "id": "custom",
+          "type": "textinput",
+          "label": "Preset Number",
+          "description": "Preset number to store. Supports variables.",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:val) == 'preset_set_custom'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/preset.ts",
+        "line": 55
+      }
+    },
+    {
+      "id": "scene_file_recall_action",
+      "name": "Scene File Recall",
+      "options": [
+        {
+          "id": "val",
+          "type": "dropdown",
+          "label": "Scene File Recall",
+          "default": "scenefile_off",
+          "choices": [
+            {
+              "id": "scenefile_off",
+              "label": "Off"
+            },
+            {
+              "id": "scenefile_set_1",
+              "label": "1"
+            },
+            {
+              "id": "scenefile_set_2",
+              "label": "2"
+            },
+            {
+              "id": "scenefile_set_3",
+              "label": "3"
+            },
+            {
+              "id": "scenefile_set_4",
+              "label": "4"
+            },
+            {
+              "id": "scenefile_set_5",
+              "label": "5"
+            },
+            {
+              "id": "scenefile_set_6",
+              "label": "6"
+            },
+            {
+              "id": "scenefile_set_7",
+              "label": "7"
+            },
+            {
+              "id": "scenefile_set_8",
+              "label": "8"
+            },
+            {
+              "id": "scenefile_set_9",
+              "label": "9"
+            },
+            {
+              "id": "scenefile_set_10",
+              "label": "10"
+            },
+            {
+              "id": "scenefile_set_11",
+              "label": "11"
+            },
+            {
+              "id": "scenefile_set_12",
+              "label": "12"
+            },
+            {
+              "id": "scenefile_set_13",
+              "label": "13"
+            },
+            {
+              "id": "scenefile_set_14",
+              "label": "14"
+            },
+            {
+              "id": "scenefile_set_15",
+              "label": "15"
+            },
+            {
+              "id": "scenefile_set_16",
+              "label": "16"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/scenefile.ts",
+        "line": 6
+      }
+    },
+    {
+      "id": "generic_step_action",
+      "name": "Generic Step",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "Path",
+          "useVariables": true
+        },
+        {
+          "id": "param",
+          "type": "textinput",
+          "label": "Param",
+          "useVariables": true
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step",
+          "default": 1,
+          "min": -9999,
+          "max": 9999
+        },
+        {
+          "id": "max",
+          "type": "number",
+          "label": "Max",
+          "default": 9999,
+          "min": -999999,
+          "max": 999999
+        },
+        {
+          "id": "min",
+          "type": "number",
+          "label": "Min",
+          "default": 0,
+          "min": -999999,
+          "max": 999999
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/misc.ts",
+        "line": 8
+      }
+    },
+    {
+      "id": "other_command_action",
+      "name": "Other Command",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "Path",
+          "useVariables": true
+        },
+        {
+          "id": "params",
+          "type": "textinput",
+          "label": "Params",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/misc.ts",
+        "line": 33
+      }
+    },
+    {
+      "id": "discover_cameras_action",
+      "name": "Discover Cameras",
+      "options": [],
+      "provenance": {
+        "file": "src/actions/misc.ts",
+        "line": 46
+      }
+    },
+    {
+      "id": "host_update_action",
+      "name": "Update Target IP via Variable",
+      "options": [
+        {
+          "id": "host",
+          "type": "textinput",
+          "label": "Host",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions/misc.ts",
+        "line": 59
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "power",
+      "name": "System - Power",
+      "options": [
+        {
+          "id": "power",
+          "type": "dropdown",
+          "label": "Power",
+          "default": "standby",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "standby",
+              "label": "Standby"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 7
+      }
+    },
+    {
+      "id": "autoFraming",
+      "name": "Auto Framing -  On/Off",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 30
+      }
+    },
+    {
+      "id": "framingMode",
+      "name": "Auto Framing - Framing Mode (Person/Ball Sports)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Framing Mode",
+          "default": "person",
+          "choices": [
+            {
+              "id": "person",
+              "label": "Person"
+            },
+            {
+              "id": "ball_sports",
+              "label": "Ball Sports"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 51
+      }
+    },
+    {
+      "id": "shotMode",
+      "name": "Auto Framing - Shot Mode",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Shot Mode",
+          "default": "1200",
+          "choices": [
+            {
+              "id": "1200",
+              "label": "Full Body"
+            },
+            {
+              "id": "510",
+              "label": "Waist"
+            },
+            {
+              "id": "310",
+              "label": "Closeup"
+            },
+            {
+              "id": "200",
+              "label": "Closer Closeup"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 72
+      }
+    },
+    {
+      "id": "leadRoom",
+      "name": "Auto Framing - Lead Room",
+      "options": [
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Lead Room",
+          "default": "Off",
+          "choices": [
+            {
+              "id": "Off",
+              "label": "Off"
+            },
+            {
+              "id": "Low",
+              "label": "Low"
+            },
+            {
+              "id": "Middle",
+              "label": "Middle"
+            },
+            {
+              "id": "High",
+              "label": "High"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 95
+      }
+    },
+    {
+      "id": "autoFramingFrameAreaIndicator",
+      "name": "Auto Framing - Frame/Area Indicator",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Overlay",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 118
+      }
+    },
+    {
+      "id": "fixedAngle",
+      "name": "Auto Framing - Fixed Angle Position Enabled",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Fixed Angle Position",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 139
+      }
+    },
+    {
+      "id": "sceneFile",
+      "name": "Scene File - Current Scene File",
+      "options": [
+        {
+          "id": "file",
+          "type": "dropdown",
+          "label": "Scene File",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "Scene File 1"
+            },
+            {
+              "id": "2",
+              "label": "Scene File 2"
+            },
+            {
+              "id": "3",
+              "label": "Scene File 3"
+            },
+            {
+              "id": "4",
+              "label": "Scene File 4"
+            },
+            {
+              "id": "5",
+              "label": "Scene File 5"
+            },
+            {
+              "id": "6",
+              "label": "Scene File 6"
+            },
+            {
+              "id": "7",
+              "label": "Scene File 7"
+            },
+            {
+              "id": "8",
+              "label": "Scene File 8"
+            },
+            {
+              "id": "9",
+              "label": "Scene File 9"
+            },
+            {
+              "id": "10",
+              "label": "Scene File 10"
+            },
+            {
+              "id": "11",
+              "label": "Scene File 11"
+            },
+            {
+              "id": "12",
+              "label": "Scene File 12"
+            },
+            {
+              "id": "13",
+              "label": "Scene File 13"
+            },
+            {
+              "id": "14",
+              "label": "Scene File 14"
+            },
+            {
+              "id": "15",
+              "label": "Scene File 15"
+            },
+            {
+              "id": "16",
+              "label": "Scene File 16"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 160
+      }
+    },
+    {
+      "id": "trackingStatus",
+      "name": "Auto Framing - Tracking Status",
+      "options": [
+        {
+          "id": "status",
+          "type": "dropdown",
+          "label": "Tracking Status",
+          "default": "tracking",
+          "choices": [
+            {
+              "id": "idle",
+              "label": "Idle"
+            },
+            {
+              "id": "missing",
+              "label": "Missing (tracking lost)"
+            },
+            {
+              "id": "preparing",
+              "label": "Preparing"
+            },
+            {
+              "id": "searching",
+              "label": "Searching"
+            },
+            {
+              "id": "tracking",
+              "label": "Tracking"
+            },
+            {
+              "id": "waiting",
+              "label": "Waiting"
+            },
+            {
+              "id": "fixed_angle",
+              "label": "Fixed Angle"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 181
+      }
+    },
+    {
+      "id": "trackingSpeed",
+      "name": "Auto Framing - Tracking Speed",
+      "options": [
+        {
+          "id": "axis",
+          "type": "dropdown",
+          "label": "Axis",
+          "default": "Pan",
+          "choices": [
+            {
+              "id": "Pan",
+              "label": "Pan"
+            },
+            {
+              "id": "Tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "Zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Speed (1-5)",
+          "default": 4,
+          "min": 1,
+          "max": 5
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 207
+      }
+    },
+    {
+      "id": "trackingSensitivity",
+      "name": "Auto Framing - Tracking Sensitivity",
+      "options": [
+        {
+          "id": "axis",
+          "type": "dropdown",
+          "label": "Axis",
+          "default": "Pan",
+          "choices": [
+            {
+              "id": "Pan",
+              "label": "Pan"
+            },
+            {
+              "id": "Tilt",
+              "label": "Tilt"
+            },
+            {
+              "id": "Zoom",
+              "label": "Zoom"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Sensitivity (0-5)",
+          "default": 3,
+          "min": 0,
+          "max": 5
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 233
+      }
+    },
+    {
+      "id": "multiTracking",
+      "name": "Auto Framing - Multi Tracking Targets",
+      "options": [
+        {
+          "id": "num",
+          "type": "dropdown",
+          "label": "Targets",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Off (single)"
+            },
+            {
+              "id": "2",
+              "label": "2 Targets"
+            },
+            {
+              "id": "3",
+              "label": "3 Targets"
+            },
+            {
+              "id": "4",
+              "label": "4 Targets"
+            },
+            {
+              "id": "5",
+              "label": "5 Targets"
+            },
+            {
+              "id": "6",
+              "label": "6 Targets"
+            },
+            {
+              "id": "7",
+              "label": "7 Targets"
+            },
+            {
+              "id": "8",
+              "label": "8 Targets"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 259
+      }
+    },
+    {
+      "id": "focusMode",
+      "name": "Focus - Mode (Auto/Manual)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Focus Mode",
+          "default": "auto",
+          "choices": [
+            {
+              "id": "auto",
+              "label": "Auto"
+            },
+            {
+              "id": "manual",
+              "label": "Manual"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 284
+      }
+    },
+    {
+      "id": "afMode",
+      "name": "Focus - Auto Focus Mode",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "AF Mode",
+          "default": "normal",
+          "choices": [
+            {
+              "id": "normal",
+              "label": "Normal"
+            },
+            {
+              "id": "interval",
+              "label": "Interval"
+            },
+            {
+              "id": "zoomtrigger",
+              "label": "Zoom Trigger"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 305
+      }
+    },
+    {
+      "id": "focusSensitivity",
+      "name": "Focus -  Auto Focus Sensitivity",
+      "options": [
+        {
+          "id": "level",
+          "type": "dropdown",
+          "label": "Sensitivity",
+          "default": "normal",
+          "choices": [
+            {
+              "id": "normal",
+              "label": "Normal"
+            },
+            {
+              "id": "low",
+              "label": "Low"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 327
+      }
+    },
+    {
+      "id": "whiteBalanceMode",
+      "name": "Imaging - White Balance Mode",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "White Balance Mode",
+          "default": "auto",
+          "choices": [
+            {
+              "id": "auto",
+              "label": "Auto"
+            },
+            {
+              "id": "indoor",
+              "label": "Indoor"
+            },
+            {
+              "id": "outdoor",
+              "label": "Outdoor"
+            },
+            {
+              "id": "onepushwb",
+              "label": "One Push WB"
+            },
+            {
+              "id": "atw",
+              "label": "ATW"
+            },
+            {
+              "id": "manual",
+              "label": "Manual"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 348
+      }
+    },
+    {
+      "id": "stabilizer",
+      "name": "Imaging - Image Stabilizer",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 373
+      }
+    },
+    {
+      "id": "tallyControl",
+      "name": "Tally - Control",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 394
+      }
+    },
+    {
+      "id": "rTallyStatus",
+      "name": "Tally - Red Tally Status",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Red Tally",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On (Program)"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            }
+          ]
+        }
+      ],
+      "feedbackType": "boolean",
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 415
+      }
+    }
+  ]
+}
