@@ -9,8 +9,18 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Ableton",
-      "products": ["Live"],
-      "keywords": ["ableton", "live", "osc", "music", "jingles", "Audio follow Video", "AfV"]
+      "products": [
+        "Live"
+      ],
+      "keywords": [
+        "ableton",
+        "live",
+        "osc",
+        "music",
+        "jingles",
+        "Audio follow Video",
+        "AfV"
+      ]
     },
     {
       "moduleId": "analogway-awj",
@@ -20,7 +30,12 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Analog Way",
-      "products": ["AWJ Protocol Device", "LivePremier", "Alta 4K", "Midra 4K"],
+      "products": [
+        "AWJ Protocol Device",
+        "LivePremier",
+        "Alta 4K",
+        "Midra 4K"
+      ],
       "keywords": [
         "Image Processing",
         "Video",
@@ -41,8 +56,17 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Analog Way",
-      "products": ["CorePlay Solo"],
-      "keywords": ["CorePlay", "Solo", "Media Player", "Video Player", "Player", "DVR"],
+      "products": [
+        "CorePlay Solo"
+      ],
+      "keywords": [
+        "CorePlay",
+        "Solo",
+        "Media Player",
+        "Video Player",
+        "Player",
+        "DVR"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -53,8 +77,13 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Analog Way",
-      "products": ["LiveCore series"],
-      "keywords": ["Protocol", "Image Processing"],
+      "products": [
+        "LiveCore series"
+      ],
+      "keywords": [
+        "Protocol",
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -65,8 +94,14 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Analog Way",
-      "products": ["Aquilon"],
-      "keywords": ["Protocol", "Image Processing", "LivePremier"],
+      "products": [
+        "Aquilon"
+      ],
+      "keywords": [
+        "Protocol",
+        "Image Processing",
+        "LivePremier"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -89,7 +124,10 @@
         "Pulse2 - H",
         "SmartMatriX2 - H"
       ],
-      "keywords": ["Protocol", "Image Processing"],
+      "keywords": [
+        "Protocol",
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -100,8 +138,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Analog Way",
-      "products": ["Picturall Media Server"],
-      "keywords": ["Protocol", "Media Server"],
+      "products": [
+        "Picturall Media Server"
+      ],
+      "keywords": [
+        "Protocol",
+        "Media Server"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -112,8 +155,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Analog Way",
-      "products": ["PLS 300"],
-      "keywords": ["Image Processing"],
+      "products": [
+        "PLS 300"
+      ],
+      "keywords": [
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -124,8 +171,15 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Anomes",
-      "products": ["Millumin 2", "Millumin 3", "Millumin 4"],
-      "keywords": ["Software", "Video"],
+      "products": [
+        "Millumin 2",
+        "Millumin 3",
+        "Millumin 4"
+      ],
+      "keywords": [
+        "Software",
+        "Video"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -136,7 +190,9 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "ArKaos",
-      "products": ["MediaMaster Remote Player"],
+      "products": [
+        "MediaMaster Remote Player"
+      ],
       "keywords": [
         "Video",
         "Media",
@@ -158,8 +214,12 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Avolites",
-      "products": ["Titan"],
-      "keywords": ["Lighting"],
+      "products": [
+        "Titan"
+      ],
+      "keywords": [
+        "Lighting"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -170,8 +230,14 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "AVStumpfl",
-      "products": ["Pixera"],
-      "keywords": ["Software", "Media Server", "Showcontrol"],
+      "products": [
+        "Pixera"
+      ],
+      "keywords": [
+        "Software",
+        "Media Server",
+        "Showcontrol"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -182,8 +248,14 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Barco",
-      "products": ["Clickshare"],
-      "keywords": ["barco", "sharing", "clickshare"],
+      "products": [
+        "Clickshare"
+      ],
+      "keywords": [
+        "barco",
+        "sharing",
+        "clickshare"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -194,8 +266,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Barco",
-      "products": ["DP Projector"],
-      "keywords": ["Protocol", "Projector"],
+      "products": [
+        "DP Projector"
+      ],
+      "keywords": [
+        "Protocol",
+        "Projector"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -206,8 +283,13 @@
       "lastCommit": "2026-11-09",
       "kind": "full",
       "manufacturer": "Barco",
-      "products": ["Event Master"],
-      "keywords": ["Protocol", "Image Processing"],
+      "products": [
+        "Event Master"
+      ],
+      "keywords": [
+        "Protocol",
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -218,8 +300,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Barco",
-      "products": ["Event Master xml"],
-      "keywords": ["Protocol", "Image Processing"],
+      "products": [
+        "Event Master xml"
+      ],
+      "keywords": [
+        "Protocol",
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -230,8 +317,12 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Barco",
-      "products": ["PDS"],
-      "keywords": ["Image Processing"],
+      "products": [
+        "PDS"
+      ],
+      "keywords": [
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -242,8 +333,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Barco",
-      "products": ["UDX Pulse Projector"],
-      "keywords": ["Projector", "Protocol"],
+      "products": [
+        "UDX Pulse Projector"
+      ],
+      "keywords": [
+        "Projector",
+        "Protocol"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -254,8 +350,12 @@
       "lastCommit": "2026-10-02",
       "kind": "index-only",
       "manufacturer": "Behringer/Midas",
-      "products": ["X32/M32"],
-      "keywords": ["Audio"]
+      "products": [
+        "X32/M32"
+      ],
+      "keywords": [
+        "Audio"
+      ]
     },
     {
       "moduleId": "birddog-ptz",
@@ -265,8 +365,13 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "BirdDog",
-      "products": ["PTZ"],
-      "keywords": ["Protocol", "Camera"],
+      "products": [
+        "PTZ"
+      ],
+      "keywords": [
+        "Protocol",
+        "Camera"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -277,8 +382,12 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Blackmagic Design",
-      "products": ["ATEM"],
-      "keywords": ["Vision Mixer"]
+      "products": [
+        "ATEM"
+      ],
+      "keywords": [
+        "Vision Mixer"
+      ]
     },
     {
       "moduleId": "bmd-hyperdeck",
@@ -288,8 +397,14 @@
       "lastCommit": "2026-10-08",
       "kind": "full",
       "manufacturer": "Blackmagic Design",
-      "products": ["Hyperdeck"],
-      "keywords": ["Recording", "Video", "Media"]
+      "products": [
+        "Hyperdeck"
+      ],
+      "keywords": [
+        "Recording",
+        "Video",
+        "Media"
+      ]
     },
     {
       "moduleId": "bmd-multiview4",
@@ -299,8 +414,15 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Blackmagic Design",
-      "products": ["Multiview 4"],
-      "keywords": ["Multiviewer", "Monitor", "MV", "Quad"],
+      "products": [
+        "Multiview 4"
+      ],
+      "keywords": [
+        "Multiviewer",
+        "Monitor",
+        "MV",
+        "Quad"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -311,8 +433,13 @@
       "lastCommit": "2026-10-29",
       "kind": "full",
       "manufacturer": "Blackmagic Design",
-      "products": ["Videohub"],
-      "keywords": ["Matrix", "Router"]
+      "products": [
+        "Videohub"
+      ],
+      "keywords": [
+        "Matrix",
+        "Router"
+      ]
     },
     {
       "moduleId": "brompton-tessera",
@@ -322,8 +449,17 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Brompton Technology",
-      "products": ["Tessera LED Processor Control"],
-      "keywords": ["brompton", "tessera", "processor", "control", "led", "panel"],
+      "products": [
+        "Tessera LED Processor Control"
+      ],
+      "keywords": [
+        "brompton",
+        "tessera",
+        "processor",
+        "control",
+        "led",
+        "panel"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -334,8 +470,16 @@
       "lastCommit": "2026-11-09",
       "kind": "index-only",
       "manufacturer": "Stoatworks Labs",
-      "products": ["caspar-AV"],
-      "keywords": ["casparcg", "media-server", "amcp", "playback", "video"]
+      "products": [
+        "caspar-AV"
+      ],
+      "keywords": [
+        "casparcg",
+        "media-server",
+        "amcp",
+        "playback",
+        "video"
+      ]
     },
     {
       "moduleId": "casparcg-server",
@@ -345,8 +489,14 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "CasparCG",
-      "products": ["Server"],
-      "keywords": ["Video", "Software", "Graphics"],
+      "products": [
+        "Server"
+      ],
+      "keywords": [
+        "Video",
+        "Software",
+        "Graphics"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -357,8 +507,12 @@
       "lastCommit": "2026-10-27",
       "kind": "full",
       "manufacturer": "ChamSys",
-      "products": ["MagicQ"],
-      "keywords": ["Lighting"]
+      "products": [
+        "MagicQ"
+      ],
+      "keywords": [
+        "Lighting"
+      ]
     },
     {
       "moduleId": "chamsys-magicq-udp",
@@ -368,8 +522,12 @@
       "lastCommit": "2026-11-01",
       "kind": "full",
       "manufacturer": "ChamSys",
-      "products": ["MagicQ (UDP)"],
-      "keywords": ["Lighting"],
+      "products": [
+        "MagicQ (UDP)"
+      ],
+      "keywords": [
+        "Lighting"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -380,8 +538,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Christie",
-      "products": ["Projector"],
-      "keywords": ["Projectors"],
+      "products": [
+        "Projector"
+      ],
+      "keywords": [
+        "Projectors"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -392,8 +554,12 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Christie",
-      "products": ["Spyder X20/X80"],
-      "keywords": ["Image Processing"],
+      "products": [
+        "Spyder X20/X80"
+      ],
+      "keywords": [
+        "Image Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -404,8 +570,16 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Crestron",
-      "products": ["DigitalMedia Switcher"],
-      "keywords": ["DM8x8", "DM16x16", "DM32x32", "Matrix Switcher", "AV Switch"],
+      "products": [
+        "DigitalMedia Switcher"
+      ],
+      "keywords": [
+        "DM8x8",
+        "DM16x16",
+        "DM32x32",
+        "Matrix Switcher",
+        "AV Switch"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -424,7 +598,11 @@
         "HD-TXU-4KZ-211-CHGR",
         "HD-TXU-4KZ-111-E"
       ],
-      "keywords": ["HDMI", "Matrix Switcher", "4K"]
+      "keywords": [
+        "HDMI",
+        "Matrix Switcher",
+        "4K"
+      ]
     },
     {
       "moduleId": "dataton-watchout",
@@ -434,8 +612,14 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Dataton",
-      "products": ["Watchout"],
-      "keywords": ["Media Server", "Software", "Video"],
+      "products": [
+        "Watchout"
+      ],
+      "keywords": [
+        "Media Server",
+        "Software",
+        "Video"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -446,7 +630,9 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Dataton",
-      "products": ["Watchout 7"],
+      "products": [
+        "Watchout 7"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -466,8 +652,16 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Disguise",
-      "products": ["LiveUpdate"],
-      "keywords": ["Video", "Playback", "Projection Mapping", "Extended Reality", "XR"],
+      "products": [
+        "LiveUpdate"
+      ],
+      "keywords": [
+        "Video",
+        "Playback",
+        "Projection Mapping",
+        "Extended Reality",
+        "XR"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -478,8 +672,14 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Disguise",
-      "products": ["Disguise - Multi Transport Control"],
-      "keywords": ["Media Server", "D3", "Disguise"],
+      "products": [
+        "Disguise - Multi Transport Control"
+      ],
+      "keywords": [
+        "Media Server",
+        "D3",
+        "Disguise"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -490,8 +690,13 @@
       "lastCommit": "2026-11-09",
       "kind": "index-only",
       "manufacturer": "Disguise",
-      "products": ["OSC"],
-      "keywords": ["Protocol", "Disguise"],
+      "products": [
+        "OSC"
+      ],
+      "keywords": [
+        "Protocol",
+        "Disguise"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -502,8 +707,14 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Disguise",
-      "products": ["Disguise - SMC"],
-      "keywords": ["Media Server", "Video", "D3"],
+      "products": [
+        "Disguise - SMC"
+      ],
+      "keywords": [
+        "Media Server",
+        "Video",
+        "D3"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -514,8 +725,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "DT Videolabs",
-      "products": ["PlaybackPro Plus"],
-      "keywords": ["Video", "Software"],
+      "products": [
+        "PlaybackPro Plus"
+      ],
+      "keywords": [
+        "Video",
+        "Software"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -526,7 +742,13 @@
       "lastCommit": "2026-11-14",
       "kind": "index-only",
       "manufacturer": "Epiphan",
-      "products": ["Pearl", "Pearl-2", "Pearl Mini", "Pearl Nano", "Pearl Nexus"],
+      "products": [
+        "Pearl",
+        "Pearl-2",
+        "Pearl Mini",
+        "Pearl Nano",
+        "Pearl Nexus"
+      ],
       "keywords": [
         "Stream",
         "Encoder",
@@ -547,8 +769,12 @@
       "lastCommit": "2026-11-11",
       "kind": "full",
       "manufacturer": "ETC",
-      "products": ["EOS"],
-      "keywords": ["Lighting"],
+      "products": [
+        "EOS"
+      ],
+      "keywords": [
+        "Lighting"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -594,8 +820,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Extron",
-      "products": ["MMX 42/62 Series"],
-      "keywords": ["Matrix", "Switcher"],
+      "products": [
+        "MMX 42/62 Series"
+      ],
+      "keywords": [
+        "Matrix",
+        "Switcher"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -606,8 +837,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Extron",
-      "products": ["SMP 351"],
-      "keywords": ["Stream", "Recording"],
+      "products": [
+        "SMP 351"
+      ],
+      "keywords": [
+        "Stream",
+        "Recording"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -618,8 +854,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Figure 53",
-      "products": ["GoButton with feedback"],
-      "keywords": ["Software", "Media Server"],
+      "products": [
+        "GoButton with feedback"
+      ],
+      "keywords": [
+        "Software",
+        "Media Server"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -630,8 +871,13 @@
       "lastCommit": "2026-10-26",
       "kind": "index-only",
       "manufacturer": "Figure 53",
-      "products": ["QLab with feedback"],
-      "keywords": ["Software", "Media Server"],
+      "products": [
+        "QLab with feedback"
+      ],
+      "keywords": [
+        "Software",
+        "Media Server"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -642,8 +888,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Figure 53",
-      "products": ["QView"],
-      "keywords": ["Software"],
+      "products": [
+        "QView"
+      ],
+      "keywords": [
+        "Software"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -654,8 +904,14 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Generic",
-      "products": ["Art-Net"],
-      "keywords": ["Protocol", "Lighting", "Generic"]
+      "products": [
+        "Art-Net"
+      ],
+      "keywords": [
+        "Protocol",
+        "Lighting",
+        "Generic"
+      ]
     },
     {
       "moduleId": "generic-http",
@@ -665,8 +921,13 @@
       "lastCommit": "2026-10-12",
       "kind": "index-only",
       "manufacturer": "Generic",
-      "products": ["HTTP Requests"],
-      "keywords": ["Protocol", "Generic"]
+      "products": [
+        "HTTP Requests"
+      ],
+      "keywords": [
+        "Protocol",
+        "Generic"
+      ]
     },
     {
       "moduleId": "generic-midi",
@@ -676,8 +937,16 @@
       "lastCommit": "2026-11-15",
       "kind": "index-only",
       "manufacturer": "Generic",
-      "products": ["MIDI"],
-      "keywords": ["note", "control change", "program change", "sysex", "timecode"]
+      "products": [
+        "MIDI"
+      ],
+      "keywords": [
+        "note",
+        "control change",
+        "program change",
+        "sysex",
+        "timecode"
+      ]
     },
     {
       "moduleId": "generic-osc",
@@ -687,8 +956,13 @@
       "lastCommit": "2026-10-29",
       "kind": "index-only",
       "manufacturer": "Generic",
-      "products": ["OSC"],
-      "keywords": ["Protocol", "Generic"]
+      "products": [
+        "OSC"
+      ],
+      "keywords": [
+        "Protocol",
+        "Generic"
+      ]
     },
     {
       "moduleId": "generic-pjlink",
@@ -698,8 +972,14 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "JBMIA",
-      "products": ["Projector", "PJLink"],
-      "keywords": ["Projector", "Protocol"],
+      "products": [
+        "Projector",
+        "PJLink"
+      ],
+      "keywords": [
+        "Projector",
+        "Protocol"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -710,8 +990,16 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Generic",
-      "products": ["Streaming ACN"],
-      "keywords": ["Protocol", "Lighting", "Generic", "Net3", "SACN"],
+      "products": [
+        "Streaming ACN"
+      ],
+      "keywords": [
+        "Protocol",
+        "Lighting",
+        "Generic",
+        "Net3",
+        "SACN"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -722,8 +1010,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Generic",
-      "products": ["TCP and UDP Requests"],
-      "keywords": ["Protocol", "Generic"],
+      "products": [
+        "TCP and UDP Requests"
+      ],
+      "keywords": [
+        "Protocol",
+        "Generic"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -743,8 +1036,15 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Green Hippo",
-      "products": ["Hippotizer"],
-      "keywords": ["REST", "Media Server", "Playback", "Video"],
+      "products": [
+        "Hippotizer"
+      ],
+      "keywords": [
+        "REST",
+        "Media Server",
+        "Playback",
+        "Video"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -755,8 +1055,17 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "HDkatov",
-      "products": ["VISCA"],
-      "keywords": ["VISCA", "VISCA over IP", "PTZ", "Camera", "hdkatov", "UDP"],
+      "products": [
+        "VISCA"
+      ],
+      "keywords": [
+        "VISCA",
+        "VISCA over IP",
+        "PTZ",
+        "Camera",
+        "hdkatov",
+        "UDP"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -767,8 +1076,12 @@
       "lastCommit": "2026-10-31",
       "kind": "full",
       "manufacturer": "High End Systems",
-      "products": ["Hog 4"],
-      "keywords": ["Lighting"],
+      "products": [
+        "Hog 4"
+      ],
+      "keywords": [
+        "Lighting"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -779,8 +1092,16 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "HorineTech",
-      "products": ["Keynote"],
-      "keywords": ["keynote", "presentation", "slides", "notes", "cue"]
+      "products": [
+        "Keynote"
+      ],
+      "keywords": [
+        "keynote",
+        "presentation",
+        "slides",
+        "notes",
+        "cue"
+      ]
     },
     {
       "moduleId": "kramer-matrix",
@@ -790,8 +1111,12 @@
       "lastCommit": "2026-10-27",
       "kind": "index-only",
       "manufacturer": "Kramer",
-      "products": ["Matrix (Generic)"],
-      "keywords": ["Matrix"],
+      "products": [
+        "Matrix (Generic)"
+      ],
+      "keywords": [
+        "Matrix"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -802,8 +1127,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Leon Reucher",
-      "products": ["PowerPoint Remote VSTO WebSocket"],
-      "keywords": ["PowerPoint", "Microsoft"],
+      "products": [
+        "PowerPoint Remote VSTO WebSocket"
+      ],
+      "keywords": [
+        "PowerPoint",
+        "Microsoft"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -814,8 +1144,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Lightware",
-      "products": ["LW2"],
-      "keywords": ["Protocol", "Matrix"],
+      "products": [
+        "LW2"
+      ],
+      "keywords": [
+        "Protocol",
+        "Matrix"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -826,8 +1161,13 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Lightware",
-      "products": ["LW3"],
-      "keywords": ["Protocol", "Matrix"],
+      "products": [
+        "LW3"
+      ],
+      "keywords": [
+        "Protocol",
+        "Matrix"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -838,8 +1178,14 @@
       "lastCommit": "2026-10-29",
       "kind": "full",
       "manufacturer": "Luminex",
-      "products": ["GigaCore"],
-      "keywords": ["Switch", "Luminex", "GigaCore"]
+      "products": [
+        "GigaCore"
+      ],
+      "keywords": [
+        "Switch",
+        "Luminex",
+        "GigaCore"
+      ]
     },
     {
       "moduleId": "malighting-grandma2",
@@ -849,8 +1195,12 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "MA Lighting",
-      "products": ["GrandMA2"],
-      "keywords": ["Lighting"],
+      "products": [
+        "GrandMA2"
+      ],
+      "keywords": [
+        "Lighting"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -861,8 +1211,12 @@
       "lastCommit": "2026-10-31",
       "kind": "full",
       "manufacturer": "MA Lighting",
-      "products": ["GrandMA3"],
-      "keywords": ["Lighting"],
+      "products": [
+        "GrandMA3"
+      ],
+      "keywords": [
+        "Lighting"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -873,8 +1227,13 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Modulo Pi",
-      "products": ["Modulo Player"],
-      "keywords": ["Software", "Media Server"],
+      "products": [
+        "Modulo Player"
+      ],
+      "keywords": [
+        "Software",
+        "Media Server"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -885,8 +1244,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "NEC",
-      "products": ["Display"],
-      "keywords": ["monitor"],
+      "products": [
+        "Display"
+      ],
+      "keywords": [
+        "monitor"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -897,7 +1260,9 @@
       "lastCommit": "2026-10-07",
       "kind": "index-only",
       "manufacturer": "NEC",
-      "products": ["Projectors"],
+      "products": [
+        "Projectors"
+      ],
       "keywords": [
         "projector",
         "NEC",
@@ -927,7 +1292,11 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "NovaStar Coex",
-      "products": ["MX40 Pro", "CX80 Pro", "KU20"],
+      "products": [
+        "MX40 Pro",
+        "CX80 Pro",
+        "KU20"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -949,7 +1318,9 @@
         "VX16S",
         "J6"
       ],
-      "keywords": ["LED Processing"],
+      "keywords": [
+        "LED Processing"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -960,8 +1331,12 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Novastar",
-      "products": ["D12"],
-      "keywords": ["Presentation Switcher"],
+      "products": [
+        "D12"
+      ],
+      "keywords": [
+        "Presentation Switcher"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -972,8 +1347,16 @@
       "lastCommit": "2026-11-11",
       "kind": "index-only",
       "manufacturer": "Novastar",
-      "products": ["RX6", "FX3 Pro"],
-      "keywords": ["Novastar", "Media-Server", "RX6", "FX3 Pro"],
+      "products": [
+        "RX6",
+        "FX3 Pro"
+      ],
+      "keywords": [
+        "Novastar",
+        "Media-Server",
+        "RX6",
+        "FX3 Pro"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -984,8 +1367,14 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "NovaStar",
-      "products": ["MxReal 3"],
-      "keywords": ["NovaStar", "XR", "MxReal 3"],
+      "products": [
+        "MxReal 3"
+      ],
+      "keywords": [
+        "NovaStar",
+        "XR",
+        "MxReal 3"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -996,8 +1385,18 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Novastar",
-      "products": ["Splicer"],
-      "keywords": ["Splicer", "Novastar", "H-series", "H2", "H5", "H9", "H15"],
+      "products": [
+        "Splicer"
+      ],
+      "keywords": [
+        "Splicer",
+        "Novastar",
+        "H-series",
+        "H2",
+        "H5",
+        "H9",
+        "H15"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1008,8 +1407,16 @@
       "lastCommit": "2026-11-12",
       "kind": "index-only",
       "manufacturer": "OBS",
-      "products": ["Studio"],
-      "keywords": ["Stream", "Live", "Broadcast", "Streaming", "Switcher"]
+      "products": [
+        "Studio"
+      ],
+      "keywords": [
+        "Stream",
+        "Live",
+        "Broadcast",
+        "Streaming",
+        "Switcher"
+      ]
     },
     {
       "moduleId": "obsidiancontrol-onyx",
@@ -1019,8 +1426,14 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Obsidian",
-      "products": ["ONYX"],
-      "keywords": ["onyx", "lighting", "control"],
+      "products": [
+        "ONYX"
+      ],
+      "keywords": [
+        "onyx",
+        "lighting",
+        "control"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions; telnet protocol (the OSC variant is obsidiancontrol-onyx-osc)"
     },
     {
@@ -1031,7 +1444,9 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Obsidian Control Systems",
-      "products": ["ONYX"],
+      "products": [
+        "ONYX"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions; OSC protocol (the telnet variant is obsidiancontrol-onyx)"
     },
     {
@@ -1125,8 +1540,13 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Panasonic",
-      "products": ["Kairos"],
-      "keywords": ["Software", "Vision Mixer"],
+      "products": [
+        "Kairos"
+      ],
+      "keywords": [
+        "Software",
+        "Vision Mixer"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1137,8 +1557,12 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Panasonic",
-      "products": ["Projector"],
-      "keywords": ["Projector"],
+      "products": [
+        "Projector"
+      ],
+      "keywords": [
+        "Projector"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1183,7 +1607,10 @@
         "AW-UN70",
         "AW-UN145"
       ],
-      "keywords": ["ptz", "Camera"],
+      "keywords": [
+        "ptz",
+        "Camera"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1194,8 +1621,16 @@
       "lastCommit": "2026-11-11",
       "kind": "index-only",
       "manufacturer": "Pixelhue",
-      "products": ["MS3", "MS3 Pro"],
-      "keywords": ["Pixelhue", "Media-Server", "MS3", "MS3 Pro"],
+      "products": [
+        "MS3",
+        "MS3 Pro"
+      ],
+      "keywords": [
+        "Pixelhue",
+        "Media-Server",
+        "MS3",
+        "MS3 Pro"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1206,8 +1641,15 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Pixelhue",
-      "products": ["P10", "P20", "Q8", "P80"],
-      "keywords": ["Pixelhue"],
+      "products": [
+        "P10",
+        "P20",
+        "Q8",
+        "P80"
+      ],
+      "keywords": [
+        "Pixelhue"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1218,8 +1660,13 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "PTZoptics",
-      "products": ["VISCA"],
-      "keywords": ["Protocol", "Camera"],
+      "products": [
+        "VISCA"
+      ],
+      "keywords": [
+        "Protocol",
+        "Camera"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1230,8 +1677,13 @@
       "lastCommit": "2026-10-06",
       "kind": "index-only",
       "manufacturer": "Renewed Vision",
-      "products": ["ProPresenter"],
-      "keywords": ["Software", "Presentation"],
+      "products": [
+        "ProPresenter"
+      ],
+      "keywords": [
+        "Software",
+        "Presentation"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1242,7 +1694,9 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Renewed Vision",
-      "products": ["ProPresenter API"],
+      "products": [
+        "ProPresenter API"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1253,8 +1707,12 @@
       "lastCommit": "2026-10-20",
       "kind": "index-only",
       "manufacturer": "Renewed Vision",
-      "products": ["PVP 3"],
-      "keywords": ["Software"],
+      "products": [
+        "PVP 3"
+      ],
+      "keywords": [
+        "Software"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1265,8 +1723,14 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Resolume",
-      "products": ["Arena"],
-      "keywords": ["Video", "Software", "Graphics"],
+      "products": [
+        "Arena"
+      ],
+      "keywords": [
+        "Video",
+        "Software",
+        "Graphics"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1277,7 +1741,10 @@
       "lastCommit": "2026-10-19",
       "kind": "index-only",
       "manufacturer": "Ross Video",
-      "products": ["Carbonite Black Solo", "Carbonite Black Solo 13"],
+      "products": [
+        "Carbonite Black Solo",
+        "Carbonite Black Solo 13"
+      ],
       "keywords": [
         "Video Mixer",
         "RossTalk",
@@ -1330,8 +1797,14 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Ross Video",
-      "products": ["NK Router"],
-      "keywords": ["Protocol", "Video Router", "Software"],
+      "products": [
+        "NK Router"
+      ],
+      "keywords": [
+        "Protocol",
+        "Video Router",
+        "Software"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1373,8 +1846,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Ross Video",
-      "products": ["Xpression"],
-      "keywords": ["Graphics"],
+      "products": [
+        "Xpression"
+      ],
+      "keywords": [
+        "Graphics"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1385,8 +1862,15 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "Shure",
-      "products": ["ULX-D", "QLX-D", "SLX-D", "Axient Digital (AD)"],
-      "keywords": ["Wireless Microphone"],
+      "products": [
+        "ULX-D",
+        "QLX-D",
+        "SLX-D",
+        "Axient Digital (AD)"
+      ],
+      "keywords": [
+        "Wireless Microphone"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1397,8 +1881,13 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Smode",
-      "products": ["Smode Live"],
-      "keywords": ["Software", "Media Server"],
+      "products": [
+        "Smode Live"
+      ],
+      "keywords": [
+        "Software",
+        "Media Server"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1409,7 +1898,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Sony",
-      "products": ["BRC-AM7", "SRG-A40", "SRG-A12", "ILME-FR7"],
+      "products": [
+        "BRC-AM7",
+        "SRG-A40",
+        "SRG-A12",
+        "ILME-FR7"
+      ],
       "keywords": [
         "sony",
         "camera",
@@ -1449,7 +1943,12 @@
         "SRG-X400",
         "SRG-X402"
       ],
-      "keywords": ["Protocol", "Camera", "VISCA", "PTZ"],
+      "keywords": [
+        "Protocol",
+        "Camera",
+        "VISCA",
+        "PTZ"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1460,8 +1959,13 @@
       "lastCommit": "2026-10-30",
       "kind": "full",
       "manufacturer": "StudioCoast",
-      "products": ["vMix"],
-      "keywords": ["Software", "Vision Mixer"]
+      "products": [
+        "vMix"
+      ],
+      "keywords": [
+        "Software",
+        "Vision Mixer"
+      ]
     },
     {
       "moduleId": "techministry-tallyarbiter",
@@ -1471,8 +1975,12 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "Tech Ministry",
-      "products": ["Tally Arbiter"],
-      "keywords": ["Tally Arbiter"],
+      "products": [
+        "Tally Arbiter"
+      ],
+      "keywords": [
+        "Tally Arbiter"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1483,8 +1991,14 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Teradek",
-      "products": ["Prism", "Prism Flex"],
-      "keywords": ["prism flex", "encoder"],
+      "products": [
+        "Prism",
+        "Prism Flex"
+      ],
+      "keywords": [
+        "prism flex",
+        "encoder"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1495,8 +2009,13 @@
       "lastCommit": "2026-11-01",
       "kind": "index-only",
       "manufacturer": "Teradek",
-      "products": ["VidiU X"],
-      "keywords": ["vidiu", "encoder"],
+      "products": [
+        "VidiU X"
+      ],
+      "keywords": [
+        "vidiu",
+        "encoder"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1505,9 +2024,11 @@
       "version": "0.1.0",
       "baseVersion": "~1.11.2",
       "lastCommit": "2025-01-22",
-      "kind": "index-only",
+      "kind": "full",
       "manufacturer": "Derivative",
-      "products": ["Touch Designer"],
+      "products": [
+        "Touch Designer"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1518,8 +2039,12 @@
       "lastCommit": "2026-11-03",
       "kind": "index-only",
       "manufacturer": "TSL Products",
-      "products": ["UMD protocol"],
-      "keywords": ["Protocol"],
+      "products": [
+        "UMD protocol"
+      ],
+      "keywords": [
+        "Protocol"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1530,8 +2055,13 @@
       "lastCommit": "2026-10-30",
       "kind": "index-only",
       "manufacturer": "TSL Products",
-      "products": ["UMD Listener"],
-      "keywords": ["UMD", "Tally"],
+      "products": [
+        "UMD Listener"
+      ],
+      "keywords": [
+        "UMD",
+        "Tally"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1542,8 +2072,16 @@
       "lastCommit": "2026-11-05",
       "kind": "index-only",
       "manufacturer": "TSL Products",
-      "products": ["Universal Switch Panel"],
-      "keywords": ["DNF Controls", "GPIO", "GPI", "GPO", "Contact Closure"],
+      "products": [
+        "Universal Switch Panel"
+      ],
+      "keywords": [
+        "DNF Controls",
+        "GPIO",
+        "GPI",
+        "GPO",
+        "Contact Closure"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1554,8 +2092,14 @@
       "lastCommit": "2026-11-03",
       "kind": "index-only",
       "manufacturer": "twoloox",
-      "products": ["Pandoras Box"],
-      "keywords": ["pandoras box", "twoloox", "coolux"]
+      "products": [
+        "Pandoras Box"
+      ],
+      "keywords": [
+        "pandoras box",
+        "twoloox",
+        "coolux"
+      ]
     },
     {
       "moduleId": "vizrt-mosart",
@@ -1565,7 +2109,9 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "Vizrt",
-      "products": ["Mosart"],
+      "products": [
+        "Mosart"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1576,8 +2122,15 @@
       "lastCommit": "2026-10-31",
       "kind": "index-only",
       "manufacturer": "vizRT",
-      "products": ["Send Command Line"],
-      "keywords": ["Video", "Software", "Graphics", "TCP Command Line"],
+      "products": [
+        "Send Command Line"
+      ],
+      "keywords": [
+        "Video",
+        "Software",
+        "Graphics",
+        "TCP Command Line"
+      ],
       "note": "Built on @companion-module/base 1.x: options do not support expressions"
     },
     {
@@ -1588,8 +2141,19 @@
       "lastCommit": "2026-10-06",
       "kind": "index-only",
       "manufacturer": "Yamaha",
-      "products": ["RCP"],
-      "keywords": ["Yamaha", "Mixer", "CL", "QL", "PM", "TF", "DM", "RSio"],
+      "products": [
+        "RCP"
+      ],
+      "keywords": [
+        "Yamaha",
+        "Mixer",
+        "CL",
+        "QL",
+        "PM",
+        "TF",
+        "DM",
+        "RSio"
+      ],
       "note": "Repository yamaha-scp redirects here"
     },
     {
@@ -1600,65 +2164,198 @@
       "lastCommit": "2026-11-12",
       "kind": "full",
       "manufacturer": "Bitfocus",
-      "products": ["Companion"],
-      "keywords": ["core", "internal", "button", "page", "variable", "trigger", "surface"],
+      "products": [
+        "Companion"
+      ],
+      "keywords": [
+        "core",
+        "internal",
+        "button",
+        "page",
+        "variable",
+        "trigger",
+        "surface"
+      ],
       "note": "Companion core actions and feedbacks (not a connection module)"
+    },
+    {
+      "moduleId": "arena-osc",
+      "repo": "ElytaM/companion-module-resolume-arena-osc-unofficial",
+      "version": "2.1.9",
+      "baseVersion": "^2.1.2",
+      "lastCommit": "2026-10-10",
+      "kind": "index-only",
+      "manufacturer": "Resolume",
+      "products": [
+        "Arena (OSC only)"
+      ],
+      "keywords": [
+        "Protocol",
+        "OSC"
+      ],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store; unofficial community module, Arena over OSC only (clip and column slots, encoders, playback feedback, two-machine control, optional clip thumbnails)"
+    },
+    {
+      "moduleId": "garagecube-madmapper5",
+      "repo": "jb-guedon/companion-module-garagecube-madmapper5",
+      "version": "1.0.0",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-10-20",
+      "kind": "full",
+      "manufacturer": "GarageCube",
+      "products": [
+        "MadMapper 5"
+      ],
+      "keywords": [
+        "projection mapping",
+        "video",
+        "led",
+        "dmx",
+        "laser",
+        "osc",
+        "oscquery",
+        "vj"
+      ],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store"
+    },
+    {
+      "moduleId": "garagecube-madmapper6",
+      "repo": "jb-guedon/companion-module-garagecube-madmapper6",
+      "version": "1.0.0",
+      "baseVersion": "~2.1.3",
+      "lastCommit": "2026-10-20",
+      "kind": "full",
+      "manufacturer": "GarageCube",
+      "products": [
+        "MadMapper 6"
+      ],
+      "keywords": [
+        "projection mapping",
+        "video",
+        "led",
+        "dmx",
+        "laser",
+        "osc",
+        "oscquery",
+        "vj"
+      ],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store. Legacy id garagecube-madmapper belongs to the MadMapper 6 module"
+    },
+    {
+      "moduleId": "madrix-aura",
+      "repo": "bitfocus/companion-module-madrix-aura",
+      "version": "1.0.1",
+      "baseVersion": "~1.14.1",
+      "lastCommit": "2026-10-31",
+      "kind": "full",
+      "manufacturer": "Madrix",
+      "products": [
+        "Aura 2/8/12/32"
+      ],
+      "keywords": [
+        "madrix",
+        "aura",
+        "lighting",
+        "http"
+      ],
+      "note": "Controls MADRIX Aura hardware nodes over HTTP only; no module exists for MADRIX 5, MADRIX 3 or MADRIX Luna (see noModule). Built on @companion-module/base 1.x: options do not support expressions"
+    },
+    {
+      "moduleId": "resolume-ws",
+      "repo": "chabad360/companion-module-resolume-ws",
+      "version": "0.1.0",
+      "baseVersion": "~1.8.0",
+      "lastCommit": "2024-06-03",
+      "kind": "index-only",
+      "manufacturer": "Resolume",
+      "products": [
+        "Arena (WebSockets)"
+      ],
+      "keywords": [
+        "resolume",
+        "arena",
+        "websockets"
+      ],
+      "note": "Third-party repository outside the bitfocus organization; not verified whether it is listed in the Companion module store; manifest repository field names bitfocus/companion-module-resolume-ws. Built on @companion-module/base 1.x: options do not support expressions"
     }
   ],
   "noModule": [
     {
       "device": "Atomos",
       "result": "no module found",
-      "alternatives": ["generic-http", "generic-tcp-udp"]
+      "alternatives": [
+        "generic-http",
+        "generic-tcp-udp"
+      ]
     },
     {
       "device": "AMX (Harman)",
       "result": "no module found",
-      "alternatives": ["generic-tcp-udp"]
+      "alternatives": [
+        "generic-tcp-udp"
+      ]
     },
     {
       "device": "Notch",
       "result": "no module found",
-      "alternatives": ["generic-osc"]
+      "alternatives": [
+        "generic-osc"
+      ]
     },
     {
       "device": "Sony projectors (VPL)",
       "result": "no module found",
-      "alternatives": ["generic-pjlink", "generic-tcp-udp"],
+      "alternatives": [
+        "generic-pjlink",
+        "generic-tcp-udp"
+      ],
       "note": "Use generic-pjlink if the projector speaks PJLink, otherwise generic-tcp-udp"
     },
     {
       "device": "Resolume Wire / Avenue (separate module)",
       "result": "no separate module; Avenue is only mentioned indirectly in the REST types of the Arena module, the manifest names Arena only",
-      "alternatives": ["generic-osc"],
+      "alternatives": [
+        "generic-osc"
+      ],
       "note": "The resolume-arena module may be usable; not verified for Avenue or Wire"
     },
     {
       "device": "Modulo Kinetic",
       "result": "no separate module (only modulopi-moduloplayer)",
-      "alternatives": ["generic-osc"]
+      "alternatives": [
+        "generic-osc"
+      ]
     },
     {
       "device": "Blackmagic Media Player (software)",
       "result": "no module found",
-      "alternatives": ["generic-http"]
+      "alternatives": [
+        "generic-http"
+      ]
     },
     {
       "device": "Datavideo (current devices)",
       "result": "only legacy modules from 2021/2022",
-      "alternatives": ["generic-tcp-udp"],
+      "alternatives": [
+        "generic-tcp-udp"
+      ],
       "note": "hdkatov-visca may work for VISCA-capable Datavideo devices; not verified"
     },
     {
       "device": "Analog Way Ascender",
       "result": "no module under this name",
-      "alternatives": ["generic-tcp-udp", "generic-http"],
+      "alternatives": [
+        "generic-tcp-udp",
+        "generic-http"
+      ],
       "note": "analogway-awj or analogway-midra may cover related devices; not verified for Ascender"
     },
     {
       "device": "Ross Ultrix",
       "result": "no separate module",
-      "alternatives": ["generic-tcp-udp"],
+      "alternatives": [
+        "generic-tcp-udp"
+      ],
       "note": "rossvideo-rosstalk and rossvideo-nkrouter may be usable; not verified for Ultrix"
     },
     {
@@ -1666,6 +2363,32 @@
       "result": "no module found; the search \"companion-module+infinity\" only returns Adder Infinity KVM modules (adder-infinity100xseries, adder-infinity-aim, adder-infinity-alif), which are unrelated to lighting; searches for \"chimp\" and \"chauvet\" returned no repository",
       "alternatives": [],
       "note": "No generic alternative was verified: the remote-control protocols of the console were not checked against its documentation, so none is suggested. The Adder Infinity modules control Adder KVM devices, not Chauvet consoles."
+    },
+    {
+      "device": "Resolume Wire",
+      "result": "no module found for Resolume Wire",
+      "alternatives": [
+        "generic-osc"
+      ],
+      "note": "Searched GitHub for companion-module repositories naming Resolume (2026-11-16): resolume-arena (bitfocus), resolume-ws, arena-osc and resolume-redundant (community); none targets Wire"
+    },
+    {
+      "device": "Resolume Avenue (as a separate module)",
+      "result": "no separate module; the resolume-arena module manifest names Arena only ('Resolume Arena 6 & 7 module')",
+      "alternatives": [
+        "generic-osc"
+      ],
+      "note": "Avenue appears only in comments of the generated REST types of resolume-arena (src/domain/api.ts: product name 'Arena' or 'Avenue'), so the module may work with Avenue's WebAPI and OSC; not verified"
+    },
+    {
+      "device": "MADRIX 5 / MADRIX 3 / MADRIX Luna (software and other hardware than Aura)",
+      "result": "no module found; only madrix-aura exists (MADRIX Aura 2/8/12/32 hardware over HTTP)",
+      "alternatives": [
+        "generic-osc",
+        "generic-artnet",
+        "generic-midi"
+      ],
+      "note": "The MADRIX 5 help (help.madrix.com/m5: OSC, DMX-IN and Art-Net remote control, MIDI remote editor) describes these remote inputs; not verified against a running MADRIX and not checked for MADRIX 3 or Luna. GitHub search for companion-module and madrix (2026-11-16) found only madrix-aura (bitfocus and the author's repository verledung/companion-module-madrix-aura)"
     }
   ],
   "unusable": [
@@ -1678,6 +2401,11 @@
       "repo": "bitfocus/companion-module-yamaha-dm",
       "directory": "yamaha-dm",
       "reason": "Manifest id is the template placeholder 'your-module-name'; the repository is an unmodified module template and cannot be addressed as a connection module"
+    },
+    {
+      "repo": "VideoBridgeSolutions/companion-module-resolume-redundant",
+      "directory": "resolume-redundant",
+      "reason": "The repository holds only a README at the inspected commit (30e9980, 2026-10-18); there is no manifest and no module source. Its description names Resolume Arena MAIN + BACKUP redundancy control"
     }
   ]
 }

@@ -1,0 +1,350 @@
+{
+  "moduleId": "madrix-aura",
+  "name": "MADRIX Aura 2/8/12/32",
+  "repo": "bitfocus/companion-module-madrix-aura",
+  "version": "1.0.1",
+  "baseVersion": "~1.14.1",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "255ecae",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "playback_state",
+      "name": "Playback State",
+      "description": "Control playback: set a specific state or toggle between two states",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set State"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle Between States"
+            }
+          ],
+          "default": "set"
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ],
+          "default": "play",
+          "visibleWhen": "options.mode === 'set'"
+        },
+        {
+          "id": "toggle_state1",
+          "type": "dropdown",
+          "label": "Toggle State 1",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ],
+          "default": "play",
+          "visibleWhen": "options.mode === 'toggle'"
+        },
+        {
+          "id": "toggle_state2",
+          "type": "dropdown",
+          "label": "Toggle State 2",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            }
+          ],
+          "default": "pause",
+          "visibleWhen": "options.mode === 'toggle'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 4
+      }
+    },
+    {
+      "id": "intensity",
+      "name": "Intensity",
+      "description": "Control master intensity: set to a specific value, increase, or decrease",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease"
+            }
+          ],
+          "default": "set"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "min": 0,
+          "max": 255,
+          "default": 255,
+          "visibleWhen": "options.mode === 'set'"
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step Value",
+          "min": 0,
+          "max": 255,
+          "default": 26,
+          "visibleWhen": "options.mode === 'increase' || options.mode === 'decrease'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 74
+      }
+    },
+    {
+      "id": "speed",
+      "name": "Speed",
+      "description": "Control playback speed: set to a specific value, increase, or decrease",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease"
+            }
+          ],
+          "default": "set"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "min": 0,
+          "max": 255,
+          "default": 100,
+          "visibleWhen": "options.mode === 'set'"
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step Value",
+          "min": 0,
+          "max": 255,
+          "default": 10,
+          "visibleWhen": "options.mode === 'increase' || options.mode === 'decrease'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 119
+      }
+    },
+    {
+      "id": "cue",
+      "name": "Specific Cue",
+      "description": "Jump to a specific cue number",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Cue Number",
+          "min": 1,
+          "max": 255,
+          "default": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 164
+      }
+    },
+    {
+      "id": "previous_cue",
+      "name": "Previous Cue",
+      "description": "Go to the previous cue",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 182
+      }
+    },
+    {
+      "id": "next_cue",
+      "name": "Next Cue",
+      "description": "Go to the next cue",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 191
+      }
+    },
+    {
+      "id": "record",
+      "name": "Record",
+      "description": "Start/stop recording",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 200
+      }
+    },
+    {
+      "id": "group_intensity",
+      "name": "Group Intensity",
+      "description": "Control intensity for a specific group (1-8): set to a specific value, increase, or decrease",
+      "options": [
+        {
+          "id": "group",
+          "type": "dropdown",
+          "label": "Group",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Group 1"
+            },
+            {
+              "id": "2",
+              "label": "Group 2"
+            },
+            {
+              "id": "3",
+              "label": "Group 3"
+            },
+            {
+              "id": "4",
+              "label": "Group 4"
+            },
+            {
+              "id": "5",
+              "label": "Group 5"
+            },
+            {
+              "id": "6",
+              "label": "Group 6"
+            },
+            {
+              "id": "7",
+              "label": "Group 7"
+            },
+            {
+              "id": "8",
+              "label": "Group 8"
+            }
+          ],
+          "default": "1"
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set Value"
+            },
+            {
+              "id": "increase",
+              "label": "Increase"
+            },
+            {
+              "id": "decrease",
+              "label": "Decrease"
+            }
+          ],
+          "default": "set"
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "min": 0,
+          "max": 255,
+          "default": 100,
+          "visibleWhen": "options.mode === 'set'"
+        },
+        {
+          "id": "step",
+          "type": "number",
+          "label": "Step Value",
+          "min": 0,
+          "max": 255,
+          "default": 26,
+          "visibleWhen": "options.mode === 'increase' || options.mode === 'decrease'"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.js",
+        "line": 215
+      }
+    }
+  ],
+  "feedbacks": [],
+  "notes": [
+    "Control path: HTTP GET http://<host>/remote.cgi?<command>[=<value>] to a MADRIX Aura 2/8/12/32 (src/main.js sendCommand); the connection setting is only the host. There is no reply parsing and no state is read back, so the module has no feedbacks. Only 'last_command' and 'last_status' variables exist (src/variables.js).",
+    "The Aura only accepts these commands after matching <remote ... porttype=\"http\" ...> lines were added to its ShowConfig.xml (companion/HELP.md); without them the commands have no effect. Not tested against a device.",
+    "Commands sent per action: playback_state sends play, pause or stop; intensity sends intensity=<value>, intensityinc=<step> or intensitydec=<step>; speed sends speed=<value>, speedinc=<step> or speeddec=<step>; cue sends cue=<number>; previous_cue sends previous; next_cue sends next; record sends record or stop; group_intensity sends group<N>=<value>, group<N>inc=<step> or group<N>dec=<step>.",
+    "playback_state in toggle mode keeps its own state in the module (initially empty): the first press sends Toggle State 2, then alternates. The state is not read from the device and is not changed by other actions. record keeps a local flag and alternates record and stop; any sent 'stop' command resets that flag (src/main.js:88).",
+    "Value ranges 0-255 (cue 1-255) are the number-field limits of the source; the device behavior outside them is not documented in the module.",
+    "Scope: this module covers the MADRIX Aura hardware nodes only. Other MADRIX products (MADRIX 5 software, MADRIX 3, MADRIX Luna and other hardware) have no Companion module; see noModule in _index.json.",
+    "Source repository bitfocus/companion-module-madrix-aura; the same source also exists as verledung/companion-module-madrix-aura (author's repository, src identical at the inspected commits, last commit 2026-01-29).",
+    "Built on @companion-module/base ~1.14.1: options do not support expressions. Complete list of the 8 actions found in the source."
+  ]
+}

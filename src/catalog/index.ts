@@ -18,10 +18,16 @@ import malightingGrandma2 from './data/malighting-grandma2.json' with { type: 'j
 import malightingGrandma3 from './data/malighting-grandma3.json' with { type: 'json' };
 import obsidiancontrolOnyx from './data/obsidiancontrol-onyx.json' with { type: 'json' };
 import obsidiancontrolOnyxOsc from './data/obsidiancontrol-onyx-osc.json' with { type: 'json' };
+import garagecubeMadmapper5 from './data/garagecube-madmapper5.json' with { type: 'json' };
+import garagecubeMadmapper6 from './data/garagecube-madmapper6.json' with { type: 'json' };
+import internal from './data/internal.json' with { type: 'json' };
+import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
+import madrixAura from './data/madrix-aura.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
 import studiocoastVmix from './data/studiocoast-vmix.json' with { type: 'json' };
+import touchDesigner from './data/touch-designer.json' with { type: 'json' };
 import indexData from './data/_index.json' with { type: 'json' };
 import {
   IndexFileSchema,
@@ -65,10 +71,16 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'malighting-grandma3': malightingGrandma3,
   'obsidiancontrol-onyx': obsidiancontrolOnyx,
   'obsidiancontrol-onyx-osc': obsidiancontrolOnyxOsc,
+  'garagecube-madmapper5': garagecubeMadmapper5,
+  'garagecube-madmapper6': garagecubeMadmapper6,
+  internal,
+  'luminex-gigacore': luminexGigacore,
+  'madrix-aura': madrixAura,
   'panasonic-ptz': panasonicPtz,
   'resolume-arena': resolumeArena,
   'shure-wireless': shureWireless,
   'studiocoast-vmix': studiocoastVmix,
+  'touch-designer': touchDesigner,
 };
 
 let indexCache: IndexFile | undefined;

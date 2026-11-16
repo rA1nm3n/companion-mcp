@@ -1,0 +1,3361 @@
+{
+  "moduleId": "garagecube-madmapper6",
+  "name": "GarageCube: MadMapper 6",
+  "repo": "jb-guedon/companion-module-garagecube-madmapper6",
+  "version": "1.0.0",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-10-20",
+  "lastCommitSha": "ebd343f",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "master_level",
+      "name": "Master: set level",
+      "description": "Master, video, audio, DMX, laser level (0 – 100 %) or audio input gain (0 – 400 %)",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Level",
+          "default": "master_level",
+          "choices": [
+            {
+              "id": "master_level",
+              "label": "Master level"
+            },
+            {
+              "id": "master_video_level",
+              "label": "Video level"
+            },
+            {
+              "id": "master_audio_level",
+              "label": "Audio level"
+            },
+            {
+              "id": "master_dmx_level",
+              "label": "DMX level"
+            },
+            {
+              "id": "master_laser_level",
+              "label": "Laser level"
+            },
+            {
+              "id": "audio_input_level",
+              "label": "Audio input gain"
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (%)",
+          "default": 100,
+          "min": 0,
+          "max": 400,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 416
+      }
+    },
+    {
+      "id": "engine_speed",
+      "name": "Master: engine speed",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            },
+            {
+              "id": "reset",
+              "label": "Reset"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Speed (1 = normal)",
+          "default": 1,
+          "min": 0,
+          "max": 4,
+          "step": 0.05,
+          "visibleWhen": "$(options:mode) != 'reset'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 445
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "master_switch",
+      "name": "Master: freeze / test pattern / overlays",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "freeze_engine",
+          "choices": [
+            {
+              "id": "freeze_engine",
+              "label": "Freeze engine"
+            },
+            {
+              "id": "freeze_video_output",
+              "label": "Freeze video output"
+            },
+            {
+              "id": "freeze_dmx_output",
+              "label": "Freeze DMX output"
+            },
+            {
+              "id": "freeze_laser_output",
+              "label": "Freeze laser output"
+            },
+            {
+              "id": "test_pattern",
+              "label": "Test pattern"
+            },
+            {
+              "id": "show_info_on_outputs",
+              "label": "Show info on outputs"
+            },
+            {
+              "id": "output_video_cursor",
+              "label": "Video cursor on outputs"
+            },
+            {
+              "id": "output_laser_cursor",
+              "label": "Laser cursor on outputs"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 478
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "master_color",
+      "name": "Master: colour",
+      "description": "Sets the red, green and blue components of the master video, laser or DMX colour",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Colour",
+          "default": "video_color",
+          "choices": [
+            {
+              "id": "video_color",
+              "label": "Video colour"
+            },
+            {
+              "id": "laser_color",
+              "label": "Laser colour"
+            },
+            {
+              "id": "dmx_color",
+              "label": "DMX colour"
+            }
+          ]
+        },
+        {
+          "id": "color",
+          "type": "colorpicker",
+          "label": "Colour",
+          "default": 16777215
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 495
+      }
+    },
+    {
+      "id": "bpm_set",
+      "name": "BPM: set tempo",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "BPM",
+          "default": 120,
+          "min": 0,
+          "max": 999,
+          "step": 0.1
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 520
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "bpm_command",
+      "name": "BPM: tap / resync",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "TAP",
+          "choices": [
+            {
+              "id": "TAP",
+              "label": "Tap tempo"
+            },
+            {
+              "id": "Resync",
+              "label": "Resync"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 541
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "ableton_link",
+      "name": "BPM: Ableton Link",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 560
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_select",
+      "name": "Media: select",
+      "options": [
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Select",
+          "default": "name",
+          "choices": [
+            {
+              "id": "name",
+              "label": "By name"
+            },
+            {
+              "id": "index",
+              "label": "By index"
+            },
+            {
+              "id": "next",
+              "label": "Next media"
+            },
+            {
+              "id": "previous",
+              "label": "Previous media"
+            }
+          ]
+        },
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Media",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'name'"
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 0,
+          "max": 255,
+          "integer": true,
+          "visibleWhen": "$(options:method) == 'index'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 571
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_select_type",
+      "name": "Media: next / previous of a type",
+      "options": [
+        {
+          "id": "direction",
+          "type": "dropdown",
+          "label": "Direction",
+          "default": "next",
+          "choices": [
+            {
+              "id": "next",
+              "label": "Next"
+            },
+            {
+              "id": "previous",
+              "label": "Previous"
+            }
+          ]
+        },
+        {
+          "id": "mediaType",
+          "type": "dropdown",
+          "label": "Media type",
+          "default": "movie",
+          "choices": [
+            {
+              "id": "movie",
+              "label": "Movie"
+            },
+            {
+              "id": "image",
+              "label": "Image"
+            },
+            {
+              "id": "image_folder",
+              "label": "Image folder"
+            },
+            {
+              "id": "material",
+              "label": "Material"
+            },
+            {
+              "id": "generator",
+              "label": "Generator"
+            },
+            {
+              "id": "isf",
+              "label": "ISF shader"
+            },
+            {
+              "id": "live_input",
+              "label": "Live input"
+            },
+            {
+              "id": "syphon",
+              "label": "Syphon / Spout"
+            },
+            {
+              "id": "montage",
+              "label": "Montage"
+            },
+            {
+              "id": "quartz",
+              "label": "Quartz"
+            },
+            {
+              "id": "laser_generator",
+              "label": "Laser generator"
+            },
+            {
+              "id": "laser_material",
+              "label": "Laser material"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 614
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_command",
+      "name": "Media: select / assign / restart",
+      "description": "Acts on one media of the media bin",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Media",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "assign",
+          "choices": [
+            {
+              "id": "select",
+              "label": "Select"
+            },
+            {
+              "id": "assign",
+              "label": "Assign to selected surfaces"
+            },
+            {
+              "id": "assign_to_all_surfaces",
+              "label": "Assign to all surfaces"
+            },
+            {
+              "id": "restart",
+              "label": "Restart"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 641
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_playback",
+      "name": "Media: movie / image sequence playback",
+      "description": "Play, pause, restart or step through a movie or an image sequence",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie / image sequence",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "play_forward",
+              "label": "Play"
+            },
+            {
+              "id": "play_backward",
+              "label": "Play backward"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "toggle",
+              "label": "Play / pause toggle"
+            },
+            {
+              "id": "restart",
+              "label": "Restart"
+            },
+            {
+              "id": "previous_frame",
+              "label": "Previous frame"
+            },
+            {
+              "id": "next_frame",
+              "label": "Next frame"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 663
+      }
+    },
+    {
+      "id": "media_looping",
+      "name": "Media: movie looping mode",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie / image sequence",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Looping mode",
+          "default": "Loop",
+          "choices": [
+            {
+              "id": "Loop",
+              "label": "Loop"
+            },
+            {
+              "id": "PlayOnce",
+              "label": "PlayOnce"
+            },
+            {
+              "id": "PingPong",
+              "label": "PingPong"
+            },
+            {
+              "id": "PingPongSin",
+              "label": "PingPongSin"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 695
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_play_speed",
+      "name": "Media: movie play speed",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie / image sequence",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Speed (1 = normal)",
+          "default": 1,
+          "min": 0,
+          "max": 4,
+          "step": 0.05
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 714
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_position",
+      "name": "Media: movie position",
+      "description": "Jumps to a position of the movie, as a percentage of its length (0 = start, 100 = end)",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie / image sequence",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Position (%)",
+          "default": 0,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 738
+      }
+    },
+    {
+      "id": "media_audio_switch",
+      "name": "Media: movie audio on / off",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie with audio",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "prop",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "audio_enabled",
+          "choices": [
+            {
+              "id": "audio_enabled",
+              "label": "Audio enabled"
+            },
+            {
+              "id": "audio_linked_to_opacity",
+              "label": "Audio level linked to opacity"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 764
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "media_audio_level",
+      "name": "Media: movie audio level",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie with audio",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (%)",
+          "default": 100,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 784
+      }
+    },
+    {
+      "id": "media_library",
+      "name": "Media: add / remove file",
+      "options": [
+        {
+          "id": "operation",
+          "type": "dropdown",
+          "label": "Operation",
+          "default": "add",
+          "choices": [
+            {
+              "id": "add",
+              "label": "Add a file (full path)"
+            },
+            {
+              "id": "remove",
+              "label": "Remove a media (path or name)"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "File path / media",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 796
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "module_select",
+      "name": "Modules: select",
+      "options": [
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Select",
+          "default": "name",
+          "choices": [
+            {
+              "id": "name",
+              "label": "By name"
+            },
+            {
+              "id": "index",
+              "label": "By index"
+            },
+            {
+              "id": "next",
+              "label": "Next module"
+            },
+            {
+              "id": "previous",
+              "label": "Previous module"
+            }
+          ]
+        },
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Module",
+          "default": "",
+          "choicesNote": "Module names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'name'"
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 0,
+          "max": 255,
+          "integer": true,
+          "visibleWhen": "$(options:method) == 'index'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 825
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "module_active",
+      "name": "Modules: activate / deactivate",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Module",
+          "default": "",
+          "choicesNote": "Module names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 866
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "surface_visible",
+      "name": "Surfaces: show / hide",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 878
+      }
+    },
+    {
+      "id": "surface_opacity",
+      "name": "Surfaces: opacity",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (%)",
+          "default": 100,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 887
+      }
+    },
+    {
+      "id": "surface_color",
+      "name": "Surfaces: colour",
+      "description": "Colour multiplied with the content of the surface",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "color",
+          "type": "colorpicker",
+          "label": "Colour",
+          "default": 16777215
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 899
+      }
+    },
+    {
+      "id": "surface_blend",
+      "name": "Surfaces: blend mode",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "blend",
+          "type": "dropdown",
+          "label": "Blend mode",
+          "default": "Over",
+          "choices": [
+            {
+              "id": "Over",
+              "label": "Over"
+            },
+            {
+              "id": "Add",
+              "label": "Add"
+            },
+            {
+              "id": "Multiply",
+              "label": "Multiply"
+            },
+            {
+              "id": "Subtract",
+              "label": "Subtract"
+            },
+            {
+              "id": "IgnoreAlpha",
+              "label": "IgnoreAlpha"
+            },
+            {
+              "id": "OverPremultiplied",
+              "label": "OverPremultiplied"
+            },
+            {
+              "id": "StencilLuma",
+              "label": "StencilLuma"
+            },
+            {
+              "id": "SilhouetteLuma",
+              "label": "SilhouetteLuma"
+            },
+            {
+              "id": "SilhouetteAlpha",
+              "label": "SilhouetteAlpha"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 909
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "surface_fx",
+      "name": "Surfaces: FX on / off",
+      "description": "Turns on or off the FX set on the surface in MadMapper",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 927
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "surface_select",
+      "name": "Surfaces: select",
+      "description": "Selects the surface in MadMapper (for example before assigning a media)",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 937
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "fixture_luminosity",
+      "name": "Fixtures: luminosity",
+      "description": "Luminosity of a DMX fixture or of a whole group",
+      "options": [
+        {
+          "id": "fixture",
+          "type": "dropdown",
+          "label": "Fixture or group",
+          "default": "",
+          "choicesNote": "Fixture and group paths of the open project (below /fixtures) read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value (%)",
+          "default": 100,
+          "min": 0,
+          "max": 100,
+          "step": 1
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 950
+      }
+    },
+    {
+      "id": "fixture_visible",
+      "name": "Fixtures: on / off (visible)",
+      "options": [
+        {
+          "id": "fixture",
+          "type": "dropdown",
+          "label": "Fixture or group",
+          "default": "",
+          "choicesNote": "Fixture and group paths of the open project (below /fixtures) read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 963
+      }
+    },
+    {
+      "id": "fixture_color",
+      "name": "Fixtures: colour",
+      "options": [
+        {
+          "id": "fixture",
+          "type": "dropdown",
+          "label": "Fixture or group",
+          "default": "",
+          "choicesNote": "Fixture and group paths of the open project (below /fixtures) read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "color",
+          "type": "colorpicker",
+          "label": "Colour",
+          "default": 16777215
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 972
+      }
+    },
+    {
+      "id": "fixture_select",
+      "name": "Fixtures: select",
+      "options": [
+        {
+          "id": "fixture",
+          "type": "dropdown",
+          "label": "Fixture or group",
+          "default": "",
+          "choicesNote": "Fixture and group paths of the open project (below /fixtures) read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 981
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "output_video",
+      "name": "Outputs: video output settings",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Video output",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true
+        },
+        {
+          "id": "prop",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "enabled",
+          "choices": [
+            {
+              "id": "enabled",
+              "label": "Enabled"
+            },
+            {
+              "id": "show_test_pattern",
+              "label": "Test pattern"
+            },
+            {
+              "id": "publish_to_ndi",
+              "label": "Publish to NDI"
+            },
+            {
+              "id": "publish_to_syphon_spout",
+              "label": "Publish to Syphon / Spout"
+            },
+            {
+              "id": "publish_loopback",
+              "label": "Publish loopback"
+            },
+            {
+              "id": "show_desktop_window",
+              "label": "Show desktop window"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 993
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "output_snapshot",
+      "name": "Outputs: save snapshot / ILDA frame",
+      "options": [
+        {
+          "id": "kind",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "Video-Output",
+          "choices": [
+            {
+              "id": "Video-Output",
+              "label": "Video output (snapshot)"
+            },
+            {
+              "id": "Video-Buffer",
+              "label": "Video buffer (snapshot)"
+            },
+            {
+              "id": "Laser-Output",
+              "label": "Laser output (ILDA frame)"
+            },
+            {
+              "id": "Laser-Buffer",
+              "label": "Laser buffer (ILDA frame)"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1020
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "bank_select",
+      "name": "Cues: select bank",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1052
+      }
+    },
+    {
+      "id": "cue_play",
+      "name": "Cues: play a cue",
+      "description": "By position in the grid (or in the current column), or by name",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "cell",
+          "choices": [
+            {
+              "id": "cell",
+              "label": "Grid position"
+            },
+            {
+              "id": "name",
+              "label": "Name"
+            }
+          ]
+        },
+        {
+          "id": "column",
+          "type": "dropdown",
+          "label": "Column",
+          "default": "1",
+          "choices": [
+            {
+              "id": "current",
+              "label": "Current column"
+            },
+            {
+              "id": "1",
+              "label": "Column 1"
+            },
+            {
+              "id": "2",
+              "label": "Column 2"
+            },
+            {
+              "id": "3",
+              "label": "Column 3"
+            },
+            {
+              "id": "4",
+              "label": "Column 4"
+            },
+            {
+              "id": "5",
+              "label": "Column 5"
+            },
+            {
+              "id": "6",
+              "label": "Column 6"
+            },
+            {
+              "id": "7",
+              "label": "Column 7"
+            },
+            {
+              "id": "8",
+              "label": "Column 8"
+            },
+            {
+              "id": "9",
+              "label": "Column 9"
+            },
+            {
+              "id": "10",
+              "label": "Column 10"
+            },
+            {
+              "id": "11",
+              "label": "Column 11"
+            },
+            {
+              "id": "12",
+              "label": "Column 12"
+            },
+            {
+              "id": "13",
+              "label": "Column 13"
+            },
+            {
+              "id": "14",
+              "label": "Column 14"
+            },
+            {
+              "id": "15",
+              "label": "Column 15"
+            },
+            {
+              "id": "16",
+              "label": "Column 16"
+            }
+          ],
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'cell'",
+          "allowInvalidValues": true,
+          "valueType": "string"
+        },
+        {
+          "id": "row",
+          "type": "number",
+          "label": "Row",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true,
+          "visibleWhen": "$(options:method) == 'cell'"
+        },
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Cue",
+          "default": "",
+          "choicesNote": "Cue names of the open project read through OSC Query (setup of every bank); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'name'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1062
+      }
+    },
+    {
+      "id": "scene_play",
+      "name": "Cues: play a scene",
+      "description": "The scene of a column, or a scene by name",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "cell",
+          "choices": [
+            {
+              "id": "cell",
+              "label": "Column"
+            },
+            {
+              "id": "name",
+              "label": "Name"
+            }
+          ]
+        },
+        {
+          "id": "column",
+          "type": "dropdown",
+          "label": "Column",
+          "default": "1",
+          "choices": [
+            {
+              "id": "current",
+              "label": "Current column"
+            },
+            {
+              "id": "1",
+              "label": "Column 1"
+            },
+            {
+              "id": "2",
+              "label": "Column 2"
+            },
+            {
+              "id": "3",
+              "label": "Column 3"
+            },
+            {
+              "id": "4",
+              "label": "Column 4"
+            },
+            {
+              "id": "5",
+              "label": "Column 5"
+            },
+            {
+              "id": "6",
+              "label": "Column 6"
+            },
+            {
+              "id": "7",
+              "label": "Column 7"
+            },
+            {
+              "id": "8",
+              "label": "Column 8"
+            },
+            {
+              "id": "9",
+              "label": "Column 9"
+            },
+            {
+              "id": "10",
+              "label": "Column 10"
+            },
+            {
+              "id": "11",
+              "label": "Column 11"
+            },
+            {
+              "id": "12",
+              "label": "Column 12"
+            },
+            {
+              "id": "13",
+              "label": "Column 13"
+            },
+            {
+              "id": "14",
+              "label": "Column 14"
+            },
+            {
+              "id": "15",
+              "label": "Column 15"
+            },
+            {
+              "id": "16",
+              "label": "Column 16"
+            }
+          ],
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'cell'",
+          "allowInvalidValues": true,
+          "valueType": "string"
+        },
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Scene",
+          "default": "",
+          "choicesNote": "Scene names of the open project read through OSC Query (setup of every bank); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'name'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1074
+      }
+    },
+    {
+      "id": "column_start",
+      "name": "Cues: start a column",
+      "description": "Starts every cue of a column",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Column",
+          "default": "number",
+          "choices": [
+            {
+              "id": "number",
+              "label": "By number"
+            },
+            {
+              "id": "next",
+              "label": "Next column"
+            },
+            {
+              "id": "previous",
+              "label": "Previous column"
+            }
+          ]
+        },
+        {
+          "id": "column",
+          "type": "number",
+          "label": "Column number",
+          "default": 1,
+          "min": 1,
+          "max": 256,
+          "integer": true,
+          "visibleWhen": "$(options:method) == 'number'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1086
+      }
+    },
+    {
+      "id": "cue_navigate",
+      "name": "Cues: navigate",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "start_cell_on_next_row",
+          "choices": [
+            {
+              "id": "start_cell_on_next_row",
+              "label": "Start next row"
+            },
+            {
+              "id": "start_cell_on_previous_row",
+              "label": "Start previous row"
+            },
+            {
+              "id": "start_cell_on_next_column",
+              "label": "Start next column"
+            },
+            {
+              "id": "start_cell_on_previous_column",
+              "label": "Start previous column"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1133
+      }
+    },
+    {
+      "id": "app_fullscreen",
+      "name": "Application: fullscreen",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1156
+      }
+    },
+    {
+      "id": "preview_text",
+      "name": "Application: preview text",
+      "description": "Additional text displayed in the preview",
+      "options": [
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Text",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1164
+      }
+    },
+    {
+      "id": "light_recorder",
+      "name": "Application: MadLight recorder",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "start_recording",
+          "choices": [
+            {
+              "id": "start_recording",
+              "label": "Start recording"
+            },
+            {
+              "id": "stop_recording",
+              "label": "Stop recording"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1181
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "set_parameter",
+      "name": "Any parameter: set / toggle / trigger",
+      "description": "Last resort: every writable parameter of the project, encoded according to its type",
+      "options": [
+        {
+          "id": "path",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "/master/master_level",
+          "choicesNote": "Writable parameter OSC addresses of the open project read through OSC Query (at most 5000; the MadMapper 6 module leaves out the cue grid and setup strings); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to value"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            },
+            {
+              "id": "on",
+              "label": "On (max / 1)"
+            },
+            {
+              "id": "off",
+              "label": "Off (min / 0)"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            },
+            {
+              "id": "trigger",
+              "label": "Trigger (button press)"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1",
+          "useVariables": true,
+          "visibleWhen": "$(options:mode) == 'set' || $(options:mode) == 'inc' || $(options:mode) == 'dec'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1204
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "custom_osc",
+      "name": "Custom OSC message",
+      "description": "Any address (right-click a parameter in MadMapper > Copy OSC address). Arguments: f:0.5 i:3 s:text \"text with spaces\" true/false",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC address",
+          "default": "/master/master_level",
+          "useVariables": true
+        },
+        {
+          "id": "args",
+          "type": "textinput",
+          "label": "Arguments (optional)",
+          "default": "f:1",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1231
+      }
+    },
+    {
+      "id": "refresh_state",
+      "name": "Refresh project from MadMapper",
+      "description": "Re-reads media, surfaces, fixtures, cues and parameters right away",
+      "options": [],
+      "provenance": {
+        "file": "src/common/actions.ts",
+        "line": 1260
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "output_laser",
+      "name": "Outputs: laser output settings",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Laser output",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true
+        },
+        {
+          "id": "prop",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "enabled",
+          "choices": [
+            {
+              "id": "enabled",
+              "label": "Enabled"
+            },
+            {
+              "id": "show_test_pattern",
+              "label": "Test pattern"
+            },
+            {
+              "id": "publish_loopback",
+              "label": "Publish loopback"
+            },
+            {
+              "id": "Record_ILDA_Movie",
+              "label": "Record ILDA movie"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 70
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "output_buffer_enable",
+      "name": "Outputs: enable buffer / DMX output",
+      "options": [
+        {
+          "id": "kind",
+          "type": "dropdown",
+          "label": "Type",
+          "default": "DMX-Output",
+          "choices": [
+            {
+              "id": "DMX-Output",
+              "label": "DMX output"
+            },
+            {
+              "id": "Video-Buffer",
+              "label": "Video buffer"
+            },
+            {
+              "id": "Laser-Buffer",
+              "label": "Laser buffer"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 83
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "conductor_transport",
+      "name": "Conductor: transport",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "toggle",
+              "label": "Play / pause toggle"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "play_from_beginning",
+              "label": "Play from beginning"
+            },
+            {
+              "id": "go_to_next_marker",
+              "label": "Next marker"
+            },
+            {
+              "id": "go_to_previous_marker",
+              "label": "Previous marker"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 108
+      }
+    },
+    {
+      "id": "conductor_loop",
+      "name": "Conductor: loop",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "on",
+              "label": "On"
+            },
+            {
+              "id": "off",
+              "label": "Off"
+            },
+            {
+              "id": "toggle",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 119
+      }
+    },
+    {
+      "id": "conductor_set",
+      "name": "Conductor: position / speed / loop points",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "param",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "position",
+          "choices": [
+            {
+              "id": "position",
+              "label": "Position"
+            },
+            {
+              "id": "speed",
+              "label": "Speed"
+            },
+            {
+              "id": "loop_start",
+              "label": "Loop start"
+            },
+            {
+              "id": "loop_end",
+              "label": "Loop end"
+            }
+          ]
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "set",
+          "choices": [
+            {
+              "id": "set",
+              "label": "Set to"
+            },
+            {
+              "id": "inc",
+              "label": "Increase by"
+            },
+            {
+              "id": "dec",
+              "label": "Decrease by"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -100000,
+          "max": 100000,
+          "step": 0.01
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 127
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "conductor_marker",
+      "name": "Conductor: go to marker",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Action",
+          "default": "go_to_marker_by_name",
+          "choices": [
+            {
+              "id": "go_to_marker_by_name",
+              "label": "Go to marker (by name)"
+            },
+            {
+              "id": "go",
+              "label": "Marker: go"
+            },
+            {
+              "id": "go_and_play",
+              "label": "Marker: go and play"
+            }
+          ]
+        },
+        {
+          "id": "marker",
+          "type": "dropdown",
+          "label": "Marker",
+          "default": "",
+          "choicesNote": "Conductor marker names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 142
+      }
+    },
+    {
+      "id": "cell_set",
+      "name": "Cues: fade time / position / loop points",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "column",
+          "type": "dropdown",
+          "label": "Column",
+          "default": "current",
+          "choices": [
+            {
+              "id": "current",
+              "label": "Current column"
+            },
+            {
+              "id": "1",
+              "label": "Column 1"
+            },
+            {
+              "id": "2",
+              "label": "Column 2"
+            },
+            {
+              "id": "3",
+              "label": "Column 3"
+            },
+            {
+              "id": "4",
+              "label": "Column 4"
+            },
+            {
+              "id": "5",
+              "label": "Column 5"
+            },
+            {
+              "id": "6",
+              "label": "Column 6"
+            },
+            {
+              "id": "7",
+              "label": "Column 7"
+            },
+            {
+              "id": "8",
+              "label": "Column 8"
+            },
+            {
+              "id": "9",
+              "label": "Column 9"
+            },
+            {
+              "id": "10",
+              "label": "Column 10"
+            },
+            {
+              "id": "11",
+              "label": "Column 11"
+            },
+            {
+              "id": "12",
+              "label": "Column 12"
+            },
+            {
+              "id": "13",
+              "label": "Column 13"
+            },
+            {
+              "id": "14",
+              "label": "Column 14"
+            },
+            {
+              "id": "15",
+              "label": "Column 15"
+            },
+            {
+              "id": "16",
+              "label": "Column 16"
+            }
+          ],
+          "allowCustom": true,
+          "allowInvalidValues": true,
+          "valueType": "string"
+        },
+        {
+          "id": "kind",
+          "type": "dropdown",
+          "label": "Cell",
+          "default": "cue",
+          "choices": [
+            {
+              "id": "cue",
+              "label": "Cue (row 1 – 32)"
+            },
+            {
+              "id": "scene",
+              "label": "Scene"
+            }
+          ]
+        },
+        {
+          "id": "row",
+          "type": "number",
+          "label": "Row",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true,
+          "visibleWhen": "$(options:kind) == 'cue'"
+        },
+        {
+          "id": "param",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "fade_time",
+          "choices": [
+            {
+              "id": "fade_time",
+              "label": "Fade time"
+            },
+            {
+              "id": "position",
+              "label": "Position"
+            },
+            {
+              "id": "loop_start",
+              "label": "Loop start"
+            },
+            {
+              "id": "loop_end",
+              "label": "Loop end"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -100000,
+          "max": 100000,
+          "step": 0.01
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 178
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)"
+    },
+    {
+      "id": "editor_transport",
+      "name": "Timeline editor: transport",
+      "options": [
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": "play",
+          "choices": [
+            {
+              "id": "play",
+              "label": "Play"
+            },
+            {
+              "id": "pause",
+              "label": "Pause"
+            },
+            {
+              "id": "stop",
+              "label": "Stop"
+            },
+            {
+              "id": "record_on",
+              "label": "Record on"
+            },
+            {
+              "id": "record_off",
+              "label": "Record off"
+            },
+            {
+              "id": "loop_on",
+              "label": "Loop on"
+            },
+            {
+              "id": "loop_off",
+              "label": "Loop off"
+            },
+            {
+              "id": "go_to_next_frame",
+              "label": "Next frame"
+            },
+            {
+              "id": "go_to_previous_frame",
+              "label": "Previous frame"
+            },
+            {
+              "id": "go_to_next_marker",
+              "label": "Next marker"
+            },
+            {
+              "id": "go_to_previous_marker",
+              "label": "Previous marker"
+            },
+            {
+              "id": "reenable_automation",
+              "label": "Re-enable automation"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 220
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "master_switch",
+      "name": "Master: freeze / test pattern active",
+      "options": [
+        {
+          "id": "target",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "freeze_engine",
+          "choices": [
+            {
+              "id": "freeze_engine",
+              "label": "Freeze engine"
+            },
+            {
+              "id": "freeze_video_output",
+              "label": "Freeze video output"
+            },
+            {
+              "id": "freeze_dmx_output",
+              "label": "Freeze DMX output"
+            },
+            {
+              "id": "freeze_laser_output",
+              "label": "Freeze laser output"
+            },
+            {
+              "id": "test_pattern",
+              "label": "Test pattern"
+            },
+            {
+              "id": "show_info_on_outputs",
+              "label": "Show info on outputs"
+            },
+            {
+              "id": "output_video_cursor",
+              "label": "Video cursor on outputs"
+            },
+            {
+              "id": "output_laser_cursor",
+              "label": "Laser cursor on outputs"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 92
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "ableton_link",
+      "name": "BPM: Ableton Link enabled",
+      "options": [],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 108
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "media_selected",
+      "name": "Media: is selected",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Media",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 116
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "media_playback",
+      "name": "Media: movie is playing / paused",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie / image sequence",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "Forward",
+          "choices": [
+            {
+              "id": "Forward",
+              "label": "Playing"
+            },
+            {
+              "id": "Backward",
+              "label": "Playing backward"
+            },
+            {
+              "id": "Pause",
+              "label": "Paused"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 129
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "media_time",
+      "name": "Media: movie time (total / played / left)",
+      "description": "Writes the time of a movie on the button as mm:ss. The button turns red when less than the chosen number of seconds is left",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Movie / image sequence",
+          "default": "",
+          "choicesNote": "Media names of the open project read through OSC Query (action-specific subsets: movies, movies with audio); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "show",
+          "type": "dropdown",
+          "label": "Show",
+          "default": "remaining",
+          "choices": [
+            {
+              "id": "remaining",
+              "label": "Time left"
+            },
+            {
+              "id": "elapsed",
+              "label": "Time played"
+            },
+            {
+              "id": "total",
+              "label": "Total time"
+            }
+          ]
+        },
+        {
+          "id": "warn",
+          "type": "number",
+          "label": "Warn when less than (seconds, 0 = never)",
+          "default": 10,
+          "min": 0,
+          "max": 86400,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 153
+      },
+      "feedbackType": "advanced"
+    },
+    {
+      "id": "module_active",
+      "name": "Modules: module is active",
+      "options": [
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Module",
+          "default": "",
+          "choicesNote": "Module names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 198
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "surface_visible",
+      "name": "Surfaces: surface is visible",
+      "options": [
+        {
+          "id": "surface",
+          "type": "dropdown",
+          "label": "Surface",
+          "default": "",
+          "choicesNote": "Surface names of the open project read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 206
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "fixture_visible",
+      "name": "Fixtures: fixture / group is on",
+      "description": "Read from MadMapper every few seconds",
+      "options": [
+        {
+          "id": "fixture",
+          "type": "dropdown",
+          "label": "Fixture or group",
+          "default": "",
+          "choicesNote": "Fixture and group paths of the open project (below /fixtures) read through OSC Query; free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 214
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "output_state",
+      "name": "Outputs: output setting is on",
+      "options": [
+        {
+          "id": "kind",
+          "type": "dropdown",
+          "label": "Output",
+          "default": "Video-Output",
+          "choices": [
+            {
+              "id": "Video-Output",
+              "label": "Video output"
+            },
+            {
+              "id": "Laser-Output",
+              "label": "Laser output"
+            },
+            {
+              "id": "Video-Buffer",
+              "label": "Video buffer (enabled)"
+            },
+            {
+              "id": "Laser-Buffer",
+              "label": "Laser buffer (enabled)"
+            },
+            {
+              "id": "DMX-Output",
+              "label": "DMX output (enabled)"
+            }
+          ]
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Number",
+          "default": 1,
+          "min": 1,
+          "max": 64,
+          "integer": true
+        },
+        {
+          "id": "videoProp",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "enabled",
+          "choices": [
+            {
+              "id": "enabled",
+              "label": "Enabled"
+            },
+            {
+              "id": "show_test_pattern",
+              "label": "Test pattern"
+            },
+            {
+              "id": "publish_to_ndi",
+              "label": "Publish to NDI"
+            },
+            {
+              "id": "publish_to_syphon_spout",
+              "label": "Publish to Syphon / Spout"
+            },
+            {
+              "id": "publish_loopback",
+              "label": "Publish loopback"
+            },
+            {
+              "id": "show_desktop_window",
+              "label": "Show desktop window"
+            }
+          ],
+          "visibleWhen": "$(options:kind) == 'Video-Output'"
+        },
+        {
+          "id": "laserProp",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "enabled",
+          "choices": [
+            {
+              "id": "enabled",
+              "label": "Enabled"
+            },
+            {
+              "id": "show_test_pattern",
+              "label": "Test pattern"
+            },
+            {
+              "id": "publish_loopback",
+              "label": "Publish loopback"
+            },
+            {
+              "id": "Record_ILDA_Movie",
+              "label": "Record ILDA movie"
+            }
+          ],
+          "visibleWhen": "$(options:kind) == 'Laser-Output'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 223
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "bank_selected",
+      "name": "Cues: bank is active",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 271
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "cue_playing",
+      "name": "Cues: cue is playing",
+      "description": "Read from MadMapper",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "cell",
+          "choices": [
+            {
+              "id": "cell",
+              "label": "Grid position"
+            },
+            {
+              "id": "name",
+              "label": "Name"
+            }
+          ]
+        },
+        {
+          "id": "column",
+          "type": "dropdown",
+          "label": "Column",
+          "default": "1",
+          "choices": [
+            {
+              "id": "current",
+              "label": "Current column"
+            },
+            {
+              "id": "1",
+              "label": "Column 1"
+            },
+            {
+              "id": "2",
+              "label": "Column 2"
+            },
+            {
+              "id": "3",
+              "label": "Column 3"
+            },
+            {
+              "id": "4",
+              "label": "Column 4"
+            },
+            {
+              "id": "5",
+              "label": "Column 5"
+            },
+            {
+              "id": "6",
+              "label": "Column 6"
+            },
+            {
+              "id": "7",
+              "label": "Column 7"
+            },
+            {
+              "id": "8",
+              "label": "Column 8"
+            },
+            {
+              "id": "9",
+              "label": "Column 9"
+            },
+            {
+              "id": "10",
+              "label": "Column 10"
+            },
+            {
+              "id": "11",
+              "label": "Column 11"
+            },
+            {
+              "id": "12",
+              "label": "Column 12"
+            },
+            {
+              "id": "13",
+              "label": "Column 13"
+            },
+            {
+              "id": "14",
+              "label": "Column 14"
+            },
+            {
+              "id": "15",
+              "label": "Column 15"
+            },
+            {
+              "id": "16",
+              "label": "Column 16"
+            }
+          ],
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'cell'",
+          "allowInvalidValues": true,
+          "valueType": "string"
+        },
+        {
+          "id": "row",
+          "type": "number",
+          "label": "Row",
+          "default": 1,
+          "min": 1,
+          "max": 32,
+          "integer": true,
+          "visibleWhen": "$(options:method) == 'cell'"
+        },
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Cue",
+          "default": "",
+          "choicesNote": "Cue names of the open project read through OSC Query (setup of every bank); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'name'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 279
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "scene_playing",
+      "name": "Cues: scene is playing",
+      "description": "Read from MadMapper",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "method",
+          "type": "dropdown",
+          "label": "Target",
+          "default": "cell",
+          "choices": [
+            {
+              "id": "cell",
+              "label": "Column"
+            },
+            {
+              "id": "name",
+              "label": "Name"
+            }
+          ]
+        },
+        {
+          "id": "column",
+          "type": "dropdown",
+          "label": "Column",
+          "default": "1",
+          "choices": [
+            {
+              "id": "current",
+              "label": "Current column"
+            },
+            {
+              "id": "1",
+              "label": "Column 1"
+            },
+            {
+              "id": "2",
+              "label": "Column 2"
+            },
+            {
+              "id": "3",
+              "label": "Column 3"
+            },
+            {
+              "id": "4",
+              "label": "Column 4"
+            },
+            {
+              "id": "5",
+              "label": "Column 5"
+            },
+            {
+              "id": "6",
+              "label": "Column 6"
+            },
+            {
+              "id": "7",
+              "label": "Column 7"
+            },
+            {
+              "id": "8",
+              "label": "Column 8"
+            },
+            {
+              "id": "9",
+              "label": "Column 9"
+            },
+            {
+              "id": "10",
+              "label": "Column 10"
+            },
+            {
+              "id": "11",
+              "label": "Column 11"
+            },
+            {
+              "id": "12",
+              "label": "Column 12"
+            },
+            {
+              "id": "13",
+              "label": "Column 13"
+            },
+            {
+              "id": "14",
+              "label": "Column 14"
+            },
+            {
+              "id": "15",
+              "label": "Column 15"
+            },
+            {
+              "id": "16",
+              "label": "Column 16"
+            }
+          ],
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'cell'",
+          "allowInvalidValues": true,
+          "valueType": "string"
+        },
+        {
+          "id": "name",
+          "type": "dropdown",
+          "label": "Scene",
+          "default": "",
+          "choicesNote": "Scene names of the open project read through OSC Query (setup of every bank); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true,
+          "visibleWhen": "$(options:method) == 'name'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 288
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "column_playing",
+      "name": "Cues: a cue of the column is playing",
+      "description": "Read from MadMapper",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "column",
+          "type": "number",
+          "label": "Column",
+          "default": 1,
+          "min": 1,
+          "max": 256,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 297
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "param_compare",
+      "name": "Any parameter: compare value",
+      "options": [
+        {
+          "id": "path",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "/master/master_level",
+          "choicesNote": "Writable parameter OSC addresses of the open project read through OSC Query (at most 5000; the MadMapper 6 module leaves out the cue grid and setup strings); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        },
+        {
+          "id": "operator",
+          "type": "dropdown",
+          "label": "Condition",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "Is on / true"
+            },
+            {
+              "id": "eq",
+              "label": "="
+            },
+            {
+              "id": "ne",
+              "label": "≠"
+            },
+            {
+              "id": "gt",
+              "label": ">"
+            },
+            {
+              "id": "gte",
+              "label": "≥"
+            },
+            {
+              "id": "lt",
+              "label": "<"
+            },
+            {
+              "id": "lte",
+              "label": "≤"
+            }
+          ]
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "default": "0",
+          "useVariables": true,
+          "visibleWhen": "$(options:operator) != 'on'"
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 317
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "param_value",
+      "name": "Any parameter: value",
+      "description": "Returns the current value of a parameter, to store in a local variable",
+      "options": [
+        {
+          "id": "path",
+          "type": "dropdown",
+          "label": "Parameter",
+          "default": "/master/master_level",
+          "choicesNote": "Writable parameter OSC addresses of the open project read through OSC Query (at most 5000; the MadMapper 6 module leaves out the cue grid and setup strings); free text allowed (allowCustom)",
+          "valueType": "string",
+          "allowCustom": true
+        }
+      ],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 354
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "value"
+    },
+    {
+      "id": "osc_query_connected",
+      "name": "MadMapper reachable (OSC Query)",
+      "options": [],
+      "provenance": {
+        "file": "src/common/feedbacks.ts",
+        "line": 362
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "conductor_playing",
+      "name": "Conductor: transport state",
+      "options": [
+        {
+          "id": "bank",
+          "type": "dropdown",
+          "label": "Bank",
+          "default": 1,
+          "choicesNote": "Banks of the open project read through OSC Query (ids are bank numbers, shown as 'Bank-N'); only Bank 1 before the first read; free input allowed (allowCustom)",
+          "valueType": "numeric",
+          "allowCustom": true
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "State",
+          "default": "playing",
+          "choices": [
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            },
+            {
+              "id": "stopped",
+              "label": "Stopped"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 18
+      },
+      "availability": "Only in the 'full' edition (module setting 'edition'; the default is 'light', which hides this entry)",
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Third-party module (repository outside the bitfocus organization); not verified whether it is listed in the Companion module store. Static reading of the source at the inspected commit; not tested against MadMapper or Companion.",
+    "Transport: OSC over UDP to the configured host and OSC input port (default 127.0.0.1:8010, src/common/config.ts DEFAULT_CONFIG); live state and the dropdown lists are read over MadMapper's OSC Query HTTP server (default port 8010, polled every 500 ms); an optional UDP feedback port is off by default. Without OSC Query the commands are still sent but lists and feedbacks do not update.",
+    "Edition: the connection setting 'edition' defaults to 'light', which exposes only a reduced subset of the actions and feedbacks (src/light.ts, filterDefinitions in src/common/edition.ts). Entries outside that subset carry an availability note and need the 'full' edition. Buttons using entries hidden by the light edition stop working until the edition is switched back.",
+    "Dropdowns that list media, modules, surfaces, fixtures, cues, scenes, banks, markers or parameters are filled from the open MadMapper project at runtime; they appear here as choicesNote with allowCustom, not as closed lists. Names can also be typed by hand.",
+    "Column dropdowns offer 'current' plus columns 1 to 16 but accept any column number (allowCustom); catalogued with allowInvalidValues so the validator accepts other column numbers.",
+    "Based on @companion-module/base ~2.1.3: option values support expressions. visibleWhen values are the isVisibleExpression strings of the source, written with $(options:<id>).",
+    "Shared code: src/common is identical in the MadMapper 5 and MadMapper 6 modules (same 42 actions and 16 feedbacks with the same options); the OSC address space differs per version (src/dialect.ts). Shutdown, restart and quit commands are deliberately not offered as actions (companion/HELP.md).",
+    "The catalog covers actions and feedbacks only; variables and presets of the module are not catalogued.",
+    "MadMapper 6 specific: laser outputs, buffers and DMX outputs (output_laser, output_buffer_enable), conductor and timeline editor (conductor_*, editor_transport), cell settings (cell_set); conductor_playing. Cue grid under /timelines/Bank-N, media under /media.",
+    "cue_playing, scene_playing and column_playing read the playing state from MadMapper (/timelines/Bank-N/setup). conductor_playing is the last command sent from Companion, because MadMapper does not report the conductor state (src/actions.ts transport()).",
+    "Complete list of the 50 actions and 17 feedbacks found in the source at the inspected commit."
+  ]
+}
