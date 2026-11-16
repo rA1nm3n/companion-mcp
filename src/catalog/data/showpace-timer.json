@@ -1,0 +1,857 @@
+{
+  "moduleId": "showpace-timer",
+  "name": "ShowPace (Stagetimer)",
+  "repo": "rA1nm3n/showpace",
+  "version": "0.2.1",
+  "baseVersion": "~2.1.3",
+  "lastCommit": "2026-11-09",
+  "lastCommitSha": "824fddf",
+  "status": "read",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "timer_start",
+      "name": "Timer: Start",
+      "description": "Timer starten / fortsetzen",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 63
+      }
+    },
+    {
+      "id": "timer_pause",
+      "name": "Timer: Pause",
+      "description": "Timer pausieren",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 64
+      }
+    },
+    {
+      "id": "timer_toggle",
+      "name": "Timer: Start/Pause umschalten",
+      "description": "Startet einen pausierten, pausiert einen laufenden Timer",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 65
+      }
+    },
+    {
+      "id": "timer_reset",
+      "name": "Timer: Reset",
+      "description": "Timer des aktuellen Segments zurücksetzen",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 70
+      }
+    },
+    {
+      "id": "timer_nudge",
+      "name": "Timer: Nudge (Zeit anpassen)",
+      "description": "Restzeit um Sekunden verlängern (+) oder verkürzen (-)",
+      "options": [
+        {
+          "id": "seconds",
+          "type": "number",
+          "label": "Sekunden (+ verlängert, - verkürzt)",
+          "default": 10,
+          "min": -86400,
+          "max": 86400,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 71
+      }
+    },
+    {
+      "id": "timer_set",
+      "name": "Timer: Restzeit setzen",
+      "description": "Restzeit absolut setzen",
+      "options": [
+        {
+          "id": "minutes",
+          "type": "number",
+          "label": "Minuten",
+          "default": 5,
+          "min": 0,
+          "max": 1440,
+          "integer": true
+        },
+        {
+          "id": "seconds",
+          "type": "number",
+          "label": "Sekunden",
+          "default": 0,
+          "min": 0,
+          "max": 59,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 87
+      }
+    },
+    {
+      "id": "tempo_set",
+      "name": "Tempo: Setzen (%)",
+      "description": "Tempo-Faktor direkt setzen (Standard 100–135 %)",
+      "options": [
+        {
+          "id": "pct",
+          "type": "number",
+          "label": "Tempo in %",
+          "default": 110,
+          "min": 50,
+          "max": 200,
+          "integer": false
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 96
+      }
+    },
+    {
+      "id": "tempo_up",
+      "name": "Tempo: +1 %",
+      "description": "Tempo um 1 % erhöhen",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 102
+      }
+    },
+    {
+      "id": "tempo_down",
+      "name": "Tempo: -1 %",
+      "description": "Tempo um 1 % verringern",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "tempo_reset",
+      "name": "Tempo: Reset (100 %)",
+      "description": "Tempo auf 100 % zurücksetzen",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 104
+      }
+    },
+    {
+      "id": "rundown_next",
+      "name": "Rundown: Nächstes Segment",
+      "description": "Zum nächsten Segment wechseln",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 105
+      }
+    },
+    {
+      "id": "rundown_prev",
+      "name": "Rundown: Vorheriges Segment",
+      "description": "Zum vorherigen Segment wechseln",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 106
+      }
+    },
+    {
+      "id": "rundown_goto",
+      "name": "Rundown: Gehe zu Segment",
+      "description": "Segment per ID anspringen",
+      "options": [
+        {
+          "id": "segmentId",
+          "type": "textinput",
+          "label": "Segment-ID",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 107
+      }
+    },
+    {
+      "id": "message_show",
+      "name": "Nachricht: Anzeigen",
+      "description": "Nachricht an die Sprecher-Ausgabe senden",
+      "options": [
+        {
+          "id": "text",
+          "type": "textinput",
+          "label": "Text",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "highlight",
+          "type": "checkbox",
+          "label": "Hervorheben",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 113
+      }
+    },
+    {
+      "id": "message_clear",
+      "name": "Nachricht: Löschen",
+      "description": "Aktive Nachricht entfernen",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 122
+      }
+    },
+    {
+      "id": "schedule_delay",
+      "name": "Verzug: +/− Minuten",
+      "description": "Alle Folgesegmente um Minuten verschieben (+ später, − früher)",
+      "options": [
+        {
+          "id": "minutes",
+          "type": "number",
+          "label": "Minuten (+ später, - früher)",
+          "default": 1,
+          "min": -1440,
+          "max": 1440,
+          "integer": false
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 123
+      }
+    },
+    {
+      "id": "schedule_delay_reset",
+      "name": "Verzug: Zurücksetzen",
+      "description": "Manuellen Verzug auf 0 setzen",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 139
+      }
+    },
+    {
+      "id": "blackout",
+      "name": "Blackout",
+      "description": "Alle Ausgaben schwarz schalten",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Modus",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Umschalten"
+            },
+            {
+              "id": "on",
+              "label": "An"
+            },
+            {
+              "id": "off",
+              "label": "Aus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 140
+      }
+    },
+    {
+      "id": "audio_play",
+      "name": "Ton abspielen",
+      "description": "Signalton auf allen Geräten mit Ton abspielen (Regie-Browser, Ausgaben mit Ton)",
+      "options": [
+        {
+          "id": "sound",
+          "type": "dropdown",
+          "label": "Klang",
+          "default": "gong",
+          "choices": [
+            {
+              "id": "gong",
+              "label": "Gong"
+            },
+            {
+              "id": "beep",
+              "label": "Beep"
+            },
+            {
+              "id": "double",
+              "label": "Doppel-Beep"
+            },
+            {
+              "id": "triple",
+              "label": "Dreifach-Beep"
+            },
+            {
+              "id": "chime",
+              "label": "Glocke"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 158
+      }
+    },
+    {
+      "id": "audio_enable",
+      "name": "Audio-Signale an/aus",
+      "description": "Automatische Signale (Warnung, Kritisch, Ende) für die Show ein- oder ausschalten",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Modus",
+          "default": "on",
+          "choices": [
+            {
+              "id": "on",
+              "label": "An"
+            },
+            {
+              "id": "off",
+              "label": "Aus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 172
+      }
+    },
+    {
+      "id": "pres_next",
+      "name": "Präsentation: Folie weiter",
+      "description": "Nächste Folie bzw. nächster Animationsschritt",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 189
+      }
+    },
+    {
+      "id": "pres_prev",
+      "name": "Präsentation: Folie zurück",
+      "description": "Vorherige Folie bzw. voriger Animationsschritt",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 190
+      }
+    },
+    {
+      "id": "pres_goto",
+      "name": "Präsentation: Gehe zu Folie",
+      "description": "Folie per Nummer anspringen (1 = erste Folie)",
+      "options": [
+        {
+          "id": "slide",
+          "type": "number",
+          "label": "Folie (ab 1)",
+          "default": 1,
+          "min": 1,
+          "max": 9999,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 191
+      }
+    },
+    {
+      "id": "pres_black",
+      "name": "Präsentation: Schwarz",
+      "description": "Folienausgabe schwarz schalten (nur Folien, nicht der Blackout aller Ausgaben)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Modus",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Umschalten"
+            },
+            {
+              "id": "on",
+              "label": "An"
+            },
+            {
+              "id": "off",
+              "label": "Aus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 197
+      }
+    },
+    {
+      "id": "pres_stop",
+      "name": "Präsentation: Beenden",
+      "description": "Präsentation beenden (ein vorhandenes Endmedium startet)",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 203
+      }
+    },
+    {
+      "id": "pres_source",
+      "name": "Präsentation: Quelle auf PRV/PGM",
+      "description": "Quelle (Folien / Rednersicht / Timer) auf Preview oder Program legen",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "prv",
+          "choices": [
+            {
+              "id": "prv",
+              "label": "PRV (Preview)"
+            },
+            {
+              "id": "pgm",
+              "label": "PGM (Program)"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Quelle",
+          "default": "slides",
+          "choices": [
+            {
+              "id": "slides",
+              "label": "Folien"
+            },
+            {
+              "id": "speaker",
+              "label": "Rednersicht"
+            },
+            {
+              "id": "timer",
+              "label": "Timer"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 204
+      }
+    },
+    {
+      "id": "pres_cut",
+      "name": "Präsentation: Cut",
+      "description": "PRV nach PGM, PRV bleibt",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 228
+      }
+    },
+    {
+      "id": "pres_clicker",
+      "name": "Präsentation: Klicker",
+      "description": "USB-Klicker (globale Tasten) ein- oder ausschalten",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Modus",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Umschalten"
+            },
+            {
+              "id": "on",
+              "label": "An"
+            },
+            {
+              "id": "off",
+              "label": "Aus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 229
+      }
+    },
+    {
+      "id": "pres_overlay_timer",
+      "name": "Präsentation: Timer einbrennen",
+      "description": "Timer in Folien und Rednersicht einblenden (global)",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Modus",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Umschalten"
+            },
+            {
+              "id": "on",
+              "label": "An"
+            },
+            {
+              "id": "off",
+              "label": "Aus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 235
+      }
+    },
+    {
+      "id": "pres_monitor",
+      "name": "Präsentation: Abhören",
+      "description": "Abhör-Ausgang (Kopfhörer/Interface) am ShowPace-Rechner ein- oder ausschalten",
+      "options": [
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Modus",
+          "default": "toggle",
+          "choices": [
+            {
+              "id": "toggle",
+              "label": "Umschalten"
+            },
+            {
+              "id": "on",
+              "label": "An"
+            },
+            {
+              "id": "off",
+              "label": "Aus"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 241
+      }
+    },
+    {
+      "id": "pres_monitor_bus",
+      "name": "Präsentation: Abhör-Bus",
+      "description": "Festlegen, ob PGM oder PRV abgehört wird",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "pgm",
+              "label": "PGM (Program)"
+            },
+            {
+              "id": "prv",
+              "label": "PRV (Preview)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 247
+      }
+    },
+    {
+      "id": "pres_monitor_volume",
+      "name": "Präsentation: Abhör-Lautstärke",
+      "description": "Lautstärke des Abhör-Ausgangs setzen (0–100 %)",
+      "options": [
+        {
+          "id": "volume",
+          "type": "number",
+          "label": "Lautstärke in %",
+          "default": 80,
+          "min": 0,
+          "max": 100,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/actions.ts",
+        "line": 264
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "phase",
+      "name": "Phase (Farbe)",
+      "description": "Aktiv, wenn der Timer in der gewählten Phase ist (normal / Warnung / kritisch / Überzeit)",
+      "options": [
+        {
+          "id": "phase",
+          "type": "dropdown",
+          "label": "Phase",
+          "default": "warning",
+          "choices": [
+            {
+              "id": "normal",
+              "label": "Normal (grün)"
+            },
+            {
+              "id": "warning",
+              "label": "Warnung (gelb)"
+            },
+            {
+              "id": "critical",
+              "label": "Kritisch (rot)"
+            },
+            {
+              "id": "overtime",
+              "label": "Überzeit"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 141
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "running",
+      "name": "Timer läuft / pausiert",
+      "options": [
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Zustand",
+          "default": "running",
+          "choices": [
+            {
+              "id": "running",
+              "label": "Läuft"
+            },
+            {
+              "id": "paused",
+              "label": "Pausiert"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 162
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "tempo_changed",
+      "name": "Tempo ≠ 100 %",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 180
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "message_active",
+      "name": "Nachricht aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 187
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "blackout",
+      "name": "Blackout aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 194
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "behind_plan",
+      "name": "Hinter Plan",
+      "description": "Aktiv, wenn das prognostizierte Show-Ende mehr als 30 s nach dem geplanten liegt",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 201
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_source",
+      "name": "Präsentation: Quelle auf PRV/PGM",
+      "description": "Aktiv, wenn die gewählte Quelle auf dem gewählten Bus liegt",
+      "options": [
+        {
+          "id": "bus",
+          "type": "dropdown",
+          "label": "Bus",
+          "default": "pgm",
+          "choices": [
+            {
+              "id": "prv",
+              "label": "PRV (Preview)"
+            },
+            {
+              "id": "pgm",
+              "label": "PGM (Program)"
+            }
+          ]
+        },
+        {
+          "id": "source",
+          "type": "dropdown",
+          "label": "Quelle",
+          "default": "slides",
+          "choices": [
+            {
+              "id": "slides",
+              "label": "Folien"
+            },
+            {
+              "id": "speaker",
+              "label": "Rednersicht"
+            },
+            {
+              "id": "timer",
+              "label": "Timer"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 209
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_clicker",
+      "name": "Präsentation: Klicker aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 235
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_black",
+      "name": "Präsentation: Schwarz aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 242
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_overlay",
+      "name": "Präsentation: Timer-Overlay aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 249
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_endmedia",
+      "name": "Präsentation: Endmedium aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 256
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_host_unavailable",
+      "name": "Präsentation: Host nicht verfügbar",
+      "description": "Aktiv, wenn ShowPace meldet, dass die Folien-Engine (PowerPoint/Bild-Player) nicht verfügbar ist",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 263
+      },
+      "feedbackType": "boolean"
+    },
+    {
+      "id": "pres_monitor",
+      "name": "Präsentation: Abhören aktiv",
+      "options": [],
+      "provenance": {
+        "file": "integrations/companion/src/feedbacks.ts",
+        "line": 271
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Own module of the maintainer (Jochen Walter). Source repository is rA1nm3n/showpace under integrations/companion (inspected commit 824fddf of 2026-11-09, read 2026-11-16); all provenance paths are relative to the root of that repository. The module does not live in the repo named in its manifest.",
+    "The manifest.json and package.json repository field point to bitfocus/companion-module-showpace-timer. Whether that repository exists in the official Bitfocus module directory could NOT be determined on 2026-11-16: `gh api repos/bitfocus/companion-module-showpace-timer` answered HTTP 403 (GitHub access to that repository was not enabled in the session), not 404, so there is no evidence either way. Do not assume it is installable from the Companion module store; verify before telling a user to add it.",
+    "Complete catalog: all 32 actions of ActionsSchema (src/actions.ts:6-39) and all 13 feedbacks of FeedbacksSchema (src/feedbacks.ts:8-23) are listed; every feedback is a boolean feedback (src/feedbacks.ts:141-279). Names, labels and descriptions are German, exactly as registered in the module source.",
+    "Built on @companion-module/base ~2.1.3 (package.json): option values support expressions (derived from the 2.x base version, not set explicitly). Not tested against a running Companion instance.",
+    "Control path: the module talks to the ShowPace server API (default port 4520, HTTP POST /api/v1/<command path>, status via WebSocket /ws) with an optional PIN sent as header X-Stagetimer-Pin (src/config.ts:3, src/client.ts:4 and 60, companion/HELP.md, docs/ARCHITEKTUR.md:125-131). The server also offers OSC on UDP 4521 (/stagetimer/<command path>), but the Companion module does not use it.",
+    "Connection config fields (not part of the schema): host (default 127.0.0.1), port (default 4520, 1-65535, integer), pin (secret-text, optional) (src/config.ts:15-48).",
+    "Toggle-style actions (timer_toggle, blackout, pres_black, pres_clicker, pres_overlay_timer, pres_monitor) with mode toggle flip the last state the module knows; without a known state the result is 'on' (src/commands.ts:49-52, 103-106). Presentation actions and feedbacks need the presentation hub of ShowPace; without it (HTTP 501) the actions log an error and the pres_* feedbacks stay inactive (companion/HELP.md).",
+    "rundown_goto and message_show: an empty segmentId or text is rejected at runtime (src/commands.ts:32-35, 93-96). The textinput defaults are empty strings.",
+    "Variable ids (source src/variables.ts:5-34, referenced as $(<connection label>:<id>)): mode, remaining, remaining_real, elapsed, tempo_pct, time_saved, phase, running, segment_title, speaker, next_title, over_under, message, projected_end, next_start, schedule_delay, show_drift, show_drift_original, pres_slide, pres_slides, pres_phase, pres_pgm, pres_prv, pres_clicker, pres_notes, pres_clicker_failed, pres_audio_origin, pres_audio_monitor. The catalog schema has no field for variables, so they are listed here only.",
+    "Value formats (src/variables.ts:53-86, 89-118; formatting in src/format.ts:7-34): remaining, remaining_real, elapsed, time_saved are MM:SS (HH:MM:SS from one hour); overtime of remaining has a leading minus; over_under and show_drift are signed (+ = behind plan); projected_end and next_start are local time HH:MM; tempo_pct is a number; phase is normal|warning|critical|overtime; mode is countdown|countup|countToTime|clock; running, pres_clicker and pres_audio_monitor are true/false. Without a connection the time variables read --:--.",
+    "Preset categories (src/presets.ts:265-364, section names as registered; the catalog schema has no field for presets): Transport, Tempo, Nudge, Rundown, Zeitplan & Verzug, Nachricht & Blackout, Ton, Präsentation, Anzeige. Preset ids are not catalogued."
+  ]
+}

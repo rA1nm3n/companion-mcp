@@ -16,6 +16,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - Satellite client (`src/satellite`): virtual surface over the Satellite API (TCP and WebSocket), settled page snapshots and `pressVerified`, which reports success only from a render change.
 - MCP server (`src/server.ts`, `src/cli.ts`) with 15 `companion_*` tools: catalog lookup, validation, page generation and building, status, export, page read-back, connection and surface listing, `import_page` and `rollback` (both dry-run by default), `satellite_snapshot` (read the rendered page) and `press` (dry run by default, write gate and press allow-list, reports `accepted`, `render_changed`, `target_changed`, `page_changed`).
 - `diffReadback` options `connectionIdMap` and `inferConnectionIds`: remapped entity `connectionId`s (explicit import remapping or a consistent 1:1 mapping, contradictions stay errors) and an absent versus empty `children` are tolerated inside the diff. The tool layer no longer rewrites the intended export.
+- ShowPace (Stagetimer) in the catalog: `showpace-timer`, the maintainer's own module (source `rA1nm3n/showpace`, `integrations/companion`, v0.2.1, commit 824fddf), complete list of 32 actions and 13 feedbacks, plus a `showpace` page template (display, start/pause/reset, previous/next segment, tempo) in `companion_generate_page`.
 - Documentation: `docs/architecture.md`, `docs/catalog.md`, `docs/satellite.md`, `docs/tools.md`.
 
 ### Known limitations

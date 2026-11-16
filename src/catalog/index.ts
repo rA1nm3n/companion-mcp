@@ -11,6 +11,7 @@ import internal from './data/internal.json' with { type: 'json' };
 import luminexGigacore from './data/luminex-gigacore.json' with { type: 'json' };
 import panasonicPtz from './data/panasonic-ptz.json' with { type: 'json' };
 import resolumeArena from './data/resolume-arena.json' with { type: 'json' };
+import showpaceTimer from './data/showpace-timer.json' with { type: 'json' };
 import shureWireless from './data/shure-wireless.json' with { type: 'json' };
 import studiocoastVmix from './data/studiocoast-vmix.json' with { type: 'json' };
 import indexData from './data/_index.json' with { type: 'json' };
@@ -49,6 +50,7 @@ const RAW_MODULES: Readonly<Record<string, unknown>> = {
   'luminex-gigacore': luminexGigacore,
   'panasonic-ptz': panasonicPtz,
   'resolume-arena': resolumeArena,
+  'showpace-timer': showpaceTimer,
   'shure-wireless': shureWireless,
   'studiocoast-vmix': studiocoastVmix,
 };
