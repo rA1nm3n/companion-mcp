@@ -1,0 +1,656 @@
+{
+  "moduleId": "anomes-millumin",
+  "name": "Millumin",
+  "repo": "bitfocus/companion-module-anomes-millumin",
+  "version": "4.0.0",
+  "baseVersion": "^1.11.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "336393b",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 42 actions (src/actions.ts, one object literal registered with setActionDefinitions) and 1 advanced feedback (src/feedback.ts). No definitions are generated at runtime except the layer choices of the feedback.",
+    "Protocol: OSC over UDP (src/osc.ts). Companion sends to the configured sending port (default 5000) of the Millumin computer and listens on the receive port (default 8000); host default 127.0.0.1, timeLayerName default \"layer\", trackMultipleLayers default false (src/config.ts). Variables and presets are not catalogued.",
+    "Shared option helpers (src/utils.ts): index (number, default 1, min 1, max 4096), name (textinput, default \"\"), time and value (number, default 0, min -65535, max 65535), oscPath (default \"/millumin/action/custom\"), oscArgs. Number fields set no step or asInteger and text inputs do not set useVariables. The source does not mark any option required.",
+    "Names copied from the source unchanged, including its typos: Select Board/Layer/Light By Name actions are named \"... By Index\"; Set Master DMX is named \"Set Master MDX\". The action id Action_SelectedLayer_StartOrPauseMedia is registered under the \"Stop Media\" action, while Action_SelectedLayer_PlayOrPauseMedia is named \"Start or Pause Media\" (src/actions.ts:43, 322).",
+    "Several actions send a different OSC address than their id suggests: Save Project As sends /action/saveProject with the name argument; Select Board/Layer/Light by index or name share one address and differ in the OSC argument type (i or s); Selected Layer / Stop Media sends /selectedLayer/stopMedia, Selected Layer / Restart Media sends /selectedLayer/startMedia without argument.",
+    "Jog Time reads the tracked firstByIndex media layer (elapsed time and duration) and sends an absolute /action/goToTime; it does nothing while that layer reports duration 0.",
+    "Custom OSC: oscArgs is split on commas; each part may carry a type prefix i:, s: or f:, otherwise a number is sent as float when it contains a dot, as integer otherwise, and anything else as string. Unknown prefixes are skipped with a warning. It can send any OSC path to Millumin.",
+    "The feedback colorpicker defaults are combineRgb(0,255,0) = 65280 and combineRgb(255,255,0) = 16776960. The feedback callback does not handle a layer id that is not in mediaLayers (an unknown id such as the default \"Global\" without a configured layer of that name would throw).",
+    "Built on @companion-module/base ^1.11.0: options do not support expressions. The manifest file still says version 3.0.0-0; the version here is from package.json."
+  ],
+  "actions": [
+    {
+      "id": "Action_LaunchOrStopColumn_ByIndex",
+      "name": "Launch or Stop Column by Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 1,
+          "max": 4096
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 52
+      }
+    },
+    {
+      "id": "Action_LaunchOrStopColumn_ByName",
+      "name": "Launch or Stop Column by Name",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 60
+      }
+    },
+    {
+      "id": "Action_LaunchColumn_ByIndex",
+      "name": "Launch Column by Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 1,
+          "max": 4096
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 68
+      }
+    },
+    {
+      "id": "Action_LaunchColumn_ByName",
+      "name": "Launch Column by Name",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 75
+      }
+    },
+    {
+      "id": "Action_StopColumn",
+      "name": "Stop Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 82
+      }
+    },
+    {
+      "id": "Action_LaunchPreviousColumn",
+      "name": "Launch Previous Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 89
+      }
+    },
+    {
+      "id": "Action_LaunchNextColumn",
+      "name": "Launch Next Column",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 96
+      }
+    },
+    {
+      "id": "Action_Pause",
+      "name": "Pause",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 103
+      }
+    },
+    {
+      "id": "Action_Play",
+      "name": "Play",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 110
+      }
+    },
+    {
+      "id": "Action_PlayOrPause",
+      "name": "Play or Pause",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 117
+      }
+    },
+    {
+      "id": "Action_GoToTime",
+      "name": "Go to Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 124
+      }
+    },
+    {
+      "id": "Action_JogTime",
+      "name": "Jog Time",
+      "description": "This action uses media index:1 elapsed time to calculate an absolute value",
+      "options": [
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 131
+      }
+    },
+    {
+      "id": "Action_GoToTimelineSegment",
+      "name": "Go to Timeline Segment",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 143
+      }
+    },
+    {
+      "id": "Action_SelectBoard_ByIndex",
+      "name": "Select Board By Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 1,
+          "max": 4096
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 151
+      }
+    },
+    {
+      "id": "Action_SelectBoard_ByName",
+      "name": "Select Board By Index",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 158
+      }
+    },
+    {
+      "id": "Action_SelectLayer_ByIndex",
+      "name": "Select Layer By Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 1,
+          "max": 4096
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 165
+      }
+    },
+    {
+      "id": "Action_SelectLayer_ByName",
+      "name": "Select Layer By Index",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 172
+      }
+    },
+    {
+      "id": "Action_SelectLight_ByIndex",
+      "name": "Select Light By Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 1,
+          "max": 4096
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 179
+      }
+    },
+    {
+      "id": "Action_SelectLight_ByName",
+      "name": "Select Light By Index",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 186
+      }
+    },
+    {
+      "id": "Action_SetMasterVideo",
+      "name": "Set Master Video",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 193
+      }
+    },
+    {
+      "id": "Action_SetMasterAudio",
+      "name": "Set Master Audio",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 200
+      }
+    },
+    {
+      "id": "Action_SetMasterDMX",
+      "name": "Set Master MDX",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 207
+      }
+    },
+    {
+      "id": "Action_EnterFullscreen",
+      "name": "Enter Fullscreen",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 214
+      }
+    },
+    {
+      "id": "Action_ExitFullscreen",
+      "name": "Exit Fullscreen",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 221
+      }
+    },
+    {
+      "id": "Action_DisplayTestCard",
+      "name": "Display TestCard",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 228
+      }
+    },
+    {
+      "id": "Action_HideTestCard",
+      "name": "Hide TestCard",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 235
+      }
+    },
+    {
+      "id": "Action_DisableWorkspace",
+      "name": "Disable Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 242
+      }
+    },
+    {
+      "id": "Action_EnableWorkspace",
+      "name": "Enable Workspace",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 249
+      }
+    },
+    {
+      "id": "Action_OpenProject",
+      "name": "Open Project",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 256
+      }
+    },
+    {
+      "id": "Action_SaveProject",
+      "name": "Save Project",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 263
+      }
+    },
+    {
+      "id": "Action_SaveProjectAs",
+      "name": "Save Project As",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 270
+      }
+    },
+    {
+      "id": "Action_Quit",
+      "name": "Quit",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 277
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_RestartMedia",
+      "name": "Selected Layer / Restart Media",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 285
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_StartMedia_ByIndex",
+      "name": "Selected Layer / Start Media by Index",
+      "options": [
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Index",
+          "default": 1,
+          "min": 1,
+          "max": 4096
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 292
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_StartMedia_ByName",
+      "name": "Selected Layer / Start Media by Name",
+      "options": [
+        {
+          "id": "name",
+          "type": "textinput",
+          "label": "Name",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 300
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_PauseMedia",
+      "name": "Selected Layer / Pause Media",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 308
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_PlayOrPauseMedia",
+      "name": "Selected Layer / Start or Pause Media",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 315
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_StartOrPauseMedia",
+      "name": "Selected Layer / Stop Media",
+      "options": [],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 322
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_GoToMediaTime",
+      "name": "Selected Layer / Go to Media Time",
+      "options": [
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 329
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_GoToMediaNormalizedTime",
+      "name": "Selected Layer / Go to Media Normalized Time",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 337
+      }
+    },
+    {
+      "id": "Action_SelectedLayer_SetMediaSpeed",
+      "name": "Selected Layer / Set Media Speed",
+      "options": [
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -65535,
+          "max": 65535
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 345
+      }
+    },
+    {
+      "id": "Action_CustomOSC",
+      "name": "Send Custom OSC Command",
+      "description": "Send a custom OSC command to Millumin for use with the Interactions panel",
+      "options": [
+        {
+          "id": "oscPath",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/millumin/action/custom",
+          "description": "Enter the OSC path (e.g., /millumin/action/custom)"
+        },
+        {
+          "id": "oscArgs",
+          "type": "textinput",
+          "label": "OSC Arguments",
+          "default": "",
+          "description": "Optional: Enter arguments as comma-separated values with type prefix (e.g., i:1,s:hello,f:0.5)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 353
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "progressBar",
+      "name": "Media on Layer / Progress Bar",
+      "description": "Show a progress bar of media currently playing on layer",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "layer",
+          "type": "dropdown",
+          "label": "Layer on media",
+          "default": "Global",
+          "choicesNote": "Built when the feedback definitions are registered (src/feedback.ts:29-34, src/index.ts:59-89): the id 'firstByIndex' plus the layer names from the config field timeLayerName (one name, or a comma separated list when trackMultipleLayers is on; names are not trimmed). The default 'Global' is not one of these ids unless a layer of that name is configured.",
+          "valueType": "string"
+        },
+        {
+          "id": "hideWhenNotRunning",
+          "type": "checkbox",
+          "label": "Hide when not running",
+          "default": true
+        },
+        {
+          "id": "expiringInSeconds",
+          "type": "number",
+          "label": "Change to expiring color at remaining seconds",
+          "default": 15,
+          "min": 0,
+          "max": 1000
+        },
+        {
+          "id": "runningColor",
+          "type": "colorpicker",
+          "label": "Running color",
+          "default": 65280
+        },
+        {
+          "id": "expiringColor",
+          "type": "colorpicker",
+          "label": "Expiring color",
+          "default": 16776960
+        }
+      ],
+      "provenance": {
+        "file": "src/feedback.ts",
+        "line": 27
+      }
+    }
+  ]
+}

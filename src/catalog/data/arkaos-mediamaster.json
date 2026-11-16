@@ -1,0 +1,39 @@
+{
+  "moduleId": "arkaos-mediamaster",
+  "name": "ArKaos MediaMaster Remote Player",
+  "repo": "bitfocus/companion-module-arkaos-mediamaster",
+  "version": "2.0.0",
+  "baseVersion": "~1.7.0",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "6d4916f",
+  "status": "read",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 1 action (send, index.js:88 inside initActions) and no feedbacks (the module never calls setFeedbackDefinitions). Only 1 action exists, so fewer than five entries could be compared with the source and the status is read, not verified-sample.",
+    "Protocol: plain TCP (TCPHelper) to the ArKaos Hub remote player of MediaMaster 6; config fields host (regex Regex.IP, default empty) and port (default 45678, regex Regex.PORT) in config.js. Every command is sent as the option text plus CRLF; nothing is sent when the socket is not connected or the text is empty. Incoming data is only stored in the variable tcp_response when the config keys saveresponse/convertresponse are set, but config.js defines neither field, so the variable stays empty in practice.",
+    "The option definition lives in fields.js (FIELDS.cmd) and is written with type 'string' (not a Companion input type, hence type other with rawType string) and useVariables: 'true' (a string, not a boolean; recorded here as true). The source sets no label other than 'Command to execute' and default ''.",
+    "The command text is free. The module's presets (presets.js, not catalogued as data) use these values: Orientation, Fullscreen:On, Fullscreen:Off, Controller:First, Controller:Previous, Controller:Play, Controller:Pause, Controller:Stop, Controller:Next, Controller:Last, Controller:Final15, Controller:Final30, Properties:Audio, Properties:Colors, Properties:Effect, Properties:Loop, Properties:Mixing, Properties:Output, Properties:Position, Properties:Visual, View:Remote Player, View:Saga Encoder, View:Transfer, and Cue:<n> for cue numbers 1 to 4095 (the loop at presets.js:406 generates 256 to 4095). These come from the presets only; whether the ArKaos Hub accepts anything else was not checked.",
+    "Built on @companion-module/base ~1.7.0: options do not support expressions. The class in index.js is still named GenericTcpUdpInstance (copied from the generic module template)."
+  ],
+  "actions": [
+    {
+      "id": "send",
+      "name": "Send command",
+      "options": [
+        {
+          "id": "cmd",
+          "type": "other",
+          "rawType": "string",
+          "label": "Command to execute",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "index.js",
+        "line": 88
+      }
+    }
+  ],
+  "feedbacks": []
+}
