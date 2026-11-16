@@ -1,0 +1,88 @@
+{
+  "moduleId": "tslproducts-umdlistener",
+  "name": "tslproducts-umdlistener",
+  "repo": "bitfocus/companion-module-tslproducts-umdlistener",
+  "version": "3.0.2",
+  "baseVersion": "^1.12.1",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "d9f9197",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [],
+  "feedbacks": [
+    {
+      "id": "tallyState",
+      "name": "Show Tally State On Button",
+      "description": "Indicate if Selected Address Tally is in X State",
+      "options": [
+        {
+          "id": "address",
+          "type": "dropdown",
+          "label": "Tally Address",
+          "choicesNote": "Filled at runtime from received TSL tally data: one entry per received address (id is the numeric tally address, label \"<address> (<label>)\"); before any data was received the only entry is the id -1 (\"No tally data received yet...\").",
+          "valueType": "number"
+        },
+        {
+          "id": "number",
+          "type": "dropdown",
+          "label": "Tally Number",
+          "default": "tally2",
+          "choices": [
+            {
+              "id": "tally1",
+              "label": "PVW"
+            },
+            {
+              "id": "tally2",
+              "label": "PGM"
+            },
+            {
+              "id": "tally1",
+              "label": "Tally 1"
+            },
+            {
+              "id": "tally2",
+              "label": "Tally 2"
+            },
+            {
+              "id": "tally3",
+              "label": "Tally 3"
+            },
+            {
+              "id": "tally4",
+              "label": "Tally 4"
+            }
+          ]
+        },
+        {
+          "id": "state",
+          "type": "dropdown",
+          "label": "Indicate in X Status",
+          "default": 1,
+          "choices": [
+            {
+              "id": 0,
+              "label": "Off"
+            },
+            {
+              "id": 1,
+              "label": "On"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.js",
+        "line": 11
+      },
+      "feedbackType": "boolean"
+    }
+  ],
+  "notes": [
+    "Complete list: 0 actions (src/actions.js registers an empty set: setActionDefinitions({}) ) and 1 boolean feedback (tallyState, src/feedbacks.js).",
+    "The module is a receiver: it listens for TSL UMD data on a TCP or UDP port (config \"Listening Port\", default \"9800\" as a string; \"Port Type\" udp or tcp, default udp; \"TSL Protcol Version\" tsl3.1 (default) or tsl5.0, a tsl4.0 entry is commented out in src/config.js) and updates feedbacks and variables. It sends nothing. The config \"Label Filter\" (default \" (FSFC)\") is removed from received labels.",
+    "The \"Tally Address\" dropdown of tallyState is filled at runtime from received tally data (CHOICES_TALLYADDRESSES: initially a single entry { id: -1, label: \"No tally data received yet...\" }, then one entry per received address with the label \"<address> (<label>)\", numeric ids sorted ascending). The catalog records the list through choicesNote and valueType; the registered default is the id of the first entry at registration time, which is -1 until data was received, so no default is recorded.",
+    "The \"Tally Number\" choices contain the ids tally1 and tally2 twice (PVW and Tally 1, PGM and Tally 2, then Tally 3 and Tally 4). The catalog lists the choices as the source defines them, duplicates included. The feedback compares parseInt(tally address) with the option and the tally value with the state option (numeric ids 0 and 1).",
+    "Built on @companion-module/base ^1.12.1: options do not support expressions."
+  ]
+}
