@@ -1,0 +1,187 @@
+{
+  "moduleId": "disguise-liveupdate",
+  "name": "Disguise LiveUpdate",
+  "repo": "bitfocus/companion-module-disguise-liveupdate",
+  "version": "1.0.2",
+  "baseVersion": "^1.6.3",
+  "lastCommit": "2026-10-30",
+  "lastCommitSha": "c5b6b60",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "actions": [
+    {
+      "id": "setToDisguiseString",
+      "name": "Set to Disguise (String)",
+      "description": "Set a Disguise property using an existing LiveUpdate Variable",
+      "options": [
+        {
+          "id": "variableName",
+          "type": "textinput",
+          "label": "Variable Name",
+          "description": "The variable name from your LiveUpdate Variable feedback (e.g., \"fps\", \"track_length\")",
+          "default": "",
+          "useVariables": false
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "description": "The string value to set (can use variables like $(liveupdate:my_var))",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 95
+      }
+    },
+    {
+      "id": "setToDisguiseNumber",
+      "name": "Set to Disguise (Number)",
+      "description": "Set a Disguise property using an existing LiveUpdate Variable",
+      "options": [
+        {
+          "id": "variableName",
+          "type": "textinput",
+          "label": "Variable Name",
+          "description": "The variable name from your LiveUpdate Variable feedback (e.g., \"fps\", \"track_length\")",
+          "default": "",
+          "useVariables": false
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "Value",
+          "description": "The numeric value or expression to set (e.g., \"5\", \"$(liveupdate:screen_x)+1\", \"$(liveupdate:fps)*2\")",
+          "default": "0",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 128
+      }
+    },
+    {
+      "id": "setToDisguiseBoolean",
+      "name": "Set to Disguise (Boolean)",
+      "description": "Set a Disguise property using an existing LiveUpdate Variable",
+      "options": [
+        {
+          "id": "variableName",
+          "type": "textinput",
+          "label": "Variable Name",
+          "description": "The variable name from your LiveUpdate Variable feedback (e.g., \"fps\", \"track_length\")",
+          "default": "",
+          "useVariables": false
+        },
+        {
+          "id": "value",
+          "type": "checkbox",
+          "label": "Value",
+          "description": "The boolean value to set",
+          "default": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 163
+      }
+    },
+    {
+      "id": "setToDisguiseJSON",
+      "name": "Set to Disguise (JSON)",
+      "description": "Set a Disguise property using an existing LiveUpdate Variable",
+      "options": [
+        {
+          "id": "variableName",
+          "type": "textinput",
+          "label": "Variable Name",
+          "description": "The variable name from your LiveUpdate Variable feedback (e.g., \"fps\", \"track_length\")",
+          "default": "",
+          "useVariables": false
+        },
+        {
+          "id": "value",
+          "type": "textinput",
+          "label": "JSON Value",
+          "description": "Valid JSON object or value (e.g., {\"x\": 1.0, \"y\": 2.0, \"z\": 3.0})",
+          "default": "{}",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 194
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "connectionState",
+      "name": "Connection OK",
+      "description": "Indicates whether the module is connected to Disguise Designer",
+      "feedbackType": "boolean",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 10
+      }
+    },
+    {
+      "id": "liveUpdateVariable",
+      "name": "LiveUpdate Variable",
+      "description": "Create a live-updating module variable that tracks a Disguise property. The variable is exposed as $(liveupdate:variable_name) and can be used anywhere in Companion.",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "variableName",
+          "type": "textinput",
+          "label": "Variable Name",
+          "description": "Name for the variable (e.g., \"fps\", \"track_length\")",
+          "default": "my_property",
+          "useVariables": false
+        },
+        {
+          "id": "objectPath",
+          "type": "textinput",
+          "label": "Object Path",
+          "description": "Designer expression to find the object (e.g., \"track:track_1\", \"screen2:screen_1\")",
+          "default": "track:track_1",
+          "useVariables": true
+        },
+        {
+          "id": "propertyPath",
+          "type": "textinput",
+          "label": "Property Path",
+          "description": "Python expression to access property (e.g., \"object.description\", \"object.lengthInBeats\")",
+          "default": "object.description",
+          "useVariables": true
+        },
+        {
+          "id": "updateFrequency",
+          "type": "number",
+          "label": "Update Frequency (ms)",
+          "description": "Minimum time between updates in milliseconds (0 = as fast as possible)",
+          "default": 0,
+          "min": 0,
+          "max": 60000
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 22
+      }
+    }
+  ],
+  "notes": [
+    "Complete list: 4 actions (src/actions.ts getActionDefinitions) and 2 feedbacks (src/feedbacks.ts getFeedbackDefinitions).",
+    "Protocol: WebSocket client to ws://<host>:<port>/api/session/liveupdate of the Disguise Designer Director (default port 80; src/index.ts:365, src/config.ts). Properties are addressed by a Designer object expression and a Python property expression.",
+    "The module works through the liveUpdateVariable feedback: it creates a subscription and a module variable $(liveupdate:<variableName>) that is updated when Disguise sends data. The four setToDisguise* actions write to a property by variableName and only work for a variable name that an existing liveUpdateVariable feedback has registered (otherwise the action logs a warning and does nothing). The variable name fields do not use variables (useVariables false).",
+    "setToDisguiseNumber evaluates the resolved value with new Function(\"return \" + value), so any JavaScript expression is run, not only arithmetic (src/actions.ts processNumberValue). setToDisguiseJSON parses the resolved text as JSON.",
+    "liveUpdateVariable is an advanced feedback that returns an empty style object; its purpose is managing the subscription (callback, subscribe, unsubscribe). updateFrequency 0 means \"as fast as possible\" (the module passes no throttle).",
+    "The source log text mentions a \"Refresh Subscriptions\" action (src/index.ts:604) but no such action is registered. Variables and presets (src/variables.ts, src/presets.ts) are not catalogued.",
+    "Built on @companion-module/base ^1.6.3: options do not support expressions."
+  ]
+}
