@@ -1,0 +1,573 @@
+{
+  "moduleId": "generic-http",
+  "name": "Generic HTTP",
+  "repo": "bitfocus/companion-module-generic-http",
+  "version": "3.2.0",
+  "baseVersion": "~2.0.4",
+  "lastCommit": "2026-10-12",
+  "lastCommitSha": "c12f36e",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 5 actions (post, get, put, patch, delete) and 1 advanced feedback (imageFromUrl), all registered in src/index.js (initActions, initFeedbacks). The option fields are shared definitions in src/fields.js (Url, Body, Header, ContentType, PollInterval, JsonResponseVariable, JsonStringify, StatusCodeVariable).",
+    "Connection config (not part of the schema): prefix (Base URL, default ''), proxyAddress, authType (none, basic, digest), authUser, authPassword (secret), rejectUnauthorized (default true), insecureHTTPParser (default false) in src/config.js. Requests use got; throwHttpErrors is false, so any HTTP status is a response, and status codes outside 2xx only set the connection status and log an error.",
+    "The textinput fields Body and Header are multiline (not in the schema) and set allowInvalidValues: the source comment says it allows objects. Body default is '{}', Header default is ''.",
+    "Body handling (prepareQuery, src/index.js:57): for contenttype application/json a string body is parsed with JSON.parse (a malformed body aborts the request with an error); otherwise the body is sent as a string with the two characters backslash-n replaced by a real line feed. An empty or whitespace-only body is dropped. The Content-Type header is set from the contenttype option for post, put and patch (delete has no contenttype option, so its body is always sent as a string), and overrides a Content-Type given in the header option.",
+    "Header handling: the header option is a JSON object as text; invalid JSON aborts the request with an error. An empty string means no extra headers.",
+    "A URL that does not start with 'http' is prefixed with the configured Base URL (when it is not empty).",
+    "delete has no statusCodeVariable option and does not call processResponse: the JSON and status variables are not written, only the connection status is set. get has no Body and no Content Type.",
+    "The two custom-variable fields hold the name of a Companion custom variable; they are catalogued as type other with rawType custom-variable. processResponse writes the status code and the body (parsed with JSON.parse when 'Store result as text' is off) into them.",
+    "imageFromUrl is an advanced feedback that GETs the image, scales it to the button size (fit, 4x oversampled) and returns png64. PollInterval 0 disables polling; the number field has min 0 and no max or step.",
+    "Built on @companion-module/base ~2.0.4: options support expressions."
+  ],
+  "actions": [
+    {
+      "id": "post",
+      "name": "POST",
+      "options": [
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Label is 'URI' instead of 'URL' when the connection has a Base URL (config.prefix) set. Without a leading 'http' the Base URL is prepended.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "body",
+          "type": "textinput",
+          "label": "Body",
+          "default": "{}",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "header",
+          "type": "textinput",
+          "label": "header input(JSON)",
+          "default": "",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "contenttype",
+          "type": "dropdown",
+          "label": "Content Type",
+          "default": "application/json",
+          "choices": [
+            {
+              "id": "application/json",
+              "label": "application/json"
+            },
+            {
+              "id": "application/x-www-form-urlencoded",
+              "label": "application/x-www-form-urlencoded"
+            },
+            {
+              "id": "application/xml",
+              "label": "application/xml"
+            },
+            {
+              "id": "text/html",
+              "label": "text/html"
+            },
+            {
+              "id": "text/plain",
+              "label": "text/plain"
+            },
+            {
+              "id": "text/csv",
+              "label": "text/csv"
+            },
+            {
+              "id": "text/xml",
+              "label": "text/xml"
+            },
+            {
+              "id": "multipart/form-data",
+              "label": "multipart/form-data"
+            },
+            {
+              "id": "application/octet-stream",
+              "label": "application/octet-stream"
+            },
+            {
+              "id": "application/javascript",
+              "label": "application/javascript"
+            },
+            {
+              "id": "application/pdf",
+              "label": "application/pdf"
+            },
+            {
+              "id": "application/zip",
+              "label": "application/zip"
+            },
+            {
+              "id": "image/png",
+              "label": "image/png"
+            },
+            {
+              "id": "image/jpeg",
+              "label": "image/jpeg"
+            },
+            {
+              "id": "image/svg+xml",
+              "label": "image/svg+xml"
+            },
+            {
+              "id": "application/ld+json",
+              "label": "application/ld+json"
+            },
+            {
+              "id": "application/vnd.api+json",
+              "label": "application/vnd.api+json"
+            },
+            {
+              "id": "application/x-yaml",
+              "label": "application/x-yaml"
+            },
+            {
+              "id": "application/graphql",
+              "label": "application/graphql"
+            }
+          ]
+        },
+        {
+          "id": "jsonResultDataVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "JSON Response Data Variable",
+          "default": ""
+        },
+        {
+          "id": "result_stringify",
+          "type": "checkbox",
+          "label": "Store result as text",
+          "default": true,
+          "description": "When enabled, the response body is stored in the variable exactly as received. Disable this to parse the body as JSON first, so the variable holds an object you can index into. Leave it enabled if the endpoint does not return JSON, otherwise parsing will fail and the body will be stored as text anyway."
+        },
+        {
+          "id": "statusCodeVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "Response Status Code Variable",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 295
+      }
+    },
+    {
+      "id": "get",
+      "name": "GET",
+      "options": [
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Label is 'URI' instead of 'URL' when the connection has a Base URL (config.prefix) set. Without a leading 'http' the Base URL is prepended.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "header",
+          "type": "textinput",
+          "label": "header input(JSON)",
+          "default": "",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "jsonResultDataVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "JSON Response Data Variable",
+          "default": ""
+        },
+        {
+          "id": "result_stringify",
+          "type": "checkbox",
+          "label": "Store result as text",
+          "default": true,
+          "description": "When enabled, the response body is stored in the variable exactly as received. Disable this to parse the body as JSON first, so the variable holds an object you can index into. Leave it enabled if the endpoint does not return JSON, otherwise parsing will fail and the body will be stored as text anyway."
+        },
+        {
+          "id": "statusCodeVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "Response Status Code Variable",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 319
+      }
+    },
+    {
+      "id": "put",
+      "name": "PUT",
+      "options": [
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Label is 'URI' instead of 'URL' when the connection has a Base URL (config.prefix) set. Without a leading 'http' the Base URL is prepended.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "body",
+          "type": "textinput",
+          "label": "Body",
+          "default": "{}",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "header",
+          "type": "textinput",
+          "label": "header input(JSON)",
+          "default": "",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "contenttype",
+          "type": "dropdown",
+          "label": "Content Type",
+          "default": "application/json",
+          "choices": [
+            {
+              "id": "application/json",
+              "label": "application/json"
+            },
+            {
+              "id": "application/x-www-form-urlencoded",
+              "label": "application/x-www-form-urlencoded"
+            },
+            {
+              "id": "application/xml",
+              "label": "application/xml"
+            },
+            {
+              "id": "text/html",
+              "label": "text/html"
+            },
+            {
+              "id": "text/plain",
+              "label": "text/plain"
+            },
+            {
+              "id": "text/csv",
+              "label": "text/csv"
+            },
+            {
+              "id": "text/xml",
+              "label": "text/xml"
+            },
+            {
+              "id": "multipart/form-data",
+              "label": "multipart/form-data"
+            },
+            {
+              "id": "application/octet-stream",
+              "label": "application/octet-stream"
+            },
+            {
+              "id": "application/javascript",
+              "label": "application/javascript"
+            },
+            {
+              "id": "application/pdf",
+              "label": "application/pdf"
+            },
+            {
+              "id": "application/zip",
+              "label": "application/zip"
+            },
+            {
+              "id": "image/png",
+              "label": "image/png"
+            },
+            {
+              "id": "image/jpeg",
+              "label": "image/jpeg"
+            },
+            {
+              "id": "image/svg+xml",
+              "label": "image/svg+xml"
+            },
+            {
+              "id": "application/ld+json",
+              "label": "application/ld+json"
+            },
+            {
+              "id": "application/vnd.api+json",
+              "label": "application/vnd.api+json"
+            },
+            {
+              "id": "application/x-yaml",
+              "label": "application/x-yaml"
+            },
+            {
+              "id": "application/graphql",
+              "label": "application/graphql"
+            }
+          ]
+        },
+        {
+          "id": "jsonResultDataVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "JSON Response Data Variable",
+          "default": ""
+        },
+        {
+          "id": "result_stringify",
+          "type": "checkbox",
+          "label": "Store result as text",
+          "default": true,
+          "description": "When enabled, the response body is stored in the variable exactly as received. Disable this to parse the body as JSON first, so the variable holds an object you can index into. Leave it enabled if the endpoint does not return JSON, otherwise parsing will fail and the body will be stored as text anyway."
+        },
+        {
+          "id": "statusCodeVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "Response Status Code Variable",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 341
+      }
+    },
+    {
+      "id": "patch",
+      "name": "PATCH",
+      "options": [
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Label is 'URI' instead of 'URL' when the connection has a Base URL (config.prefix) set. Without a leading 'http' the Base URL is prepended.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "body",
+          "type": "textinput",
+          "label": "Body",
+          "default": "{}",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "header",
+          "type": "textinput",
+          "label": "header input(JSON)",
+          "default": "",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "contenttype",
+          "type": "dropdown",
+          "label": "Content Type",
+          "default": "application/json",
+          "choices": [
+            {
+              "id": "application/json",
+              "label": "application/json"
+            },
+            {
+              "id": "application/x-www-form-urlencoded",
+              "label": "application/x-www-form-urlencoded"
+            },
+            {
+              "id": "application/xml",
+              "label": "application/xml"
+            },
+            {
+              "id": "text/html",
+              "label": "text/html"
+            },
+            {
+              "id": "text/plain",
+              "label": "text/plain"
+            },
+            {
+              "id": "text/csv",
+              "label": "text/csv"
+            },
+            {
+              "id": "text/xml",
+              "label": "text/xml"
+            },
+            {
+              "id": "multipart/form-data",
+              "label": "multipart/form-data"
+            },
+            {
+              "id": "application/octet-stream",
+              "label": "application/octet-stream"
+            },
+            {
+              "id": "application/javascript",
+              "label": "application/javascript"
+            },
+            {
+              "id": "application/pdf",
+              "label": "application/pdf"
+            },
+            {
+              "id": "application/zip",
+              "label": "application/zip"
+            },
+            {
+              "id": "image/png",
+              "label": "image/png"
+            },
+            {
+              "id": "image/jpeg",
+              "label": "image/jpeg"
+            },
+            {
+              "id": "image/svg+xml",
+              "label": "image/svg+xml"
+            },
+            {
+              "id": "application/ld+json",
+              "label": "application/ld+json"
+            },
+            {
+              "id": "application/vnd.api+json",
+              "label": "application/vnd.api+json"
+            },
+            {
+              "id": "application/x-yaml",
+              "label": "application/x-yaml"
+            },
+            {
+              "id": "application/graphql",
+              "label": "application/graphql"
+            }
+          ]
+        },
+        {
+          "id": "jsonResultDataVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "JSON Response Data Variable",
+          "default": ""
+        },
+        {
+          "id": "result_stringify",
+          "type": "checkbox",
+          "label": "Store result as text",
+          "default": true,
+          "description": "When enabled, the response body is stored in the variable exactly as received. Disable this to parse the body as JSON first, so the variable holds an object you can index into. Leave it enabled if the endpoint does not return JSON, otherwise parsing will fail and the body will be stored as text anyway."
+        },
+        {
+          "id": "statusCodeVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "Response Status Code Variable",
+          "default": ""
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 365
+      }
+    },
+    {
+      "id": "delete",
+      "name": "DELETE",
+      "options": [
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Label is 'URI' instead of 'URL' when the connection has a Base URL (config.prefix) set. Without a leading 'http' the Base URL is prepended.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "body",
+          "type": "textinput",
+          "label": "Body",
+          "default": "{}",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "header",
+          "type": "textinput",
+          "label": "header input(JSON)",
+          "default": "",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "jsonResultDataVariable",
+          "type": "other",
+          "rawType": "custom-variable",
+          "label": "JSON Response Data Variable",
+          "default": ""
+        },
+        {
+          "id": "result_stringify",
+          "type": "checkbox",
+          "label": "Store result as text",
+          "default": true,
+          "description": "When enabled, the response body is stored in the variable exactly as received. Disable this to parse the body as JSON first, so the variable holds an object you can index into. Leave it enabled if the endpoint does not return JSON, otherwise parsing will fail and the body will be stored as text anyway."
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 389
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "imageFromUrl",
+      "name": "Image from URL",
+      "feedbackType": "advanced",
+      "options": [
+        {
+          "id": "url",
+          "type": "textinput",
+          "label": "URL",
+          "description": "Label is 'URI' instead of 'URL' when the connection has a Base URL (config.prefix) set. Without a leading 'http' the Base URL is prepended.",
+          "default": "",
+          "useVariables": true
+        },
+        {
+          "id": "header",
+          "type": "textinput",
+          "label": "header input(JSON)",
+          "default": "",
+          "useVariables": true,
+          "allowInvalidValues": true
+        },
+        {
+          "id": "interval",
+          "type": "number",
+          "label": "Poll Interval (ms) (0 to disable)",
+          "default": 0,
+          "min": 0
+        }
+      ],
+      "provenance": {
+        "file": "src/index.js",
+        "line": 418
+      }
+    }
+  ]
+}

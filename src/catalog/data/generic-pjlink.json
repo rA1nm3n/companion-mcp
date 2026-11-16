@@ -1,0 +1,505 @@
+{
+  "moduleId": "generic-pjlink",
+  "name": "Generic PJLink",
+  "repo": "bitfocus/companion-module-generic-pjlink",
+  "version": "2.6.0",
+  "baseVersion": "^1.11.3",
+  "lastCommit": "2026-10-31",
+  "lastCommitSha": "ca8422b",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 6 actions (pjlink.js buildActions, line 700; the callbacks are attached in a loop at line 765) and 7 boolean feedbacks (init_feedbacks, line 1145). The actions and feedbacks are rebuilt (updateDynamicContent) when the projector reports its input list, so the input dropdowns change at runtime.",
+    "PJLink over TCP, port config.port or 4352 (pjlink.js:192; there is no port config field). Config fields (not in the schema): host, password (empty for none), pollTime in seconds (default 5), debug. The module's idle-disconnect logic follows the PJLink rule of closing the connection after 30 seconds without pending commands (comment at pjlink.js:586).",
+    "All dropdown ids are strings ('0', '1', '2', '3'), built by ar2obj (index as string) from the arrays in choices.js: ON_OFF_TOGGLE Off/On/Toggle, MUTE_ITEM Not Muted/Video Mute/Audio Mute/A/V Mute, ON_OFF_STATE Off/On, ERROR_STATE No Error/Warning/Error, POWER_STATE Off/On/Cooling/Warm-up. Error type ids are the strings errorFan, errorLamp, errorTemp, errorCover, errorFilter, errorOther.",
+    "Quirk in the source: the mute action's 'Select Mute' default is '3' (A/V Mute) and its 'Select State' default is '0' (Off); the mute feedback defaults are item '3', state '1'. The feedback 'powerState' uses ids '0'-'3' where '2' is Cooling and '3' Warm-up.",
+    "The class 2 commands (freeze, volume) are sent as %2... and only work with Class 2 projectors, as the action names say.",
+    "Built on @companion-module/base ^1.11.3: options do not support expressions."
+  ],
+  "actions": [
+    {
+      "id": "powerState",
+      "name": "Change Projector Power State",
+      "options": [
+        {
+          "id": "opt",
+          "type": "dropdown",
+          "label": "Select Power State",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "2",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 702
+      },
+      "description": "Sends %1POWR only while the stored power state is '0' or '1' (not while cooling or warming up). Toggle (2) inverts the stored state."
+    },
+    {
+      "id": "muteState",
+      "name": "Change Projector Mute State ",
+      "options": [
+        {
+          "id": "item",
+          "type": "dropdown",
+          "label": "Select Mute",
+          "default": "3",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Not Muted"
+            },
+            {
+              "id": "1",
+              "label": "Video Mute"
+            },
+            {
+              "id": "2",
+              "label": "Audio Mute"
+            },
+            {
+              "id": "3",
+              "label": "A/V Mute"
+            }
+          ]
+        },
+        {
+          "id": "opt",
+          "type": "dropdown",
+          "label": "Select State",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "2",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 714
+      },
+      "description": "Sends %1AVMT <item><state>. Toggle computes the new state from the stored mute state."
+    },
+    {
+      "id": "freezeState",
+      "name": "Change Projector Freeze State (Class 2 only)",
+      "options": [
+        {
+          "id": "opt",
+          "type": "dropdown",
+          "label": "Select Freeze State",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "2",
+              "label": "Toggle"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 733
+      },
+      "description": "Sends %2FREZ <0|1>; Toggle inverts the stored freeze state."
+    },
+    {
+      "id": "inputToggle",
+      "name": "Switch Projector Input",
+      "options": [
+        {
+          "id": "inputNum",
+          "type": "dropdown",
+          "label": "Select input",
+          "choicesNote": "Filled at runtime from the projector. Starts with the built-in list CONFIG.INPUTS (11 RGB1, 12 RGB2, 31 DVI-D, 32 HDMI, 33 Digital link, 34 SDI1, 35 SDI2, 52 LAN, 56 HDBaseT; choices.js), then replaced by the inputs the projector reports with INST (Class 1: generated labels like 'RGB-1 (11)'; Class 2: names from INNM, label 'name (id)'). Ids are strings of the PJLink input number (class digit + number).",
+          "valueType": "string"
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 745
+      },
+      "description": "Sends %1INPT <inputNum>. The source has no default for this option (the default line is commented out)."
+    },
+    {
+      "id": "volumeUp",
+      "name": "Speaker Volume - Increase by 1 (Class 2 only)",
+      "options": [],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 757
+      },
+      "description": "Sends %2SVOL 1. The action has no options."
+    },
+    {
+      "id": "volumeDown",
+      "name": "Speaker Volume - Decrease by 1 (Class 2 only)",
+      "options": [],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 760
+      },
+      "description": "Sends %2SVOL 0. The action has no options."
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "errors",
+      "name": "Error status",
+      "feedbackType": "boolean",
+      "description": "Indicate Error status",
+      "options": [
+        {
+          "id": "error",
+          "type": "dropdown",
+          "label": "Error",
+          "default": "errorFan",
+          "choices": [
+            {
+              "id": "errorFan",
+              "label": "Fan"
+            },
+            {
+              "id": "errorLamp",
+              "label": "Lamp"
+            },
+            {
+              "id": "errorTemp",
+              "label": "Temp"
+            },
+            {
+              "id": "errorCover",
+              "label": "Cover"
+            },
+            {
+              "id": "errorFilter",
+              "label": "Filter"
+            },
+            {
+              "id": "errorOther",
+              "label": "Other"
+            }
+          ]
+        },
+        {
+          "id": "errorState",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "No Error"
+            },
+            {
+              "id": "1",
+              "label": "Warning"
+            },
+            {
+              "id": "2",
+              "label": "Error"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1147
+      }
+    },
+    {
+      "id": "freezeState",
+      "name": "Freeze status",
+      "feedbackType": "boolean",
+      "description": "Indicate Freeze status",
+      "options": [
+        {
+          "id": "freezeState",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1175
+      }
+    },
+    {
+      "id": "lampHour",
+      "name": "Lamp hours over",
+      "feedbackType": "boolean",
+      "description": "Indicate Lamp hours greater than hours",
+      "options": [
+        {
+          "id": "lamp",
+          "type": "dropdown",
+          "label": "Lamp",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Lamp 1"
+            },
+            {
+              "id": "2",
+              "label": "Lamp 2"
+            },
+            {
+              "id": "3",
+              "label": "Lamp 3"
+            },
+            {
+              "id": "4",
+              "label": "Lamp 4"
+            },
+            {
+              "id": "5",
+              "label": "Lamp 5"
+            },
+            {
+              "id": "6",
+              "label": "Lamp 6"
+            },
+            {
+              "id": "7",
+              "label": "Lamp 7"
+            },
+            {
+              "id": "8",
+              "label": "Lamp 8"
+            }
+          ]
+        },
+        {
+          "id": "lampHour",
+          "type": "number",
+          "label": "Greater than Hours",
+          "default": 10000,
+          "min": 0
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1196
+      }
+    },
+    {
+      "id": "lampState",
+      "name": "Lamp Status",
+      "feedbackType": "boolean",
+      "description": "Indicate Lamp Status",
+      "options": [
+        {
+          "id": "lamp",
+          "type": "dropdown",
+          "label": "Lamp",
+          "default": "1",
+          "choices": [
+            {
+              "id": "1",
+              "label": "Lamp 1"
+            },
+            {
+              "id": "2",
+              "label": "Lamp 2"
+            },
+            {
+              "id": "3",
+              "label": "Lamp 3"
+            },
+            {
+              "id": "4",
+              "label": "Lamp 4"
+            },
+            {
+              "id": "5",
+              "label": "Lamp 5"
+            },
+            {
+              "id": "6",
+              "label": "Lamp 6"
+            },
+            {
+              "id": "7",
+              "label": "Lamp 7"
+            },
+            {
+              "id": "8",
+              "label": "Lamp 8"
+            }
+          ]
+        },
+        {
+          "id": "opt",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1233
+      }
+    },
+    {
+      "id": "muteState",
+      "name": "Mute status",
+      "feedbackType": "boolean",
+      "description": "Indicate Mute status",
+      "options": [
+        {
+          "id": "item",
+          "type": "dropdown",
+          "label": "Mute item",
+          "default": "3",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Not Muted"
+            },
+            {
+              "id": "1",
+              "label": "Video Mute"
+            },
+            {
+              "id": "2",
+              "label": "Audio Mute"
+            },
+            {
+              "id": "3",
+              "label": "A/V Mute"
+            }
+          ]
+        },
+        {
+          "id": "opt",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "1",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1270
+      }
+    },
+    {
+      "id": "projectorInput",
+      "name": "Projector Input",
+      "feedbackType": "boolean",
+      "description": "Indicate Projector on Input",
+      "options": [
+        {
+          "id": "inputNum",
+          "type": "dropdown",
+          "label": "Select input",
+          "choicesNote": "Filled at runtime from the projector. Starts with the built-in list CONFIG.INPUTS (11 RGB1, 12 RGB2, 31 DVI-D, 32 HDMI, 33 Digital link, 34 SDI1, 35 SDI2, 52 LAN, 56 HDBaseT; choices.js), then replaced by the inputs the projector reports with INST (Class 1: generated labels like 'RGB-1 (11)'; Class 2: names from INNM, label 'name (id)'). Ids are strings of the PJLink input number (class digit + number).",
+          "valueType": "string",
+          "default": "31"
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1303
+      }
+    },
+    {
+      "id": "powerState",
+      "name": "Power status",
+      "feedbackType": "boolean",
+      "description": "Indicate Power status",
+      "options": [
+        {
+          "id": "powerState",
+          "type": "dropdown",
+          "label": "Status",
+          "default": "0",
+          "choices": [
+            {
+              "id": "0",
+              "label": "Off"
+            },
+            {
+              "id": "1",
+              "label": "On"
+            },
+            {
+              "id": "2",
+              "label": "Cooling"
+            },
+            {
+              "id": "3",
+              "label": "Warm-up"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "pjlink.js",
+        "line": 1324
+      }
+    }
+  ]
+}

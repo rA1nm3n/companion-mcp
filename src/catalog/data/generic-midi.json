@@ -1,0 +1,2038 @@
+{
+  "moduleId": "generic-midi",
+  "name": "Generic MIDI",
+  "repo": "bitfocus/companion-module-generic-midi",
+  "version": "2.2.1",
+  "baseVersion": "~2.1.0",
+  "lastCommit": "2026-11-15",
+  "lastCommitSha": "a6a8509",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 7 actions and 15 feedbacks. The note, CC, program, pitch and SysEx entries are generated in a loop over midiMsgTypes (src/operations.ts, src/actions.ts:12, src/feedbacks.ts:15) and are written out one by one here; the msc action and the feedbacks midiIn, midiOut, msc and msc_value are defined explicitly.",
+    "Options come from createOptions (src/operations.ts:92-145): channel (1-16, default 1), note (0-127, default 60), controller (0-127, default 127) and the value field (id velocity, value or program; SysEx uses the textinput bytes). The commented-out message types (aftertouch, channel pressure, MTC, clock, ...) are not registered.",
+    "Actions other than sysex add varValue/relValue/sendOverTime/timeStartValue/time/curve; the static-text field relText ('Relative will only work after a value has been sent from the device!') is not catalogued. The checkboxes relValue and sendOverTime set disableAutoExpression; visibleWhen texts are the source isVisibleExpression strings.",
+    "Because the number fields have no required flag and always have a default, nothing is marked required. Relative values need an incoming value from the device (the module stores incoming messages in a data store); the module also creates variables, which are not catalogued.",
+    "SysEx bytes (action and feedback): decimal or 0x-hex tokens separated by spaces or commas, integers 0-255, first F0 (240), last F7 (247).",
+    "MSC: commandFormat and command ids are numbers (0x01 = 1, ...); the action defaults are 0x10 (16, Sound General) and 0x01 (1, GO). The data text is hex bytes (needs at least one '0x' token) or ASCII with '|' as field separator (encoded as NUL). encodeMsc rejects ids above 0x7f and messages longer than 128 bytes (src/midi/msc.ts:112-124). The feedbacks use -1 for 'Any'.",
+    "The module talks to a MIDI port (in and out, optionally virtual) chosen in the connection config; port names are config fields, not action options.",
+    "Built on @companion-module/base ~2.1.0: options support expressions, except fields with disableAutoExpression."
+  ],
+  "actions": [
+    {
+      "id": "noteoff",
+      "name": "Note Off",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "note",
+          "type": "number",
+          "label": "Note Number",
+          "default": 60,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "velocity",
+          "type": "number",
+          "label": "Velocity",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!$(options:relValue)"
+        },
+        {
+          "id": "varValue",
+          "type": "number",
+          "label": "Velocity",
+          "default": 0,
+          "min": -127,
+          "max": 127,
+          "visibleWhen": "!!$(options:relValue)"
+        },
+        {
+          "id": "relValue",
+          "type": "checkbox",
+          "label": "Relative",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sendOverTime",
+          "type": "checkbox",
+          "label": "Send Over Time",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "timeStartValue",
+          "type": "number",
+          "label": "Start Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!!$(options:sendOverTime) && !$(options:relValue)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (seconds)",
+          "default": 1,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "$(options:sendOverTime)"
+        },
+        {
+          "id": "curve",
+          "type": "dropdown",
+          "label": "Curve Type",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "easeIn",
+              "label": "Ease In"
+            },
+            {
+              "id": "easeOut",
+              "label": "Ease Out"
+            },
+            {
+              "id": "easeInOut",
+              "label": "Ease In/Out"
+            }
+          ],
+          "visibleWhen": "$(options:sendOverTime)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 13
+      },
+      "description": "Relative: sends the stored incoming value plus varValue and only works after the device sent a value. Send Over Time: ramps from the start value (or the stored value when relative) to the target in steps of 15 ms with the chosen curve; the end value is clamped to 0-127 (src/actions.ts:45-120)."
+    },
+    {
+      "id": "noteon",
+      "name": "Note On",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "note",
+          "type": "number",
+          "label": "Note Number",
+          "default": 60,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "velocity",
+          "type": "number",
+          "label": "Velocity",
+          "default": 127,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!$(options:relValue)"
+        },
+        {
+          "id": "varValue",
+          "type": "number",
+          "label": "Velocity",
+          "default": 0,
+          "min": -127,
+          "max": 127,
+          "visibleWhen": "!!$(options:relValue)"
+        },
+        {
+          "id": "relValue",
+          "type": "checkbox",
+          "label": "Relative",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sendOverTime",
+          "type": "checkbox",
+          "label": "Send Over Time",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "timeStartValue",
+          "type": "number",
+          "label": "Start Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!!$(options:sendOverTime) && !$(options:relValue)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (seconds)",
+          "default": 1,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "$(options:sendOverTime)"
+        },
+        {
+          "id": "curve",
+          "type": "dropdown",
+          "label": "Curve Type",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "easeIn",
+              "label": "Ease In"
+            },
+            {
+              "id": "easeOut",
+              "label": "Ease Out"
+            },
+            {
+              "id": "easeInOut",
+              "label": "Ease In/Out"
+            }
+          ],
+          "visibleWhen": "$(options:sendOverTime)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 13
+      },
+      "description": "Relative: sends the stored incoming value plus varValue and only works after the device sent a value. Send Over Time: ramps from the start value (or the stored value when relative) to the target in steps of 15 ms with the chosen curve; the end value is clamped to 0-127 (src/actions.ts:45-120)."
+    },
+    {
+      "id": "cc",
+      "name": "CC",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "controller",
+          "type": "number",
+          "label": "Controller",
+          "default": 127,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!$(options:relValue)"
+        },
+        {
+          "id": "varValue",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -127,
+          "max": 127,
+          "visibleWhen": "!!$(options:relValue)"
+        },
+        {
+          "id": "relValue",
+          "type": "checkbox",
+          "label": "Relative",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sendOverTime",
+          "type": "checkbox",
+          "label": "Send Over Time",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "timeStartValue",
+          "type": "number",
+          "label": "Start Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!!$(options:sendOverTime) && !$(options:relValue)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (seconds)",
+          "default": 1,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "$(options:sendOverTime)"
+        },
+        {
+          "id": "curve",
+          "type": "dropdown",
+          "label": "Curve Type",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "easeIn",
+              "label": "Ease In"
+            },
+            {
+              "id": "easeOut",
+              "label": "Ease Out"
+            },
+            {
+              "id": "easeInOut",
+              "label": "Ease In/Out"
+            }
+          ],
+          "visibleWhen": "$(options:sendOverTime)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 13
+      },
+      "description": "Relative: sends the stored incoming value plus varValue and only works after the device sent a value. Send Over Time: ramps from the start value (or the stored value when relative) to the target in steps of 15 ms with the chosen curve; the end value is clamped to 0-127 (src/actions.ts:45-120)."
+    },
+    {
+      "id": "program",
+      "name": "Program Change",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "program",
+          "type": "number",
+          "label": "Program Number",
+          "default": 1,
+          "min": 1,
+          "max": 128,
+          "visibleWhen": "!$(options:relValue)"
+        },
+        {
+          "id": "varValue",
+          "type": "number",
+          "label": "Program Number",
+          "default": 0,
+          "min": -128,
+          "max": 128,
+          "visibleWhen": "!!$(options:relValue)"
+        },
+        {
+          "id": "relValue",
+          "type": "checkbox",
+          "label": "Relative",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sendOverTime",
+          "type": "checkbox",
+          "label": "Send Over Time",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "timeStartValue",
+          "type": "number",
+          "label": "Start Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!!$(options:sendOverTime) && !$(options:relValue)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (seconds)",
+          "default": 1,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "$(options:sendOverTime)"
+        },
+        {
+          "id": "curve",
+          "type": "dropdown",
+          "label": "Curve Type",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "easeIn",
+              "label": "Ease In"
+            },
+            {
+              "id": "easeOut",
+              "label": "Ease Out"
+            },
+            {
+              "id": "easeInOut",
+              "label": "Ease In/Out"
+            }
+          ],
+          "visibleWhen": "$(options:sendOverTime)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 13
+      },
+      "description": "Relative: sends the stored incoming value plus varValue and only works after the device sent a value. Send Over Time: ramps from the start value (or the stored value when relative) to the target in steps of 15 ms with the chosen curve; the end value is clamped to 0-127 (src/actions.ts:45-120)."
+    },
+    {
+      "id": "pitch",
+      "name": "Pitch Wheel",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 8192,
+          "min": 0,
+          "max": 16383,
+          "visibleWhen": "!$(options:relValue)"
+        },
+        {
+          "id": "varValue",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": -16383,
+          "max": 16383,
+          "visibleWhen": "!!$(options:relValue)"
+        },
+        {
+          "id": "relValue",
+          "type": "checkbox",
+          "label": "Relative",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "sendOverTime",
+          "type": "checkbox",
+          "label": "Send Over Time",
+          "default": false,
+          "disableAutoExpression": true
+        },
+        {
+          "id": "timeStartValue",
+          "type": "number",
+          "label": "Start Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!!$(options:sendOverTime) && !$(options:relValue)"
+        },
+        {
+          "id": "time",
+          "type": "number",
+          "label": "Time (seconds)",
+          "default": 1,
+          "min": 0,
+          "max": 600,
+          "visibleWhen": "$(options:sendOverTime)"
+        },
+        {
+          "id": "curve",
+          "type": "dropdown",
+          "label": "Curve Type",
+          "default": "linear",
+          "choices": [
+            {
+              "id": "linear",
+              "label": "Linear"
+            },
+            {
+              "id": "easeIn",
+              "label": "Ease In"
+            },
+            {
+              "id": "easeOut",
+              "label": "Ease Out"
+            },
+            {
+              "id": "easeInOut",
+              "label": "Ease In/Out"
+            }
+          ],
+          "visibleWhen": "$(options:sendOverTime)"
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 13
+      },
+      "description": "Relative: sends the stored incoming value plus varValue and only works after the device sent a value. Send Over Time: ramps from the start value (or the stored value when relative) to the target in steps of 15 ms with the chosen curve; the end value is clamped to 0-127 (src/actions.ts:45-120)."
+    },
+    {
+      "id": "sysex",
+      "name": "SysEx",
+      "options": [
+        {
+          "id": "bytes",
+          "type": "textinput",
+          "label": "SysEx Bytes",
+          "description": "Enter a string of decimal or hex digits, with spaces or commas between. MUST start with 0xF0 or 240 and end with 0xF7 or 247",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 13
+      },
+      "description": "Bytes are parsed from the text: split on whitespace or commas, '0x' prefix means hex, each byte must be an integer 0-255, the first must be 0xF0 and the last 0xF7 (src/actions.ts:24-41); otherwise a warning is logged and nothing is sent."
+    },
+    {
+      "id": "msc",
+      "name": "MIDI Show Control (MSC)",
+      "options": [
+        {
+          "id": "deviceId",
+          "type": "number",
+          "label": "Destination Device ID (0–127; 127 = all-call)",
+          "default": 127,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "commandFormat",
+          "type": "dropdown",
+          "label": "Command Format",
+          "default": 16,
+          "choices": [
+            {
+              "id": 1,
+              "label": "Lighting (General) (0x01)"
+            },
+            {
+              "id": 2,
+              "label": "Moving Lights (0x02)"
+            },
+            {
+              "id": 3,
+              "label": "Colour Changers (0x03)"
+            },
+            {
+              "id": 4,
+              "label": "Strobes (0x04)"
+            },
+            {
+              "id": 5,
+              "label": "Lasers (0x05)"
+            },
+            {
+              "id": 6,
+              "label": "Chasers (0x06)"
+            },
+            {
+              "id": 16,
+              "label": "Sound (General) (0x10)"
+            },
+            {
+              "id": 17,
+              "label": "Music (0x11)"
+            },
+            {
+              "id": 18,
+              "label": "CD Players (0x12)"
+            },
+            {
+              "id": 19,
+              "label": "EPROM Playback (0x13)"
+            },
+            {
+              "id": 20,
+              "label": "Audio Tape Machines (0x14)"
+            },
+            {
+              "id": 21,
+              "label": "Intercoms (0x15)"
+            },
+            {
+              "id": 22,
+              "label": "Amplifiers (0x16)"
+            },
+            {
+              "id": 23,
+              "label": "Audio Effects Devices (0x17)"
+            },
+            {
+              "id": 24,
+              "label": "Equalisers (0x18)"
+            },
+            {
+              "id": 32,
+              "label": "Machinery (General) (0x20)"
+            },
+            {
+              "id": 33,
+              "label": "Rigging (0x21)"
+            },
+            {
+              "id": 34,
+              "label": "Flys (0x22)"
+            },
+            {
+              "id": 35,
+              "label": "Lifts (0x23)"
+            },
+            {
+              "id": 36,
+              "label": "Turntables (0x24)"
+            },
+            {
+              "id": 37,
+              "label": "Trusses (0x25)"
+            },
+            {
+              "id": 38,
+              "label": "Robots (0x26)"
+            },
+            {
+              "id": 39,
+              "label": "Animation (0x27)"
+            },
+            {
+              "id": 40,
+              "label": "Floats (0x28)"
+            },
+            {
+              "id": 41,
+              "label": "Breakaways (0x29)"
+            },
+            {
+              "id": 42,
+              "label": "Barges (0x2a)"
+            },
+            {
+              "id": 48,
+              "label": "Video (General) (0x30)"
+            },
+            {
+              "id": 49,
+              "label": "Video Tape Machines (0x31)"
+            },
+            {
+              "id": 50,
+              "label": "Video Cassette Machines (0x32)"
+            },
+            {
+              "id": 51,
+              "label": "Video Disc Players (0x33)"
+            },
+            {
+              "id": 52,
+              "label": "Video Switchers (0x34)"
+            },
+            {
+              "id": 53,
+              "label": "Video Effects (0x35)"
+            },
+            {
+              "id": 54,
+              "label": "Video Character Generators (0x36)"
+            },
+            {
+              "id": 55,
+              "label": "Video Still Stores (0x37)"
+            },
+            {
+              "id": 56,
+              "label": "Video Monitors (0x38)"
+            },
+            {
+              "id": 64,
+              "label": "Projection (General) (0x40)"
+            },
+            {
+              "id": 65,
+              "label": "Film Projectors (0x41)"
+            },
+            {
+              "id": 66,
+              "label": "Slide Projectors (0x42)"
+            },
+            {
+              "id": 67,
+              "label": "Video Projectors (0x43)"
+            },
+            {
+              "id": 68,
+              "label": "Dissolvers (0x44)"
+            },
+            {
+              "id": 69,
+              "label": "Shutter Controls (0x45)"
+            },
+            {
+              "id": 80,
+              "label": "Process Control (General) (0x50)"
+            },
+            {
+              "id": 81,
+              "label": "Hydraulic Oil (0x51)"
+            },
+            {
+              "id": 82,
+              "label": "Water (0x52)"
+            },
+            {
+              "id": 83,
+              "label": "CO2 (0x53)"
+            },
+            {
+              "id": 84,
+              "label": "Compressed Air (0x54)"
+            },
+            {
+              "id": 85,
+              "label": "Natural Gas (0x55)"
+            },
+            {
+              "id": 86,
+              "label": "Fog (0x56)"
+            },
+            {
+              "id": 87,
+              "label": "Smoke (0x57)"
+            },
+            {
+              "id": 88,
+              "label": "Cracked Haze (0x58)"
+            },
+            {
+              "id": 96,
+              "label": "Pyro (General) (0x60)"
+            },
+            {
+              "id": 97,
+              "label": "Fireworks (0x61)"
+            },
+            {
+              "id": 98,
+              "label": "Explosions (0x62)"
+            },
+            {
+              "id": 99,
+              "label": "Flame (0x63)"
+            },
+            {
+              "id": 100,
+              "label": "Smoke Pots (0x64)"
+            },
+            {
+              "id": 127,
+              "label": "All Types (0x7f)"
+            }
+          ]
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": 1,
+          "choices": [
+            {
+              "id": 1,
+              "label": "GO (0x01)"
+            },
+            {
+              "id": 2,
+              "label": "STOP (0x02)"
+            },
+            {
+              "id": 3,
+              "label": "RESUME (0x03)"
+            },
+            {
+              "id": 4,
+              "label": "TIMED GO (0x04)"
+            },
+            {
+              "id": 5,
+              "label": "LOAD (0x05)"
+            },
+            {
+              "id": 6,
+              "label": "SET (0x06)"
+            },
+            {
+              "id": 7,
+              "label": "FIRE (0x07)"
+            },
+            {
+              "id": 8,
+              "label": "ALL OFF (0x08)"
+            },
+            {
+              "id": 9,
+              "label": "RESTORE (0x09)"
+            },
+            {
+              "id": 10,
+              "label": "RESET (0x0a)"
+            },
+            {
+              "id": 11,
+              "label": "GO OFF (0x0b)"
+            },
+            {
+              "id": 16,
+              "label": "GO / JAM CLOCK (0x10)"
+            },
+            {
+              "id": 17,
+              "label": "STANDBY + (0x11)"
+            },
+            {
+              "id": 18,
+              "label": "STANDBY - (0x12)"
+            },
+            {
+              "id": 19,
+              "label": "SEQUENCE + (0x13)"
+            },
+            {
+              "id": 20,
+              "label": "SEQUENCE - (0x14)"
+            },
+            {
+              "id": 21,
+              "label": "START CLOCK (0x15)"
+            },
+            {
+              "id": 22,
+              "label": "STOP CLOCK (0x16)"
+            },
+            {
+              "id": 23,
+              "label": "ZERO CLOCK (0x17)"
+            },
+            {
+              "id": 24,
+              "label": "SET CLOCK (0x18)"
+            },
+            {
+              "id": 25,
+              "label": "MTC CHASE ON (0x19)"
+            },
+            {
+              "id": 26,
+              "label": "MTC CHASE OFF (0x1a)"
+            },
+            {
+              "id": 27,
+              "label": "OPEN CUE LIST (0x1b)"
+            },
+            {
+              "id": 28,
+              "label": "CLOSE CUE LIST (0x1c)"
+            },
+            {
+              "id": 29,
+              "label": "OPEN CUE PATH (0x1d)"
+            },
+            {
+              "id": 30,
+              "label": "CLOSE CUE PATH (0x1e)"
+            }
+          ]
+        },
+        {
+          "id": "data",
+          "type": "textinput",
+          "label": "Data (ASCII; use | between fields, or enter hex bytes)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/actions.ts",
+        "line": 206
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "noteoff",
+      "name": "Note Off",
+      "feedbackType": "boolean",
+      "description": "Note Off Messsage",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "note",
+          "type": "number",
+          "label": "Note Number",
+          "default": 60,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "velocity",
+          "type": "number",
+          "label": "Velocity",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!$(options:createVar)"
+        },
+        {
+          "id": "createVar",
+          "type": "checkbox",
+          "label": "Auto-Create Variable",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 16
+      },
+      "availability": "The option createVar (and the visibleWhen of the value option) exist only when the connection setting autoCreateVars is enabled (src/feedbacks.ts:58-68)."
+    },
+    {
+      "id": "noteoff_value",
+      "name": "Note Off Value",
+      "feedbackType": "value",
+      "description": "Note Off Messsage",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "note",
+          "type": "number",
+          "label": "Note Number",
+          "default": 60,
+          "min": 0,
+          "max": 127
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 73
+      },
+      "availability": "Returns the last value stored from an incoming message (program numbers are returned +1); undefined when nothing has been received."
+    },
+    {
+      "id": "noteon",
+      "name": "Note On",
+      "feedbackType": "boolean",
+      "description": "Note On Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "note",
+          "type": "number",
+          "label": "Note Number",
+          "default": 60,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "velocity",
+          "type": "number",
+          "label": "Velocity",
+          "default": 127,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!$(options:createVar)"
+        },
+        {
+          "id": "createVar",
+          "type": "checkbox",
+          "label": "Auto-Create Variable",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 16
+      },
+      "availability": "The option createVar (and the visibleWhen of the value option) exist only when the connection setting autoCreateVars is enabled (src/feedbacks.ts:58-68)."
+    },
+    {
+      "id": "noteon_value",
+      "name": "Note On Value",
+      "feedbackType": "value",
+      "description": "Note On Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "note",
+          "type": "number",
+          "label": "Note Number",
+          "default": 60,
+          "min": 0,
+          "max": 127
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 73
+      },
+      "availability": "Returns the last value stored from an incoming message (program numbers are returned +1); undefined when nothing has been received."
+    },
+    {
+      "id": "cc",
+      "name": "CC",
+      "feedbackType": "boolean",
+      "description": "Control Change Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "controller",
+          "type": "number",
+          "label": "Controller",
+          "default": 127,
+          "min": 0,
+          "max": 127
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 0,
+          "min": 0,
+          "max": 127,
+          "visibleWhen": "!$(options:createVar)"
+        },
+        {
+          "id": "createVar",
+          "type": "checkbox",
+          "label": "Auto-Create Variable",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 16
+      },
+      "availability": "The option createVar (and the visibleWhen of the value option) exist only when the connection setting autoCreateVars is enabled (src/feedbacks.ts:58-68)."
+    },
+    {
+      "id": "cc_value",
+      "name": "CC Value",
+      "feedbackType": "value",
+      "description": "Control Change Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "controller",
+          "type": "number",
+          "label": "Controller",
+          "default": 127,
+          "min": 0,
+          "max": 127
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 73
+      },
+      "availability": "Returns the last value stored from an incoming message (program numbers are returned +1); undefined when nothing has been received."
+    },
+    {
+      "id": "program",
+      "name": "Program Change",
+      "feedbackType": "boolean",
+      "description": "Program Change Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "program",
+          "type": "number",
+          "label": "Program Number",
+          "default": 1,
+          "min": 1,
+          "max": 128,
+          "visibleWhen": "!$(options:createVar)"
+        },
+        {
+          "id": "createVar",
+          "type": "checkbox",
+          "label": "Auto-Create Variable",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 16
+      },
+      "availability": "The option createVar (and the visibleWhen of the value option) exist only when the connection setting autoCreateVars is enabled (src/feedbacks.ts:58-68)."
+    },
+    {
+      "id": "program_value",
+      "name": "Program Change Value",
+      "feedbackType": "value",
+      "description": "Program Change Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 73
+      },
+      "availability": "Returns the last value stored from an incoming message (program numbers are returned +1); undefined when nothing has been received."
+    },
+    {
+      "id": "pitch",
+      "name": "Pitch Wheel",
+      "feedbackType": "boolean",
+      "description": "Pitch Wheel Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        },
+        {
+          "id": "value",
+          "type": "number",
+          "label": "Value",
+          "default": 8192,
+          "min": 0,
+          "max": 16383,
+          "visibleWhen": "!$(options:createVar)"
+        },
+        {
+          "id": "createVar",
+          "type": "checkbox",
+          "label": "Auto-Create Variable",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 16
+      },
+      "availability": "The option createVar (and the visibleWhen of the value option) exist only when the connection setting autoCreateVars is enabled (src/feedbacks.ts:58-68)."
+    },
+    {
+      "id": "pitch_value",
+      "name": "Pitch Wheel Value",
+      "feedbackType": "value",
+      "description": "Pitch Wheel Message",
+      "options": [
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel",
+          "default": 1,
+          "min": 1,
+          "max": 16
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 73
+      },
+      "availability": "Returns the last value stored from an incoming message (program numbers are returned +1); undefined when nothing has been received."
+    },
+    {
+      "id": "sysex",
+      "name": "SysEx",
+      "feedbackType": "boolean",
+      "description": "System Exclusive Message",
+      "options": [
+        {
+          "id": "bytes",
+          "type": "textinput",
+          "label": "SysEx Bytes",
+          "description": "Enter a string of decimal or hex digits, with spaces or commas between. MUST start with 0xF0 or 240 and end with 0xF7 or 247",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 16
+      }
+    },
+    {
+      "id": "midiIn",
+      "name": "MIDI Message Incoming?",
+      "feedbackType": "boolean",
+      "description": "Fire whenever ANY MIDI message is received",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 91
+      }
+    },
+    {
+      "id": "midiOut",
+      "name": "MIDI Message Outgoing?",
+      "feedbackType": "boolean",
+      "description": "Fire whenever ANY MIDI message is sent",
+      "options": [],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 105
+      }
+    },
+    {
+      "id": "msc",
+      "name": "MIDI Show Control (MSC) Message",
+      "feedbackType": "boolean",
+      "description": "True when the most recently received SysEx message matches these MSC fields. MSC does not define acknowledgements.",
+      "options": [
+        {
+          "id": "deviceId",
+          "type": "number",
+          "label": "Device ID (-1 = any)",
+          "default": -1,
+          "min": -1,
+          "max": 127
+        },
+        {
+          "id": "commandFormat",
+          "type": "dropdown",
+          "label": "Command Format",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Any"
+            },
+            {
+              "id": 1,
+              "label": "Lighting (General) (0x01)"
+            },
+            {
+              "id": 2,
+              "label": "Moving Lights (0x02)"
+            },
+            {
+              "id": 3,
+              "label": "Colour Changers (0x03)"
+            },
+            {
+              "id": 4,
+              "label": "Strobes (0x04)"
+            },
+            {
+              "id": 5,
+              "label": "Lasers (0x05)"
+            },
+            {
+              "id": 6,
+              "label": "Chasers (0x06)"
+            },
+            {
+              "id": 16,
+              "label": "Sound (General) (0x10)"
+            },
+            {
+              "id": 17,
+              "label": "Music (0x11)"
+            },
+            {
+              "id": 18,
+              "label": "CD Players (0x12)"
+            },
+            {
+              "id": 19,
+              "label": "EPROM Playback (0x13)"
+            },
+            {
+              "id": 20,
+              "label": "Audio Tape Machines (0x14)"
+            },
+            {
+              "id": 21,
+              "label": "Intercoms (0x15)"
+            },
+            {
+              "id": 22,
+              "label": "Amplifiers (0x16)"
+            },
+            {
+              "id": 23,
+              "label": "Audio Effects Devices (0x17)"
+            },
+            {
+              "id": 24,
+              "label": "Equalisers (0x18)"
+            },
+            {
+              "id": 32,
+              "label": "Machinery (General) (0x20)"
+            },
+            {
+              "id": 33,
+              "label": "Rigging (0x21)"
+            },
+            {
+              "id": 34,
+              "label": "Flys (0x22)"
+            },
+            {
+              "id": 35,
+              "label": "Lifts (0x23)"
+            },
+            {
+              "id": 36,
+              "label": "Turntables (0x24)"
+            },
+            {
+              "id": 37,
+              "label": "Trusses (0x25)"
+            },
+            {
+              "id": 38,
+              "label": "Robots (0x26)"
+            },
+            {
+              "id": 39,
+              "label": "Animation (0x27)"
+            },
+            {
+              "id": 40,
+              "label": "Floats (0x28)"
+            },
+            {
+              "id": 41,
+              "label": "Breakaways (0x29)"
+            },
+            {
+              "id": 42,
+              "label": "Barges (0x2a)"
+            },
+            {
+              "id": 48,
+              "label": "Video (General) (0x30)"
+            },
+            {
+              "id": 49,
+              "label": "Video Tape Machines (0x31)"
+            },
+            {
+              "id": 50,
+              "label": "Video Cassette Machines (0x32)"
+            },
+            {
+              "id": 51,
+              "label": "Video Disc Players (0x33)"
+            },
+            {
+              "id": 52,
+              "label": "Video Switchers (0x34)"
+            },
+            {
+              "id": 53,
+              "label": "Video Effects (0x35)"
+            },
+            {
+              "id": 54,
+              "label": "Video Character Generators (0x36)"
+            },
+            {
+              "id": 55,
+              "label": "Video Still Stores (0x37)"
+            },
+            {
+              "id": 56,
+              "label": "Video Monitors (0x38)"
+            },
+            {
+              "id": 64,
+              "label": "Projection (General) (0x40)"
+            },
+            {
+              "id": 65,
+              "label": "Film Projectors (0x41)"
+            },
+            {
+              "id": 66,
+              "label": "Slide Projectors (0x42)"
+            },
+            {
+              "id": 67,
+              "label": "Video Projectors (0x43)"
+            },
+            {
+              "id": 68,
+              "label": "Dissolvers (0x44)"
+            },
+            {
+              "id": 69,
+              "label": "Shutter Controls (0x45)"
+            },
+            {
+              "id": 80,
+              "label": "Process Control (General) (0x50)"
+            },
+            {
+              "id": 81,
+              "label": "Hydraulic Oil (0x51)"
+            },
+            {
+              "id": 82,
+              "label": "Water (0x52)"
+            },
+            {
+              "id": 83,
+              "label": "CO2 (0x53)"
+            },
+            {
+              "id": 84,
+              "label": "Compressed Air (0x54)"
+            },
+            {
+              "id": 85,
+              "label": "Natural Gas (0x55)"
+            },
+            {
+              "id": 86,
+              "label": "Fog (0x56)"
+            },
+            {
+              "id": 87,
+              "label": "Smoke (0x57)"
+            },
+            {
+              "id": 88,
+              "label": "Cracked Haze (0x58)"
+            },
+            {
+              "id": 96,
+              "label": "Pyro (General) (0x60)"
+            },
+            {
+              "id": 97,
+              "label": "Fireworks (0x61)"
+            },
+            {
+              "id": 98,
+              "label": "Explosions (0x62)"
+            },
+            {
+              "id": 99,
+              "label": "Flame (0x63)"
+            },
+            {
+              "id": 100,
+              "label": "Smoke Pots (0x64)"
+            },
+            {
+              "id": 127,
+              "label": "All Types (0x7f)"
+            }
+          ]
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Any"
+            },
+            {
+              "id": 1,
+              "label": "GO (0x01)"
+            },
+            {
+              "id": 2,
+              "label": "STOP (0x02)"
+            },
+            {
+              "id": 3,
+              "label": "RESUME (0x03)"
+            },
+            {
+              "id": 4,
+              "label": "TIMED GO (0x04)"
+            },
+            {
+              "id": 5,
+              "label": "LOAD (0x05)"
+            },
+            {
+              "id": 6,
+              "label": "SET (0x06)"
+            },
+            {
+              "id": 7,
+              "label": "FIRE (0x07)"
+            },
+            {
+              "id": 8,
+              "label": "ALL OFF (0x08)"
+            },
+            {
+              "id": 9,
+              "label": "RESTORE (0x09)"
+            },
+            {
+              "id": 10,
+              "label": "RESET (0x0a)"
+            },
+            {
+              "id": 11,
+              "label": "GO OFF (0x0b)"
+            },
+            {
+              "id": 16,
+              "label": "GO / JAM CLOCK (0x10)"
+            },
+            {
+              "id": 17,
+              "label": "STANDBY + (0x11)"
+            },
+            {
+              "id": 18,
+              "label": "STANDBY - (0x12)"
+            },
+            {
+              "id": 19,
+              "label": "SEQUENCE + (0x13)"
+            },
+            {
+              "id": 20,
+              "label": "SEQUENCE - (0x14)"
+            },
+            {
+              "id": 21,
+              "label": "START CLOCK (0x15)"
+            },
+            {
+              "id": 22,
+              "label": "STOP CLOCK (0x16)"
+            },
+            {
+              "id": 23,
+              "label": "ZERO CLOCK (0x17)"
+            },
+            {
+              "id": 24,
+              "label": "SET CLOCK (0x18)"
+            },
+            {
+              "id": 25,
+              "label": "MTC CHASE ON (0x19)"
+            },
+            {
+              "id": 26,
+              "label": "MTC CHASE OFF (0x1a)"
+            },
+            {
+              "id": 27,
+              "label": "OPEN CUE LIST (0x1b)"
+            },
+            {
+              "id": 28,
+              "label": "CLOSE CUE LIST (0x1c)"
+            },
+            {
+              "id": 29,
+              "label": "OPEN CUE PATH (0x1d)"
+            },
+            {
+              "id": 30,
+              "label": "CLOSE CUE PATH (0x1e)"
+            }
+          ]
+        },
+        {
+          "id": "data",
+          "type": "textinput",
+          "label": "Exact Data (optional; ASCII or hex bytes)",
+          "default": "",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 119
+      }
+    },
+    {
+      "id": "msc_value",
+      "name": "MIDI Show Control (MSC) Data Value",
+      "feedbackType": "value",
+      "description": "Returns the data from the most recently received MSC message when it matches the filters.",
+      "options": [
+        {
+          "id": "deviceId",
+          "type": "number",
+          "label": "Device ID (-1 = any)",
+          "default": -1,
+          "min": -1,
+          "max": 127
+        },
+        {
+          "id": "commandFormat",
+          "type": "dropdown",
+          "label": "Command Format",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Any"
+            },
+            {
+              "id": 1,
+              "label": "Lighting (General) (0x01)"
+            },
+            {
+              "id": 2,
+              "label": "Moving Lights (0x02)"
+            },
+            {
+              "id": 3,
+              "label": "Colour Changers (0x03)"
+            },
+            {
+              "id": 4,
+              "label": "Strobes (0x04)"
+            },
+            {
+              "id": 5,
+              "label": "Lasers (0x05)"
+            },
+            {
+              "id": 6,
+              "label": "Chasers (0x06)"
+            },
+            {
+              "id": 16,
+              "label": "Sound (General) (0x10)"
+            },
+            {
+              "id": 17,
+              "label": "Music (0x11)"
+            },
+            {
+              "id": 18,
+              "label": "CD Players (0x12)"
+            },
+            {
+              "id": 19,
+              "label": "EPROM Playback (0x13)"
+            },
+            {
+              "id": 20,
+              "label": "Audio Tape Machines (0x14)"
+            },
+            {
+              "id": 21,
+              "label": "Intercoms (0x15)"
+            },
+            {
+              "id": 22,
+              "label": "Amplifiers (0x16)"
+            },
+            {
+              "id": 23,
+              "label": "Audio Effects Devices (0x17)"
+            },
+            {
+              "id": 24,
+              "label": "Equalisers (0x18)"
+            },
+            {
+              "id": 32,
+              "label": "Machinery (General) (0x20)"
+            },
+            {
+              "id": 33,
+              "label": "Rigging (0x21)"
+            },
+            {
+              "id": 34,
+              "label": "Flys (0x22)"
+            },
+            {
+              "id": 35,
+              "label": "Lifts (0x23)"
+            },
+            {
+              "id": 36,
+              "label": "Turntables (0x24)"
+            },
+            {
+              "id": 37,
+              "label": "Trusses (0x25)"
+            },
+            {
+              "id": 38,
+              "label": "Robots (0x26)"
+            },
+            {
+              "id": 39,
+              "label": "Animation (0x27)"
+            },
+            {
+              "id": 40,
+              "label": "Floats (0x28)"
+            },
+            {
+              "id": 41,
+              "label": "Breakaways (0x29)"
+            },
+            {
+              "id": 42,
+              "label": "Barges (0x2a)"
+            },
+            {
+              "id": 48,
+              "label": "Video (General) (0x30)"
+            },
+            {
+              "id": 49,
+              "label": "Video Tape Machines (0x31)"
+            },
+            {
+              "id": 50,
+              "label": "Video Cassette Machines (0x32)"
+            },
+            {
+              "id": 51,
+              "label": "Video Disc Players (0x33)"
+            },
+            {
+              "id": 52,
+              "label": "Video Switchers (0x34)"
+            },
+            {
+              "id": 53,
+              "label": "Video Effects (0x35)"
+            },
+            {
+              "id": 54,
+              "label": "Video Character Generators (0x36)"
+            },
+            {
+              "id": 55,
+              "label": "Video Still Stores (0x37)"
+            },
+            {
+              "id": 56,
+              "label": "Video Monitors (0x38)"
+            },
+            {
+              "id": 64,
+              "label": "Projection (General) (0x40)"
+            },
+            {
+              "id": 65,
+              "label": "Film Projectors (0x41)"
+            },
+            {
+              "id": 66,
+              "label": "Slide Projectors (0x42)"
+            },
+            {
+              "id": 67,
+              "label": "Video Projectors (0x43)"
+            },
+            {
+              "id": 68,
+              "label": "Dissolvers (0x44)"
+            },
+            {
+              "id": 69,
+              "label": "Shutter Controls (0x45)"
+            },
+            {
+              "id": 80,
+              "label": "Process Control (General) (0x50)"
+            },
+            {
+              "id": 81,
+              "label": "Hydraulic Oil (0x51)"
+            },
+            {
+              "id": 82,
+              "label": "Water (0x52)"
+            },
+            {
+              "id": 83,
+              "label": "CO2 (0x53)"
+            },
+            {
+              "id": 84,
+              "label": "Compressed Air (0x54)"
+            },
+            {
+              "id": 85,
+              "label": "Natural Gas (0x55)"
+            },
+            {
+              "id": 86,
+              "label": "Fog (0x56)"
+            },
+            {
+              "id": 87,
+              "label": "Smoke (0x57)"
+            },
+            {
+              "id": 88,
+              "label": "Cracked Haze (0x58)"
+            },
+            {
+              "id": 96,
+              "label": "Pyro (General) (0x60)"
+            },
+            {
+              "id": 97,
+              "label": "Fireworks (0x61)"
+            },
+            {
+              "id": 98,
+              "label": "Explosions (0x62)"
+            },
+            {
+              "id": 99,
+              "label": "Flame (0x63)"
+            },
+            {
+              "id": 100,
+              "label": "Smoke Pots (0x64)"
+            },
+            {
+              "id": 127,
+              "label": "All Types (0x7f)"
+            }
+          ]
+        },
+        {
+          "id": "command",
+          "type": "dropdown",
+          "label": "Command",
+          "default": -1,
+          "choices": [
+            {
+              "id": -1,
+              "label": "Any"
+            },
+            {
+              "id": 1,
+              "label": "GO (0x01)"
+            },
+            {
+              "id": 2,
+              "label": "STOP (0x02)"
+            },
+            {
+              "id": 3,
+              "label": "RESUME (0x03)"
+            },
+            {
+              "id": 4,
+              "label": "TIMED GO (0x04)"
+            },
+            {
+              "id": 5,
+              "label": "LOAD (0x05)"
+            },
+            {
+              "id": 6,
+              "label": "SET (0x06)"
+            },
+            {
+              "id": 7,
+              "label": "FIRE (0x07)"
+            },
+            {
+              "id": 8,
+              "label": "ALL OFF (0x08)"
+            },
+            {
+              "id": 9,
+              "label": "RESTORE (0x09)"
+            },
+            {
+              "id": 10,
+              "label": "RESET (0x0a)"
+            },
+            {
+              "id": 11,
+              "label": "GO OFF (0x0b)"
+            },
+            {
+              "id": 16,
+              "label": "GO / JAM CLOCK (0x10)"
+            },
+            {
+              "id": 17,
+              "label": "STANDBY + (0x11)"
+            },
+            {
+              "id": 18,
+              "label": "STANDBY - (0x12)"
+            },
+            {
+              "id": 19,
+              "label": "SEQUENCE + (0x13)"
+            },
+            {
+              "id": 20,
+              "label": "SEQUENCE - (0x14)"
+            },
+            {
+              "id": 21,
+              "label": "START CLOCK (0x15)"
+            },
+            {
+              "id": 22,
+              "label": "STOP CLOCK (0x16)"
+            },
+            {
+              "id": 23,
+              "label": "ZERO CLOCK (0x17)"
+            },
+            {
+              "id": 24,
+              "label": "SET CLOCK (0x18)"
+            },
+            {
+              "id": 25,
+              "label": "MTC CHASE ON (0x19)"
+            },
+            {
+              "id": 26,
+              "label": "MTC CHASE OFF (0x1a)"
+            },
+            {
+              "id": 27,
+              "label": "OPEN CUE LIST (0x1b)"
+            },
+            {
+              "id": 28,
+              "label": "CLOSE CUE LIST (0x1c)"
+            },
+            {
+              "id": 29,
+              "label": "OPEN CUE PATH (0x1d)"
+            },
+            {
+              "id": 30,
+              "label": "CLOSE CUE PATH (0x1e)"
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "src/feedbacks.ts",
+        "line": 179
+      }
+    }
+  ]
+}

@@ -1,0 +1,877 @@
+{
+  "moduleId": "generic-osc",
+  "name": "Generic OSC",
+  "repo": "bitfocus/companion-module-generic-osc",
+  "version": "3.0.0",
+  "baseVersion": "2.1.3",
+  "lastCommit": "2026-10-29",
+  "lastCommitSha": "e4009ea",
+  "status": "verified-sample",
+  "coverage": "complete",
+  "notes": [
+    "Complete list: 8 actions (osc.js updateActions, line 150) and 9 feedbacks (osc.js updateFeedbacks, line 669: 8 boolean, 1 value). Nothing is generated at runtime.",
+    "Connection config (not part of the schema, osc.js getConfigFields): host, targetPort (default 8000, 1-65535), protocol (udp default, tcp, tcp-raw), listen (Listen for Feedback, default false) and feedbackPort (UDP only). The feedbacks only work with listen enabled.",
+    "Not catalogued: static-text option 'warning' (id warning) in send_boolean, send_blob and osc_feedback_bool. Four textinputs set minLength: 1 (osc.js:109 is a config field; path fields of osc_feedback_midi, osc_feedback_multi_specific, osc_feedback_value), which the schema cannot hold; they are mentioned in the option description.",
+    "Numeric fields: send_int and osc_feedback_int use asInteger over the 32-bit range; send_float and osc_feedback_float use +-3.4028235e38 without step or asInteger. The option values of osc_feedback_int/float are compared with parseFloat of the received first argument.",
+    "send_multiple argument parsing (osc.js:280): when the text parses as a JSON array it is mapped element by element (integers become i, other numbers f, strings s, true/false T/F, other element types are dropped); otherwise a tokenizer is used: numbers without a point are i, with a point f, 'true'/'false' are T/F, quoted text (double or single quotes, typographic double quotes are normalized) is s, everything else is s.",
+    "osc_feedback_multi parses its Arguments text with a different routine (helpers.js parseArguments: split on spaces, numbers without a point parseInt, with a point parseFloat, quotes stripped, no true/false handling), so booleans are not matched by it. Comparison is strict equality per argument.",
+    "osc_feedback_noargs returns true once per received message and then deletes the stored message (a debounce, osc.js:1251). The _specific feedback compares argument [index]: the numeric comparisons require both sides to be finite numbers, the '... as String' variants compare text (booleans as 'true'/'false').",
+    "send_blob: base64 (default) or hex, spaces and commas are removed before decoding. send_midi / osc_feedback_midi use the 4-byte OSC MIDI argument [portId, status, data1, data2]; program and channelpressure send data2 = 0; pitch bend is sent as value + 8192 split into LSB/MSB.",
+    "The module also provides variables (latest_received_*, latest_sent_*) in osc.js:1315, not catalogued.",
+    "Built on @companion-module/base 2.1.3: options support expressions, except fields with disableAutoExpression."
+  ],
+  "actions": [
+    {
+      "id": "send_blank",
+      "name": "Send message without arguments",
+      "description": "Send an OSC message without arguments",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 168
+      }
+    },
+    {
+      "id": "send_int",
+      "name": "Send integer",
+      "description": "Send a single integer value (type \"i\") as OSC argument",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "int",
+          "type": "number",
+          "label": "Value",
+          "default": 1,
+          "min": -2147483648,
+          "max": 2147483647,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 186
+      }
+    },
+    {
+      "id": "send_float",
+      "name": "Send float",
+      "description": "Send a float (type \"f\") argument",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "float",
+          "type": "number",
+          "label": "Value",
+          "default": 1,
+          "min": -3.4028235e38,
+          "max": 3.4028235e38
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 218
+      }
+    },
+    {
+      "id": "send_string",
+      "name": "Send string",
+      "description": "Send a string (type \"s\") argument",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "string",
+          "type": "textinput",
+          "label": "Value",
+          "default": "text",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 249
+      }
+    },
+    {
+      "id": "send_multiple",
+      "name": "Send message with multiple arguments",
+      "description": "Send a message with multiple arguments of different types (int, float, string, boolean)",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Arguments",
+          "default": "1 \"Let's go\" 2.5",
+          "useVariables": true,
+          "description": "Use a space delimited list of numbers, true, false or strings. Numbers without a decimal point are considered integer and numbers with a point are considered float. In expression mode: Return either a space delimited string of numbers, true, false or strings, or an array of values such as [1, \"two\", true] to send each element as an argument."
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 280
+      }
+    },
+    {
+      "id": "send_boolean",
+      "name": "Send boolean",
+      "description": "Send a boolean value as OSC True (type \"T\") or False (type \"F\")",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "value",
+          "type": "checkbox",
+          "label": "Value",
+          "default": false
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 372
+      }
+    },
+    {
+      "id": "send_blob",
+      "name": "Send blob",
+      "description": "Sends an OSC blob argument (type \"b\"). You can provide the blob data as Base64 or Hex.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "blob",
+          "type": "textinput",
+          "label": "Blob Data (Base64)",
+          "default": "",
+          "useVariables": true,
+          "visibleWhen": "$(options:hexswitch) === false"
+        },
+        {
+          "id": "blob_hex",
+          "type": "textinput",
+          "label": "Blob Data (Hex)",
+          "default": "0A0B0C",
+          "useVariables": true,
+          "visibleWhen": "$(options:hexswitch) === true"
+        },
+        {
+          "id": "hexswitch",
+          "type": "checkbox",
+          "label": "Use Hex",
+          "default": false,
+          "disableAutoExpression": true
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 410
+      }
+    },
+    {
+      "id": "send_midi",
+      "name": "Send MIDI message (OSC MIDI)",
+      "description": "Sends an OSC MIDI argument (type \"m\") containing 4 bytes: portId, status, data1, data2. Supports friendly MIDI modes or raw hex",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "mode",
+          "type": "dropdown",
+          "label": "Mode",
+          "default": "noteon",
+          "choices": [
+            {
+              "id": "noteon",
+              "label": "Note On"
+            },
+            {
+              "id": "noteoff",
+              "label": "Note Off"
+            },
+            {
+              "id": "cc",
+              "label": "Control Change (CC)"
+            },
+            {
+              "id": "program",
+              "label": "Program Change"
+            },
+            {
+              "id": "pitchbend",
+              "label": "Pitch Bend"
+            },
+            {
+              "id": "polyaftertouch",
+              "label": "Poly Aftertouch"
+            },
+            {
+              "id": "channelpressure",
+              "label": "Channel Pressure"
+            },
+            {
+              "id": "raw",
+              "label": "Raw (4 bytes hex)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "portId",
+          "type": "number",
+          "label": "MIDI Port ID (0-255)",
+          "default": 0,
+          "min": 0,
+          "max": 255,
+          "integer": true,
+          "visibleWhen": "$(options:mode) !== 'raw'",
+          "description": "OSC MIDI has a leading \"port\" byte. Leave 0 unless you know your receiver expects something else."
+        },
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel (1-16)",
+          "default": 1,
+          "min": 1,
+          "max": 16,
+          "integer": true,
+          "visibleWhen": "$(options:mode) !== 'raw'"
+        },
+        {
+          "id": "data1",
+          "type": "number",
+          "label": "Data 1 (Note/CC/Program)",
+          "default": 69,
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "visibleWhen": "$(options:mode) !== 'raw' && $(options:mode) !== 'pitchbend'",
+          "description": "Note On/Off: Note number (0-127). CC: Controller number (0-127). Program: Program number (0-127)."
+        },
+        {
+          "id": "data2",
+          "type": "number",
+          "label": "Data 2 (Velocity/Value)",
+          "default": 100,
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "visibleWhen": "$(options:mode) !== 'raw' && $(options:mode) !== 'program' && $(options:mode) !== 'channelpressure' && $(options:mode) !== 'pitchbend'",
+          "description": "Note On/Off: Velocity (0-127). CC: Value (0-127). Poly Aftertouch: Pressure (0-127)."
+        },
+        {
+          "id": "pitch",
+          "type": "number",
+          "label": "Pitch Bend (center 0; range -8192..8191)",
+          "default": 0,
+          "min": -8192,
+          "max": 8191,
+          "integer": true,
+          "visibleWhen": "$(options:mode) === 'pitchbend'"
+        },
+        {
+          "id": "rawHex",
+          "type": "textinput",
+          "label": "Raw bytes (4 hex bytes, e.g. \"00 90 45 65\")",
+          "default": "00 90 45 65",
+          "useVariables": true,
+          "visibleWhen": "$(options:mode) === 'raw'"
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 484
+      }
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "osc_feedback_int",
+      "name": "Listen for OSC messages (Integer)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "number",
+          "label": "Value",
+          "default": 1,
+          "min": -2147483648,
+          "max": 2147483647,
+          "integer": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 671
+      }
+    },
+    {
+      "id": "osc_feedback_float",
+      "name": "Listen for OSC messages (Float)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "number",
+          "label": "Value",
+          "default": 1,
+          "min": -3.4028235e38,
+          "max": 3.4028235e38
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 734
+      }
+    },
+    {
+      "id": "osc_feedback_bool",
+      "name": "Listen for OSC messages (Boolean)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "checkbox",
+          "label": "Value",
+          "default": false
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 796
+      }
+    },
+    {
+      "id": "osc_feedback_string",
+      "name": "Listen for OSC messages (String)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Value",
+          "default": "my favorite string",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 852
+      }
+    },
+    {
+      "id": "osc_feedback_midi",
+      "name": "Listen for OSC messages (OSC MIDI)",
+      "feedbackType": "boolean",
+      "description": "Matches incoming OSC MIDI (type \"m\") messages by type/channel/data bytes. Requires \"Listen for Feedback\" enabled.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/midiMessage",
+          "useVariables": true,
+          "description": "Source sets minLength: 1 (not representable in the schema)."
+        },
+        {
+          "id": "matchMode",
+          "type": "dropdown",
+          "label": "Match Mode",
+          "default": "fields",
+          "choices": [
+            {
+              "id": "fields",
+              "label": "Match by MIDI fields (recommended)"
+            },
+            {
+              "id": "raw",
+              "label": "Match raw 4 bytes (hex)"
+            }
+          ],
+          "disableAutoExpression": true
+        },
+        {
+          "id": "midiType",
+          "type": "dropdown",
+          "label": "MIDI Type",
+          "default": "any",
+          "choices": [
+            {
+              "id": "any",
+              "label": "Any"
+            },
+            {
+              "id": "noteon",
+              "label": "Note On"
+            },
+            {
+              "id": "noteoff",
+              "label": "Note Off"
+            },
+            {
+              "id": "cc",
+              "label": "Control Change (CC)"
+            },
+            {
+              "id": "program",
+              "label": "Program Change"
+            },
+            {
+              "id": "pitchbend",
+              "label": "Pitch Bend"
+            },
+            {
+              "id": "polyaftertouch",
+              "label": "Poly Aftertouch"
+            },
+            {
+              "id": "channelpressure",
+              "label": "Channel Pressure"
+            }
+          ],
+          "visibleWhen": "$(options:matchMode) === 'fields'"
+        },
+        {
+          "id": "matchChannel",
+          "type": "checkbox",
+          "label": "Match Channel",
+          "default": true,
+          "disableAutoExpression": true,
+          "visibleWhen": "$(options:matchMode) === 'fields'"
+        },
+        {
+          "id": "channel",
+          "type": "number",
+          "label": "Channel (1-16)",
+          "default": 1,
+          "min": 1,
+          "max": 16,
+          "integer": true,
+          "visibleWhen": "$(options:matchMode) === 'fields' && $(options:matchChannel) === true"
+        },
+        {
+          "id": "matchData1",
+          "type": "checkbox",
+          "label": "Match Data 1 (Note/CC/Program)",
+          "default": false,
+          "disableAutoExpression": true,
+          "visibleWhen": "$(options:matchMode) === 'fields'"
+        },
+        {
+          "id": "data1",
+          "type": "number",
+          "label": "Data 1 (0-127)",
+          "default": 69,
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "visibleWhen": "$(options:matchMode) === 'fields' && $(options:matchData1) === true"
+        },
+        {
+          "id": "matchData2",
+          "type": "checkbox",
+          "label": "Match Data 2 (Velocity/Value)",
+          "default": false,
+          "disableAutoExpression": true,
+          "visibleWhen": "$(options:matchMode) === 'fields'"
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Data 2 Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ],
+          "visibleWhen": "$(options:matchMode) === 'fields' && $(options:matchData2) === true"
+        },
+        {
+          "id": "data2",
+          "type": "number",
+          "label": "Data 2 (0-127)",
+          "default": 100,
+          "min": 0,
+          "max": 127,
+          "integer": true,
+          "visibleWhen": "$(options:matchMode) === 'fields' && $(options:matchData2) === true"
+        },
+        {
+          "id": "rawHex",
+          "type": "textinput",
+          "label": "Raw bytes (4 hex bytes, e.g. \"00 90 45 65\")",
+          "default": "00 90 45 65",
+          "useVariables": true,
+          "visibleWhen": "$(options:matchMode) === 'raw'",
+          "description": "Matches the full 4-byte OSC MIDI payload: portId status data1 data2."
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 908
+      }
+    },
+    {
+      "id": "osc_feedback_multi",
+      "name": "Listen for OSC messages (Multiple Arguments)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Arguments",
+          "default": "1 \"test\" 2.5",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            }
+          ]
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 1097
+      }
+    },
+    {
+      "id": "osc_feedback_multi_specific",
+      "name": "Listen for OSC messages (Specific Arguments)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true,
+          "description": "Source sets minLength: 1 (not representable in the schema)."
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Argument Index (0 for first argument)",
+          "default": 0,
+          "min": 0,
+          "max": 1000,
+          "integer": true
+        },
+        {
+          "id": "arguments",
+          "type": "textinput",
+          "label": "Value",
+          "default": "1",
+          "useVariables": true
+        },
+        {
+          "id": "comparison",
+          "type": "dropdown",
+          "label": "Comparison",
+          "default": "equal",
+          "choices": [
+            {
+              "id": "equal",
+              "label": "="
+            },
+            {
+              "id": "notequal",
+              "label": "!="
+            },
+            {
+              "id": "greaterthan",
+              "label": ">"
+            },
+            {
+              "id": "lessthan",
+              "label": "<"
+            },
+            {
+              "id": "greaterthanequal",
+              "label": ">="
+            },
+            {
+              "id": "lessthanequal",
+              "label": "<="
+            },
+            {
+              "id": "equal_string",
+              "label": "= as String"
+            },
+            {
+              "id": "notequal_string",
+              "label": "!= as String"
+            }
+          ],
+          "description": "The \"as String\" comparisons compare the text of the value, use these for strings and booleans. The others compare numerically."
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 1158
+      }
+    },
+    {
+      "id": "osc_feedback_noargs",
+      "name": "Listen for OSC messages (No Arguments)",
+      "feedbackType": "boolean",
+      "description": "Listen for OSC messages. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 1251
+      }
+    },
+    {
+      "id": "osc_feedback_value",
+      "name": "OSC message value",
+      "feedbackType": "value",
+      "description": "The value of an argument from the latest OSC message received on a path, for use in local variables. Requires \"Listen for Feedback\" option to be enabled in OSC config.",
+      "options": [
+        {
+          "id": "path",
+          "type": "textinput",
+          "label": "OSC Path",
+          "default": "/osc/path",
+          "useVariables": true,
+          "description": "Source sets minLength: 1 (not representable in the schema)."
+        },
+        {
+          "id": "index",
+          "type": "number",
+          "label": "Argument Index (0 for first argument)",
+          "default": 0,
+          "min": 0,
+          "max": 1000,
+          "integer": true
+        }
+      ],
+      "provenance": {
+        "file": "osc.js",
+        "line": 1278
+      }
+    }
+  ]
+}
